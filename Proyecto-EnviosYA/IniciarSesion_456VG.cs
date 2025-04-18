@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Proyecto_EnviosYA
 {
-    public partial class Form1 : Form
+    public partial class IniciarSesion_456VG : Form
     {
-        public Form1()
+        public IniciarSesion_456VG()
         {
             InitializeComponent();
         }
