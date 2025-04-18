@@ -11,32 +11,44 @@ namespace _456VG_BE
         public string DNI { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public DateTime Fecha_nacimiento { get; set; }
+        public string Email { get; set; }
         public string Teléfono { get; set; }
+        public string NombreUsuario { get; set; }
         public string Contraseña { get; set; }
         public string Salt { get; set; }
         public string Domicilio { get; set; }
+        public string Rol { get; set; }
+        public bool Bloqueado { get; set; }
+        public bool Activo { get; set; }
 
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, DateTime Fecha_nacimiento, string Teléfono,string Contraseña, string Salt, string Domicilio)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string Contraseña, string NombreUsuario, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo)
         {
             this.DNI = DNI;
             this.Nombre = Nombre;
             this.Apellido = Apellido;
-            this.Fecha_nacimiento = Fecha_nacimiento;
+            this.Email = Email;
             this.Teléfono = Teléfono;
+            this.NombreUsuario = NombreUsuario;
             this.Contraseña = Contraseña;
             this.Salt = Salt;
             this.Domicilio = Domicilio;
+            this.Rol = Rol;
+            this.Bloqueado = Bloqueado;
+            this.Activo = Activo;
         }
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, DateTime Fecha_nacimiento, string Teléfono, string Contraseña, string Domicilio)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string Contraseña, string NombreUsuario, string Domicilio, string Rol, bool Bloqueado, bool Activo)
         {
             this.DNI = DNI;
             this.Nombre = Nombre;
             this.Apellido = Apellido;
-            this.Fecha_nacimiento = Fecha_nacimiento;
+            this.Email = Email;
             this.Teléfono = Teléfono;
+            this.NombreUsuario = NombreUsuario;
             this.Contraseña = Contraseña;
             this.Domicilio = Domicilio;
+            this.Rol = Rol;
+            this.Bloqueado = Bloqueado;
+            this.Activo = Activo;
         }
     }
 }

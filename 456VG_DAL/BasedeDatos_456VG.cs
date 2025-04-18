@@ -62,12 +62,18 @@ namespace _456VG_DAL
                     "dni VARCHAR(20) PRIMARY KEY," +
                     "nombre VARCHAR(50) NOT NULL," +
                     "apellido VARCHAR(50) NOT NULL," +
-                    "fecha_nacimiento DATE NOT NULL," +
+                    "email VARCHAR(50) NOT NULL," +
                     "telefono VARCHAR(20) NOT NULL," +
-                    "contraseña VARCHAR(64) NOT NULL," +  
-                    "salt VARCHAR(24) NOT NULL," +     
-                    "domicilio VARCHAR(100) NOT NULL" +
+                    "nombreusuario VARCHAR(50) NOT NULL," +
+                    "contraseña VARCHAR(100) NOT NULL," + 
+                    "salt VARCHAR(24) NOT NULL," +
+                    "domicilio VARCHAR(100) NOT NULL," +
+                    "rol VARCHAR(100) NOT NULL," +
+                    "bloqueado BIT NOT NULL DEFAULT 0," +
+                    "activo BIT NOT NULL DEFAULT 1" +
                 ");");
+
+
 
 
                 //scriptDatos();

@@ -30,5 +30,11 @@ namespace Proyecto_EnviosYA
             IniciarSesion_456VG fRM = new IniciarSesion_456VG();
             fRM.ShowDialog();
         }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegistrarUsuario_456VG fRM = new RegistrarUsuario_456VG();
+            fRM.ShowDialog();
+        }
     }
 }
