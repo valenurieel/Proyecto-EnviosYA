@@ -24,5 +24,11 @@ namespace Proyecto_EnviosYA
         {
 
         }
+
+        private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IniciarSesion_456VG fRM = new IniciarSesion_456VG();
+            fRM.ShowDialog();
+        }
     }
 }

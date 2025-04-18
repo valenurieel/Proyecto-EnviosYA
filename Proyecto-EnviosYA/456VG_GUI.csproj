@@ -60,6 +60,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrarUsuario_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarUsuario_456VG.Designer.cs">
+      <DependentUpon>RegistrarUsuario_456VG.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="IniciarSesion_456VG.resx">
       <DependentUpon>IniciarSesion_456VG.cs</DependentUpon>
     </EmbeddedResource>
@@ -75,6 +81,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistrarUsuario_456VG.resx">
+      <DependentUpon>RegistrarUsuario_456VG.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -89,9 +98,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\456VG_BE\456VG_BE.csproj">
+      <Project>{e65ae893-f75c-43c4-a092-529204950616}</Project>
+      <Name>456VG_BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\456VG_BLL\456VG_BLL.csproj">
+      <Project>{002a1936-7840-4769-8d1f-4046d4bdbdb7}</Project>
+      <Name>456VG_BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\456VG_DAL\456VG_DAL.csproj">
       <Project>{7613b405-c671-4cf1-97d6-89df69fcc164}</Project>
       <Name>456VG_DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\456VG_Servicios\456VG_Servicios.csproj">
+      <Project>{ef5a906d-5c35-4b8e-a7f9-33d3fa83b258}</Project>
+      <Name>456VG_Servicios</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

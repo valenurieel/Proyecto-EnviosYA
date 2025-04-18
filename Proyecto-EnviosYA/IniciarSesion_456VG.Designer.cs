@@ -58,6 +58,7 @@
             this.btningresar.TabIndex = 22;
             this.btningresar.Text = "Ingresar";
             this.btningresar.UseVisualStyleBackColor = true;
+            this.btningresar.Click += new System.EventHandler(this.btningresar_Click);
             // 
             // lblcambiaridioma
             // 
@@ -138,6 +139,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "IniciarSesion_456VG";
             this.Text = "Iniciar Sesion";
+            this.Load += new System.EventHandler(this.IniciarSesion_456VG_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

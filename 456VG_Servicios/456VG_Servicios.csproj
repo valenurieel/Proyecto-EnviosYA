@@ -41,7 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HashSHA256_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resultado_456VG.cs" />
+    <Compile Include="SessionManager_456VG.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\456VG_BE\456VG_BE.csproj">
+      <Project>{e65ae893-f75c-43c4-a092-529204950616}</Project>
+      <Name>456VG_BE</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

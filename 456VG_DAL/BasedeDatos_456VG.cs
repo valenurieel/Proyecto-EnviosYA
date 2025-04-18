@@ -57,6 +57,17 @@ namespace _456VG_DAL
             // Crear las tablas dentro de la base de datos EnviosYA
             if (bdCreada)
             {
+                //Tabla Usuario
+                ejecutarQuery("USE EnviosYA; CREATE TABLE Usuario (" +
+                    "dni VARCHAR(20) PRIMARY KEY," +
+                    "nombre VARCHAR(50) NOT NULL," +
+                    "apellido VARCHAR(50) NOT NULL," +
+                    "fecha_nacimiento DATE NOT NULL," +
+                    "telefono VARCHAR(20) NOT NULL," +
+                    "contraseña VARCHAR(64) NOT NULL," +  
+                    "salt VARCHAR(24) NOT NULL," +     
+                    "domicilio VARCHAR(100) NOT NULL" +
+                ");");
 
 
                 //scriptDatos();

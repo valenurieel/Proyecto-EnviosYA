@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BEPaquete_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BEUsuario_456VG.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
