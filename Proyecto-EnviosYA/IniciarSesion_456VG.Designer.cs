@@ -41,7 +41,7 @@
             // checkVer
             // 
             this.checkVer.AutoSize = true;
-            this.checkVer.Location = new System.Drawing.Point(465, 336);
+            this.checkVer.Location = new System.Drawing.Point(512, 330);
             this.checkVer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkVer.Name = "checkVer";
             this.checkVer.Size = new System.Drawing.Size(43, 19);
@@ -51,7 +51,7 @@
             // 
             // btningresar
             // 
-            this.btningresar.Location = new System.Drawing.Point(322, 381);
+            this.btningresar.Location = new System.Drawing.Point(369, 375);
             this.btningresar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btningresar.Name = "btningresar";
             this.btningresar.Size = new System.Drawing.Size(104, 38);
@@ -64,7 +64,7 @@
             // 
             this.lblcambiaridioma.AutoSize = true;
             this.lblcambiaridioma.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcambiaridioma.Location = new System.Drawing.Point(628, 62);
+            this.lblcambiaridioma.Location = new System.Drawing.Point(729, 43);
             this.lblcambiaridioma.Name = "lblcambiaridioma";
             this.lblcambiaridioma.Size = new System.Drawing.Size(100, 17);
             this.lblcambiaridioma.TabIndex = 20;
@@ -76,7 +76,7 @@
             this.cmbcambiaridioma.Items.AddRange(new object[] {
             "Inglés",
             "Español"});
-            this.cmbcambiaridioma.Location = new System.Drawing.Point(631, 85);
+            this.cmbcambiaridioma.Location = new System.Drawing.Point(732, 66);
             this.cmbcambiaridioma.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbcambiaridioma.Name = "cmbcambiaridioma";
             this.cmbcambiaridioma.Size = new System.Drawing.Size(121, 23);
@@ -86,7 +86,7 @@
             // 
             this.lblcontraseña.AutoSize = true;
             this.lblcontraseña.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcontraseña.Location = new System.Drawing.Point(296, 306);
+            this.lblcontraseña.Location = new System.Drawing.Point(343, 300);
             this.lblcontraseña.Name = "lblcontraseña";
             this.lblcontraseña.Size = new System.Drawing.Size(76, 17);
             this.lblcontraseña.TabIndex = 18;
@@ -96,7 +96,7 @@
             // 
             this.lbldni.AutoSize = true;
             this.lbldni.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldni.Location = new System.Drawing.Point(296, 223);
+            this.lbldni.Location = new System.Drawing.Point(343, 217);
             this.lbldni.Name = "lbldni";
             this.lbldni.Size = new System.Drawing.Size(32, 17);
             this.lbldni.TabIndex = 17;
@@ -104,7 +104,7 @@
             // 
             // txtcontraseña
             // 
-            this.txtcontraseña.Location = new System.Drawing.Point(299, 329);
+            this.txtcontraseña.Location = new System.Drawing.Point(346, 323);
             this.txtcontraseña.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtcontraseña.Multiline = true;
             this.txtcontraseña.Name = "txtcontraseña";
@@ -114,7 +114,7 @@
             // 
             // txtdni
             // 
-            this.txtdni.Location = new System.Drawing.Point(299, 246);
+            this.txtdni.Location = new System.Drawing.Point(346, 240);
             this.txtdni.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtdni.Multiline = true;
             this.txtdni.Name = "txtdni";
@@ -126,7 +126,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(800, 519);
+            this.ClientSize = new System.Drawing.Size(902, 562);
             this.Controls.Add(this.checkVer);
             this.Controls.Add(this.btningresar);
             this.Controls.Add(this.lblcambiaridioma);
