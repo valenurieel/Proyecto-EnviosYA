@@ -36,5 +36,13 @@ namespace _456VG_BLL
         {
             return dal.recuperarUsuario(DNI, Contraseña);
         }
+        public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI(string DNI)
+        {
+            return dal.recuperarUsuarioPorDNI(DNI);
+        }
+        public Resultado_456VG<bool> bloquearUsuario(BEUsuario_456VG usuario)
+        {
+            return dal.bloquearUsuario(usuario);
+        }
     }
 }

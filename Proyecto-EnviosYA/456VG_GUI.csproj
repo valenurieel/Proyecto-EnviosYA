@@ -53,6 +53,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CambiarContraseña_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambiarContraseña_456VG.Designer.cs">
+      <DependentUpon>CambiarContraseña_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CerrarSesión_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CerrarSesión_456VG.Designer.cs">
+      <DependentUpon>CerrarSesión_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="IniciarSesion_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +85,12 @@
     <Compile Include="RegistrarUsuario_456VG.Designer.cs">
       <DependentUpon>RegistrarUsuario_456VG.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CambiarContraseña_456VG.resx">
+      <DependentUpon>CambiarContraseña_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CerrarSesión_456VG.resx">
+      <DependentUpon>CerrarSesión_456VG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion_456VG.resx">
       <DependentUpon>IniciarSesion_456VG.cs</DependentUpon>
     </EmbeddedResource>

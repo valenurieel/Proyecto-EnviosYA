@@ -21,7 +21,7 @@ namespace _456VG_BE
         public bool Bloqueado { get; set; }
         public bool Activo { get; set; }
 
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string Contraseña, string NombreUsuario, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo)
         {
             this.DNI = DNI;
             this.Nombre = Nombre;
@@ -36,7 +36,7 @@ namespace _456VG_BE
             this.Bloqueado = Bloqueado;
             this.Activo = Activo;
         }
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string Contraseña, string NombreUsuario, string Domicilio, string Rol, bool Bloqueado, bool Activo)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Domicilio, string Rol, bool Bloqueado, bool Activo)
         {
             this.DNI = DNI;
             this.Nombre = Nombre;

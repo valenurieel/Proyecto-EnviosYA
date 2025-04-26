@@ -25,6 +25,8 @@ namespace Proyecto_EnviosYA
 
         }
 
+        private int intentosFallidos = 0;
+        private BEUsuario_456VG usuarioActual = null;
         private void btningresar_Click(object sender, EventArgs e)
         {
             if (txtdni.Text == string.Empty || txtcontraseña.Text == string.Empty)
@@ -37,14 +39,45 @@ namespace Proyecto_EnviosYA
                 MessageBox.Show("Ya hay una sesión activa.");
                 return;
             }
-            Resultado_456VG<BEUsuario_456VG> result = BLLUsuario.recuperarUsuario(txtdni.Text.Trim(), txtcontraseña.Text.Trim());
-            if (!result.resultado)
+            Resultado_456VG<BEUsuario_456VG> resultUsuario = BLLUsuario.recuperarUsuarioPorDNI(txtdni.Text.Trim());
+            if (!resultUsuario.resultado || resultUsuario.entidad == null)
             {
-                MessageBox.Show(result.mensaje);
+                MessageBox.Show("El DNI ingresado no es correcto o no existe.");
                 return;
             }
-            SessionManager_456VG.ObtenerInstancia().IniciarSesion(result.entidad);
-            MessageBox.Show("Sesion Iniciada Correctamente");
+            usuarioActual = resultUsuario.entidad;
+
+            if (usuarioActual.Bloqueado)
+            {
+                MessageBox.Show("El usuario está bloqueado. Contacte a un administrador.");
+                return;
+            }
+            HashSHA256_456VG hasheador = new HashSHA256_456VG();
+            bool contraseñaCorrecta = hasheador.VerificarPassword(
+                txtcontraseña.Text.Trim(),          // contraseña ingresada
+                usuarioActual.Contraseña,            // hash almacenado
+                usuarioActual.Salt                   // salt almacenado
+            );
+            if (!contraseñaCorrecta)
+            {
+                intentosFallidos++;
+                MessageBox.Show("La contraseña es incorrecta.");
+                if (intentosFallidos == 2)
+                {
+                    MessageBox.Show("Atención: Te queda una última oportunidad para ingresar la contraseña correcta.");
+                }
+                if (intentosFallidos >= 3)
+                {
+                    usuarioActual.Bloqueado = true;
+                    BLLUsuario.bloquearUsuario(usuarioActual);
+                    MessageBox.Show("Usuario bloqueado por superar los intentos fallidos.");
+                    this.Close();
+                }
+                return;
+            }
+            SessionManager_456VG.ObtenerInstancia().IniciarSesion(usuarioActual);
+            MessageBox.Show("Sesión iniciada correctamente");
+            this.Close();
         }
     }
 }

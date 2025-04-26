@@ -52,5 +52,11 @@ namespace Proyecto_EnviosYA
             RegistrarUsuario_456VG fRM = new RegistrarUsuario_456VG();
             fRM.ShowDialog();
         }
+
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CerrarSesión_456VG fRM = new CerrarSesión_456VG();
+            fRM.ShowDialog();
+        }
     }
 }

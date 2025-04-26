@@ -151,5 +151,83 @@ namespace _456VG_DAL
                 return resultado;
             }
         }
+        public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI(string DNI)
+        {
+            Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+            string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
+            try
+            {
+                bool result = db.Conectar();
+                if (!result) throw new Exception("Error al conectarse a la base de datos");
+                using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
+                {
+                    command.Parameters.AddWithValue("@DNI", DNI);
+                    using (SqlDataReader lector = command.ExecuteReader())
+                    {
+                        if (!lector.HasRows)
+                        {
+                            throw new Exception("No se encontró un usuario con ese DNI");
+                        }
+                        if (lector.Read())
+                        {
+                            string dni = !lector.IsDBNull(0) ? lector.GetString(0) : "";
+                            string nombre = !lector.IsDBNull(1) ? lector.GetString(1) : "";
+                            string apellido = !lector.IsDBNull(2) ? lector.GetString(2) : "";
+                            string email = !lector.IsDBNull(3) ? lector.GetString(3) : "";
+                            string telefono = !lector.IsDBNull(4) ? lector.GetString(4) : string.Empty;
+                            string nombreusuario = !lector.IsDBNull(5) ? lector.GetString(5) : "";
+                            string contraseñahash = !lector.IsDBNull(6) ? lector.GetString(6) : "";
+                            string saltAlmacenado = !lector.IsDBNull(7) ? lector.GetString(7) : "";
+                            string domicilio = !lector.IsDBNull(8) ? lector.GetString(8) : "";
+                            string rol = !lector.IsDBNull(9) ? lector.GetString(9) : "";
+                            bool bloqueado = !lector.IsDBNull(10) && lector.GetBoolean(10);
+                            bool activo = !lector.IsDBNull(11) && lector.GetBoolean(11);
+                            BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, saltAlmacenado, domicilio, rol, bloqueado, activo);
+                            resultado.resultado = true;
+                            resultado.entidad = usuario;
+                            resultado.mensaje = "Usuario encontrado correctamente";
+                        }
+                    }
+                }
+                db.Desconectar();
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = ex.Message;
+                resultado.entidad = null;
+                db.Desconectar();
+                return resultado;
+            }
+        }
+        public Resultado_456VG<bool> bloquearUsuario(BEUsuario_456VG usuario)
+        {
+            Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
+            string sqlQuery = "USE EnviosYA; UPDATE Usuario SET Bloqueado = 1, Activo = 0 WHERE DNI = @DNI";
+            try
+            {
+                bool result = db.Conectar();
+                if (!result) throw new Exception("Error al conectarse a la base de datos");
+                using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
+                {
+                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    command.ExecuteNonQuery();
+                }
+                resultado.resultado = true;
+                resultado.entidad = true;
+                resultado.mensaje = "Usuario bloqueado correctamente";
+                db.Desconectar();
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.entidad = false;
+                resultado.mensaje = ex.Message;
+                db.Desconectar();
+                return resultado;
+            }
+        }
     }
 }
