@@ -73,6 +73,15 @@ namespace _456VG_DAL
                     "activo BIT NOT NULL DEFAULT 1" +
                 ");");
 
+                ejecutarQuery("USE EnviosYA; CREATE TABLE HistorialContraseñas (" +
+                    "dni VARCHAR(20) NOT NULL, " +
+                    "contraseñahash VARCHAR(100) NOT NULL, " +
+                    "salt VARCHAR(24) NOT NULL, " +
+                    "fechacambio DATETIME NOT NULL DEFAULT GETDATE(), " +
+                    "hashsimple VARCHAR(100) NOT NULL, " +
+                    "PRIMARY KEY (dni, fechacambio) " +  // Usamos combinación de dni y fechacambio como clave primaria
+                ");");
+
 
 
 
