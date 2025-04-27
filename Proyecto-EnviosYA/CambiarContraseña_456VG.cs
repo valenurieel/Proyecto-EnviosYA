@@ -38,6 +38,11 @@ namespace Proyecto_EnviosYA
                 MessageBox.Show("La contraseña actual ingresada no es correcta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (txtContraAct.Text == txtContraNew.Text)
+            {
+                MessageBox.Show("La nueva contraseña no puede ser la contraseña actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (txtContraNew.Text != txtContraConfirm.Text)
             {
                 MessageBox.Show("Las nuevas contraseñas no coinciden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -48,7 +53,7 @@ namespace Proyecto_EnviosYA
                 var resultado = BLLUser.cambiarContraseña(user, txtContraNew.Text);
                 if (resultado.resultado)
                 {
-                    MessageBox.Show("Su contraseña ha sido cambiada correctamente.\n\nPor favor, vuelva a iniciar sesión con su nueva contraseña.",
+                    MessageBox.Show("Su contraseña ha sido cambiada correctamente.\nPor favor, vuelva a iniciar sesión con su nueva contraseña.",
                                     "Cambio exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SessionManager_456VG.ObtenerInstancia().CerrarSesion();
                     IniciarSesion_456VG frm = new IniciarSesion_456VG();
@@ -68,6 +73,11 @@ namespace Proyecto_EnviosYA
         private void CambiarContraseña_456VG_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -10,14 +10,24 @@ using System.Windows.Forms;
 using _456VG_BLL;
 using _456VG_Servicios;
 using _456VG_BE;
+using System.Windows.Media.Animation;
 
 namespace Proyecto_EnviosYA
 {
     public partial class IniciarSesion_456VG : Form
     {
+
         public IniciarSesion_456VG()
         {
             InitializeComponent();
+        }
+        private void label()
+        {
+            MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+            if (menu != null)
+            {
+                menu.bienvenido();
+            }
         }
         BLLUsuario_456VG BLLUsuario = new BLLUsuario_456VG();
         private void IniciarSesion_456VG_Load(object sender, EventArgs e)
@@ -76,6 +86,7 @@ namespace Proyecto_EnviosYA
             }
             SessionManager_456VG.ObtenerInstancia().IniciarSesion(usuarioActual);
             MessageBox.Show("Sesión iniciada correctamente");
+            label();
             this.Hide();
         }
     }

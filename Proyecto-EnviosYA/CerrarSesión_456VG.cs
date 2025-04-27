@@ -17,7 +17,14 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
         }
-
+        private void label()
+        {
+            MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+            if (menu != null)
+            {
+                menu.chau();
+            }
+        }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (SessionManager_456VG.ObtenerInstancia().Usuario != null)
@@ -29,6 +36,7 @@ namespace Proyecto_EnviosYA
             {
                 MessageBox.Show("No se ha Iniciado Sesión");
             }
+            label();
             this.Close();
         }
 

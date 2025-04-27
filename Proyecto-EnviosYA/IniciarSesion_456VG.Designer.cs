@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IniciarSesion_456VG));
             this.checkVer = new System.Windows.Forms.CheckBox();
             this.btningresar = new System.Windows.Forms.Button();
             this.lblcambiaridioma = new System.Windows.Forms.Label();
@@ -36,6 +37,8 @@
             this.lbldni = new System.Windows.Forms.Label();
             this.txtcontraseña = new System.Windows.Forms.TextBox();
             this.txtdni = new System.Windows.Forms.TextBox();
+            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // checkVer
@@ -55,7 +58,7 @@
             this.btningresar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btningresar.Name = "btningresar";
             this.btningresar.Size = new System.Drawing.Size(104, 38);
-            this.btningresar.TabIndex = 22;
+            this.btningresar.TabIndex = 2;
             this.btningresar.Text = "Ingresar";
             this.btningresar.UseVisualStyleBackColor = true;
             this.btningresar.Click += new System.EventHandler(this.btningresar_Click);
@@ -110,7 +113,7 @@
             this.txtcontraseña.Name = "txtcontraseña";
             this.txtcontraseña.PasswordChar = '*';
             this.txtcontraseña.Size = new System.Drawing.Size(149, 31);
-            this.txtcontraseña.TabIndex = 21;
+            this.txtcontraseña.TabIndex = 1;
             // 
             // txtdni
             // 
@@ -119,7 +122,23 @@
             this.txtdni.Multiline = true;
             this.txtdni.Name = "txtdni";
             this.txtdni.Size = new System.Drawing.Size(149, 31);
-            this.txtdni.TabIndex = 16;
+            this.txtdni.TabIndex = 0;
+            // 
+            // iconPictureBox1
+            // 
+            this.iconPictureBox1.BackColor = System.Drawing.Color.LightCoral;
+            this.iconPictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconPictureBox1.BackgroundImage")));
+            this.iconPictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.iconPictureBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.iconPictureBox1.IconColor = System.Drawing.SystemColors.ControlText;
+            this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconPictureBox1.IconSize = 96;
+            this.iconPictureBox1.Location = new System.Drawing.Point(274, 87);
+            this.iconPictureBox1.Name = "iconPictureBox1";
+            this.iconPictureBox1.Size = new System.Drawing.Size(313, 96);
+            this.iconPictureBox1.TabIndex = 24;
+            this.iconPictureBox1.TabStop = false;
             // 
             // IniciarSesion_456VG
             // 
@@ -127,6 +146,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(902, 562);
+            this.Controls.Add(this.iconPictureBox1);
             this.Controls.Add(this.checkVer);
             this.Controls.Add(this.btningresar);
             this.Controls.Add(this.lblcambiaridioma);
@@ -140,6 +160,7 @@
             this.Name = "IniciarSesion_456VG";
             this.Text = "Iniciar Sesion";
             this.Load += new System.EventHandler(this.IniciarSesion_456VG_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,5 +176,6 @@
         private System.Windows.Forms.Label lbldni;
         private System.Windows.Forms.TextBox txtcontraseña;
         private System.Windows.Forms.TextBox txtdni;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
     }
 }
