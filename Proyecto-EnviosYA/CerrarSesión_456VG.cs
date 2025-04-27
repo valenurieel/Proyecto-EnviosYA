@@ -23,11 +23,11 @@ namespace Proyecto_EnviosYA
             if (SessionManager_456VG.ObtenerInstancia().Usuario != null)
             {
                 SessionManager_456VG.ObtenerInstancia().CerrarSesion();
-                MessageBox.Show("Se ha cerrado la Sesión Correctamente");
+                MessageBox.Show("Se ha Cerrado la Sesión Correctamente");
             }
             else
             {
-                MessageBox.Show("No se ha iniciado sesión anteriormente");
+                MessageBox.Show("No se ha Iniciado Sesión");
             }
             this.Close();
         }

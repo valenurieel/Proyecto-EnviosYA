@@ -43,10 +43,9 @@ namespace _456VG_DAL
                 string salt = hasher.GenerarSalt();
                 string hashedPassword = hasher.HashPassword(obj.Contraseña, salt);
                 string queryToCreateUser = @"
-                USE EnviosYA;
-                INSERT INTO Usuario (dni, nombre, apellido, email, telefono, nombreusuario, contraseña, salt, domicilio, rol, bloqueado, activo)
-                VALUES (@DNI, @Nombre, @Apellido, @Email, @Telefono, @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, @Bloqueado, @Activo);";
-
+                    USE EnviosYA;
+                    INSERT INTO Usuario (dni, nombre, apellido, email, telefono, nombreusuario, contraseña, salt, domicilio, rol, bloqueado, activo)
+                    VALUES (@DNI, @Nombre, @Apellido, @Email, @Telefono, @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, @Bloqueado, @Activo);";
                 using (SqlCommand cmd2 = new SqlCommand(queryToCreateUser, db.Connection, trans))
                 {
                     cmd2.Parameters.AddWithValue("@DNI", obj.DNI);
@@ -63,10 +62,23 @@ namespace _456VG_DAL
                     cmd2.Parameters.AddWithValue("@Activo", obj.Activo);
                     cmd2.ExecuteNonQuery();
                 }
+                string queryToInsertPasswordHistory = @"
+                    USE EnviosYA;
+                    INSERT INTO HistorialContraseñas (dni, contraseñahash, salt, fechacambio, hashsimple) 
+                    VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);";
+                using (SqlCommand cmd3 = new SqlCommand(queryToInsertPasswordHistory, db.Connection, trans))
+                {
+                    cmd3.Parameters.AddWithValue("@DniUsuario", obj.DNI);
+                    cmd3.Parameters.AddWithValue("@ContraseñaHash", hashedPassword);
+                    cmd3.Parameters.AddWithValue("@Salt", salt);
+                    cmd3.Parameters.AddWithValue("@FechaCambio", DateTime.Now);
+                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple(obj.Contraseña));  // Aquí usamos el HashSimple para comparar las contraseñas simples
+                    cmd3.ExecuteNonQuery();
+                }
                 trans.Commit();
                 resultado.resultado = true;
                 resultado.mensaje = "Usuario creado correctamente.";
-                resultado.entidad = null;
+                resultado.entidad = obj;
             }
             catch (Exception ex)
             {
@@ -81,7 +93,6 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
         public Resultado_456VG<BEUsuario_456VG> eliminarEntidad(BEUsuario_456VG obj)
         {
             throw new NotImplementedException();
@@ -90,67 +101,67 @@ namespace _456VG_DAL
         {
             throw new NotImplementedException();
         }
-        public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
-        {
-            Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
-            string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
-            try
-            {
-                bool result = db.Conectar();
-                if (!result) throw new Exception("Error al conectarse a la base de datos");
-                using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
-                {
-                    command.Parameters.AddWithValue("@DNI", DNI);
+        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
+        //{
+        //    Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+        //    string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
+        //    try
+        //    {
+        //        bool result = db.Conectar();
+        //        if (!result) throw new Exception("Error al conectarse a la base de datos");
+        //        using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
+        //        {
+        //            command.Parameters.AddWithValue("@DNI", DNI);
 
-                    using (SqlDataReader lector = command.ExecuteReader())
-                    {
-                        if (!lector.HasRows)
-                        {
-                            throw new Exception("No se encontró un usuario con ese DNI");
-                        }
-                        if (lector.Read())
-                        {
-                            string dni = !lector.IsDBNull(0) ? lector.GetString(0) : "";
-                            string nombre = !lector.IsDBNull(1) ? lector.GetString(1) : "";
-                            string apellido = !lector.IsDBNull(2) ? lector.GetString(2) : "";
-                            string email = !lector.IsDBNull(3) ? lector.GetString(3) : "";
-                            string telefono = !lector.IsDBNull(4) ? lector.GetString(4) : string.Empty;
-                            string nombreusuario = !lector.IsDBNull(5) ? lector.GetString(5) : "";
-                            string contraseñahash = !lector.IsDBNull(6) ? lector.GetString(6) : "";
-                            string saltAlmacenado = !lector.IsDBNull(7) ? lector.GetString(7) : "";
-                            string domicilio = !lector.IsDBNull(8) ? lector.GetString(8) : "";
-                            string rol = !lector.IsDBNull(9) ? lector.GetString(9) : "";
-                            bool bloqueado = !lector.IsDBNull(10) && lector.GetBoolean(10);
-                            bool activo = !lector.IsDBNull(11) && lector.GetBoolean(11);
-                            if (!activo)
-                            {
-                                throw new Exception("El Usuario está Bloqueado.");
-                            }
-                            // Verificar contraseña usando SHA-256
-                            bool esContraseñaValida = hasher.VerificarPassword(Contraseña, contraseñahash, saltAlmacenado);
-                            if (!esContraseñaValida)
-                            {
-                                throw new Exception("Contraseña incorrecta");
-                            }
-                            BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, saltAlmacenado, domicilio, rol, bloqueado, activo);
-                            resultado.resultado = true;
-                            resultado.entidad = usuario;
-                            resultado.mensaje = "Inicio de sesión correcto";
-                        }
-                    }
-                }
-                db.Desconectar();
-                return resultado;
-            }
-            catch (Exception ex)
-            {
-                resultado.resultado = false;
-                resultado.mensaje = ex.Message;
-                resultado.entidad = null;
-                db.Desconectar();
-                return resultado;
-            }
-        }
+        //            using (SqlDataReader lector = command.ExecuteReader())
+        //            {
+        //                if (!lector.HasRows)
+        //                {
+        //                    throw new Exception("No se encontró un usuario con ese DNI");
+        //                }
+        //                if (lector.Read())
+        //                {
+        //                    string dni = !lector.IsDBNull(0) ? lector.GetString(0) : "";
+        //                    string nombre = !lector.IsDBNull(1) ? lector.GetString(1) : "";
+        //                    string apellido = !lector.IsDBNull(2) ? lector.GetString(2) : "";
+        //                    string email = !lector.IsDBNull(3) ? lector.GetString(3) : "";
+        //                    string telefono = !lector.IsDBNull(4) ? lector.GetString(4) : string.Empty;
+        //                    string nombreusuario = !lector.IsDBNull(5) ? lector.GetString(5) : "";
+        //                    string contraseñahash = !lector.IsDBNull(6) ? lector.GetString(6) : "";
+        //                    string saltAlmacenado = !lector.IsDBNull(7) ? lector.GetString(7) : "";
+        //                    string domicilio = !lector.IsDBNull(8) ? lector.GetString(8) : "";
+        //                    string rol = !lector.IsDBNull(9) ? lector.GetString(9) : "";
+        //                    bool bloqueado = !lector.IsDBNull(10) && lector.GetBoolean(10);
+        //                    bool activo = !lector.IsDBNull(11) && lector.GetBoolean(11);
+        //                    if (!activo)
+        //                    {
+        //                        throw new Exception("El Usuario está Bloqueado.");
+        //                    }
+        //                    // Verificar contraseña usando SHA-256
+        //                    bool esContraseñaValida = hasher.VerificarPassword(Contraseña, contraseñahash, saltAlmacenado);
+        //                    if (!esContraseñaValida)
+        //                    {
+        //                        throw new Exception("Contraseña incorrecta");
+        //                    }
+        //                    BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, saltAlmacenado, domicilio, rol, bloqueado, activo);
+        //                    resultado.resultado = true;
+        //                    resultado.entidad = usuario;
+        //                    resultado.mensaje = "Inicio de sesión correcto";
+        //                }
+        //            }
+        //        }
+        //        db.Desconectar();
+        //        return resultado;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        resultado.resultado = false;
+        //        resultado.mensaje = ex.Message;
+        //        resultado.entidad = null;
+        //        db.Desconectar();
+        //        return resultado;
+        //    }
+        //}
         public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI(string DNI)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
@@ -217,6 +228,70 @@ namespace _456VG_DAL
                 resultado.resultado = true;
                 resultado.entidad = true;
                 resultado.mensaje = "Usuario bloqueado correctamente";
+                db.Desconectar();
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.entidad = false;
+                resultado.mensaje = ex.Message;
+                db.Desconectar();
+                return resultado;
+            }
+        }
+        public Resultado_456VG<bool> cambiarContraseña(BEUsuario_456VG usuario, string nuevaContraseña)
+        {
+            Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
+            string sqlUpdateUsuario = "USE EnviosYA; UPDATE Usuario SET contraseña = @Contraseña, salt = @Salt WHERE DNI = @DNI";
+            string sqlInsertHistorial = "USE EnviosYA; INSERT INTO HistorialContraseñas (dni, contraseñahash, salt, fechacambio, hashsimple) VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple)";
+            string sqlSelectHistorial = "USE EnviosYA; SELECT hashsimple FROM HistorialContraseñas WHERE dni = @DniUsuario";
+            try
+            {
+                bool result = db.Conectar();
+                if (!result) throw new Exception("Error al conectarse a la base de datos");
+                string nuevoSalt = hasher.GenerarSalt();
+                string nuevaContraseñaHasheada = hasher.HashPassword(nuevaContraseña, nuevoSalt);
+                string nuevaContraseñaHashSimple = hasher.HashSimple(nuevaContraseña);
+                // Validar que la nueva contraseña no haya sido usada antes
+                using (SqlCommand selectCommand = new SqlCommand(sqlSelectHistorial, db.Connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI);
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string hashSimpleAntiguo = reader.GetString(0);
+                            if (hashSimpleAntiguo == nuevaContraseñaHashSimple)
+                            {
+                                throw new Exception("La nueva contraseña ya fue utilizada anteriormente, por favor elija otra.");
+                            }
+                        }
+                    }
+                }
+                using (SqlCommand insertCommand = new SqlCommand(sqlInsertHistorial, db.Connection))
+                {
+                    insertCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI);
+                    insertCommand.Parameters.AddWithValue("@ContraseñaHash", nuevaContraseñaHasheada);
+                    insertCommand.Parameters.AddWithValue("@Salt", nuevoSalt);
+                    insertCommand.Parameters.AddWithValue("@FechaCambio", DateTime.Now);
+                    insertCommand.Parameters.AddWithValue("@HashSimple", nuevaContraseñaHashSimple);
+                    insertCommand.ExecuteNonQuery();
+                }
+                using (SqlCommand updateCommand = new SqlCommand(sqlUpdateUsuario, db.Connection))
+                {
+                    updateCommand.Parameters.AddWithValue("@Contraseña", nuevaContraseñaHasheada);
+                    updateCommand.Parameters.AddWithValue("@Salt", nuevoSalt);
+                    updateCommand.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    int filasAfectadas = updateCommand.ExecuteNonQuery();
+                    if (filasAfectadas == 0)
+                    {
+                        throw new Exception("No se encontró el usuario para actualizar la contraseña.");
+                    }
+                }
+                resultado.resultado = true;
+                resultado.entidad = true;
+                resultado.mensaje = "Contraseña actualizada correctamente.";
                 db.Desconectar();
                 return resultado;
             }

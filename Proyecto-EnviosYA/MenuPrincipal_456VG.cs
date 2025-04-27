@@ -48,7 +48,6 @@ namespace Proyecto_EnviosYA
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //AbrirForm(new RegistrarUsuario_456VG());
             RegistrarUsuario_456VG fRM = new RegistrarUsuario_456VG();
             fRM.ShowDialog();
         }
@@ -57,6 +56,12 @@ namespace Proyecto_EnviosYA
         {
             CerrarSesión_456VG fRM = new CerrarSesión_456VG();
             fRM.ShowDialog();
+        }
+
+        private void cambiarClaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CambiarContraseña_456VG fr = new CambiarContraseña_456VG();
+            fr.ShowDialog();
         }
     }
 }

@@ -24,7 +24,6 @@ namespace Proyecto_EnviosYA
         {
 
         }
-
         private int intentosFallidos = 0;
         private BEUsuario_456VG usuarioActual = null;
         private void btningresar_Click(object sender, EventArgs e)
@@ -54,9 +53,9 @@ namespace Proyecto_EnviosYA
             }
             HashSHA256_456VG hasheador = new HashSHA256_456VG();
             bool contraseñaCorrecta = hasheador.VerificarPassword(
-                txtcontraseña.Text.Trim(),          // contraseña ingresada
-                usuarioActual.Contraseña,            // hash almacenado
-                usuarioActual.Salt                   // salt almacenado
+                txtcontraseña.Text.Trim(),    
+                usuarioActual.Contraseña,     
+                usuarioActual.Salt    
             );
             if (!contraseñaCorrecta)
             {
@@ -77,7 +76,7 @@ namespace Proyecto_EnviosYA
             }
             SessionManager_456VG.ObtenerInstancia().IniciarSesion(usuarioActual);
             MessageBox.Show("Sesión iniciada correctamente");
-            this.Close();
+            this.Hide();
         }
     }
 }

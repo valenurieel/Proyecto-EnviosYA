@@ -32,10 +32,10 @@ namespace _456VG_BLL
         {
             return dal.actualizarEntidad(obj);
         }
-        public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
-        {
-            return dal.recuperarUsuario(DNI, Contraseña);
-        }
+        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
+        //{
+        //    return dal.recuperarUsuario(DNI, Contraseña);
+        //}
         public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI(string DNI)
         {
             return dal.recuperarUsuarioPorDNI(DNI);
@@ -43,6 +43,10 @@ namespace _456VG_BLL
         public Resultado_456VG<bool> bloquearUsuario(BEUsuario_456VG usuario)
         {
             return dal.bloquearUsuario(usuario);
+        }
+        public Resultado_456VG<bool> cambiarContraseña(BEUsuario_456VG usuario, string nuevaContraseña)
+        {
+            return dal.cambiarContraseña(usuario, nuevaContraseña);
         }
     }
 }

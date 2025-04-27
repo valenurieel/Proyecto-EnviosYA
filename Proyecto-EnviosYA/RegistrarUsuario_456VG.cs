@@ -46,8 +46,17 @@ namespace Proyecto_EnviosYA
             string rol = cmbrol.SelectedItem?.ToString();
             bool bloqueado = false;
             bool activo = true;
-            BEUsuario_456VG usernew = new BEUsuario_456VG(dni, name, ape, email, telef, pass, nameuser, domicilio, rol, bloqueado, activo);
+            BEUsuario_456VG usernew = new BEUsuario_456VG(dni, name, ape, email, telef, nameuser, pass, domicilio, rol, bloqueado, activo);
             Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.crearEntidad(usernew);
+            if (resultado.resultado)
+            {
+                MessageBox.Show("Usuario registrado correctamente.");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show($"Error al registrar el usuario: {resultado.mensaje}");
+            }
         }
     }
 }
