@@ -23,6 +23,14 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
         }
+        private void label()
+        {
+            MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+            if (menu != null)
+            {
+                menu.chau();
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtContraAct.Text) ||
@@ -58,6 +66,7 @@ namespace Proyecto_EnviosYA
                     SessionManager_456VG.ObtenerInstancia().CerrarSesion();
                     IniciarSesion_456VG frm = new IniciarSesion_456VG();
                     frm.Show();
+                    label();
                     this.Close();
                 }
                 else

@@ -99,7 +99,42 @@ namespace _456VG_DAL
         }
         public List<BEUsuario_456VG> leerEntidades()
         {
-            throw new NotImplementedException();
+            List<BEUsuario_456VG> list = new List<BEUsuario_456VG>();
+            string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario";
+            try
+            {
+                bool result = db.Conectar();
+                if (!result) throw new Exception("Error al conectarse a la base de datos");
+                using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
+                {
+                    using (SqlDataReader lector = command.ExecuteReader())
+                    {
+                        while (lector.Read())
+                        {
+                            string dni = !lector.IsDBNull(lector.GetOrdinal("dni")) ? lector.GetString(lector.GetOrdinal("dni")) : string.Empty;
+                            string name = !lector.IsDBNull(lector.GetOrdinal("nombre")) ? lector.GetString(lector.GetOrdinal("nombre")) : string.Empty;
+                            string ape = !lector.IsDBNull(lector.GetOrdinal("apellido")) ? lector.GetString(lector.GetOrdinal("apellido")) : string.Empty;
+                            string email = !lector.IsDBNull(lector.GetOrdinal("email")) ? lector.GetString(lector.GetOrdinal("email")) : string.Empty;
+                            string tel = !lector.IsDBNull(lector.GetOrdinal("telefono")) ? lector.GetString(lector.GetOrdinal("telefono")) : string.Empty;
+                            string nameuser = !lector.IsDBNull(lector.GetOrdinal("nombreusuario")) ? lector.GetString(lector.GetOrdinal("nombreusuario")) : string.Empty;
+                            string dom = !lector.IsDBNull(lector.GetOrdinal("domicilio")) ? lector.GetString(lector.GetOrdinal("domicilio")) : string.Empty;
+                            string rol = !lector.IsDBNull(lector.GetOrdinal("rol")) ? lector.GetString(lector.GetOrdinal("rol")) : string.Empty;
+                            bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado")) && lector.GetBoolean(lector.GetOrdinal("bloqueado"));
+                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, dom, rol, bloqueado);
+                            list.Add(user);
+                        }
+                    }
+                }
+                bool result2 = db.Desconectar();
+                if (!result2) throw new Exception("Error al desconectarse de la base de datos");
+                return list;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                db.Desconectar();
+                return null;
+            }
         }
         //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
         //{

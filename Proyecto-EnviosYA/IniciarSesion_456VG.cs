@@ -16,7 +16,6 @@ namespace Proyecto_EnviosYA
 {
     public partial class IniciarSesion_456VG : Form
     {
-
         public IniciarSesion_456VG()
         {
             InitializeComponent();
@@ -88,6 +87,18 @@ namespace Proyecto_EnviosYA
             MessageBox.Show("Sesión iniciada correctamente");
             label();
             this.Hide();
+        }
+
+        private void checkVer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkVer.Checked)
+            {
+                txtcontraseña.PasswordChar = '\0';
+            }
+            else
+            {
+                txtcontraseña.PasswordChar = '*';
+            }
         }
     }
 }

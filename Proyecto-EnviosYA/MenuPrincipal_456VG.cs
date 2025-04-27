@@ -33,7 +33,7 @@ namespace Proyecto_EnviosYA
             BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia().Usuario;
             if (usuarioLogueado != null)
             {
-                lblBienvenido.Text = "¡Bienvenido " + usuarioLogueado.NombreUsuario + "!";
+                lblBienvenido.Text = "¡Bienvenido " + usuarioLogueado.Nombre + " " + usuarioLogueado.Apellido + "!";
             }
         }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
@@ -66,10 +66,13 @@ namespace Proyecto_EnviosYA
             CambiarContraseña_456VG fr = new CambiarContraseña_456VG();
             fr.ShowDialog();
         }
-
         private void lblBienvenido_Click(object sender, EventArgs e)
         {
 
+        }
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

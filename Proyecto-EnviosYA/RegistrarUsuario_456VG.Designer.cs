@@ -67,14 +67,14 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(36, 91);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(850, 234);
+            this.dataGridView1.Size = new System.Drawing.Size(945, 234);
             this.dataGridView1.TabIndex = 0;
             // 
             // btnAñadir
             // 
             this.btnAñadir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAñadir.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAñadir.Location = new System.Drawing.Point(948, 89);
+            this.btnAñadir.Location = new System.Drawing.Point(1010, 89);
             this.btnAñadir.Name = "btnAñadir";
             this.btnAñadir.Size = new System.Drawing.Size(120, 56);
             this.btnAñadir.TabIndex = 1;
@@ -86,7 +86,7 @@
             // 
             this.btnDesbloq.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDesbloq.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesbloq.Location = new System.Drawing.Point(948, 358);
+            this.btnDesbloq.Location = new System.Drawing.Point(1010, 358);
             this.btnDesbloq.Name = "btnDesbloq";
             this.btnDesbloq.Size = new System.Drawing.Size(120, 56);
             this.btnDesbloq.TabIndex = 2;
@@ -97,7 +97,7 @@
             // 
             this.btnModif.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnModif.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModif.Location = new System.Drawing.Point(948, 268);
+            this.btnModif.Location = new System.Drawing.Point(1010, 268);
             this.btnModif.Name = "btnModif";
             this.btnModif.Size = new System.Drawing.Size(120, 56);
             this.btnModif.TabIndex = 3;
@@ -108,7 +108,7 @@
             // 
             this.btnAplicar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAplicar.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar.Location = new System.Drawing.Point(948, 450);
+            this.btnAplicar.Location = new System.Drawing.Point(1010, 450);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(120, 56);
             this.btnAplicar.TabIndex = 5;
@@ -119,7 +119,7 @@
             // 
             this.btnCancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnCancelar.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(948, 540);
+            this.btnCancelar.Location = new System.Drawing.Point(1010, 540);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(120, 56);
             this.btnCancelar.TabIndex = 6;
@@ -368,7 +368,7 @@
             // 
             this.btnElim.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnElim.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnElim.Location = new System.Drawing.Point(948, 176);
+            this.btnElim.Location = new System.Drawing.Point(1010, 176);
             this.btnElim.Name = "btnElim";
             this.btnElim.Size = new System.Drawing.Size(120, 56);
             this.btnElim.TabIndex = 4;
@@ -380,7 +380,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1099, 641);
+            this.ClientSize = new System.Drawing.Size(1162, 676);
             this.Controls.Add(this.cmbrol);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label8);
@@ -415,6 +415,7 @@
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "RegistrarUsuario_456VG";
             this.Text = "Gestion de Usuarios";
+            this.Load += new System.EventHandler(this.RegistrarUsuario_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

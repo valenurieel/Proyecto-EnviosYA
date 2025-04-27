@@ -51,6 +51,7 @@
             this.checkVer.TabIndex = 23;
             this.checkVer.Text = "Ver";
             this.checkVer.UseVisualStyleBackColor = true;
+            this.checkVer.CheckedChanged += new System.EventHandler(this.checkVer_CheckedChanged);
             // 
             // btningresar
             // 

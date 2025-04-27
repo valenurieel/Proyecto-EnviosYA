@@ -16,16 +16,15 @@ namespace Proyecto_EnviosYA
 {
     public partial class RegistrarUsuario_456VG : Form
     {
+        BLLUsuario_456VG BLLUser = new BLLUsuario_456VG();
         public RegistrarUsuario_456VG()
         {
             InitializeComponent();
         }
-        BLLUsuario_456VG BLLUser = new BLLUsuario_456VG();
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             string emailPattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
@@ -57,6 +56,23 @@ namespace Proyecto_EnviosYA
             {
                 MessageBox.Show($"Error al registrar el usuario: {resultado.mensaje}");
             }
+        }
+        private void RegistrarUsuario_456VG_Load(object sender, EventArgs e)
+        {
+            List<BEUsuario_456VG> listuser = BLLUser.leerEntidades();
+            var listaParaMostrar = listuser.Select(u => new
+            {
+                DNI = u.DNI,
+                Nombre = u.Nombre,
+                Apellido = u.Apellido,
+                Email = u.Email,
+                Telefono = u.Teléfono,
+                NombreUsuario = u.NombreUsuario,
+                Domicilio = u.Domicilio,
+                Rol = u.Rol,
+                Bloqueado = u.Bloqueado
+            }).ToList();
+            dataGridView1.DataSource = listaParaMostrar;
         }
     }
 }
