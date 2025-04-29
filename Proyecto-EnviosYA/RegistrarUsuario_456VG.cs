@@ -96,7 +96,7 @@ namespace Proyecto_EnviosYA
             txttelef.Text = "";
             txtNameUser.Text = "";
             txtdomicilio.Text = "";
-            cmbrol.SelectedItem = null;
+            cmbrol.SelectedIndex = -1;
             rdbutonSI.Checked = false;
             rdbutonNO.Checked = false;
         }
