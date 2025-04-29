@@ -51,7 +51,7 @@ namespace _456VG_BE
             this.Activo = Activo;
         }
         //list Gestión de Usuarios
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Domicilio, string Rol, bool Bloqueado)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Domicilio, string Rol, bool Bloqueado, bool activo)
         {
             this.DNI = DNI;
             this.Nombre = Nombre;
@@ -62,6 +62,7 @@ namespace _456VG_BE
             this.Domicilio = Domicilio;
             this.Rol = Rol;
             this.Bloqueado = Bloqueado;
+            this.Activo = activo;
         }
     }
 }

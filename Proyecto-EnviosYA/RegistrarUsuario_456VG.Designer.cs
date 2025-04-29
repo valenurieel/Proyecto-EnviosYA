@@ -59,6 +59,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.cmbrol = new System.Windows.Forms.ComboBox();
             this.btnElim = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,14 +68,14 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(36, 91);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(945, 234);
+            this.dataGridView1.Size = new System.Drawing.Size(1045, 234);
             this.dataGridView1.TabIndex = 0;
             // 
             // btnAñadir
             // 
             this.btnAñadir.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAñadir.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAñadir.Location = new System.Drawing.Point(1010, 89);
+            this.btnAñadir.Location = new System.Drawing.Point(624, 347);
             this.btnAñadir.Name = "btnAñadir";
             this.btnAñadir.Size = new System.Drawing.Size(120, 56);
             this.btnAñadir.TabIndex = 1;
@@ -86,45 +87,49 @@
             // 
             this.btnDesbloq.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDesbloq.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesbloq.Location = new System.Drawing.Point(1010, 358);
+            this.btnDesbloq.Location = new System.Drawing.Point(823, 431);
             this.btnDesbloq.Name = "btnDesbloq";
             this.btnDesbloq.Size = new System.Drawing.Size(120, 56);
             this.btnDesbloq.TabIndex = 2;
             this.btnDesbloq.Text = "Desbloquear";
             this.btnDesbloq.UseVisualStyleBackColor = false;
+            this.btnDesbloq.Click += new System.EventHandler(this.btnDesbloq_Click);
             // 
             // btnModif
             // 
             this.btnModif.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnModif.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModif.Location = new System.Drawing.Point(1010, 268);
+            this.btnModif.Location = new System.Drawing.Point(624, 431);
             this.btnModif.Name = "btnModif";
             this.btnModif.Size = new System.Drawing.Size(120, 56);
             this.btnModif.TabIndex = 3;
             this.btnModif.Text = "Modificar";
             this.btnModif.UseVisualStyleBackColor = false;
+            this.btnModif.Click += new System.EventHandler(this.btnModif_Click);
             // 
             // btnAplicar
             // 
             this.btnAplicar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAplicar.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar.Location = new System.Drawing.Point(1010, 450);
+            this.btnAplicar.Location = new System.Drawing.Point(624, 518);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(120, 56);
             this.btnAplicar.TabIndex = 5;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
+            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnCancelar.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(1010, 540);
+            this.btnCancelar.Location = new System.Drawing.Point(823, 518);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(120, 56);
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label1
             // 
@@ -144,10 +149,10 @@
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(69, 22);
             this.radioButton1.TabIndex = 11;
-            this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Activos";
             this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -157,9 +162,9 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(63, 22);
             this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Todos";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // txtdni
             // 
@@ -315,7 +320,6 @@
             this.rdbutonSI.Name = "rdbutonSI";
             this.rdbutonSI.Size = new System.Drawing.Size(36, 22);
             this.rdbutonSI.TabIndex = 32;
-            this.rdbutonSI.TabStop = true;
             this.rdbutonSI.Text = "Si";
             this.rdbutonSI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rdbutonSI.UseVisualStyleBackColor = true;
@@ -328,7 +332,6 @@
             this.rdbutonNO.Name = "rdbutonNO";
             this.rdbutonNO.Size = new System.Drawing.Size(44, 22);
             this.rdbutonNO.TabIndex = 33;
-            this.rdbutonNO.TabStop = true;
             this.rdbutonNO.Text = "No";
             this.rdbutonNO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rdbutonNO.UseVisualStyleBackColor = true;
@@ -368,12 +371,25 @@
             // 
             this.btnElim.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnElim.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnElim.Location = new System.Drawing.Point(1010, 176);
+            this.btnElim.Location = new System.Drawing.Point(823, 347);
             this.btnElim.Name = "btnElim";
             this.btnElim.Size = new System.Drawing.Size(120, 56);
             this.btnElim.TabIndex = 4;
             this.btnElim.Text = "Eliminar";
             this.btnElim.UseVisualStyleBackColor = false;
+            this.btnElim.Click += new System.EventHandler(this.btnElim_Click);
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnVolver.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Location = new System.Drawing.Point(989, 540);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(92, 34);
+            this.btnVolver.TabIndex = 36;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = false;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // RegistrarUsuario_456VG
             // 
@@ -381,6 +397,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(1162, 612);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.cmbrol);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label8);
@@ -455,5 +472,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cmbrol;
         private System.Windows.Forms.Button btnElim;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

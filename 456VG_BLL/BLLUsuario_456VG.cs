@@ -48,5 +48,9 @@ namespace _456VG_BLL
         {
             return dal.cambiarContraseña(usuario, nuevaContraseña);
         }
+        public Resultado_456VG<BEUsuario_456VG> desbloquearUsuario(string DNI)
+        {
+            return dal.desbloquearUsuario(DNI);
+        }
     }
 }

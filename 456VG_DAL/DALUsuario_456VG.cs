@@ -120,7 +120,8 @@ namespace _456VG_DAL
                             string dom = !lector.IsDBNull(lector.GetOrdinal("domicilio")) ? lector.GetString(lector.GetOrdinal("domicilio")) : string.Empty;
                             string rol = !lector.IsDBNull(lector.GetOrdinal("rol")) ? lector.GetString(lector.GetOrdinal("rol")) : string.Empty;
                             bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado")) && lector.GetBoolean(lector.GetOrdinal("bloqueado"));
-                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, dom, rol, bloqueado);
+                            bool activo = !lector.IsDBNull(lector.GetOrdinal("activo")) && lector.GetBoolean(lector.GetOrdinal("activo"));
+                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, dom, rol, bloqueado, activo);
                             list.Add(user);
                         }
                     }
@@ -338,6 +339,35 @@ namespace _456VG_DAL
                 db.Desconectar();
                 return resultado;
             }
+        }
+        public Resultado_456VG<BEUsuario_456VG> desbloquearUsuario(string dni)
+        {
+            Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+            try
+            {
+                bool conectado = db.Conectar();
+                if (!conectado) throw new Exception("Error al conectar con la base de datos.");
+                string query = "USE EnviosYA; UPDATE Usuario SET bloqueado = 0 WHERE dni = @DNI";
+                using (SqlCommand cmd = new SqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@DNI", dni);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new Exception("No se encontró un usuario con ese DNI.");
+                    }
+                }
+                db.Desconectar();
+                resultado.resultado = true;
+                resultado.mensaje = "Usuario desbloqueado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                db.Desconectar();
+                resultado.resultado = false;
+                resultado.mensaje = ex.Message;
+            }
+            return resultado;
         }
     }
 }
