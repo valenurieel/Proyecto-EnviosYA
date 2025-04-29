@@ -380,7 +380,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1162, 676);
+            this.ClientSize = new System.Drawing.Size(1162, 612);
             this.Controls.Add(this.cmbrol);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label8);
