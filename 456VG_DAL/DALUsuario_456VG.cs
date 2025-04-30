@@ -40,8 +40,8 @@ namespace _456VG_DAL
                         throw new Exception("Ya existe un usuario con ese DNI");
                     }
                 }
-                string salt = hasher.GenerarSalt();
-                string hashedPassword = hasher.HashPassword(obj.Contraseña456VG, salt);
+                string salt = hasher.GenerarSalt456VG();
+                string hashedPassword = hasher.HashPassword456VG(obj.Contraseña456VG, salt);
                 string queryToCreateUser = @"
                     USE EnviosYA;
                     INSERT INTO Usuario (dni, nombre, apellido, email, telefono, nombreusuario, contraseña, salt, domicilio, rol, bloqueado, activo)
@@ -72,7 +72,7 @@ namespace _456VG_DAL
                     cmd3.Parameters.AddWithValue("@ContraseñaHash", hashedPassword);
                     cmd3.Parameters.AddWithValue("@Salt", salt);
                     cmd3.Parameters.AddWithValue("@FechaCambio", DateTime.Now);
-                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple(obj.Contraseña456VG));  // Aquí usamos el HashSimple para comparar las contraseñas simples
+                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple456VG(obj.Contraseña456VG));  // Aquí usamos el HashSimple para comparar las contraseñas simples
                     cmd3.ExecuteNonQuery();
                 }
                 trans.Commit();
@@ -174,7 +174,7 @@ namespace _456VG_DAL
         //                        throw new Exception("El Usuario está Bloqueado.");
         //                    }
         //                    // Verificar contraseña usando SHA-256
-        //                    bool esContraseñaValida = hasher.VerificarPassword(Contraseña, contraseñahash, saltAlmacenado);
+        //                    bool esContraseñaValida = hasher.VerificarPassword456VG(Contraseña, contraseñahash, saltAlmacenado);
         //                    if (!esContraseñaValida)
         //                    {
         //                        throw new Exception("Contraseña incorrecta");
@@ -286,9 +286,9 @@ namespace _456VG_DAL
             {
                 bool result = db.Conectar456VG();
                 if (!result) throw new Exception("Error al conectarse a la base de datos");
-                string nuevoSalt = hasher.GenerarSalt();
-                string nuevaContraseñaHasheada = hasher.HashPassword(nuevaContraseña, nuevoSalt);
-                string nuevaContraseñaHashSimple = hasher.HashSimple(nuevaContraseña);
+                string nuevoSalt = hasher.GenerarSalt456VG();
+                string nuevaContraseñaHasheada = hasher.HashPassword456VG(nuevaContraseña, nuevoSalt);
+                string nuevaContraseñaHashSimple = hasher.HashSimple456VG(nuevaContraseña);
                 // Validar que la nueva contraseña no haya sido usada antes
                 using (SqlCommand selectCommand = new SqlCommand(sqlSelectHistorial, db.Connection))
                 {

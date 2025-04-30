@@ -10,7 +10,7 @@ namespace _456VG_Servicios
 {
     public class HashSHA256_456VG
     {
-        public string GenerarSalt()
+        public string GenerarSalt456VG()
         {
             byte[] saltBytes = new byte[16];
             using (var rng = RandomNumberGenerator.Create())
@@ -19,7 +19,7 @@ namespace _456VG_Servicios
             }
             return Convert.ToBase64String(saltBytes);
         }
-        public string HashPassword(string password, string salt)
+        public string HashPassword456VG(string password, string salt)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -34,12 +34,12 @@ namespace _456VG_Servicios
                 return sb.ToString();
             }
         }
-        public bool VerificarPassword(string passwordIngresada, string hashAlmacenado, string saltAlmacenado)
+        public bool VerificarPassword456VG(string passwordIngresada, string hashAlmacenado, string saltAlmacenado)
         {
-            string hashIngresado = HashPassword(passwordIngresada, saltAlmacenado);
+            string hashIngresado = HashPassword456VG(passwordIngresada, saltAlmacenado);
             return hashIngresado == hashAlmacenado;
         }
-        public string HashSimple(string password)
+        public string HashSimple456VG(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
