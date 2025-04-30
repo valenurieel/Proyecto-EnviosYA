@@ -8,61 +8,61 @@ namespace _456VG_BE
 {
     public class BEUsuario_456VG
     {
-        public string DNI { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public string Teléfono { get; set; }
-        public string NombreUsuario { get; set; }
-        public string Contraseña { get; set; }
-        public string Salt { get; set; }
-        public string Domicilio { get; set; }
-        public string Rol { get; set; }
-        public bool Bloqueado { get; set; }
-        public bool Activo { get; set; }
+        public string DNI456VG { get; set; }
+        public string Nombre456VG { get; set; }
+        public string Apellido456VG { get; set; }
+        public string Email456VG { get; set; }
+        public string Teléfono456VG { get; set; }
+        public string NombreUsuario456VG { get; set; }
+        public string Contraseña456VG { get; set; }
+        public string Salt456VG { get; set; }
+        public string Domicilio456VG { get; set; }
+        public string Rol456VG { get; set; }
+        public bool Bloqueado456VG { get; set; }
+        public bool Activo456VG { get; set; }
 
         public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo)
         {
-            this.DNI = DNI;
-            this.Nombre = Nombre;
-            this.Apellido = Apellido;
-            this.Email = Email;
-            this.Teléfono = Teléfono;
-            this.NombreUsuario = NombreUsuario;
-            this.Contraseña = Contraseña;
-            this.Salt = Salt;
-            this.Domicilio = Domicilio;
-            this.Rol = Rol;
-            this.Bloqueado = Bloqueado;
-            this.Activo = Activo;
+            this.DNI456VG = DNI;
+            this.Nombre456VG = Nombre;
+            this.Apellido456VG = Apellido;
+            this.Email456VG = Email;
+            this.Teléfono456VG = Teléfono;
+            this.NombreUsuario456VG = NombreUsuario;
+            this.Contraseña456VG = Contraseña;
+            this.Salt456VG = Salt;
+            this.Domicilio456VG = Domicilio;
+            this.Rol456VG = Rol;
+            this.Bloqueado456VG = Bloqueado;
+            this.Activo456VG = Activo;
         }
         public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Domicilio, string Rol, bool Bloqueado, bool Activo)
         {
-            this.DNI = DNI;
-            this.Nombre = Nombre;
-            this.Apellido = Apellido;
-            this.Email = Email;
-            this.Teléfono = Teléfono;
-            this.NombreUsuario = NombreUsuario;
-            this.Contraseña = Contraseña;
-            this.Domicilio = Domicilio;
-            this.Rol = Rol;
-            this.Bloqueado = Bloqueado;
-            this.Activo = Activo;
+            this.DNI456VG = DNI;
+            this.Nombre456VG = Nombre;
+            this.Apellido456VG = Apellido;
+            this.Email456VG = Email;
+            this.Teléfono456VG = Teléfono;
+            this.NombreUsuario456VG = NombreUsuario;
+            this.Contraseña456VG = Contraseña;
+            this.Domicilio456VG = Domicilio;
+            this.Rol456VG = Rol;
+            this.Bloqueado456VG = Bloqueado;
+            this.Activo456VG = Activo;
         }
         //list Gestión de Usuarios
         public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Domicilio, string Rol, bool Bloqueado, bool activo)
         {
-            this.DNI = DNI;
-            this.Nombre = Nombre;
-            this.Apellido = Apellido;
-            this.Email = Email;
-            this.Teléfono = Teléfono;
-            this.NombreUsuario = NombreUsuario;
-            this.Domicilio = Domicilio;
-            this.Rol = Rol;
-            this.Bloqueado = Bloqueado;
-            this.Activo = activo;
+            this.DNI456VG = DNI;
+            this.Nombre456VG = Nombre;
+            this.Apellido456VG = Apellido;
+            this.Email456VG = Email;
+            this.Teléfono456VG = Teléfono;
+            this.NombreUsuario456VG = NombreUsuario;
+            this.Domicilio456VG = Domicilio;
+            this.Rol456VG = Rol;
+            this.Bloqueado456VG = Bloqueado;
+            this.Activo456VG = activo;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace _456VG_DAL
         public static string conexionMaster = $"Data source={dataSource};Initial Catalog=master;Integrated Security=True;";
         public SqlConnection Connection = new SqlConnection(conexionMaster);
         public SqlCommand Command = new SqlCommand();
-        public bool Conectar()
+        public bool Conectar456VG()
         {
             if (Connection.State == ConnectionState.Closed)
             {
@@ -24,7 +24,7 @@ namespace _456VG_DAL
             }
             return false;
         }
-        public bool Desconectar()
+        public bool Desconectar456VG()
         {
             if (Connection.State == ConnectionState.Open)
             {
@@ -33,11 +33,11 @@ namespace _456VG_DAL
             }
             return false;
         }
-        public bool ejecutarQuery(string query)
+        public bool ejecutarQuery456VG(string query)
         {
             try
             {
-                Conectar();
+                Conectar456VG();
                 Command = new SqlCommand(query, Connection);
                 Command.ExecuteNonQuery();
                 return true;
@@ -48,17 +48,17 @@ namespace _456VG_DAL
             }
             finally
             {
-                Desconectar();
+                Desconectar456VG();
             }
         }
-        public void scriptInicio()
+        public void scriptInicio456VG()
         {
-            bool bdCreada = ejecutarQuery("CREATE DATABASE EnviosYA;");
+            bool bdCreada = ejecutarQuery456VG("CREATE DATABASE EnviosYA;");
             // Crear las tablas dentro de la base de datos EnviosYA
             if (bdCreada)
             {
                 //Tabla Usuario
-                ejecutarQuery("USE EnviosYA; CREATE TABLE Usuario (" +
+                ejecutarQuery456VG("USE EnviosYA; CREATE TABLE Usuario (" +
                     "dni VARCHAR(20) PRIMARY KEY," +
                     "nombre VARCHAR(50) NOT NULL," +
                     "apellido VARCHAR(50) NOT NULL," +
@@ -73,7 +73,7 @@ namespace _456VG_DAL
                     "activo BIT NOT NULL DEFAULT 1" +
                 ");");
 
-                ejecutarQuery("USE EnviosYA; CREATE TABLE HistorialContraseñas (" +
+                ejecutarQuery456VG("USE EnviosYA; CREATE TABLE HistorialContraseñas (" +
                     "dni VARCHAR(20) NOT NULL, " +
                     "contraseñahash VARCHAR(100) NOT NULL, " +
                     "salt VARCHAR(24) NOT NULL, " +

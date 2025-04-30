@@ -16,41 +16,41 @@ namespace _456VG_BLL
         {
             dal = new DALUsuario_456VG();
         }
-        public List<BEUsuario_456VG> leerEntidades()
+        public List<BEUsuario_456VG> leerEntidades456VG()
         {
-            return dal.leerEntidades();
+            return dal.leerEntidades456VG();
         }
-        public Resultado_456VG<BEUsuario_456VG> crearEntidad(BEUsuario_456VG obj)
+        public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
-            return dal.crearEntidad(obj);
+            return dal.crearEntidad456VG(obj);
         }
-        public Resultado_456VG<BEUsuario_456VG> eliminarEntidad(BEUsuario_456VG obj)
+        public Resultado_456VG<BEUsuario_456VG> eliminarEntidad456VG(BEUsuario_456VG obj)
         {
-            return dal.eliminarEntidad(obj);
+            return dal.eliminarEntidad456VG(obj);
         }
-        public Resultado_456VG<BEUsuario_456VG> actualizarEntidad(BEUsuario_456VG obj)
+        public Resultado_456VG<BEUsuario_456VG> actualizarEntidad456VG(BEUsuario_456VG obj)
         {
-            return dal.actualizarEntidad(obj);
+            return dal.actualizarEntidad456VG(obj);
         }
-        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
+        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario456VG(string DNI, string Contraseña)
         //{
-        //    return dal.recuperarUsuario(DNI, Contraseña);
+        //    return dal.recuperarUsuario456VG(DNI, Contraseña);
         //}
-        public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI(string DNI)
+        public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI456VG(string DNI)
         {
-            return dal.recuperarUsuarioPorDNI(DNI);
+            return dal.recuperarUsuarioPorDNI456VG(DNI);
         }
-        public Resultado_456VG<bool> bloquearUsuario(BEUsuario_456VG usuario)
+        public Resultado_456VG<bool> bloquearUsuario456VG(BEUsuario_456VG usuario)
         {
-            return dal.bloquearUsuario(usuario);
+            return dal.bloquearUsuario456VG(usuario);
         }
-        public Resultado_456VG<bool> cambiarContraseña(BEUsuario_456VG usuario, string nuevaContraseña)
+        public Resultado_456VG<bool> cambiarContraseña456VG(BEUsuario_456VG usuario, string nuevaContraseña)
         {
-            return dal.cambiarContraseña(usuario, nuevaContraseña);
+            return dal.cambiarContraseña456VG(usuario, nuevaContraseña);
         }
-        public Resultado_456VG<BEUsuario_456VG> desbloquearUsuario(string DNI)
+        public Resultado_456VG<BEUsuario_456VG> desbloquearUsuario456VG(string DNI)
         {
-            return dal.desbloquearUsuario(DNI);
+            return dal.desbloquearUsuario456VG(DNI);
         }
     }
 }

@@ -27,144 +27,144 @@ namespace Proyecto_EnviosYA
         }
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            label13.Text = "Modo Añadir";
-            txtdni.Enabled = true;
-            txtnombre.Enabled = true;
-            txtapellido.Enabled = true;
-            txtemail.Enabled = true;
-            txttelef.Enabled = true;
-            txtNameUser.Enabled = false;
-            txtdomicilio.Enabled = true;
-            cmbrol.Enabled = true;
-            rdbutonSI.Enabled = false;
-            rdbutonNO.Enabled = false;
-            btnAñadir.Enabled = false;
-            btnElim.Enabled = false;
-            btnModif.Enabled = false;
-            btnDesbloq.Enabled = false;
-            btnAplicar.Enabled = true;
-            btnCancelar.Enabled = true;
-            btnVolver.Enabled = false;
+            label13456VG.Text = "Modo Añadir";
+            txtdni456VG.Enabled = true;
+            txtnombre456VG.Enabled = true;
+            txtapellido456VG.Enabled = true;
+            txtemail456VG.Enabled = true;
+            txttelef456VG.Enabled = true;
+            txtNameUser456VG.Enabled = false;
+            txtdomicilio456VG.Enabled = true;
+            cmbrol456VG.Enabled = true;
+            rdbutonSI456VG.Enabled = false;
+            rdbutonNO456VG.Enabled = false;
+            btnAñadir456VG.Enabled = false;
+            btnElim456VG.Enabled = false;
+            btnModif456VG.Enabled = false;
+            btnDesbloq456VG.Enabled = false;
+            btnAplicar456VG.Enabled = true;
+            btnCancelar456VG.Enabled = true;
+            btnVolver456VG.Enabled = false;
         }
-        private void allusers()
+        private void allusers456VG()
         {
-            List<BEUsuario_456VG> listuser = BLLUser.leerEntidades();
+            List<BEUsuario_456VG> listuser = BLLUser.leerEntidades456VG();
             var listaParaMostrar = listuser.Select(u => new
             {
-                DNI = u.DNI,
-                Nombre = u.Nombre,
-                Apellido = u.Apellido,
-                Email = u.Email,
-                Telefono = u.Teléfono,
-                NombreUsuario = u.NombreUsuario,
-                Domicilio = u.Domicilio,
-                Rol = u.Rol,
-                Bloqueado = u.Bloqueado,
-                Activo = u.Activo
+                DNI = u.DNI456VG,
+                Nombre = u.Nombre456VG,
+                Apellido = u.Apellido456VG,
+                Email = u.Email456VG,
+                Telefono = u.Teléfono456VG,
+                NombreUsuario = u.NombreUsuario456VG,
+                Domicilio = u.Domicilio456VG,
+                Rol = u.Rol456VG,
+                Bloqueado = u.Bloqueado456VG,
+                Activo = u.Activo456VG
             }).ToList();
-            dataGridView1.DataSource = listaParaMostrar;
+            dataGridView1456VG.DataSource = listaParaMostrar;
         }
         private void RegistrarUsuario_456VG_Load(object sender, EventArgs e)
         {
-            label13.Text = "Modo Consulta";
-            txtdni.Enabled = true;
-            txtnombre.Enabled = true;
-            txtapellido.Enabled = true;
-            txtemail.Enabled = true;
-            txttelef.Enabled = true;
-            txtNameUser.Enabled = true;
-            txtdomicilio.Enabled = true;
-            cmbrol.Enabled = true;
-            rdbutonSI.Enabled = true;
-            rdbutonNO.Enabled = true;
-            btnAñadir.Enabled = true;
-            btnElim.Enabled = true;
-            btnModif.Enabled = true;
-            btnDesbloq.Enabled = true;
-            btnAplicar.Enabled = true;
-            btnCancelar.Enabled = false;
-            btnVolver.Enabled = true;
-            limpiar();
-            allusers();
+            label13456VG.Text = "Modo Consulta";
+            txtdni456VG.Enabled = true;
+            txtnombre456VG.Enabled = true;
+            txtapellido456VG.Enabled = true;
+            txtemail456VG.Enabled = true;
+            txttelef456VG.Enabled = true;
+            txtNameUser456VG.Enabled = true;
+            txtdomicilio456VG.Enabled = true;
+            cmbrol456VG.Enabled = true;
+            rdbutonSI456VG.Enabled = true;
+            rdbutonNO456VG.Enabled = true;
+            btnAñadir456VG.Enabled = true;
+            btnElim456VG.Enabled = true;
+            btnModif456VG.Enabled = true;
+            btnDesbloq456VG.Enabled = true;
+            btnAplicar456VG.Enabled = true;
+            btnCancelar456VG.Enabled = false;
+            btnVolver456VG.Enabled = true;
+            limpiar456VG();
+            allusers456VG();
         }
-        private void limpiar()
+        private void limpiar456VG()
         {
-            txtdni.Text = "";
-            txtnombre.Text = "";
-            txtapellido.Text = "";
-            txtemail.Text = "";
-            txttelef.Text = "";
-            txtNameUser.Text = "";
-            txtdomicilio.Text = "";
-            cmbrol.SelectedIndex = -1;
-            rdbutonSI.Checked = false;
-            rdbutonNO.Checked = false;
+            txtdni456VG.Text = "";
+            txtnombre456VG.Text = "";
+            txtapellido456VG.Text = "";
+            txtemail456VG.Text = "";
+            txttelef456VG.Text = "";
+            txtNameUser456VG.Text = "";
+            txtdomicilio456VG.Text = "";
+            cmbrol456VG.SelectedIndex = -1;
+            rdbutonSI456VG.Checked = false;
+            rdbutonNO456VG.Checked = false;
         }
         private void btnDesbloq_Click(object sender, EventArgs e)
         {
-            label13.Text = "Modo Desbloquear";
-            txtdni.Enabled = false;
-            txtnombre.Enabled = false;
-            txtapellido.Enabled = false;
-            txtemail.Enabled = false;
-            txttelef.Enabled = false;
-            txtNameUser.Enabled = false;
-            txtdomicilio.Enabled = false;
-            cmbrol.Enabled = false;
-            rdbutonSI.Enabled = false;
-            rdbutonNO.Enabled = false;
-            btnAñadir.Enabled = false;
-            btnElim.Enabled = false;
-            btnModif.Enabled = false;
-            btnDesbloq.Enabled = false;
-            btnAplicar.Enabled = true;
-            btnCancelar.Enabled = true;
-            btnVolver.Enabled = false;
-            List<BEUsuario_456VG> listaUsuarios = BLLUser.leerEntidades();
-            var bloqueados = listaUsuarios.Where(u => u.Bloqueado).ToList();
+            label13456VG.Text = "Modo Desbloquear";
+            txtdni456VG.Enabled = false;
+            txtnombre456VG.Enabled = false;
+            txtapellido456VG.Enabled = false;
+            txtemail456VG.Enabled = false;
+            txttelef456VG.Enabled = false;
+            txtNameUser456VG.Enabled = false;
+            txtdomicilio456VG.Enabled = false;
+            cmbrol456VG.Enabled = false;
+            rdbutonSI456VG.Enabled = false;
+            rdbutonNO456VG.Enabled = false;
+            btnAñadir456VG.Enabled = false;
+            btnElim456VG.Enabled = false;
+            btnModif456VG.Enabled = false;
+            btnDesbloq456VG.Enabled = false;
+            btnAplicar456VG.Enabled = true;
+            btnCancelar456VG.Enabled = true;
+            btnVolver456VG.Enabled = false;
+            List<BEUsuario_456VG> listaUsuarios = BLLUser.leerEntidades456VG();
+            var bloqueados = listaUsuarios.Where(u => u.Bloqueado456VG).ToList();
             if (bloqueados.Count == 0)
             {
                 MessageBox.Show("No hay usuarios bloqueados");
-                dataGridView1.DataSource = null;
+                dataGridView1456VG.DataSource = null;
                 return;
             }
             var listaParaMostrar = bloqueados.Select(u => new
             {
-                DNI = u.DNI,
-                Nombre = u.Nombre,
-                Apellido = u.Apellido,
-                Email = u.Email,
-                Telefono = u.Teléfono,
-                NombreUsuario = u.NombreUsuario,
-                Domicilio = u.Domicilio,
-                Rol = u.Rol,
-                Bloqueado = u.Bloqueado,
-                Activo = u.Activo
+                DNI = u.DNI456VG,
+                Nombre = u.Nombre456VG,
+                Apellido = u.Apellido456VG,
+                Email = u.Email456VG,
+                Telefono = u.Teléfono456VG,
+                NombreUsuario = u.NombreUsuario456VG,
+                Domicilio = u.Domicilio456VG,
+                Rol = u.Rol456VG,
+                Bloqueado = u.Bloqueado456VG,
+                Activo = u.Activo456VG
             }).ToList();
-            dataGridView1.DataSource = listaParaMostrar;
+            dataGridView1456VG.DataSource = listaParaMostrar;
         }
 
         private void btnElim_Click(object sender, EventArgs e)
         {
-            label13.Text = "Modo Eliminar";
+            label13456VG.Text = "Modo Eliminar";
         }
 
         private void btnModif_Click(object sender, EventArgs e)
         {
-            label13.Text = "Modo Modificar";
+            label13456VG.Text = "Modo Modificar";
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            if(label13.Text == "Modo Desbloquear")
+            if(label13456VG.Text == "Modo Desbloquear")
             {
-                if (dataGridView1.SelectedRows.Count == 0)
+                if (dataGridView1456VG.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Debe seleccionar un Usuario Bloqueado.");
                     return;
                 }
-                string dniSeleccionado = dataGridView1.SelectedRows[0].Cells["DNI"].Value.ToString();
-                bool estaBloqueado = Convert.ToBoolean(dataGridView1.SelectedRows[0].Cells["Bloqueado"].Value);
+                string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
+                bool estaBloqueado = Convert.ToBoolean(dataGridView1456VG.SelectedRows[0].Cells["Bloqueado"].Value);
                 if (!estaBloqueado)
                 {
                     MessageBox.Show("El Usuario NO se encuentra Bloqueado.");
@@ -181,7 +181,7 @@ namespace Proyecto_EnviosYA
                     RegistrarUsuario_456VG_Load(null, null);
                     return;
                 }
-                var resultado = BLLUser.desbloquearUsuario(dniSeleccionado);
+                var resultado = BLLUser.desbloquearUsuario456VG(dniSeleccionado);
                 if (resultado.resultado)
                 {
                     MessageBox.Show("Usuario desbloqueado exitosamente.");
@@ -192,28 +192,28 @@ namespace Proyecto_EnviosYA
                     MessageBox.Show("Error: " + resultado.mensaje);
                 }
             }
-            if(label13.Text == "Modo Añadir")
+            if(label13456VG.Text == "Modo Añadir")
             {
                 string emailPattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
-                bool isValid = Regex.IsMatch(txtemail.Text, emailPattern);
+                bool isValid = Regex.IsMatch(txtemail456VG.Text, emailPattern);
                 if (!isValid)
                 {
                     MessageBox.Show("Debe ingresar un email válido");
                     return;
                 }
-                string dni = this.txtdni.Text;
-                string name = txtnombre.Text;
-                string ape = txtapellido.Text;
-                string email = txtemail.Text;
-                string telef = txttelef.Text;
-                string nameuser = this.txtdni.Text + txtapellido.Text;
-                string domicilio = txtdomicilio.Text;
-                string pass = this.txtdni.Text + txtnombre.Text;
-                string rol = cmbrol.SelectedItem?.ToString();
+                string dni = this.txtdni456VG.Text;
+                string name = txtnombre456VG.Text;
+                string ape = txtapellido456VG.Text;
+                string email = txtemail456VG.Text;
+                string telef = txttelef456VG.Text;
+                string nameuser = this.txtdni456VG.Text + txtapellido456VG.Text;
+                string domicilio = txtdomicilio456VG.Text;
+                string pass = this.txtdni456VG.Text + txtnombre456VG.Text;
+                string rol = cmbrol456VG.SelectedItem?.ToString();
                 bool bloqueado = false;
                 bool activo = true;
                 BEUsuario_456VG usernew = new BEUsuario_456VG(dni, name, ape, email, telef, nameuser, pass, domicilio, rol, bloqueado, activo);
-                Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.crearEntidad(usernew);
+                Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.crearEntidad456VG(usernew);
                 if (resultado.resultado)
                 {
                     MessageBox.Show("Usuario registrado correctamente.");
@@ -241,29 +241,29 @@ namespace Proyecto_EnviosYA
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            allusers();
+            allusers456VG();
         }
-        private void useractivos()
+        private void useractivos456VG()
         {
-            List<BEUsuario_456VG> listaUsuariosActivos = BLLUser.leerEntidades().Where(u => u.Activo).ToList();
+            List<BEUsuario_456VG> listaUsuariosActivos = BLLUser.leerEntidades456VG().Where(u => u.Activo456VG).ToList();
             var listaParaMostrar = listaUsuariosActivos.Select(u => new
             {
-                DNI = u.DNI,
-                Nombre = u.Nombre,
-                Apellido = u.Apellido,
-                Email = u.Email,
-                Telefono = u.Teléfono,
-                NombreUsuario = u.NombreUsuario,
-                Domicilio = u.Domicilio,
-                Rol = u.Rol,
-                Bloqueado = u.Bloqueado,
-                Activo = u.Activo
+                DNI = u.DNI456VG,
+                Nombre = u.Nombre456VG,
+                Apellido = u.Apellido456VG,
+                Email = u.Email456VG,
+                Telefono = u.Teléfono456VG,
+                NombreUsuario = u.NombreUsuario456VG,
+                Domicilio = u.Domicilio456VG,
+                Rol = u.Rol456VG,
+                Bloqueado = u.Bloqueado456VG,
+                Activo = u.Activo456VG
             }).ToList();
-            dataGridView1.DataSource = listaParaMostrar;
+            dataGridView1456VG.DataSource = listaParaMostrar;
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            useractivos();
+            useractivos456VG();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

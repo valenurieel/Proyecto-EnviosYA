@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnAñadir = new System.Windows.Forms.Button();
-            this.btnDesbloq = new System.Windows.Forms.Button();
-            this.btnModif = new System.Windows.Forms.Button();
-            this.btnAplicar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
+            this.dataGridView1456VG = new System.Windows.Forms.DataGridView();
+            this.btnAñadir456VG = new System.Windows.Forms.Button();
+            this.btnDesbloq456VG = new System.Windows.Forms.Button();
+            this.btnModif456VG = new System.Windows.Forms.Button();
+            this.btnAplicar456VG = new System.Windows.Forms.Button();
+            this.btnCancelar456VG = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.txtdni = new System.Windows.Forms.TextBox();
-            this.txtnombre = new System.Windows.Forms.TextBox();
-            this.txtapellido = new System.Windows.Forms.TextBox();
-            this.txtemail = new System.Windows.Forms.TextBox();
-            this.txttelef = new System.Windows.Forms.TextBox();
-            this.txtNameUser = new System.Windows.Forms.TextBox();
-            this.txtdomicilio = new System.Windows.Forms.TextBox();
+            this.radioButton1456VG = new System.Windows.Forms.RadioButton();
+            this.radioButton2456VG = new System.Windows.Forms.RadioButton();
+            this.txtdni456VG = new System.Windows.Forms.TextBox();
+            this.txtnombre456VG = new System.Windows.Forms.TextBox();
+            this.txtapellido456VG = new System.Windows.Forms.TextBox();
+            this.txtemail456VG = new System.Windows.Forms.TextBox();
+            this.txttelef456VG = new System.Windows.Forms.TextBox();
+            this.txtNameUser456VG = new System.Windows.Forms.TextBox();
+            this.txtdomicilio456VG = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,83 +53,83 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.rdbutonSI = new System.Windows.Forms.RadioButton();
-            this.rdbutonNO = new System.Windows.Forms.RadioButton();
+            this.rdbutonSI456VG = new System.Windows.Forms.RadioButton();
+            this.rdbutonNO456VG = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cmbrol = new System.Windows.Forms.ComboBox();
-            this.btnElim = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.label13456VG = new System.Windows.Forms.Label();
+            this.cmbrol456VG = new System.Windows.Forms.ComboBox();
+            this.btnElim456VG = new System.Windows.Forms.Button();
+            this.btnVolver456VG = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridView1456VG
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(36, 91);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1045, 234);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1456VG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1456VG.Location = new System.Drawing.Point(36, 91);
+            this.dataGridView1456VG.Name = "dataGridView1456VG";
+            this.dataGridView1456VG.Size = new System.Drawing.Size(1045, 234);
+            this.dataGridView1456VG.TabIndex = 0;
             // 
-            // btnAñadir
+            // btnAñadir456VG
             // 
-            this.btnAñadir.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnAñadir.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAñadir.Location = new System.Drawing.Point(624, 347);
-            this.btnAñadir.Name = "btnAñadir";
-            this.btnAñadir.Size = new System.Drawing.Size(120, 56);
-            this.btnAñadir.TabIndex = 1;
-            this.btnAñadir.Text = "Añadir";
-            this.btnAñadir.UseVisualStyleBackColor = false;
-            this.btnAñadir.Click += new System.EventHandler(this.btnRegistrar_Click);
+            this.btnAñadir456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAñadir456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAñadir456VG.Location = new System.Drawing.Point(624, 347);
+            this.btnAñadir456VG.Name = "btnAñadir456VG";
+            this.btnAñadir456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnAñadir456VG.TabIndex = 1;
+            this.btnAñadir456VG.Text = "Añadir";
+            this.btnAñadir456VG.UseVisualStyleBackColor = false;
+            this.btnAñadir456VG.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
-            // btnDesbloq
+            // btnDesbloq456VG
             // 
-            this.btnDesbloq.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnDesbloq.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesbloq.Location = new System.Drawing.Point(823, 431);
-            this.btnDesbloq.Name = "btnDesbloq";
-            this.btnDesbloq.Size = new System.Drawing.Size(120, 56);
-            this.btnDesbloq.TabIndex = 2;
-            this.btnDesbloq.Text = "Desbloquear";
-            this.btnDesbloq.UseVisualStyleBackColor = false;
-            this.btnDesbloq.Click += new System.EventHandler(this.btnDesbloq_Click);
+            this.btnDesbloq456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnDesbloq456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDesbloq456VG.Location = new System.Drawing.Point(823, 431);
+            this.btnDesbloq456VG.Name = "btnDesbloq456VG";
+            this.btnDesbloq456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnDesbloq456VG.TabIndex = 2;
+            this.btnDesbloq456VG.Text = "Desbloquear";
+            this.btnDesbloq456VG.UseVisualStyleBackColor = false;
+            this.btnDesbloq456VG.Click += new System.EventHandler(this.btnDesbloq_Click);
             // 
-            // btnModif
+            // btnModif456VG
             // 
-            this.btnModif.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnModif.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModif.Location = new System.Drawing.Point(624, 431);
-            this.btnModif.Name = "btnModif";
-            this.btnModif.Size = new System.Drawing.Size(120, 56);
-            this.btnModif.TabIndex = 3;
-            this.btnModif.Text = "Modificar";
-            this.btnModif.UseVisualStyleBackColor = false;
-            this.btnModif.Click += new System.EventHandler(this.btnModif_Click);
+            this.btnModif456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnModif456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModif456VG.Location = new System.Drawing.Point(624, 431);
+            this.btnModif456VG.Name = "btnModif456VG";
+            this.btnModif456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnModif456VG.TabIndex = 3;
+            this.btnModif456VG.Text = "Modificar";
+            this.btnModif456VG.UseVisualStyleBackColor = false;
+            this.btnModif456VG.Click += new System.EventHandler(this.btnModif_Click);
             // 
-            // btnAplicar
+            // btnAplicar456VG
             // 
-            this.btnAplicar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnAplicar.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar.Location = new System.Drawing.Point(624, 518);
-            this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(120, 56);
-            this.btnAplicar.TabIndex = 5;
-            this.btnAplicar.Text = "Aplicar";
-            this.btnAplicar.UseVisualStyleBackColor = false;
-            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
+            this.btnAplicar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAplicar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicar456VG.Location = new System.Drawing.Point(624, 518);
+            this.btnAplicar456VG.Name = "btnAplicar456VG";
+            this.btnAplicar456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnAplicar456VG.TabIndex = 5;
+            this.btnAplicar456VG.Text = "Aplicar";
+            this.btnAplicar456VG.UseVisualStyleBackColor = false;
+            this.btnAplicar456VG.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
-            // btnCancelar
+            // btnCancelar456VG
             // 
-            this.btnCancelar.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnCancelar.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(823, 518);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(120, 56);
-            this.btnCancelar.TabIndex = 6;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnCancelar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar456VG.Location = new System.Drawing.Point(823, 518);
+            this.btnCancelar456VG.Name = "btnCancelar456VG";
+            this.btnCancelar456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnCancelar456VG.TabIndex = 6;
+            this.btnCancelar456VG.Text = "Cancelar";
+            this.btnCancelar456VG.UseVisualStyleBackColor = false;
+            this.btnCancelar456VG.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label1
             // 
@@ -141,86 +141,86 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "GESTION DE USUARIOS";
             // 
-            // radioButton1
+            // radioButton1456VG
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(698, 55);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(69, 22);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.Text = "Activos";
-            this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.radioButton1456VG.AutoSize = true;
+            this.radioButton1456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1456VG.Location = new System.Drawing.Point(698, 55);
+            this.radioButton1456VG.Name = "radioButton1456VG";
+            this.radioButton1456VG.Size = new System.Drawing.Size(69, 22);
+            this.radioButton1456VG.TabIndex = 11;
+            this.radioButton1456VG.Text = "Activos";
+            this.radioButton1456VG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton1456VG.UseVisualStyleBackColor = true;
+            this.radioButton1456VG.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // radioButton2
+            // radioButton2456VG
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(823, 55);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(63, 22);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.Text = "Todos";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.radioButton2456VG.AutoSize = true;
+            this.radioButton2456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton2456VG.Location = new System.Drawing.Point(823, 55);
+            this.radioButton2456VG.Name = "radioButton2456VG";
+            this.radioButton2456VG.Size = new System.Drawing.Size(63, 22);
+            this.radioButton2456VG.TabIndex = 12;
+            this.radioButton2456VG.Text = "Todos";
+            this.radioButton2456VG.UseVisualStyleBackColor = true;
+            this.radioButton2456VG.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // txtdni
+            // txtdni456VG
             // 
-            this.txtdni.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtdni.Location = new System.Drawing.Point(59, 419);
-            this.txtdni.Name = "txtdni";
-            this.txtdni.Size = new System.Drawing.Size(121, 25);
-            this.txtdni.TabIndex = 0;
+            this.txtdni456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtdni456VG.Location = new System.Drawing.Point(59, 419);
+            this.txtdni456VG.Name = "txtdni456VG";
+            this.txtdni456VG.Size = new System.Drawing.Size(121, 25);
+            this.txtdni456VG.TabIndex = 0;
             // 
-            // txtnombre
+            // txtnombre456VG
             // 
-            this.txtnombre.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtnombre.Location = new System.Drawing.Point(59, 469);
-            this.txtnombre.Name = "txtnombre";
-            this.txtnombre.Size = new System.Drawing.Size(121, 25);
-            this.txtnombre.TabIndex = 1;
+            this.txtnombre456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtnombre456VG.Location = new System.Drawing.Point(59, 469);
+            this.txtnombre456VG.Name = "txtnombre456VG";
+            this.txtnombre456VG.Size = new System.Drawing.Size(121, 25);
+            this.txtnombre456VG.TabIndex = 1;
             // 
-            // txtapellido
+            // txtapellido456VG
             // 
-            this.txtapellido.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtapellido.Location = new System.Drawing.Point(59, 518);
-            this.txtapellido.Name = "txtapellido";
-            this.txtapellido.Size = new System.Drawing.Size(121, 25);
-            this.txtapellido.TabIndex = 2;
+            this.txtapellido456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtapellido456VG.Location = new System.Drawing.Point(59, 518);
+            this.txtapellido456VG.Name = "txtapellido456VG";
+            this.txtapellido456VG.Size = new System.Drawing.Size(121, 25);
+            this.txtapellido456VG.TabIndex = 2;
             // 
-            // txtemail
+            // txtemail456VG
             // 
-            this.txtemail.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtemail.Location = new System.Drawing.Point(59, 571);
-            this.txtemail.Name = "txtemail";
-            this.txtemail.Size = new System.Drawing.Size(121, 25);
-            this.txtemail.TabIndex = 3;
+            this.txtemail456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtemail456VG.Location = new System.Drawing.Point(59, 571);
+            this.txtemail456VG.Name = "txtemail456VG";
+            this.txtemail456VG.Size = new System.Drawing.Size(121, 25);
+            this.txtemail456VG.TabIndex = 3;
             // 
-            // txttelef
+            // txttelef456VG
             // 
-            this.txttelef.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttelef.Location = new System.Drawing.Point(251, 419);
-            this.txttelef.Name = "txttelef";
-            this.txttelef.Size = new System.Drawing.Size(121, 25);
-            this.txttelef.TabIndex = 4;
+            this.txttelef456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txttelef456VG.Location = new System.Drawing.Point(251, 419);
+            this.txttelef456VG.Name = "txttelef456VG";
+            this.txttelef456VG.Size = new System.Drawing.Size(121, 25);
+            this.txttelef456VG.TabIndex = 4;
             // 
-            // txtNameUser
+            // txtNameUser456VG
             // 
-            this.txtNameUser.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNameUser.Location = new System.Drawing.Point(251, 469);
-            this.txtNameUser.Name = "txtNameUser";
-            this.txtNameUser.Size = new System.Drawing.Size(121, 25);
-            this.txtNameUser.TabIndex = 18;
+            this.txtNameUser456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNameUser456VG.Location = new System.Drawing.Point(251, 469);
+            this.txtNameUser456VG.Name = "txtNameUser456VG";
+            this.txtNameUser456VG.Size = new System.Drawing.Size(121, 25);
+            this.txtNameUser456VG.TabIndex = 18;
             // 
-            // txtdomicilio
+            // txtdomicilio456VG
             // 
-            this.txtdomicilio.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtdomicilio.Location = new System.Drawing.Point(251, 518);
-            this.txtdomicilio.Name = "txtdomicilio";
-            this.txtdomicilio.Size = new System.Drawing.Size(121, 25);
-            this.txtdomicilio.TabIndex = 5;
+            this.txtdomicilio456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtdomicilio456VG.Location = new System.Drawing.Point(251, 518);
+            this.txtdomicilio456VG.Name = "txtdomicilio456VG";
+            this.txtdomicilio456VG.Size = new System.Drawing.Size(121, 25);
+            this.txtdomicilio456VG.TabIndex = 5;
             // 
             // label3
             // 
@@ -312,29 +312,29 @@
             this.label12.TabIndex = 31;
             this.label12.Text = "Activo:";
             // 
-            // rdbutonSI
+            // rdbutonSI456VG
             // 
-            this.rdbutonSI.AutoSize = true;
-            this.rdbutonSI.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbutonSI.Location = new System.Drawing.Point(428, 422);
-            this.rdbutonSI.Name = "rdbutonSI";
-            this.rdbutonSI.Size = new System.Drawing.Size(36, 22);
-            this.rdbutonSI.TabIndex = 32;
-            this.rdbutonSI.Text = "Si";
-            this.rdbutonSI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbutonSI.UseVisualStyleBackColor = true;
+            this.rdbutonSI456VG.AutoSize = true;
+            this.rdbutonSI456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbutonSI456VG.Location = new System.Drawing.Point(428, 422);
+            this.rdbutonSI456VG.Name = "rdbutonSI456VG";
+            this.rdbutonSI456VG.Size = new System.Drawing.Size(36, 22);
+            this.rdbutonSI456VG.TabIndex = 32;
+            this.rdbutonSI456VG.Text = "Si";
+            this.rdbutonSI456VG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbutonSI456VG.UseVisualStyleBackColor = true;
             // 
-            // rdbutonNO
+            // rdbutonNO456VG
             // 
-            this.rdbutonNO.AutoSize = true;
-            this.rdbutonNO.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbutonNO.Location = new System.Drawing.Point(480, 422);
-            this.rdbutonNO.Name = "rdbutonNO";
-            this.rdbutonNO.Size = new System.Drawing.Size(44, 22);
-            this.rdbutonNO.TabIndex = 33;
-            this.rdbutonNO.Text = "No";
-            this.rdbutonNO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbutonNO.UseVisualStyleBackColor = true;
+            this.rdbutonNO456VG.AutoSize = true;
+            this.rdbutonNO456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbutonNO456VG.Location = new System.Drawing.Point(480, 422);
+            this.rdbutonNO456VG.Name = "rdbutonNO456VG";
+            this.rdbutonNO456VG.Size = new System.Drawing.Size(44, 22);
+            this.rdbutonNO456VG.TabIndex = 33;
+            this.rdbutonNO456VG.Text = "No";
+            this.rdbutonNO456VG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbutonNO456VG.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -346,50 +346,50 @@
             this.label8.TabIndex = 34;
             this.label8.Text = "Modo Seleccionado:";
             // 
-            // label13
+            // label13456VG
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(186, 347);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(58, 20);
-            this.label13.TabIndex = 35;
-            this.label13.Text = "MODO";
+            this.label13456VG.AutoSize = true;
+            this.label13456VG.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13456VG.Location = new System.Drawing.Point(186, 347);
+            this.label13456VG.Name = "label13456VG";
+            this.label13456VG.Size = new System.Drawing.Size(58, 20);
+            this.label13456VG.TabIndex = 35;
+            this.label13456VG.Text = "MODO";
             // 
-            // cmbrol
+            // cmbrol456VG
             // 
-            this.cmbrol.FormattingEnabled = true;
-            this.cmbrol.Items.AddRange(new object[] {
+            this.cmbrol456VG.FormattingEnabled = true;
+            this.cmbrol456VG.Items.AddRange(new object[] {
             "Cliente ",
             "Vendedor"});
-            this.cmbrol.Location = new System.Drawing.Point(251, 571);
-            this.cmbrol.Name = "cmbrol";
-            this.cmbrol.Size = new System.Drawing.Size(121, 23);
-            this.cmbrol.TabIndex = 6;
+            this.cmbrol456VG.Location = new System.Drawing.Point(251, 571);
+            this.cmbrol456VG.Name = "cmbrol456VG";
+            this.cmbrol456VG.Size = new System.Drawing.Size(121, 23);
+            this.cmbrol456VG.TabIndex = 6;
             // 
-            // btnElim
+            // btnElim456VG
             // 
-            this.btnElim.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnElim.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnElim.Location = new System.Drawing.Point(823, 347);
-            this.btnElim.Name = "btnElim";
-            this.btnElim.Size = new System.Drawing.Size(120, 56);
-            this.btnElim.TabIndex = 4;
-            this.btnElim.Text = "Eliminar";
-            this.btnElim.UseVisualStyleBackColor = false;
-            this.btnElim.Click += new System.EventHandler(this.btnElim_Click);
+            this.btnElim456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnElim456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnElim456VG.Location = new System.Drawing.Point(823, 347);
+            this.btnElim456VG.Name = "btnElim456VG";
+            this.btnElim456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnElim456VG.TabIndex = 4;
+            this.btnElim456VG.Text = "Eliminar";
+            this.btnElim456VG.UseVisualStyleBackColor = false;
+            this.btnElim456VG.Click += new System.EventHandler(this.btnElim_Click);
             // 
-            // btnVolver
+            // btnVolver456VG
             // 
-            this.btnVolver.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnVolver.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(989, 540);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(92, 34);
-            this.btnVolver.TabIndex = 36;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = false;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            this.btnVolver456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnVolver456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver456VG.Location = new System.Drawing.Point(989, 540);
+            this.btnVolver456VG.Name = "btnVolver456VG";
+            this.btnVolver456VG.Size = new System.Drawing.Size(92, 34);
+            this.btnVolver456VG.TabIndex = 36;
+            this.btnVolver456VG.Text = "Volver";
+            this.btnVolver456VG.UseVisualStyleBackColor = false;
+            this.btnVolver456VG.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // RegistrarUsuario_456VG
             // 
@@ -397,12 +397,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(1162, 612);
-            this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.cmbrol);
-            this.Controls.Add(this.label13);
+            this.Controls.Add(this.btnVolver456VG);
+            this.Controls.Add(this.cmbrol456VG);
+            this.Controls.Add(this.label13456VG);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.rdbutonNO);
-            this.Controls.Add(this.rdbutonSI);
+            this.Controls.Add(this.rdbutonNO456VG);
+            this.Controls.Add(this.rdbutonSI456VG);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -412,28 +412,28 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtdomicilio);
-            this.Controls.Add(this.txtNameUser);
-            this.Controls.Add(this.txttelef);
-            this.Controls.Add(this.txtemail);
-            this.Controls.Add(this.txtapellido);
-            this.Controls.Add(this.txtnombre);
-            this.Controls.Add(this.txtdni);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.txtdomicilio456VG);
+            this.Controls.Add(this.txtNameUser456VG);
+            this.Controls.Add(this.txttelef456VG);
+            this.Controls.Add(this.txtemail456VG);
+            this.Controls.Add(this.txtapellido456VG);
+            this.Controls.Add(this.txtnombre456VG);
+            this.Controls.Add(this.txtdni456VG);
+            this.Controls.Add(this.radioButton2456VG);
+            this.Controls.Add(this.radioButton1456VG);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnAplicar);
-            this.Controls.Add(this.btnElim);
-            this.Controls.Add(this.btnModif);
-            this.Controls.Add(this.btnDesbloq);
-            this.Controls.Add(this.btnAñadir);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.btnCancelar456VG);
+            this.Controls.Add(this.btnAplicar456VG);
+            this.Controls.Add(this.btnElim456VG);
+            this.Controls.Add(this.btnModif456VG);
+            this.Controls.Add(this.btnDesbloq456VG);
+            this.Controls.Add(this.btnAñadir456VG);
+            this.Controls.Add(this.dataGridView1456VG);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "RegistrarUsuario_456VG";
             this.Text = "Gestion de Usuarios";
             this.Load += new System.EventHandler(this.RegistrarUsuario_456VG_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -441,22 +441,22 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnAñadir;
-        private System.Windows.Forms.Button btnDesbloq;
-        private System.Windows.Forms.Button btnModif;
-        private System.Windows.Forms.Button btnAplicar;
-        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.DataGridView dataGridView1456VG;
+        private System.Windows.Forms.Button btnAñadir456VG;
+        private System.Windows.Forms.Button btnDesbloq456VG;
+        private System.Windows.Forms.Button btnModif456VG;
+        private System.Windows.Forms.Button btnAplicar456VG;
+        private System.Windows.Forms.Button btnCancelar456VG;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.TextBox txtdni;
-        private System.Windows.Forms.TextBox txtnombre;
-        private System.Windows.Forms.TextBox txtapellido;
-        private System.Windows.Forms.TextBox txtemail;
-        private System.Windows.Forms.TextBox txttelef;
-        private System.Windows.Forms.TextBox txtNameUser;
-        private System.Windows.Forms.TextBox txtdomicilio;
+        private System.Windows.Forms.RadioButton radioButton1456VG;
+        private System.Windows.Forms.RadioButton radioButton2456VG;
+        private System.Windows.Forms.TextBox txtdni456VG;
+        private System.Windows.Forms.TextBox txtnombre456VG;
+        private System.Windows.Forms.TextBox txtapellido456VG;
+        private System.Windows.Forms.TextBox txtemail456VG;
+        private System.Windows.Forms.TextBox txttelef456VG;
+        private System.Windows.Forms.TextBox txtNameUser456VG;
+        private System.Windows.Forms.TextBox txtdomicilio456VG;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -466,12 +466,12 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.RadioButton rdbutonSI;
-        private System.Windows.Forms.RadioButton rdbutonNO;
+        private System.Windows.Forms.RadioButton rdbutonSI456VG;
+        private System.Windows.Forms.RadioButton rdbutonNO456VG;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox cmbrol;
-        private System.Windows.Forms.Button btnElim;
-        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label label13456VG;
+        private System.Windows.Forms.ComboBox cmbrol456VG;
+        private System.Windows.Forms.Button btnElim456VG;
+        private System.Windows.Forms.Button btnVolver456VG;
     }
 }

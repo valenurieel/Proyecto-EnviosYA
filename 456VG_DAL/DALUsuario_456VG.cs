@@ -19,11 +19,11 @@ namespace _456VG_DAL
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
-        public Resultado_456VG<BEUsuario_456VG> actualizarEntidad(BEUsuario_456VG obj)
+        public Resultado_456VG<BEUsuario_456VG> actualizarEntidad456VG(BEUsuario_456VG obj)
         {
             throw new NotImplementedException();
         }
-        public Resultado_456VG<BEUsuario_456VG> crearEntidad(BEUsuario_456VG obj)
+        public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             try
@@ -33,7 +33,7 @@ namespace _456VG_DAL
                 string queryToSearchUser = "USE EnviosYA; SELECT COUNT(*) FROM Usuario WHERE dni = @DNI";
                 using (SqlCommand cmd = new SqlCommand(queryToSearchUser, db.Connection, trans))
                 {
-                    cmd.Parameters.AddWithValue("@DNI", obj.DNI);
+                    cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
                     int count = (int)cmd.ExecuteScalar();
                     if (count > 0)
                     {
@@ -41,25 +41,25 @@ namespace _456VG_DAL
                     }
                 }
                 string salt = hasher.GenerarSalt();
-                string hashedPassword = hasher.HashPassword(obj.Contraseña, salt);
+                string hashedPassword = hasher.HashPassword(obj.Contraseña456VG, salt);
                 string queryToCreateUser = @"
                     USE EnviosYA;
                     INSERT INTO Usuario (dni, nombre, apellido, email, telefono, nombreusuario, contraseña, salt, domicilio, rol, bloqueado, activo)
                     VALUES (@DNI, @Nombre, @Apellido, @Email, @Telefono, @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, @Bloqueado, @Activo);";
                 using (SqlCommand cmd2 = new SqlCommand(queryToCreateUser, db.Connection, trans))
                 {
-                    cmd2.Parameters.AddWithValue("@DNI", obj.DNI);
-                    cmd2.Parameters.AddWithValue("@Nombre", obj.Nombre);
-                    cmd2.Parameters.AddWithValue("@Apellido", obj.Apellido);
-                    cmd2.Parameters.AddWithValue("@Email", obj.Email);
-                    cmd2.Parameters.AddWithValue("@Telefono", obj.Teléfono);
-                    cmd2.Parameters.AddWithValue("@NombreUsuario", obj.NombreUsuario);
+                    cmd2.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+                    cmd2.Parameters.AddWithValue("@Nombre", obj.Nombre456VG);
+                    cmd2.Parameters.AddWithValue("@Apellido", obj.Apellido456VG);
+                    cmd2.Parameters.AddWithValue("@Email", obj.Email456VG);
+                    cmd2.Parameters.AddWithValue("@Telefono", obj.Teléfono456VG);
+                    cmd2.Parameters.AddWithValue("@NombreUsuario", obj.NombreUsuario456VG);
                     cmd2.Parameters.AddWithValue("@Contraseña", hashedPassword);
                     cmd2.Parameters.AddWithValue("@Salt", salt);
-                    cmd2.Parameters.AddWithValue("@Domicilio", obj.Domicilio);
-                    cmd2.Parameters.AddWithValue("@Rol", obj.Rol);
-                    cmd2.Parameters.AddWithValue("@Bloqueado", obj.Bloqueado);
-                    cmd2.Parameters.AddWithValue("@Activo", obj.Activo);
+                    cmd2.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
+                    cmd2.Parameters.AddWithValue("@Rol", obj.Rol456VG);
+                    cmd2.Parameters.AddWithValue("@Bloqueado", obj.Bloqueado456VG);
+                    cmd2.Parameters.AddWithValue("@Activo", obj.Activo456VG);
                     cmd2.ExecuteNonQuery();
                 }
                 string queryToInsertPasswordHistory = @"
@@ -68,11 +68,11 @@ namespace _456VG_DAL
                     VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);";
                 using (SqlCommand cmd3 = new SqlCommand(queryToInsertPasswordHistory, db.Connection, trans))
                 {
-                    cmd3.Parameters.AddWithValue("@DniUsuario", obj.DNI);
+                    cmd3.Parameters.AddWithValue("@DniUsuario", obj.DNI456VG);
                     cmd3.Parameters.AddWithValue("@ContraseñaHash", hashedPassword);
                     cmd3.Parameters.AddWithValue("@Salt", salt);
                     cmd3.Parameters.AddWithValue("@FechaCambio", DateTime.Now);
-                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple(obj.Contraseña));  // Aquí usamos el HashSimple para comparar las contraseñas simples
+                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple(obj.Contraseña456VG));  // Aquí usamos el HashSimple para comparar las contraseñas simples
                     cmd3.ExecuteNonQuery();
                 }
                 trans.Commit();
@@ -93,17 +93,17 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-        public Resultado_456VG<BEUsuario_456VG> eliminarEntidad(BEUsuario_456VG obj)
+        public Resultado_456VG<BEUsuario_456VG> eliminarEntidad456VG(BEUsuario_456VG obj)
         {
             throw new NotImplementedException();
         }
-        public List<BEUsuario_456VG> leerEntidades()
+        public List<BEUsuario_456VG> leerEntidades456VG()
         {
             List<BEUsuario_456VG> list = new List<BEUsuario_456VG>();
             string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario";
             try
             {
-                bool result = db.Conectar();
+                bool result = db.Conectar456VG();
                 if (!result) throw new Exception("Error al conectarse a la base de datos");
                 using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
                 {
@@ -126,18 +126,18 @@ namespace _456VG_DAL
                         }
                     }
                 }
-                bool result2 = db.Desconectar();
+                bool result2 = db.Desconectar456VG();
                 if (!result2) throw new Exception("Error al desconectarse de la base de datos");
                 return list;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                db.Desconectar();
+                db.Desconectar456VG();
                 return null;
             }
         }
-        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario(string DNI, string Contraseña)
+        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario456VG(string DNI, string Contraseña)
         //{
         //    Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
         //    string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
@@ -198,13 +198,13 @@ namespace _456VG_DAL
         //        return resultado;
         //    }
         //}
-        public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI(string DNI)
+        public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI456VG(string DNI)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
             try
             {
-                bool result = db.Conectar();
+                bool result = db.Conectar456VG();
                 if (!result) throw new Exception("Error al conectarse a la base de datos");
                 using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
                 {
@@ -236,7 +236,7 @@ namespace _456VG_DAL
                         }
                     }
                 }
-                db.Desconectar();
+                db.Desconectar456VG();
                 return resultado;
             }
             catch (Exception ex)
@@ -244,27 +244,27 @@ namespace _456VG_DAL
                 resultado.resultado = false;
                 resultado.mensaje = ex.Message;
                 resultado.entidad = null;
-                db.Desconectar();
+                db.Desconectar456VG();
                 return resultado;
             }
         }
-        public Resultado_456VG<bool> bloquearUsuario(BEUsuario_456VG usuario)
+        public Resultado_456VG<bool> bloquearUsuario456VG(BEUsuario_456VG usuario)
         {
             Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
             string sqlQuery = "USE EnviosYA; UPDATE Usuario SET Bloqueado = 1, Activo = 0 WHERE DNI = @DNI";
             try
             {
-                bool result = db.Conectar();
+                bool result = db.Conectar456VG();
                 if (!result) throw new Exception("Error al conectarse a la base de datos");
                 using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
                 {
-                    command.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    command.Parameters.AddWithValue("@DNI", usuario.DNI456VG);
                     command.ExecuteNonQuery();
                 }
                 resultado.resultado = true;
                 resultado.entidad = true;
                 resultado.mensaje = "Usuario bloqueado correctamente";
-                db.Desconectar();
+                db.Desconectar456VG();
                 return resultado;
             }
             catch (Exception ex)
@@ -272,11 +272,11 @@ namespace _456VG_DAL
                 resultado.resultado = false;
                 resultado.entidad = false;
                 resultado.mensaje = ex.Message;
-                db.Desconectar();
+                db.Desconectar456VG();
                 return resultado;
             }
         }
-        public Resultado_456VG<bool> cambiarContraseña(BEUsuario_456VG usuario, string nuevaContraseña)
+        public Resultado_456VG<bool> cambiarContraseña456VG(BEUsuario_456VG usuario, string nuevaContraseña)
         {
             Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
             string sqlUpdateUsuario = "USE EnviosYA; UPDATE Usuario SET contraseña = @Contraseña, salt = @Salt WHERE DNI = @DNI";
@@ -284,7 +284,7 @@ namespace _456VG_DAL
             string sqlSelectHistorial = "USE EnviosYA; SELECT hashsimple FROM HistorialContraseñas WHERE dni = @DniUsuario";
             try
             {
-                bool result = db.Conectar();
+                bool result = db.Conectar456VG();
                 if (!result) throw new Exception("Error al conectarse a la base de datos");
                 string nuevoSalt = hasher.GenerarSalt();
                 string nuevaContraseñaHasheada = hasher.HashPassword(nuevaContraseña, nuevoSalt);
@@ -292,7 +292,7 @@ namespace _456VG_DAL
                 // Validar que la nueva contraseña no haya sido usada antes
                 using (SqlCommand selectCommand = new SqlCommand(sqlSelectHistorial, db.Connection))
                 {
-                    selectCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI);
+                    selectCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI456VG);
                     using (SqlDataReader reader = selectCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -307,7 +307,7 @@ namespace _456VG_DAL
                 }
                 using (SqlCommand insertCommand = new SqlCommand(sqlInsertHistorial, db.Connection))
                 {
-                    insertCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI);
+                    insertCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI456VG);
                     insertCommand.Parameters.AddWithValue("@ContraseñaHash", nuevaContraseñaHasheada);
                     insertCommand.Parameters.AddWithValue("@Salt", nuevoSalt);
                     insertCommand.Parameters.AddWithValue("@FechaCambio", DateTime.Now);
@@ -318,7 +318,7 @@ namespace _456VG_DAL
                 {
                     updateCommand.Parameters.AddWithValue("@Contraseña", nuevaContraseñaHasheada);
                     updateCommand.Parameters.AddWithValue("@Salt", nuevoSalt);
-                    updateCommand.Parameters.AddWithValue("@DNI", usuario.DNI);
+                    updateCommand.Parameters.AddWithValue("@DNI", usuario.DNI456VG);
                     int filasAfectadas = updateCommand.ExecuteNonQuery();
                     if (filasAfectadas == 0)
                     {
@@ -328,7 +328,7 @@ namespace _456VG_DAL
                 resultado.resultado = true;
                 resultado.entidad = true;
                 resultado.mensaje = "Contraseña actualizada correctamente.";
-                db.Desconectar();
+                db.Desconectar456VG();
                 return resultado;
             }
             catch (Exception ex)
@@ -336,16 +336,16 @@ namespace _456VG_DAL
                 resultado.resultado = false;
                 resultado.entidad = false;
                 resultado.mensaje = ex.Message;
-                db.Desconectar();
+                db.Desconectar456VG();
                 return resultado;
             }
         }
-        public Resultado_456VG<BEUsuario_456VG> desbloquearUsuario(string dni)
+        public Resultado_456VG<BEUsuario_456VG> desbloquearUsuario456VG(string dni)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             try
             {
-                bool conectado = db.Conectar();
+                bool conectado = db.Conectar456VG();
                 if (!conectado) throw new Exception("Error al conectar con la base de datos.");
                 string query = "USE EnviosYA; UPDATE Usuario SET bloqueado = 0 WHERE dni = @DNI";
                 using (SqlCommand cmd = new SqlCommand(query, db.Connection))
@@ -357,13 +357,13 @@ namespace _456VG_DAL
                         throw new Exception("No se encontró un usuario con ese DNI.");
                     }
                 }
-                db.Desconectar();
+                db.Desconectar456VG();
                 resultado.resultado = true;
                 resultado.mensaje = "Usuario desbloqueado correctamente.";
             }
             catch (Exception ex)
             {
-                db.Desconectar();
+                db.Desconectar456VG();
                 resultado.resultado = false;
                 resultado.mensaje = ex.Message;
             }

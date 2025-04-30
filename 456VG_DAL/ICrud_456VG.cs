@@ -9,9 +9,9 @@ namespace _456VG_DAL
 {
     public interface ICrud_456VG<T>
     {
-        List<T> leerEntidades();
-        Resultado_456VG<T> crearEntidad(T obj);
-        Resultado_456VG<T> eliminarEntidad(T obj);
-        Resultado_456VG<T> actualizarEntidad(T obj);
+        List<T> leerEntidades456VG();
+        Resultado_456VG<T> crearEntidad456VG(T obj);
+        Resultado_456VG<T> eliminarEntidad456VG(T obj);
+        Resultado_456VG<T> actualizarEntidad456VG(T obj);
     }
 }
