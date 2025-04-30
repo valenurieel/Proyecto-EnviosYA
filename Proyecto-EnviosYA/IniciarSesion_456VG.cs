@@ -20,12 +20,12 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
         }
-        private void label()
+        private void label456VG()
         {
             MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
             if (menu != null)
             {
-                menu.bienvenido();
+                menu.bienvenido456VG();
             }
         }
         BLLUsuario_456VG BLLUsuario = new BLLUsuario_456VG();
@@ -33,71 +33,71 @@ namespace Proyecto_EnviosYA
         {
 
         }
-        private int intentosFallidos = 0;
-        private BEUsuario_456VG usuarioActual = null;
+        private int intentosFallidos456VG = 0;
+        private BEUsuario_456VG usuarioActual456VG = null;
         private void btningresar_Click(object sender, EventArgs e)
         {
-            if (txtdni.Text == string.Empty || txtcontraseña.Text == string.Empty)
+            if (txtdni456VG.Text == string.Empty || txtcontraseña456VG.Text == string.Empty)
             {
                 MessageBox.Show("Complete los campos");
                 return;
             }
-            if (SessionManager_456VG.ObtenerInstancia().Usuario != null)
+            if (SessionManager_456VG.ObtenerInstancia456VG().Usuario != null)
             {
                 MessageBox.Show("Ya hay una sesión activa.");
                 return;
             }
-            Resultado_456VG<BEUsuario_456VG> resultUsuario = BLLUsuario.recuperarUsuarioPorDNI(txtdni.Text.Trim());
+            Resultado_456VG<BEUsuario_456VG> resultUsuario = BLLUsuario.recuperarUsuarioPorDNI456VG(txtdni456VG.Text.Trim());
             if (!resultUsuario.resultado || resultUsuario.entidad == null)
             {
                 MessageBox.Show("El DNI ingresado no es correcto o no existe.");
                 return;
             }
-            usuarioActual = resultUsuario.entidad;
+            usuarioActual456VG = resultUsuario.entidad;
 
-            if (usuarioActual.Bloqueado)
+            if (usuarioActual456VG.Bloqueado456VG)
             {
                 MessageBox.Show("El usuario está bloqueado. Contacte a un administrador.");
                 return;
             }
             HashSHA256_456VG hasheador = new HashSHA256_456VG();
-            bool contraseñaCorrecta = hasheador.VerificarPassword(
-                txtcontraseña.Text.Trim(),    
-                usuarioActual.Contraseña,     
-                usuarioActual.Salt    
+            bool contraseñaCorrecta = hasheador.VerificarPassword456VG(
+                txtcontraseña456VG.Text.Trim(),
+                usuarioActual456VG.Contraseña456VG,
+                usuarioActual456VG.Salt456VG
             );
             if (!contraseñaCorrecta)
             {
-                intentosFallidos++;
+                intentosFallidos456VG++;
                 MessageBox.Show("La contraseña es incorrecta.");
-                if (intentosFallidos == 2)
+                if (intentosFallidos456VG == 2)
                 {
                     MessageBox.Show("Atención: Te queda una última oportunidad para ingresar la contraseña correcta.");
                 }
-                if (intentosFallidos >= 3)
+                if (intentosFallidos456VG >= 3)
                 {
-                    usuarioActual.Bloqueado = true;
-                    BLLUsuario.bloquearUsuario(usuarioActual);
+                    usuarioActual456VG.Bloqueado456VG = true;
+                    BLLUsuario.bloquearUsuario456VG(usuarioActual456VG);
                     MessageBox.Show("Usuario bloqueado por superar los intentos fallidos.");
                     this.Close();
                 }
                 return;
             }
-            SessionManager_456VG.ObtenerInstancia().IniciarSesion(usuarioActual);
+            SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioActual456VG);
             MessageBox.Show("Sesión iniciada correctamente");
-            label();
+            label456VG();
             this.Hide();
         }
 
         private void checkVer_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkVer.Checked)
+            if (checkVer456VG.Checked)
             {
-                txtcontraseña.PasswordChar = '\0';
+                txtcontraseña456VG.PasswordChar = '\0';
             }
             else
             {
-                txtcontraseña.PasswordChar = '*';
+                txtcontraseña456VG.PasswordChar = '*';
             }
         }
     }

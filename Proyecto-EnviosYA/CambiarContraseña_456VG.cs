@@ -33,32 +33,32 @@ namespace Proyecto_EnviosYA
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtContraAct.Text) ||
-                string.IsNullOrWhiteSpace(txtContraNew.Text) ||
-                string.IsNullOrWhiteSpace(txtContraConfirm.Text))
+            if (string.IsNullOrWhiteSpace(txtContraAct456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtContraNew456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtContraConfirm456VG.Text))
             {
                 MessageBox.Show("Complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            bool contraseñaCorrecta = hash.VerificarPassword(txtContraAct.Text, user.Contraseña, user.Salt);
+            bool contraseñaCorrecta = hash.VerificarPassword(txtContraAct456VG.Text, user.Contraseña, user.Salt);
             if (!contraseñaCorrecta)
             {
                 MessageBox.Show("La contraseña actual ingresada no es correcta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (txtContraAct.Text == txtContraNew.Text)
+            if (txtContraAct456VG.Text == txtContraNew456VG.Text)
             {
                 MessageBox.Show("La nueva contraseña no puede ser la contraseña actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (txtContraNew.Text != txtContraConfirm.Text)
+            if (txtContraNew456VG.Text != txtContraConfirm456VG.Text)
             {
                 MessageBox.Show("Las nuevas contraseñas no coinciden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                var resultado = BLLUser.cambiarContraseña(user, txtContraNew.Text);
+                var resultado = BLLUser.cambiarContraseña(user, txtContraNew456VG.Text);
                 if (resultado.resultado)
                 {
                     MessageBox.Show("Su contraseña ha sido cambiada correctamente.\nPor favor, vuelva a iniciar sesión con su nueva contraseña.",

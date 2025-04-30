@@ -19,26 +19,26 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
             BasedeDatos_456VG bd = new BasedeDatos_456VG();
-            bd.scriptInicio();
+            bd.scriptInicio456VG();
         }
         public void chau()
         {
-            if (SessionManager_456VG.ObtenerInstancia().Usuario == null)
+            if (SessionManager_456VG.ObtenerInstancia456VG().Usuario == null)
             {
-                lblBienvenido.Text = "¡Bienvenido!";
+                lblBienvenido456VG.Text = "¡Bienvenido!";
             }
         }
-        public void bienvenido()
+        public void bienvenido456VG()
         {
-            BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia().Usuario;
+            BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia456VG().Usuario;
             if (usuarioLogueado != null)
             {
-                lblBienvenido.Text = "¡Bienvenido " + usuarioLogueado.Nombre + " " + usuarioLogueado.Apellido + "!";
+                lblBienvenido456VG.Text = "¡Bienvenido " + usuarioLogueado.Nombre456VG + " " + usuarioLogueado.Apellido456VG + "!";
             }
         }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
         {
-            bienvenido();
+            bienvenido456VG();
         }
 
         private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)

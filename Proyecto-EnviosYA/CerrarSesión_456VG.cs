@@ -17,7 +17,7 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
         }
-        private void label()
+        private void label456VG()
         {
             MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
             if (menu != null)
@@ -27,22 +27,27 @@ namespace Proyecto_EnviosYA
         }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (SessionManager_456VG.ObtenerInstancia().Usuario != null)
+            if (SessionManager_456VG.ObtenerInstancia456VG().Usuario != null)
             {
-                SessionManager_456VG.ObtenerInstancia().CerrarSesion();
+                SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
                 MessageBox.Show("Se ha Cerrado la Sesión Correctamente");
             }
             else
             {
                 MessageBox.Show("No se ha Iniciado Sesión");
             }
-            label();
+            label456VG();
             this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CerrarSesión_456VG_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -28,104 +28,104 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtContraAct = new System.Windows.Forms.TextBox();
-            this.txtContraNew = new System.Windows.Forms.TextBox();
-            this.txtContraConfirm = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
+            this.txtContraAct456VG = new System.Windows.Forms.TextBox();
+            this.txtContraNew456VG = new System.Windows.Forms.TextBox();
+            this.txtContraConfirm456VG = new System.Windows.Forms.TextBox();
+            this.label2456VG = new System.Windows.Forms.Label();
+            this.label3456VG = new System.Windows.Forms.Label();
+            this.label4456VG = new System.Windows.Forms.Label();
+            this.label5456VG = new System.Windows.Forms.Label();
+            this.button1456VG = new System.Windows.Forms.Button();
+            this.btnCancelar456VG = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // txtContraAct
+            // txtContraAct456VG
             // 
-            this.txtContraAct.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraAct.Location = new System.Drawing.Point(331, 201);
-            this.txtContraAct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtContraAct.Name = "txtContraAct";
-            this.txtContraAct.Size = new System.Drawing.Size(134, 24);
-            this.txtContraAct.TabIndex = 1;
+            this.txtContraAct456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContraAct456VG.Location = new System.Drawing.Point(331, 201);
+            this.txtContraAct456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtContraAct456VG.Name = "txtContraAct456VG";
+            this.txtContraAct456VG.Size = new System.Drawing.Size(134, 24);
+            this.txtContraAct456VG.TabIndex = 1;
             // 
-            // txtContraNew
+            // txtContraNew456VG
             // 
-            this.txtContraNew.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraNew.Location = new System.Drawing.Point(208, 291);
-            this.txtContraNew.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtContraNew.Name = "txtContraNew";
-            this.txtContraNew.Size = new System.Drawing.Size(134, 24);
-            this.txtContraNew.TabIndex = 2;
+            this.txtContraNew456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContraNew456VG.Location = new System.Drawing.Point(208, 291);
+            this.txtContraNew456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtContraNew456VG.Name = "txtContraNew456VG";
+            this.txtContraNew456VG.Size = new System.Drawing.Size(134, 24);
+            this.txtContraNew456VG.TabIndex = 2;
             // 
-            // txtContraConfirm
+            // txtContraConfirm456VG
             // 
-            this.txtContraConfirm.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraConfirm.Location = new System.Drawing.Point(462, 291);
-            this.txtContraConfirm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtContraConfirm.Name = "txtContraConfirm";
-            this.txtContraConfirm.Size = new System.Drawing.Size(134, 24);
-            this.txtContraConfirm.TabIndex = 3;
+            this.txtContraConfirm456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContraConfirm456VG.Location = new System.Drawing.Point(462, 291);
+            this.txtContraConfirm456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtContraConfirm456VG.Name = "txtContraConfirm456VG";
+            this.txtContraConfirm456VG.Size = new System.Drawing.Size(134, 24);
+            this.txtContraConfirm456VG.TabIndex = 3;
             // 
-            // label2
+            // label2456VG
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(328, 182);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 17);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Contraseña:";
+            this.label2456VG.AutoSize = true;
+            this.label2456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2456VG.Location = new System.Drawing.Point(328, 182);
+            this.label2456VG.Name = "label2456VG";
+            this.label2456VG.Size = new System.Drawing.Size(76, 17);
+            this.label2456VG.TabIndex = 5;
+            this.label2456VG.Text = "Contraseña:";
             // 
-            // label3
+            // label3456VG
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(207, 273);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 17);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Nueva Contraseña:";
+            this.label3456VG.AutoSize = true;
+            this.label3456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3456VG.Location = new System.Drawing.Point(207, 273);
+            this.label3456VG.Name = "label3456VG";
+            this.label3456VG.Size = new System.Drawing.Size(115, 17);
+            this.label3456VG.TabIndex = 6;
+            this.label3456VG.Text = "Nueva Contraseña:";
             // 
-            // label4
+            // label4456VG
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(459, 273);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 17);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Confirmar Contraseña:";
+            this.label4456VG.AutoSize = true;
+            this.label4456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4456VG.Location = new System.Drawing.Point(459, 273);
+            this.label4456VG.Name = "label4456VG";
+            this.label4456VG.Size = new System.Drawing.Size(136, 17);
+            this.label4456VG.TabIndex = 7;
+            this.label4456VG.Text = "Confirmar Contraseña:";
             // 
-            // label5
+            // label5456VG
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Open Sans SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(276, 82);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(252, 33);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Cambiar Contraseña";
+            this.label5456VG.AutoSize = true;
+            this.label5456VG.Font = new System.Drawing.Font("Open Sans SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5456VG.Location = new System.Drawing.Point(276, 82);
+            this.label5456VG.Name = "label5456VG";
+            this.label5456VG.Size = new System.Drawing.Size(252, 33);
+            this.label5456VG.TabIndex = 8;
+            this.label5456VG.Text = "Cambiar Contraseña";
             // 
-            // button1
+            // button1456VG
             // 
-            this.button1.Location = new System.Drawing.Point(342, 374);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 41);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1456VG.Location = new System.Drawing.Point(342, 374);
+            this.button1456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1456VG.Name = "button1456VG";
+            this.button1456VG.Size = new System.Drawing.Size(113, 41);
+            this.button1456VG.TabIndex = 9;
+            this.button1456VG.Text = "Aceptar";
+            this.button1456VG.UseVisualStyleBackColor = true;
+            this.button1456VG.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnCancelar
+            // btnCancelar456VG
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(675, 460);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(74, 33);
-            this.btnCancelar.TabIndex = 10;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar456VG.Location = new System.Drawing.Point(675, 460);
+            this.btnCancelar456VG.Name = "btnCancelar456VG";
+            this.btnCancelar456VG.Size = new System.Drawing.Size(74, 33);
+            this.btnCancelar456VG.TabIndex = 10;
+            this.btnCancelar456VG.Text = "Cancelar";
+            this.btnCancelar456VG.UseVisualStyleBackColor = true;
+            this.btnCancelar456VG.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // CambiarContraseña_456VG
             // 
@@ -133,15 +133,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(800, 519);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtContraConfirm);
-            this.Controls.Add(this.txtContraNew);
-            this.Controls.Add(this.txtContraAct);
+            this.Controls.Add(this.btnCancelar456VG);
+            this.Controls.Add(this.button1456VG);
+            this.Controls.Add(this.label5456VG);
+            this.Controls.Add(this.label4456VG);
+            this.Controls.Add(this.label3456VG);
+            this.Controls.Add(this.label2456VG);
+            this.Controls.Add(this.txtContraConfirm456VG);
+            this.Controls.Add(this.txtContraNew456VG);
+            this.Controls.Add(this.txtContraAct456VG);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "CambiarContraseña_456VG";
@@ -153,14 +153,14 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtContraAct;
-        private System.Windows.Forms.TextBox txtContraNew;
-        private System.Windows.Forms.TextBox txtContraConfirm;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.TextBox txtContraAct456VG;
+        private System.Windows.Forms.TextBox txtContraNew456VG;
+        private System.Windows.Forms.TextBox txtContraConfirm456VG;
+        private System.Windows.Forms.Label label2456VG;
+        private System.Windows.Forms.Label label3456VG;
+        private System.Windows.Forms.Label label4456VG;
+        private System.Windows.Forms.Label label5456VG;
+        private System.Windows.Forms.Button button1456VG;
+        private System.Windows.Forms.Button btnCancelar456VG;
     }
 }

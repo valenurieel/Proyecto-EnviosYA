@@ -13,7 +13,7 @@ namespace _456VG_Servicios
         private static BEUsuario_456VG _user = null;
         private static bool inicióSesion = false;
         private SessionManager_456VG() { }
-        public static SessionManager_456VG ObtenerInstancia()
+        public static SessionManager_456VG ObtenerInstancia456VG()
         {
             if (Instancia == null)
             {
@@ -21,7 +21,7 @@ namespace _456VG_Servicios
             }
             return Instancia;
         }
-        public void IniciarSesion(BEUsuario_456VG userNuevo)
+        public void IniciarSesion456VG(BEUsuario_456VG userNuevo)
         {
             if (Instancia != null)
             {
@@ -30,11 +30,11 @@ namespace _456VG_Servicios
                 return;
             }
         }
-        public static bool verificarInicioSesion()
+        public static bool verificarInicioSesion456VG()
         {
             return inicióSesion;
         }
-        public void CerrarSesion()
+        public void CerrarSesion456VG()
         {
             if (Instancia != null)
             {
@@ -46,7 +46,7 @@ namespace _456VG_Servicios
         {
             get { return _user; }
         }
-        public static BEUsuario_456VG Obtenerdatosuser()
+        public static BEUsuario_456VG Obtenerdatosuser456VG()
         {
             return _user;
         }

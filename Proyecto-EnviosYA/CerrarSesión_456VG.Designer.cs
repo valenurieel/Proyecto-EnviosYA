@@ -28,40 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
+            this.label1456VG = new System.Windows.Forms.Label();
+            this.btnAceptar456VG = new System.Windows.Forms.Button();
+            this.btnCancelar456VG = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // label1456VG
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(178, 112);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(378, 33);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "¿Estas seguro de Cerrar Sesión?";
+            this.label1456VG.AutoSize = true;
+            this.label1456VG.Font = new System.Drawing.Font("Open Sans SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1456VG.Location = new System.Drawing.Point(178, 112);
+            this.label1456VG.Name = "label1456VG";
+            this.label1456VG.Size = new System.Drawing.Size(378, 33);
+            this.label1456VG.TabIndex = 0;
+            this.label1456VG.Text = "¿Estas seguro de Cerrar Sesión?";
             // 
-            // btnAceptar
+            // btnAceptar456VG
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(184, 258);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(118, 45);
-            this.btnAceptar.TabIndex = 1;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.btnAceptar456VG.Location = new System.Drawing.Point(184, 258);
+            this.btnAceptar456VG.Name = "btnAceptar456VG";
+            this.btnAceptar456VG.Size = new System.Drawing.Size(118, 45);
+            this.btnAceptar456VG.TabIndex = 1;
+            this.btnAceptar456VG.Text = "Aceptar";
+            this.btnAceptar456VG.UseVisualStyleBackColor = true;
+            this.btnAceptar456VG.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnCancelar
+            // btnCancelar456VG
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(438, 258);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(118, 45);
-            this.btnCancelar.TabIndex = 2;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar456VG.Location = new System.Drawing.Point(438, 258);
+            this.btnCancelar456VG.Name = "btnCancelar456VG";
+            this.btnCancelar456VG.Size = new System.Drawing.Size(118, 45);
+            this.btnCancelar456VG.TabIndex = 2;
+            this.btnCancelar456VG.Text = "Cancelar";
+            this.btnCancelar456VG.UseVisualStyleBackColor = true;
+            this.btnCancelar456VG.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // CerrarSesión_456VG
             // 
@@ -69,13 +69,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(748, 448);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCancelar456VG);
+            this.Controls.Add(this.btnAceptar456VG);
+            this.Controls.Add(this.label1456VG);
             this.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "CerrarSesión_456VG";
             this.Text = "Cerrar Sesión";
+            this.Load += new System.EventHandler(this.CerrarSesión_456VG_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,8 +84,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label label1456VG;
+        private System.Windows.Forms.Button btnAceptar456VG;
+        private System.Windows.Forms.Button btnCancelar456VG;
     }
 }

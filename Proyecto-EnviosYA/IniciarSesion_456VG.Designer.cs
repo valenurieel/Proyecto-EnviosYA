@@ -29,117 +29,117 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IniciarSesion_456VG));
-            this.checkVer = new System.Windows.Forms.CheckBox();
-            this.btningresar = new System.Windows.Forms.Button();
-            this.lblcambiaridioma = new System.Windows.Forms.Label();
-            this.cmbcambiaridioma = new System.Windows.Forms.ComboBox();
-            this.lblcontraseña = new System.Windows.Forms.Label();
-            this.lbldni = new System.Windows.Forms.Label();
-            this.txtcontraseña = new System.Windows.Forms.TextBox();
-            this.txtdni = new System.Windows.Forms.TextBox();
-            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
+            this.checkVer456VG = new System.Windows.Forms.CheckBox();
+            this.btningresar456VG = new System.Windows.Forms.Button();
+            this.lblcambiaridioma456VG = new System.Windows.Forms.Label();
+            this.cmbcambiaridioma456VG = new System.Windows.Forms.ComboBox();
+            this.lblcontraseña456VG = new System.Windows.Forms.Label();
+            this.lbldni456VG = new System.Windows.Forms.Label();
+            this.txtcontraseña456VG = new System.Windows.Forms.TextBox();
+            this.txtdni456VG = new System.Windows.Forms.TextBox();
+            this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
             // 
-            // checkVer
+            // checkVer456VG
             // 
-            this.checkVer.AutoSize = true;
-            this.checkVer.Location = new System.Drawing.Point(512, 330);
-            this.checkVer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkVer.Name = "checkVer";
-            this.checkVer.Size = new System.Drawing.Size(43, 19);
-            this.checkVer.TabIndex = 23;
-            this.checkVer.Text = "Ver";
-            this.checkVer.UseVisualStyleBackColor = true;
-            this.checkVer.CheckedChanged += new System.EventHandler(this.checkVer_CheckedChanged);
+            this.checkVer456VG.AutoSize = true;
+            this.checkVer456VG.Location = new System.Drawing.Point(512, 330);
+            this.checkVer456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkVer456VG.Name = "checkVer456VG";
+            this.checkVer456VG.Size = new System.Drawing.Size(43, 19);
+            this.checkVer456VG.TabIndex = 23;
+            this.checkVer456VG.Text = "Ver";
+            this.checkVer456VG.UseVisualStyleBackColor = true;
+            this.checkVer456VG.CheckedChanged += new System.EventHandler(this.checkVer_CheckedChanged);
             // 
-            // btningresar
+            // btningresar456VG
             // 
-            this.btningresar.Location = new System.Drawing.Point(369, 375);
-            this.btningresar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btningresar.Name = "btningresar";
-            this.btningresar.Size = new System.Drawing.Size(104, 38);
-            this.btningresar.TabIndex = 2;
-            this.btningresar.Text = "Ingresar";
-            this.btningresar.UseVisualStyleBackColor = true;
-            this.btningresar.Click += new System.EventHandler(this.btningresar_Click);
+            this.btningresar456VG.Location = new System.Drawing.Point(369, 375);
+            this.btningresar456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btningresar456VG.Name = "btningresar456VG";
+            this.btningresar456VG.Size = new System.Drawing.Size(104, 38);
+            this.btningresar456VG.TabIndex = 2;
+            this.btningresar456VG.Text = "Ingresar";
+            this.btningresar456VG.UseVisualStyleBackColor = true;
+            this.btningresar456VG.Click += new System.EventHandler(this.btningresar_Click);
             // 
-            // lblcambiaridioma
+            // lblcambiaridioma456VG
             // 
-            this.lblcambiaridioma.AutoSize = true;
-            this.lblcambiaridioma.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcambiaridioma.Location = new System.Drawing.Point(729, 43);
-            this.lblcambiaridioma.Name = "lblcambiaridioma";
-            this.lblcambiaridioma.Size = new System.Drawing.Size(100, 17);
-            this.lblcambiaridioma.TabIndex = 20;
-            this.lblcambiaridioma.Text = "Cambiar Idioma:";
+            this.lblcambiaridioma456VG.AutoSize = true;
+            this.lblcambiaridioma456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblcambiaridioma456VG.Location = new System.Drawing.Point(729, 43);
+            this.lblcambiaridioma456VG.Name = "lblcambiaridioma456VG";
+            this.lblcambiaridioma456VG.Size = new System.Drawing.Size(100, 17);
+            this.lblcambiaridioma456VG.TabIndex = 20;
+            this.lblcambiaridioma456VG.Text = "Cambiar Idioma:";
             // 
-            // cmbcambiaridioma
+            // cmbcambiaridioma456VG
             // 
-            this.cmbcambiaridioma.FormattingEnabled = true;
-            this.cmbcambiaridioma.Items.AddRange(new object[] {
+            this.cmbcambiaridioma456VG.FormattingEnabled = true;
+            this.cmbcambiaridioma456VG.Items.AddRange(new object[] {
             "Inglés",
             "Español"});
-            this.cmbcambiaridioma.Location = new System.Drawing.Point(732, 66);
-            this.cmbcambiaridioma.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmbcambiaridioma.Name = "cmbcambiaridioma";
-            this.cmbcambiaridioma.Size = new System.Drawing.Size(121, 23);
-            this.cmbcambiaridioma.TabIndex = 19;
+            this.cmbcambiaridioma456VG.Location = new System.Drawing.Point(732, 66);
+            this.cmbcambiaridioma456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbcambiaridioma456VG.Name = "cmbcambiaridioma456VG";
+            this.cmbcambiaridioma456VG.Size = new System.Drawing.Size(121, 23);
+            this.cmbcambiaridioma456VG.TabIndex = 19;
             // 
-            // lblcontraseña
+            // lblcontraseña456VG
             // 
-            this.lblcontraseña.AutoSize = true;
-            this.lblcontraseña.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcontraseña.Location = new System.Drawing.Point(343, 300);
-            this.lblcontraseña.Name = "lblcontraseña";
-            this.lblcontraseña.Size = new System.Drawing.Size(76, 17);
-            this.lblcontraseña.TabIndex = 18;
-            this.lblcontraseña.Text = "Contraseña:";
+            this.lblcontraseña456VG.AutoSize = true;
+            this.lblcontraseña456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblcontraseña456VG.Location = new System.Drawing.Point(343, 300);
+            this.lblcontraseña456VG.Name = "lblcontraseña456VG";
+            this.lblcontraseña456VG.Size = new System.Drawing.Size(76, 17);
+            this.lblcontraseña456VG.TabIndex = 18;
+            this.lblcontraseña456VG.Text = "Contraseña:";
             // 
-            // lbldni
+            // lbldni456VG
             // 
-            this.lbldni.AutoSize = true;
-            this.lbldni.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldni.Location = new System.Drawing.Point(343, 217);
-            this.lbldni.Name = "lbldni";
-            this.lbldni.Size = new System.Drawing.Size(32, 17);
-            this.lbldni.TabIndex = 17;
-            this.lbldni.Text = "DNI:";
+            this.lbldni456VG.AutoSize = true;
+            this.lbldni456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbldni456VG.Location = new System.Drawing.Point(343, 217);
+            this.lbldni456VG.Name = "lbldni456VG";
+            this.lbldni456VG.Size = new System.Drawing.Size(32, 17);
+            this.lbldni456VG.TabIndex = 17;
+            this.lbldni456VG.Text = "DNI:";
             // 
-            // txtcontraseña
+            // txtcontraseña456VG
             // 
-            this.txtcontraseña.Location = new System.Drawing.Point(346, 323);
-            this.txtcontraseña.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtcontraseña.Multiline = true;
-            this.txtcontraseña.Name = "txtcontraseña";
-            this.txtcontraseña.PasswordChar = '*';
-            this.txtcontraseña.Size = new System.Drawing.Size(149, 31);
-            this.txtcontraseña.TabIndex = 1;
+            this.txtcontraseña456VG.Location = new System.Drawing.Point(346, 323);
+            this.txtcontraseña456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtcontraseña456VG.Multiline = true;
+            this.txtcontraseña456VG.Name = "txtcontraseña456VG";
+            this.txtcontraseña456VG.PasswordChar = '*';
+            this.txtcontraseña456VG.Size = new System.Drawing.Size(149, 31);
+            this.txtcontraseña456VG.TabIndex = 1;
             // 
-            // txtdni
+            // txtdni456VG
             // 
-            this.txtdni.Location = new System.Drawing.Point(346, 240);
-            this.txtdni.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtdni.Multiline = true;
-            this.txtdni.Name = "txtdni";
-            this.txtdni.Size = new System.Drawing.Size(149, 31);
-            this.txtdni.TabIndex = 0;
+            this.txtdni456VG.Location = new System.Drawing.Point(346, 240);
+            this.txtdni456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtdni456VG.Multiline = true;
+            this.txtdni456VG.Name = "txtdni456VG";
+            this.txtdni456VG.Size = new System.Drawing.Size(149, 31);
+            this.txtdni456VG.TabIndex = 0;
             // 
-            // iconPictureBox1
+            // iconPictureBox1456VG
             // 
-            this.iconPictureBox1.BackColor = System.Drawing.Color.LightCoral;
-            this.iconPictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconPictureBox1.BackgroundImage")));
-            this.iconPictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.iconPictureBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconPictureBox1.IconColor = System.Drawing.SystemColors.ControlText;
-            this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconPictureBox1.IconSize = 96;
-            this.iconPictureBox1.Location = new System.Drawing.Point(274, 87);
-            this.iconPictureBox1.Name = "iconPictureBox1";
-            this.iconPictureBox1.Size = new System.Drawing.Size(313, 96);
-            this.iconPictureBox1.TabIndex = 24;
-            this.iconPictureBox1.TabStop = false;
+            this.iconPictureBox1456VG.BackColor = System.Drawing.Color.LightCoral;
+            this.iconPictureBox1456VG.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconPictureBox1456VG.BackgroundImage")));
+            this.iconPictureBox1456VG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.iconPictureBox1456VG.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.iconPictureBox1456VG.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.iconPictureBox1456VG.IconColor = System.Drawing.SystemColors.ControlText;
+            this.iconPictureBox1456VG.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconPictureBox1456VG.IconSize = 96;
+            this.iconPictureBox1456VG.Location = new System.Drawing.Point(274, 87);
+            this.iconPictureBox1456VG.Name = "iconPictureBox1456VG";
+            this.iconPictureBox1456VG.Size = new System.Drawing.Size(313, 96);
+            this.iconPictureBox1456VG.TabIndex = 24;
+            this.iconPictureBox1456VG.TabStop = false;
             // 
             // IniciarSesion_456VG
             // 
@@ -147,21 +147,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(902, 562);
-            this.Controls.Add(this.iconPictureBox1);
-            this.Controls.Add(this.checkVer);
-            this.Controls.Add(this.btningresar);
-            this.Controls.Add(this.lblcambiaridioma);
-            this.Controls.Add(this.cmbcambiaridioma);
-            this.Controls.Add(this.lblcontraseña);
-            this.Controls.Add(this.lbldni);
-            this.Controls.Add(this.txtcontraseña);
-            this.Controls.Add(this.txtdni);
+            this.Controls.Add(this.iconPictureBox1456VG);
+            this.Controls.Add(this.checkVer456VG);
+            this.Controls.Add(this.btningresar456VG);
+            this.Controls.Add(this.lblcambiaridioma456VG);
+            this.Controls.Add(this.cmbcambiaridioma456VG);
+            this.Controls.Add(this.lblcontraseña456VG);
+            this.Controls.Add(this.lbldni456VG);
+            this.Controls.Add(this.txtcontraseña456VG);
+            this.Controls.Add(this.txtdni456VG);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "IniciarSesion_456VG";
             this.Text = "Iniciar Sesion";
             this.Load += new System.EventHandler(this.IniciarSesion_456VG_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,14 +169,14 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox checkVer;
-        private System.Windows.Forms.Button btningresar;
-        private System.Windows.Forms.Label lblcambiaridioma;
-        private System.Windows.Forms.ComboBox cmbcambiaridioma;
-        private System.Windows.Forms.Label lblcontraseña;
-        private System.Windows.Forms.Label lbldni;
-        private System.Windows.Forms.TextBox txtcontraseña;
-        private System.Windows.Forms.TextBox txtdni;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private System.Windows.Forms.CheckBox checkVer456VG;
+        private System.Windows.Forms.Button btningresar456VG;
+        private System.Windows.Forms.Label lblcambiaridioma456VG;
+        private System.Windows.Forms.ComboBox cmbcambiaridioma456VG;
+        private System.Windows.Forms.Label lblcontraseña456VG;
+        private System.Windows.Forms.Label lbldni456VG;
+        private System.Windows.Forms.TextBox txtcontraseña456VG;
+        private System.Windows.Forms.TextBox txtdni456VG;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1456VG;
     }
 }
