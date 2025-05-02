@@ -54,10 +54,14 @@ namespace Proyecto_EnviosYA
                 return;
             }
             usuarioActual456VG = resultUsuario.entidad;
-
             if (usuarioActual456VG.Bloqueado456VG)
             {
-                MessageBox.Show("El usuario está bloqueado. Contacte a un administrador.");
+                MessageBox.Show("El usuario está Bloqueado. Contacte a un administrador.");
+                return;
+            }
+            if (!usuarioActual456VG.Activo456VG)
+            {
+                MessageBox.Show("El usuario está Desactivado. Contacte a un administrador.");
                 return;
             }
             HashSHA256_456VG hasheador = new HashSHA256_456VG();
@@ -88,7 +92,6 @@ namespace Proyecto_EnviosYA
             label456VG();
             this.Hide();
         }
-
         private void checkVer_CheckedChanged(object sender, EventArgs e)
         {
             if (checkVer456VG.Checked)

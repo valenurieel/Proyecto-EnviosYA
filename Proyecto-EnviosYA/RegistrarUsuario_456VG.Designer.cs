@@ -52,14 +52,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.rdbutonSI456VG = new System.Windows.Forms.RadioButton();
-            this.rdbutonNO456VG = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.label13456VG = new System.Windows.Forms.Label();
             this.cmbrol456VG = new System.Windows.Forms.ComboBox();
             this.btnElim456VG = new System.Windows.Forms.Button();
             this.btnVolver456VG = new System.Windows.Forms.Button();
+            this.btnActivoDesac = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,6 +68,7 @@
             this.dataGridView1456VG.Name = "dataGridView1456VG";
             this.dataGridView1456VG.Size = new System.Drawing.Size(1045, 234);
             this.dataGridView1456VG.TabIndex = 0;
+            this.dataGridView1456VG.SelectionChanged += new System.EventHandler(this.dataGridView1456VG_SelectionChanged);
             // 
             // btnAñadir456VG
             // 
@@ -87,7 +86,7 @@
             // 
             this.btnDesbloq456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDesbloq456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesbloq456VG.Location = new System.Drawing.Point(823, 431);
+            this.btnDesbloq456VG.Location = new System.Drawing.Point(794, 431);
             this.btnDesbloq456VG.Name = "btnDesbloq456VG";
             this.btnDesbloq456VG.Size = new System.Drawing.Size(120, 56);
             this.btnDesbloq456VG.TabIndex = 2;
@@ -123,7 +122,7 @@
             // 
             this.btnCancelar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnCancelar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar456VG.Location = new System.Drawing.Point(823, 518);
+            this.btnCancelar456VG.Location = new System.Drawing.Point(794, 518);
             this.btnCancelar456VG.Name = "btnCancelar456VG";
             this.btnCancelar456VG.Size = new System.Drawing.Size(120, 56);
             this.btnCancelar456VG.TabIndex = 6;
@@ -302,40 +301,6 @@
             this.label11.TabIndex = 29;
             this.label11.Text = "Rol:";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(424, 401);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(48, 18);
-            this.label12.TabIndex = 31;
-            this.label12.Text = "Activo:";
-            // 
-            // rdbutonSI456VG
-            // 
-            this.rdbutonSI456VG.AutoSize = true;
-            this.rdbutonSI456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbutonSI456VG.Location = new System.Drawing.Point(428, 422);
-            this.rdbutonSI456VG.Name = "rdbutonSI456VG";
-            this.rdbutonSI456VG.Size = new System.Drawing.Size(36, 22);
-            this.rdbutonSI456VG.TabIndex = 32;
-            this.rdbutonSI456VG.Text = "Si";
-            this.rdbutonSI456VG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbutonSI456VG.UseVisualStyleBackColor = true;
-            // 
-            // rdbutonNO456VG
-            // 
-            this.rdbutonNO456VG.AutoSize = true;
-            this.rdbutonNO456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbutonNO456VG.Location = new System.Drawing.Point(480, 422);
-            this.rdbutonNO456VG.Name = "rdbutonNO456VG";
-            this.rdbutonNO456VG.Size = new System.Drawing.Size(44, 22);
-            this.rdbutonNO456VG.TabIndex = 33;
-            this.rdbutonNO456VG.Text = "No";
-            this.rdbutonNO456VG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbutonNO456VG.UseVisualStyleBackColor = true;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -360,8 +325,9 @@
             // 
             this.cmbrol456VG.FormattingEnabled = true;
             this.cmbrol456VG.Items.AddRange(new object[] {
-            "Cliente ",
-            "Vendedor"});
+            "Administrador",
+            "Empleado Adminstrativo",
+            "Cajero"});
             this.cmbrol456VG.Location = new System.Drawing.Point(251, 571);
             this.cmbrol456VG.Name = "cmbrol456VG";
             this.cmbrol456VG.Size = new System.Drawing.Size(121, 23);
@@ -371,7 +337,7 @@
             // 
             this.btnElim456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnElim456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnElim456VG.Location = new System.Drawing.Point(823, 347);
+            this.btnElim456VG.Location = new System.Drawing.Point(794, 347);
             this.btnElim456VG.Name = "btnElim456VG";
             this.btnElim456VG.Size = new System.Drawing.Size(120, 56);
             this.btnElim456VG.TabIndex = 4;
@@ -391,19 +357,29 @@
             this.btnVolver456VG.UseVisualStyleBackColor = false;
             this.btnVolver456VG.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // btnActivoDesac
+            // 
+            this.btnActivoDesac.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnActivoDesac.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActivoDesac.Location = new System.Drawing.Point(961, 347);
+            this.btnActivoDesac.Name = "btnActivoDesac";
+            this.btnActivoDesac.Size = new System.Drawing.Size(120, 56);
+            this.btnActivoDesac.TabIndex = 37;
+            this.btnActivoDesac.Text = "Activar / Desactivar";
+            this.btnActivoDesac.UseVisualStyleBackColor = false;
+            this.btnActivoDesac.Click += new System.EventHandler(this.button1_Click);
+            // 
             // RegistrarUsuario_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(1162, 612);
+            this.Controls.Add(this.btnActivoDesac);
             this.Controls.Add(this.btnVolver456VG);
             this.Controls.Add(this.cmbrol456VG);
             this.Controls.Add(this.label13456VG);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.rdbutonNO456VG);
-            this.Controls.Add(this.rdbutonSI456VG);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -465,13 +441,11 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.RadioButton rdbutonSI456VG;
-        private System.Windows.Forms.RadioButton rdbutonNO456VG;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label13456VG;
         private System.Windows.Forms.ComboBox cmbrol456VG;
         private System.Windows.Forms.Button btnElim456VG;
         private System.Windows.Forms.Button btnVolver456VG;
+        private System.Windows.Forms.Button btnActivoDesac;
     }
 }

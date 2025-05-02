@@ -50,19 +50,16 @@ namespace _456VG_BE
             this.Bloqueado456VG = Bloqueado;
             this.Activo456VG = Activo;
         }
-        //list Gestión de Usuarios
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Domicilio, string Rol, bool Bloqueado, bool activo)
+        //Modificar button
+        public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio)
         {
-            this.DNI456VG = DNI;
-            this.Nombre456VG = Nombre;
-            this.Apellido456VG = Apellido;
-            this.Email456VG = Email;
-            this.Teléfono456VG = Teléfono;
-            this.NombreUsuario456VG = NombreUsuario;
-            this.Domicilio456VG = Domicilio;
-            this.Rol456VG = Rol;
-            this.Bloqueado456VG = Bloqueado;
-            this.Activo456VG = activo;
+            this.DNI456VG = dni;
+            this.Nombre456VG = nombre;
+            this.Apellido456VG = apellido;
+            this.Email456VG = email;
+            this.Teléfono456VG = telefono;
+            this.NombreUsuario456VG = nombreUsuario;
+            this.Domicilio456VG = domicilio;
         }
     }
 }

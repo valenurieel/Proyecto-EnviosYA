@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _456VG_DAL
 {
@@ -21,7 +23,54 @@ namespace _456VG_DAL
         }
         public Resultado_456VG<BEUsuario_456VG> actualizarEntidad456VG(BEUsuario_456VG obj)
         {
-            throw new NotImplementedException();
+            Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+            string queryUpdateUser = @"
+                    USE EnviosYA;
+                    UPDATE Usuario 
+                    SET 
+                        nombre = @Nombre,
+                        apellido = @Apellido,
+                        email = @Email,
+                        telefono = @Telefono,
+                        nombreusuario = @NombreUsuario,
+                        domicilio = @Domicilio
+                    WHERE dni = @DNI";
+            try
+            {
+                bool result = db.Conectar456VG();
+                if (!result) throw new Exception("Error al conectarse a la base de datos");
+                using (SqlCommand cmd = new SqlCommand(queryUpdateUser, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@Nombre", obj.Nombre456VG);
+                    cmd.Parameters.AddWithValue("@Apellido", obj.Apellido456VG);
+                    cmd.Parameters.AddWithValue("@Email", obj.Email456VG);
+                    cmd.Parameters.AddWithValue("@Telefono", obj.Teléfono456VG);
+                    cmd.Parameters.AddWithValue("@NombreUsuario", obj.NombreUsuario456VG);
+                    cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
+                    cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+                    if (filasAfectadas > 0)
+                    {
+                        resultado.resultado = true;
+                        resultado.mensaje = "Usuario actualizado correctamente.";
+                        resultado.entidad = obj;
+                    }
+                    else
+                    {
+                        resultado.resultado = false;
+                        resultado.mensaje = "No se encontró el usuario con el DNI proporcionado.";
+                        resultado.entidad = null;
+                    }
+                }
+                db.Desconectar456VG();
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = "Error al actualizar usuario: " + ex.Message;
+                resultado.entidad = null;
+            }
+            return resultado;
         }
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
@@ -93,9 +142,90 @@ namespace _456VG_DAL
             }
             return resultado;
         }
+        public Resultado_456VG<BEUsuario_456VG> ActDesacUsuario456(string dni, bool nuevoEstadoActivo)
+        {
+            Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+            string query = "USE EnviosYA; UPDATE Usuario SET Activo = @Activo WHERE DNI = @DNI";
+            try
+            {
+                bool conectado = db.Conectar456VG();
+                if (!conectado) throw new Exception("Error al conectarse a la base de datos");
+                var trans = db.Connection.BeginTransaction();
+                using (SqlCommand comando = new SqlCommand(query, db.Connection, trans))
+                {
+                    comando.Parameters.AddWithValue("@Activo", nuevoEstadoActivo);
+                    comando.Parameters.AddWithValue("@DNI", dni);
+                    int filasAfectadas = comando.ExecuteNonQuery();
+                    if (filasAfectadas > 0)
+                    {
+                        trans.Commit();
+                        resultado.resultado = true;
+                        resultado.mensaje = "Usuario actualizado correctamente.";
+                        resultado.entidad = null;
+                    }
+                    else
+                    {
+                        trans.Rollback();
+                        resultado.resultado = false;
+                        resultado.mensaje = "No se encontró el usuario con ese DNI.";
+                    }
+                }
+                db.Desconectar456VG();
+            }
+            catch (Exception ex)
+            {
+                try { db.Connection?.BeginTransaction()?.Rollback(); } catch { }
+                db.Desconectar456VG();
+                resultado.resultado = false;
+                resultado.mensaje = "Error al actualizar el estado del usuario: " + ex.Message;
+            }
+            return resultado;
+        }
+
         public Resultado_456VG<BEUsuario_456VG> eliminarEntidad456VG(BEUsuario_456VG obj)
         {
-            throw new NotImplementedException();
+            Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+            string queryEliminarHistorialContraseñas = "USE EnviosYA; DELETE FROM HistorialContraseñas WHERE dni = @DNI";
+            string queryEliminarUsuario = "USE EnviosYA; DELETE FROM Usuario WHERE dni = @DNI";
+            try
+            {
+                bool conectado = db.Conectar456VG();
+                if (!conectado) throw new Exception("Error al conectarse a la base de datos");
+                var trans = db.Connection.BeginTransaction();
+                using (SqlCommand comandoHistorial = new SqlCommand(queryEliminarHistorialContraseñas, db.Connection, trans))
+                {
+                    comandoHistorial.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+                    comandoHistorial.ExecuteNonQuery();
+                }
+                using (SqlCommand comandoUsuario = new SqlCommand(queryEliminarUsuario, db.Connection, trans))
+                {
+                    comandoUsuario.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+                    int filasAfectadas = comandoUsuario.ExecuteNonQuery();
+                    if (filasAfectadas > 0)
+                    {
+                        resultado.resultado = true;
+                        resultado.mensaje = "Eliminación exitosa.";
+                        resultado.entidad = obj;
+                    }
+                    else
+                    {
+                        resultado.resultado = false;
+                        resultado.mensaje = "No se encontró el usuario con ese DNI.";
+                        resultado.entidad = null;
+                    }
+                }
+                trans.Commit();
+                db.Desconectar456VG();
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = "Error al eliminar: " + ex.Message;
+                resultado.entidad = null;
+                try { db.Connection?.BeginTransaction()?.Rollback(); } catch { }
+                db.Desconectar456VG();
+            }
+            return resultado;
         }
         public List<BEUsuario_456VG> leerEntidades456VG()
         {
@@ -117,11 +247,13 @@ namespace _456VG_DAL
                             string email = !lector.IsDBNull(lector.GetOrdinal("email")) ? lector.GetString(lector.GetOrdinal("email")) : string.Empty;
                             string tel = !lector.IsDBNull(lector.GetOrdinal("telefono")) ? lector.GetString(lector.GetOrdinal("telefono")) : string.Empty;
                             string nameuser = !lector.IsDBNull(lector.GetOrdinal("nombreusuario")) ? lector.GetString(lector.GetOrdinal("nombreusuario")) : string.Empty;
+                            string contraseña = !lector.IsDBNull(lector.GetOrdinal("contraseña")) ? lector.GetString(lector.GetOrdinal("contraseña")) : string.Empty;
+                            string salt = !lector.IsDBNull(lector.GetOrdinal("salt")) ? lector.GetString(lector.GetOrdinal("salt")) : string.Empty;
                             string dom = !lector.IsDBNull(lector.GetOrdinal("domicilio")) ? lector.GetString(lector.GetOrdinal("domicilio")) : string.Empty;
                             string rol = !lector.IsDBNull(lector.GetOrdinal("rol")) ? lector.GetString(lector.GetOrdinal("rol")) : string.Empty;
                             bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado")) && lector.GetBoolean(lector.GetOrdinal("bloqueado"));
                             bool activo = !lector.IsDBNull(lector.GetOrdinal("activo")) && lector.GetBoolean(lector.GetOrdinal("activo"));
-                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, dom, rol, bloqueado, activo);
+                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, contraseña, salt, dom, rol, bloqueado, activo);
                             list.Add(user);
                         }
                     }
@@ -201,42 +333,49 @@ namespace _456VG_DAL
         public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI456VG(string DNI)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+            List<BEUsuario_456VG> list = new List<BEUsuario_456VG>();
             string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
             try
             {
-                bool result = db.Conectar456VG();
+                bool result = db.Conectar456VG(); 
                 if (!result) throw new Exception("Error al conectarse a la base de datos");
                 using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
                 {
                     command.Parameters.AddWithValue("@DNI", DNI);
                     using (SqlDataReader lector = command.ExecuteReader())
                     {
-                        if (!lector.HasRows)
+                        while (lector.Read())
                         {
-                            throw new Exception("No se encontró un usuario con ese DNI");
-                        }
-                        if (lector.Read())
-                        {
-                            string dni = !lector.IsDBNull(0) ? lector.GetString(0) : "";
-                            string nombre = !lector.IsDBNull(1) ? lector.GetString(1) : "";
-                            string apellido = !lector.IsDBNull(2) ? lector.GetString(2) : "";
-                            string email = !lector.IsDBNull(3) ? lector.GetString(3) : "";
-                            string telefono = !lector.IsDBNull(4) ? lector.GetString(4) : string.Empty;
-                            string nombreusuario = !lector.IsDBNull(5) ? lector.GetString(5) : "";
-                            string contraseñahash = !lector.IsDBNull(6) ? lector.GetString(6) : "";
-                            string saltAlmacenado = !lector.IsDBNull(7) ? lector.GetString(7) : "";
-                            string domicilio = !lector.IsDBNull(8) ? lector.GetString(8) : "";
-                            string rol = !lector.IsDBNull(9) ? lector.GetString(9) : "";
-                            bool bloqueado = !lector.IsDBNull(10) && lector.GetBoolean(10);
-                            bool activo = !lector.IsDBNull(11) && lector.GetBoolean(11);
-                            BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, saltAlmacenado, domicilio, rol, bloqueado, activo);
-                            resultado.resultado = true;
-                            resultado.entidad = usuario;
-                            resultado.mensaje = "Usuario encontrado correctamente";
+                            string dni = !lector.IsDBNull(lector.GetOrdinal("dni")) ? lector.GetString(lector.GetOrdinal("dni")) : string.Empty;
+                            string nombre = !lector.IsDBNull(lector.GetOrdinal("nombre")) ? lector.GetString(lector.GetOrdinal("nombre")) : string.Empty;
+                            string apellido = !lector.IsDBNull(lector.GetOrdinal("apellido")) ? lector.GetString(lector.GetOrdinal("apellido")) : string.Empty;
+                            string email = !lector.IsDBNull(lector.GetOrdinal("email")) ? lector.GetString(lector.GetOrdinal("email")) : string.Empty;
+                            string telefono = !lector.IsDBNull(lector.GetOrdinal("telefono")) ? lector.GetString(lector.GetOrdinal("telefono")) : string.Empty;
+                            string nombreusuario = !lector.IsDBNull(lector.GetOrdinal("nombreusuario")) ? lector.GetString(lector.GetOrdinal("nombreusuario")) : string.Empty;
+                            string contraseñahash = !lector.IsDBNull(lector.GetOrdinal("contraseña")) ? lector.GetString(lector.GetOrdinal("contraseña")) : string.Empty;
+                            string salt = !lector.IsDBNull(lector.GetOrdinal("salt")) ? lector.GetString(lector.GetOrdinal("salt")) : string.Empty;
+                            string domicilio = !lector.IsDBNull(lector.GetOrdinal("domicilio")) ? lector.GetString(lector.GetOrdinal("domicilio")) : string.Empty;
+                            string rol = !lector.IsDBNull(lector.GetOrdinal("rol")) ? lector.GetString(lector.GetOrdinal("rol")) : string.Empty;
+                            bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado")) && lector.GetBoolean(lector.GetOrdinal("bloqueado"));
+                            bool activo = !lector.IsDBNull(lector.GetOrdinal("activo")) && lector.GetBoolean(lector.GetOrdinal("activo"));
+                            BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, salt, domicilio, rol, bloqueado, activo);
+                            list.Add(usuario);
                         }
                     }
                 }
                 db.Desconectar456VG();
+                if (list.Count > 0)
+                {
+                    resultado.resultado = true;
+                    resultado.entidad = list[0];
+                    resultado.mensaje = "Usuario encontrado correctamente";
+                }
+                else
+                {
+                    resultado.resultado = false;
+                    resultado.mensaje = "No se encontró un usuario con ese DNI";
+                    resultado.entidad = null;
+                }
                 return resultado;
             }
             catch (Exception ex)

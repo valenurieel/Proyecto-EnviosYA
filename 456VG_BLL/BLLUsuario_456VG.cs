@@ -52,5 +52,9 @@ namespace _456VG_BLL
         {
             return dal.desbloquearUsuario456VG(DNI);
         }
+        public Resultado_456VG<BEUsuario_456VG> ActDesacUsuario456(string dni, bool nuevoEstadoActivo)
+        {
+            return dal.ActDesacUsuario456(dni, nuevoEstadoActivo);
+        }
     }
 }

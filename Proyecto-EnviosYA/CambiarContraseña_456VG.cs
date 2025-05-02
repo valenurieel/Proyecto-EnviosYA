@@ -17,7 +17,7 @@ namespace Proyecto_EnviosYA
     public partial class CambiarContraseña_456VG : Form
     {
         BLLUsuario_456VG BLLUser = new BLLUsuario_456VG();
-        BEUsuario_456VG user = SessionManager_456VG.Obtenerdatosuser();
+        BEUsuario_456VG user = SessionManager_456VG.Obtenerdatosuser456VG();
         HashSHA256_456VG hash = new HashSHA256_456VG();
         public CambiarContraseña_456VG()
         {
@@ -40,7 +40,7 @@ namespace Proyecto_EnviosYA
                 MessageBox.Show("Complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            bool contraseñaCorrecta = hash.VerificarPassword(txtContraAct456VG.Text, user.Contraseña, user.Salt);
+            bool contraseñaCorrecta = hash.VerificarPassword456VG(txtContraAct456VG.Text, user.Contraseña456VG, user.Salt456VG);
             if (!contraseñaCorrecta)
             {
                 MessageBox.Show("La contraseña actual ingresada no es correcta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -58,12 +58,12 @@ namespace Proyecto_EnviosYA
             }
             try
             {
-                var resultado = BLLUser.cambiarContraseña(user, txtContraNew456VG.Text);
+                var resultado = BLLUser.cambiarContraseña456VG(user, txtContraNew456VG.Text);
                 if (resultado.resultado)
                 {
                     MessageBox.Show("Su contraseña ha sido cambiada correctamente.\nPor favor, vuelva a iniciar sesión con su nueva contraseña.",
                                     "Cambio exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    SessionManager_456VG.ObtenerInstancia().CerrarSesion();
+                    SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
                     IniciarSesion_456VG frm = new IniciarSesion_456VG();
                     frm.Show();
                     label();

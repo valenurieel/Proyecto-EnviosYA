@@ -27,6 +27,7 @@ namespace Proyecto_EnviosYA
         }
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
+            limpiar456VG();
             label13456VG.Text = "Modo Añadir";
             txtdni456VG.Enabled = true;
             txtnombre456VG.Enabled = true;
@@ -36,8 +37,6 @@ namespace Proyecto_EnviosYA
             txtNameUser456VG.Enabled = false;
             txtdomicilio456VG.Enabled = true;
             cmbrol456VG.Enabled = true;
-            rdbutonSI456VG.Enabled = false;
-            rdbutonNO456VG.Enabled = false;
             btnAñadir456VG.Enabled = false;
             btnElim456VG.Enabled = false;
             btnModif456VG.Enabled = false;
@@ -45,6 +44,7 @@ namespace Proyecto_EnviosYA
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
+            btnActivoDesac.Enabled = false;
         }
         private void allusers456VG()
         {
@@ -75,8 +75,6 @@ namespace Proyecto_EnviosYA
             txtNameUser456VG.Enabled = true;
             txtdomicilio456VG.Enabled = true;
             cmbrol456VG.Enabled = true;
-            rdbutonSI456VG.Enabled = true;
-            rdbutonNO456VG.Enabled = true;
             btnAñadir456VG.Enabled = true;
             btnElim456VG.Enabled = true;
             btnModif456VG.Enabled = true;
@@ -84,8 +82,10 @@ namespace Proyecto_EnviosYA
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = false;
             btnVolver456VG.Enabled = true;
+            btnActivoDesac.Enabled = true;
             limpiar456VG();
-            allusers456VG();
+            useractivos456VG();
+            radioButton1456VG.Checked = true;
         }
         private void limpiar456VG()
         {
@@ -97,11 +97,10 @@ namespace Proyecto_EnviosYA
             txtNameUser456VG.Text = "";
             txtdomicilio456VG.Text = "";
             cmbrol456VG.SelectedIndex = -1;
-            rdbutonSI456VG.Checked = false;
-            rdbutonNO456VG.Checked = false;
         }
         private void btnDesbloq_Click(object sender, EventArgs e)
         {
+            limpiar456VG();
             label13456VG.Text = "Modo Desbloquear";
             txtdni456VG.Enabled = false;
             txtnombre456VG.Enabled = false;
@@ -111,8 +110,6 @@ namespace Proyecto_EnviosYA
             txtNameUser456VG.Enabled = false;
             txtdomicilio456VG.Enabled = false;
             cmbrol456VG.Enabled = false;
-            rdbutonSI456VG.Enabled = false;
-            rdbutonNO456VG.Enabled = false;
             btnAñadir456VG.Enabled = false;
             btnElim456VG.Enabled = false;
             btnModif456VG.Enabled = false;
@@ -120,6 +117,7 @@ namespace Proyecto_EnviosYA
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
+            btnActivoDesac.Enabled = false;
             List<BEUsuario_456VG> listaUsuarios = BLLUser.leerEntidades456VG();
             var bloqueados = listaUsuarios.Where(u => u.Bloqueado456VG).ToList();
             if (bloqueados.Count == 0)
@@ -143,15 +141,50 @@ namespace Proyecto_EnviosYA
             }).ToList();
             dataGridView1456VG.DataSource = listaParaMostrar;
         }
-
         private void btnElim_Click(object sender, EventArgs e)
         {
+            limpiar456VG();
             label13456VG.Text = "Modo Eliminar";
+            txtdni456VG.Enabled = false;
+            txtnombre456VG.Enabled = false;
+            txtapellido456VG.Enabled = false;
+            txtemail456VG.Enabled = false;
+            txttelef456VG.Enabled = false;
+            txtNameUser456VG.Enabled = false;
+            txtdomicilio456VG.Enabled = false;
+            cmbrol456VG.Enabled = false;
+            btnAñadir456VG.Enabled = false;
+            btnElim456VG.Enabled = false;
+            btnModif456VG.Enabled = false;
+            btnDesbloq456VG.Enabled = false;
+            btnAplicar456VG.Enabled = true;
+            btnCancelar456VG.Enabled = true;
+            btnVolver456VG.Enabled = false;
+            btnActivoDesac.Enabled = false;
+            allusers456VG();
+            radioButton2456VG.Checked = true;
         }
-
         private void btnModif_Click(object sender, EventArgs e)
         {
             label13456VG.Text = "Modo Modificar";
+            limpiar456VG();
+            txtdni456VG.Enabled = false;
+            txtnombre456VG.Enabled = true;
+            txtapellido456VG.Enabled = true;
+            txtemail456VG.Enabled = true;
+            txttelef456VG.Enabled = true;
+            txtNameUser456VG.Enabled = true;
+            txtdomicilio456VG.Enabled = true;
+            cmbrol456VG.Enabled = false;
+            btnAñadir456VG.Enabled = false;
+            btnElim456VG.Enabled = false;
+            btnModif456VG.Enabled = false;
+            btnDesbloq456VG.Enabled = false;
+            btnAplicar456VG.Enabled = true;
+            btnCancelar456VG.Enabled = true;
+            btnVolver456VG.Enabled = false;
+            btnActivoDesac.Enabled = false;
+            allusers456VG();
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
@@ -224,6 +257,132 @@ namespace Proyecto_EnviosYA
                     MessageBox.Show($"Error al registrar el usuario: {resultado.mensaje}");
                 }
             }
+            if(label13456VG.Text == "Modo Consulta")
+            {
+                radioButton1456VG.Checked = false;
+                radioButton2456VG.Checked = false;
+                List<BEUsuario_456VG> listaUsuarios = BLLUser.leerEntidades456VG();
+                var filtro = listaUsuarios.Where(u =>
+                    (string.IsNullOrWhiteSpace(txtdni456VG.Text) || u.DNI456VG.ToLower().Contains(txtdni456VG.Text.ToLower())) &&
+                    (string.IsNullOrWhiteSpace(txtnombre456VG.Text) || u.Nombre456VG.ToLower().Contains(txtnombre456VG.Text.ToLower())) &&
+                    (string.IsNullOrWhiteSpace(txtapellido456VG.Text) || u.Apellido456VG.ToLower().Contains(txtapellido456VG.Text.ToLower())) &&
+                    (string.IsNullOrWhiteSpace(txtemail456VG.Text) || u.Email456VG.ToLower().Contains(txtemail456VG.Text.ToLower())) &&
+                    (string.IsNullOrWhiteSpace(txttelef456VG.Text) || u.Teléfono456VG.ToLower().Contains(txttelef456VG.Text.ToLower())) &&
+                    (string.IsNullOrWhiteSpace(txtNameUser456VG.Text) || u.NombreUsuario456VG.ToLower().Contains(txtNameUser456VG.Text.ToLower())) &&
+                    (string.IsNullOrWhiteSpace(txtdomicilio456VG.Text) || u.Domicilio456VG.ToLower().Contains(txtdomicilio456VG.Text.ToLower())) &&
+                    (cmbrol456VG.SelectedIndex == -1 || u.Rol456VG.ToLower().Contains(cmbrol456VG.SelectedItem.ToString().ToLower()))
+                ).Select(u => new
+                {
+                    DNI = u.DNI456VG,
+                    Nombre = u.Nombre456VG,
+                    Apellido = u.Apellido456VG,
+                    Email = u.Email456VG,
+                    Telefono = u.Teléfono456VG,
+                    NombreUsuario = u.NombreUsuario456VG,
+                    Domicilio = u.Domicilio456VG,
+                    Rol = u.Rol456VG,
+                    Bloqueado = u.Bloqueado456VG,
+                    Activo = u.Activo456VG
+                }).ToList();
+                if (filtro.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron usuarios con esos criterios.", "Resultado vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    useractivos456VG();
+                }
+                else
+                {
+                    dataGridView1456VG.DataSource = filtro;
+                }
+            }
+            if (label13456VG.Text == "Modo Eliminar")
+            {
+                if (dataGridView1456VG.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Debe seleccionar un Usuario para eliminar.");
+                    return;
+                }
+                DataGridViewRow fila = dataGridView1456VG.SelectedRows[0];
+                string dni = fila.Cells["DNI"].Value.ToString();
+                var resultadoRecuperar = BLLUser.recuperarUsuarioPorDNI456VG(dni);
+                if (!resultadoRecuperar.resultado)
+                {
+                    MessageBox.Show("Error al recuperar los datos del usuario: " + resultadoRecuperar.mensaje);
+                    return;
+                }
+                BEUsuario_456VG usuarioAEliminar = resultadoRecuperar.entidad;
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Está seguro de eliminar el Usuario seleccionado?",
+                    "Confirmar Eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+                if (confirmacion == DialogResult.No)
+                {
+                    RegistrarUsuario_456VG_Load(null, null);
+                    return;
+                }
+                var resultado = BLLUser.eliminarEntidad456VG(usuarioAEliminar);
+                if (resultado.resultado)
+                {
+                    MessageBox.Show("Usuario eliminado correctamente.");
+                    RegistrarUsuario_456VG_Load(null, null);
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar usuario: " + resultado.mensaje);
+                }
+            }
+            if (label13456VG.Text == "Modo Modificar")
+            {
+                if (dataGridView1456VG.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Debe seleccionar un Usuario para Modificar.");
+                    return;
+                }
+                string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
+                BEUsuario_456VG usuarioAActualizar = new BEUsuario_456VG
+                (
+                    dniSeleccionado,
+                    txtnombre456VG.Text.Trim(),
+                    txtapellido456VG.Text.Trim(),
+                    txtemail456VG.Text.Trim(),
+                    txttelef456VG.Text.Trim(),
+                    txtNameUser456VG.Text.Trim(),
+                    txtdomicilio456VG.Text.Trim()
+                );
+                Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.actualizarEntidad456VG(usuarioAActualizar);
+                if (resultado.resultado)
+                {
+                    MessageBox.Show("Usuario actualizado correctamente.");
+                    RegistrarUsuario_456VG_Load(null, null);
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar el usuario: " + resultado.mensaje);
+                }
+            }
+            if (label13456VG.Text == "Modo Activar / Desactivar")
+            {
+                if (dataGridView1456VG.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Debe seleccionar un Usuario para Activar o Desactivar.");
+                    return;
+                }
+                string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
+                bool estadoActivo = Convert.ToBoolean(dataGridView1456VG.SelectedRows[0].Cells["Activo"].Value);
+                bool nuevoEstadoActivo = !estadoActivo;
+                var resultado = BLLUser.ActDesacUsuario456(dniSeleccionado, nuevoEstadoActivo);
+                if (resultado.resultado)
+                {
+                    string estado = nuevoEstadoActivo ? "Activado" : "Desactivado";
+                    MessageBox.Show($"Usuario {estado} correctamente.");
+                    RegistrarUsuario_456VG_Load(null, null);
+                }
+                else
+                {
+                    MessageBox.Show("Error: " + resultado.mensaje);
+                }
+            }
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -242,6 +401,7 @@ namespace Proyecto_EnviosYA
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             allusers456VG();
+            //radioButton2456VG.Checked = true;
         }
         private void useractivos456VG()
         {
@@ -269,6 +429,58 @@ namespace Proyecto_EnviosYA
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void dataGridView1456VG_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1456VG.SelectedRows.Count > 0)
+            {
+                string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
+                var resultadoRecuperar = BLLUser.recuperarUsuarioPorDNI456VG(dniSeleccionado);
+                if (resultadoRecuperar.resultado)
+                {
+                    BEUsuario_456VG usuarioSeleccionado = resultadoRecuperar.entidad;
+                    txtdni456VG.Text = usuarioSeleccionado.DNI456VG;
+                    txtnombre456VG.Text = usuarioSeleccionado.Nombre456VG;
+                    txtapellido456VG.Text = usuarioSeleccionado.Apellido456VG;
+                    txtemail456VG.Text = usuarioSeleccionado.Email456VG;
+                    txttelef456VG.Text = usuarioSeleccionado.Teléfono456VG;
+                    txtNameUser456VG.Text = usuarioSeleccionado.NombreUsuario456VG;
+                    txtdomicilio456VG.Text = usuarioSeleccionado.Domicilio456VG;
+                    cmbrol456VG.SelectedItem = usuarioSeleccionado.Rol456VG;
+                }
+                else
+                {
+                    MessageBox.Show("Error al recuperar los datos del usuario: " + resultadoRecuperar.mensaje);
+                }
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            limpiar456VG();
+            label13456VG.Text = "Modo Activar / Desactivar";
+            txtdni456VG.Enabled = false;
+            txtnombre456VG.Enabled = false;
+            txtapellido456VG.Enabled = false;
+            txtemail456VG.Enabled = false;
+            txttelef456VG.Enabled = false;
+            txtNameUser456VG.Enabled = false;
+            txtdomicilio456VG.Enabled = false;
+            cmbrol456VG.Enabled = false;
+            btnAñadir456VG.Enabled = false;
+            btnElim456VG.Enabled = false;
+            btnModif456VG.Enabled = false;
+            btnDesbloq456VG.Enabled = false;
+            btnAplicar456VG.Enabled = true;
+            btnCancelar456VG.Enabled = true;
+            btnVolver456VG.Enabled = false;
+            btnActivoDesac.Enabled = false;
+            allusers456VG();
+            radioButton2456VG.Checked = true;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
