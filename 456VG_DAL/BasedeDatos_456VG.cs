@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
+using System.Windows.Markup;
 
 namespace _456VG_DAL
 {
@@ -54,10 +57,8 @@ namespace _456VG_DAL
         public void scriptInicio456VG()
         {
             bool bdCreada = ejecutarQuery456VG("CREATE DATABASE EnviosYA;");
-            // Crear las tablas dentro de la base de datos EnviosYA
             if (bdCreada)
             {
-                //Tabla Usuario
                 ejecutarQuery456VG("USE EnviosYA; CREATE TABLE Usuario (" +
                     "dni VARCHAR(20) PRIMARY KEY," +
                     "nombre VARCHAR(50) NOT NULL," +
@@ -79,13 +80,13 @@ namespace _456VG_DAL
                     "salt VARCHAR(24) NOT NULL, " +
                     "fechacambio DATETIME NOT NULL DEFAULT GETDATE(), " +
                     "hashsimple VARCHAR(100) NOT NULL, " +
-                    "PRIMARY KEY (dni, fechacambio) " +  // Usamos combinación de dni y fechacambio como clave primaria
+                    "PRIMARY KEY (dni, fechacambio) " + 
                 ");");
 
-
-
-
-                //scriptDatos();
+                ejecutarQuery456VG("USE EnviosYA; " +
+                    "ALTER TABLE HistorialContraseñas " +
+                    "ADD CONSTRAINT FK_HistorialContraseñas_Usuario " +
+                    "FOREIGN KEY (dni) REFERENCES Usuario(dni)");
             }
         }
     }

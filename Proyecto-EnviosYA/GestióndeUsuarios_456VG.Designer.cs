@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_EnviosYA
 {
-    partial class RegistrarUsuario_456VG
+    partial class GestióndeUsuarios_456VG
     {
         /// <summary>
         /// Required designer variable.

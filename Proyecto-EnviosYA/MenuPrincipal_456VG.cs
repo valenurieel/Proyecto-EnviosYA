@@ -51,7 +51,7 @@ namespace Proyecto_EnviosYA
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RegistrarUsuario_456VG fRM = new RegistrarUsuario_456VG();
+            GestióndeUsuarios_456VG fRM = new GestióndeUsuarios_456VG();
             fRM.ShowDialog();
         }
 
@@ -73,6 +73,24 @@ namespace Proyecto_EnviosYA
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void paquetesToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+            CargarPaquete_456VG fr = new CargarPaquete_456VG();
+            fr.ShowDialog();
+        }
+
+        private void crearEnvíoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CrearEnvío_456VG fr = new CrearEnvío_456VG();
+            fr.ShowDialog();
+        }
+
+        private void facturarToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+            CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
+            fr.ShowDialog();
         }
     }
 }

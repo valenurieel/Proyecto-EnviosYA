@@ -59,11 +59,29 @@
     <Compile Include="CambiarContraseña_456VG.Designer.cs">
       <DependentUpon>CambiarContraseña_456VG.cs</DependentUpon>
     </Compile>
+    <Compile Include="CargarPaquete_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargarPaquete_456VG.Designer.cs">
+      <DependentUpon>CargarPaquete_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="CerrarSesión_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CerrarSesión_456VG.Designer.cs">
       <DependentUpon>CerrarSesión_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CobrarEnvío_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CobrarEnvío_456VG.Designer.cs">
+      <DependentUpon>CobrarEnvío_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearEnvío_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearEnvío_456VG.Designer.cs">
+      <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
     </Compile>
     <Compile Include="IniciarSesion_456VG.cs">
       <SubType>Form</SubType>
@@ -79,17 +97,32 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrarUsuario_456VG.cs">
+    <Compile Include="GestióndeUsuarios_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrarUsuario_456VG.Designer.cs">
-      <DependentUpon>RegistrarUsuario_456VG.cs</DependentUpon>
+    <Compile Include="GestióndeUsuarios_456VG.Designer.cs">
+      <DependentUpon>GestióndeUsuarios_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarCliente_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarCliente_456VG.Designer.cs">
+      <DependentUpon>RegistrarCliente_456VG.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CambiarContraseña_456VG.resx">
       <DependentUpon>CambiarContraseña_456VG.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CargarPaquete_456VG.resx">
+      <DependentUpon>CargarPaquete_456VG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CerrarSesión_456VG.resx">
       <DependentUpon>CerrarSesión_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CobrarEnvío_456VG.resx">
+      <DependentUpon>CobrarEnvío_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearEnvío_456VG.resx">
+      <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion_456VG.resx">
       <DependentUpon>IniciarSesion_456VG.cs</DependentUpon>
@@ -106,9 +139,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RegistrarUsuario_456VG.resx">
-      <DependentUpon>RegistrarUsuario_456VG.cs</DependentUpon>
+    <EmbeddedResource Include="GestióndeUsuarios_456VG.resx">
+      <DependentUpon>GestióndeUsuarios_456VG.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarCliente_456VG.resx">
+      <DependentUpon>RegistrarCliente_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -14,10 +14,10 @@ using _456VG_Servicios;
 
 namespace Proyecto_EnviosYA
 {
-    public partial class RegistrarUsuario_456VG : Form
+    public partial class GestióndeUsuarios_456VG : Form
     {
         BLLUsuario_456VG BLLUser = new BLLUsuario_456VG();
-        public RegistrarUsuario_456VG()
+        public GestióndeUsuarios_456VG()
         {
             InitializeComponent();
         }
