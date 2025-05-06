@@ -25,7 +25,7 @@ namespace Proyecto_EnviosYA
         {
             if (SessionManager_456VG.ObtenerInstancia456VG().Usuario == null)
             {
-                lblBienvenido456VG.Text = "¡Bienvenido!";
+                lblBienvenido456VG.Text = "¡Bienvenida/o!";
             }
         }
         public void bienvenido456VG()
@@ -33,34 +33,28 @@ namespace Proyecto_EnviosYA
             BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia456VG().Usuario;
             if (usuarioLogueado != null)
             {
-                lblBienvenido456VG.Text = "¡Bienvenido " + usuarioLogueado.Nombre456VG + " " + usuarioLogueado.Apellido456VG + "!";
+                lblBienvenido456VG.Text = "¡Bienvenida/o " + usuarioLogueado.Nombre456VG + " " + usuarioLogueado.Apellido456VG + "!";
             }
         }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
         {
             bienvenido456VG();
         }
-
         private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //AbrirForm(new IniciarSesion_456VG());
             IniciarSesion_456VG fRM = new IniciarSesion_456VG();
             fRM.ShowDialog();
-            //this.Hide();
         }
-
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GestióndeUsuarios_456VG fRM = new GestióndeUsuarios_456VG();
             fRM.ShowDialog();
         }
-
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CerrarSesión_456VG fRM = new CerrarSesión_456VG();
             fRM.ShowDialog();
         }
-
         private void cambiarClaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CambiarContraseña_456VG fr = new CambiarContraseña_456VG();
@@ -74,19 +68,16 @@ namespace Proyecto_EnviosYA
         {
             Close();
         }
-
         private void paquetesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             CargarPaquete_456VG fr = new CargarPaquete_456VG();
             fr.ShowDialog();
         }
-
         private void crearEnvíoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CrearEnvío_456VG fr = new CrearEnvío_456VG();
             fr.ShowDialog();
         }
-
         private void facturarToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             CobrarEnvío_456VG fr = new CobrarEnvío_456VG();

@@ -20,6 +20,7 @@ namespace Proyecto_EnviosYA
         public GestióndeUsuarios_456VG()
         {
             InitializeComponent();
+            dataGridView1456VG.CellFormatting += new DataGridViewCellFormattingEventHandler(dataGridView1456VG_CellFormatting);
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -477,7 +478,21 @@ namespace Proyecto_EnviosYA
             allusers456VG();
             radioButton2456VG.Checked = true;
         }
-
+        private void dataGridView1456VG_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView1456VG.Columns[e.ColumnIndex].Name == "Activo")
+            {
+                bool isActive = Convert.ToBoolean(e.Value);
+                if (!isActive)
+                {
+                    dataGridView1456VG.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                }
+                else
+                {
+                    dataGridView1456VG.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                }
+            }
+        }
         private void label2_Click(object sender, EventArgs e)
         {
 
