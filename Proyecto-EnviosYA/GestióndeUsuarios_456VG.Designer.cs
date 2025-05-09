@@ -55,7 +55,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label13456VG = new System.Windows.Forms.Label();
             this.cmbrol456VG = new System.Windows.Forms.ComboBox();
-            this.btnElim456VG = new System.Windows.Forms.Button();
             this.btnVolver456VG = new System.Windows.Forms.Button();
             this.btnActivoDesac = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
@@ -333,18 +332,6 @@
             this.cmbrol456VG.Size = new System.Drawing.Size(121, 23);
             this.cmbrol456VG.TabIndex = 6;
             // 
-            // btnElim456VG
-            // 
-            this.btnElim456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnElim456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnElim456VG.Location = new System.Drawing.Point(794, 347);
-            this.btnElim456VG.Name = "btnElim456VG";
-            this.btnElim456VG.Size = new System.Drawing.Size(120, 56);
-            this.btnElim456VG.TabIndex = 4;
-            this.btnElim456VG.Text = "Eliminar";
-            this.btnElim456VG.UseVisualStyleBackColor = false;
-            this.btnElim456VG.Click += new System.EventHandler(this.btnElim_Click);
-            // 
             // btnVolver456VG
             // 
             this.btnVolver456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -361,7 +348,7 @@
             // 
             this.btnActivoDesac.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnActivoDesac.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActivoDesac.Location = new System.Drawing.Point(961, 347);
+            this.btnActivoDesac.Location = new System.Drawing.Point(794, 347);
             this.btnActivoDesac.Name = "btnActivoDesac";
             this.btnActivoDesac.Size = new System.Drawing.Size(120, 56);
             this.btnActivoDesac.TabIndex = 37;
@@ -369,12 +356,12 @@
             this.btnActivoDesac.UseVisualStyleBackColor = false;
             this.btnActivoDesac.Click += new System.EventHandler(this.button1_Click);
             // 
-            // RegistrarUsuario_456VG
+            // GestióndeUsuarios_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1162, 612);
+            this.ClientSize = new System.Drawing.Size(1102, 612);
             this.Controls.Add(this.btnActivoDesac);
             this.Controls.Add(this.btnVolver456VG);
             this.Controls.Add(this.cmbrol456VG);
@@ -400,13 +387,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar456VG);
             this.Controls.Add(this.btnAplicar456VG);
-            this.Controls.Add(this.btnElim456VG);
             this.Controls.Add(this.btnModif456VG);
             this.Controls.Add(this.btnDesbloq456VG);
             this.Controls.Add(this.btnAñadir456VG);
             this.Controls.Add(this.dataGridView1456VG);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "RegistrarUsuario_456VG";
+            this.Name = "GestióndeUsuarios_456VG";
             this.Text = "Gestion de Usuarios";
             this.Load += new System.EventHandler(this.RegistrarUsuario_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();
@@ -444,7 +430,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label13456VG;
         private System.Windows.Forms.ComboBox cmbrol456VG;
-        private System.Windows.Forms.Button btnElim456VG;
         private System.Windows.Forms.Button btnVolver456VG;
         private System.Windows.Forms.Button btnActivoDesac;
     }

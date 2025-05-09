@@ -51,12 +51,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
             this.btnCrearEnvío456VG = new System.Windows.Forms.Button();
-            this.btnRegCli456VG = new System.Windows.Forms.Button();
-            this.dataGridView1456VG = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtverifCli456VG = new System.Windows.Forms.TextBox();
-            this.btnVerifCli456VG = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -75,14 +69,14 @@
             this.txtAlto456VG = new System.Windows.Forms.TextBox();
             this.txtPeso456VG = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.btnCargPaq456VG = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDNID456VG
             // 
             this.txtDNID456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDNID456VG.Location = new System.Drawing.Point(524, 362);
+            this.txtDNID456VG.Location = new System.Drawing.Point(527, 167);
             this.txtDNID456VG.Name = "txtDNID456VG";
             this.txtDNID456VG.Size = new System.Drawing.Size(128, 22);
             this.txtDNID456VG.TabIndex = 4;
@@ -90,7 +84,7 @@
             // txtNomD456VG
             // 
             this.txtNomD456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomD456VG.Location = new System.Drawing.Point(524, 415);
+            this.txtNomD456VG.Location = new System.Drawing.Point(527, 220);
             this.txtNomD456VG.Name = "txtNomD456VG";
             this.txtNomD456VG.Size = new System.Drawing.Size(128, 22);
             this.txtNomD456VG.TabIndex = 5;
@@ -98,7 +92,7 @@
             // txtApeD456VG
             // 
             this.txtApeD456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApeD456VG.Location = new System.Drawing.Point(524, 465);
+            this.txtApeD456VG.Location = new System.Drawing.Point(527, 270);
             this.txtApeD456VG.Name = "txtApeD456VG";
             this.txtApeD456VG.Size = new System.Drawing.Size(128, 22);
             this.txtApeD456VG.TabIndex = 6;
@@ -106,7 +100,7 @@
             // txtTelD456VG
             // 
             this.txtTelD456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelD456VG.Location = new System.Drawing.Point(524, 519);
+            this.txtTelD456VG.Location = new System.Drawing.Point(527, 324);
             this.txtTelD456VG.Name = "txtTelD456VG";
             this.txtTelD456VG.Size = new System.Drawing.Size(128, 22);
             this.txtTelD456VG.TabIndex = 7;
@@ -114,7 +108,7 @@
             // txtCP456VG
             // 
             this.txtCP456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCP456VG.Location = new System.Drawing.Point(710, 362);
+            this.txtCP456VG.Location = new System.Drawing.Point(713, 167);
             this.txtCP456VG.Name = "txtCP456VG";
             this.txtCP456VG.Size = new System.Drawing.Size(141, 22);
             this.txtCP456VG.TabIndex = 8;
@@ -122,7 +116,7 @@
             // txtDom456VG
             // 
             this.txtDom456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDom456VG.Location = new System.Drawing.Point(710, 415);
+            this.txtDom456VG.Location = new System.Drawing.Point(713, 220);
             this.txtDom456VG.Name = "txtDom456VG";
             this.txtDom456VG.Size = new System.Drawing.Size(141, 22);
             this.txtDom456VG.TabIndex = 9;
@@ -130,7 +124,7 @@
             // txtLoc456VG
             // 
             this.txtLoc456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLoc456VG.Location = new System.Drawing.Point(710, 465);
+            this.txtLoc456VG.Location = new System.Drawing.Point(713, 270);
             this.txtLoc456VG.Name = "txtLoc456VG";
             this.txtLoc456VG.Size = new System.Drawing.Size(141, 22);
             this.txtLoc456VG.TabIndex = 10;
@@ -138,7 +132,7 @@
             // txtProv456VG
             // 
             this.txtProv456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProv456VG.Location = new System.Drawing.Point(712, 519);
+            this.txtProv456VG.Location = new System.Drawing.Point(715, 324);
             this.txtProv456VG.Name = "txtProv456VG";
             this.txtProv456VG.Size = new System.Drawing.Size(141, 22);
             this.txtProv456VG.TabIndex = 11;
@@ -147,7 +141,7 @@
             // 
             this.LDNID456VG.AutoSize = true;
             this.LDNID456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LDNID456VG.Location = new System.Drawing.Point(521, 344);
+            this.LDNID456VG.Location = new System.Drawing.Point(524, 149);
             this.LDNID456VG.Name = "LDNID456VG";
             this.LDNID456VG.Size = new System.Drawing.Size(29, 15);
             this.LDNID456VG.TabIndex = 17;
@@ -157,7 +151,7 @@
             // 
             this.LNomD456VG.AutoSize = true;
             this.LNomD456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LNomD456VG.Location = new System.Drawing.Point(521, 397);
+            this.LNomD456VG.Location = new System.Drawing.Point(524, 202);
             this.LNomD456VG.Name = "LNomD456VG";
             this.LNomD456VG.Size = new System.Drawing.Size(52, 15);
             this.LNomD456VG.TabIndex = 18;
@@ -167,7 +161,7 @@
             // 
             this.LApe456VG.AutoSize = true;
             this.LApe456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LApe456VG.Location = new System.Drawing.Point(521, 447);
+            this.LApe456VG.Location = new System.Drawing.Point(524, 252);
             this.LApe456VG.Name = "LApe456VG";
             this.LApe456VG.Size = new System.Drawing.Size(53, 15);
             this.LApe456VG.TabIndex = 19;
@@ -177,7 +171,7 @@
             // 
             this.LTelD456VG.AutoSize = true;
             this.LTelD456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTelD456VG.Location = new System.Drawing.Point(521, 501);
+            this.LTelD456VG.Location = new System.Drawing.Point(524, 306);
             this.LTelD456VG.Name = "LTelD456VG";
             this.LTelD456VG.Size = new System.Drawing.Size(56, 15);
             this.LTelD456VG.TabIndex = 20;
@@ -187,7 +181,7 @@
             // 
             this.LCP456VG.AutoSize = true;
             this.LCP456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LCP456VG.Location = new System.Drawing.Point(707, 344);
+            this.LCP456VG.Location = new System.Drawing.Point(710, 149);
             this.LCP456VG.Name = "LCP456VG";
             this.LCP456VG.Size = new System.Drawing.Size(82, 15);
             this.LCP456VG.TabIndex = 21;
@@ -197,7 +191,7 @@
             // 
             this.LDomi456VG.AutoSize = true;
             this.LDomi456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LDomi456VG.Location = new System.Drawing.Point(707, 397);
+            this.LDomi456VG.Location = new System.Drawing.Point(710, 202);
             this.LDomi456VG.Name = "LDomi456VG";
             this.LDomi456VG.Size = new System.Drawing.Size(59, 15);
             this.LDomi456VG.TabIndex = 22;
@@ -207,7 +201,7 @@
             // 
             this.LLocali456VG.AutoSize = true;
             this.LLocali456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LLocali456VG.Location = new System.Drawing.Point(707, 447);
+            this.LLocali456VG.Location = new System.Drawing.Point(710, 252);
             this.LLocali456VG.Name = "LLocali456VG";
             this.LLocali456VG.Size = new System.Drawing.Size(60, 15);
             this.LLocali456VG.TabIndex = 23;
@@ -217,7 +211,7 @@
             // 
             this.LProv456VG.AutoSize = true;
             this.LProv456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LProv456VG.Location = new System.Drawing.Point(709, 501);
+            this.LProv456VG.Location = new System.Drawing.Point(712, 306);
             this.LProv456VG.Name = "LProv456VG";
             this.LProv456VG.Size = new System.Drawing.Size(58, 15);
             this.LProv456VG.TabIndex = 24;
@@ -227,7 +221,7 @@
             // 
             this.LTipEnvio.AutoSize = true;
             this.LTipEnvio.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTipEnvio.Location = new System.Drawing.Point(901, 396);
+            this.LTipEnvio.Location = new System.Drawing.Point(904, 149);
             this.LTipEnvio.Name = "LTipEnvio";
             this.LTipEnvio.Size = new System.Drawing.Size(78, 15);
             this.LTipEnvio.TabIndex = 25;
@@ -237,7 +231,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(613, 305);
+            this.label15.Location = new System.Drawing.Point(616, 110);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(127, 18);
             this.label15.TabIndex = 27;
@@ -247,7 +241,7 @@
             // 
             this.cmbTipEnvio456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTipEnvio456VG.FormattingEnabled = true;
-            this.cmbTipEnvio456VG.Location = new System.Drawing.Point(904, 415);
+            this.cmbTipEnvio456VG.Location = new System.Drawing.Point(907, 168);
             this.cmbTipEnvio456VG.Name = "cmbTipEnvio456VG";
             this.cmbTipEnvio456VG.Size = new System.Drawing.Size(121, 23);
             this.cmbTipEnvio456VG.TabIndex = 28;
@@ -281,7 +275,7 @@
             // 
             // btnCrearEnvío456VG
             // 
-            this.btnCrearEnvío456VG.Location = new System.Drawing.Point(904, 491);
+            this.btnCrearEnvío456VG.Location = new System.Drawing.Point(907, 296);
             this.btnCrearEnvío456VG.Name = "btnCrearEnvío456VG";
             this.btnCrearEnvío456VG.Size = new System.Drawing.Size(121, 50);
             this.btnCrearEnvío456VG.TabIndex = 31;
@@ -289,66 +283,11 @@
             this.btnCrearEnvío456VG.UseVisualStyleBackColor = true;
             this.btnCrearEnvío456VG.Click += new System.EventHandler(this.btnCrearEnvío456VG_Click);
             // 
-            // btnRegCli456VG
-            // 
-            this.btnRegCli456VG.Location = new System.Drawing.Point(373, 257);
-            this.btnRegCli456VG.Name = "btnRegCli456VG";
-            this.btnRegCli456VG.Size = new System.Drawing.Size(112, 34);
-            this.btnRegCli456VG.TabIndex = 33;
-            this.btnRegCli456VG.Text = "Registrar Cliente";
-            this.btnRegCli456VG.UseVisualStyleBackColor = true;
-            this.btnRegCli456VG.Click += new System.EventHandler(this.btnRegCli456VG_Click);
-            // 
-            // dataGridView1456VG
-            // 
-            this.dataGridView1456VG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1456VG.Location = new System.Drawing.Point(22, 81);
-            this.dataGridView1456VG.Name = "dataGridView1456VG";
-            this.dataGridView1456VG.Size = new System.Drawing.Size(691, 150);
-            this.dataGridView1456VG.TabIndex = 34;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(22, 60);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 18);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "Seleccionar Paquete";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(19, 251);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 15);
-            this.label3.TabIndex = 37;
-            this.label3.Text = "Verificar DNI Cliente:";
-            // 
-            // txtverifCli456VG
-            // 
-            this.txtverifCli456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtverifCli456VG.Location = new System.Drawing.Point(22, 269);
-            this.txtverifCli456VG.Name = "txtverifCli456VG";
-            this.txtverifCli456VG.Size = new System.Drawing.Size(128, 22);
-            this.txtverifCli456VG.TabIndex = 36;
-            // 
-            // btnVerifCli456VG
-            // 
-            this.btnVerifCli456VG.Location = new System.Drawing.Point(200, 257);
-            this.btnVerifCli456VG.Name = "btnVerifCli456VG";
-            this.btnVerifCli456VG.Size = new System.Drawing.Size(112, 34);
-            this.btnVerifCli456VG.TabIndex = 38;
-            this.btnVerifCli456VG.Text = "Verificar Cliente";
-            this.btnVerifCli456VG.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(19, 502);
+            this.label4.Location = new System.Drawing.Point(22, 307);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 15);
             this.label4.TabIndex = 46;
@@ -358,7 +297,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(19, 448);
+            this.label5.Location = new System.Drawing.Point(22, 253);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 15);
             this.label5.TabIndex = 45;
@@ -368,7 +307,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(19, 398);
+            this.label6.Location = new System.Drawing.Point(22, 203);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 15);
             this.label6.TabIndex = 44;
@@ -378,7 +317,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(19, 345);
+            this.label7.Location = new System.Drawing.Point(22, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 15);
             this.label7.TabIndex = 43;
@@ -387,7 +326,7 @@
             // txtTelCli456VG
             // 
             this.txtTelCli456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelCli456VG.Location = new System.Drawing.Point(22, 520);
+            this.txtTelCli456VG.Location = new System.Drawing.Point(25, 325);
             this.txtTelCli456VG.Name = "txtTelCli456VG";
             this.txtTelCli456VG.Size = new System.Drawing.Size(128, 22);
             this.txtTelCli456VG.TabIndex = 42;
@@ -395,7 +334,7 @@
             // txtApeCli456VG
             // 
             this.txtApeCli456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApeCli456VG.Location = new System.Drawing.Point(22, 466);
+            this.txtApeCli456VG.Location = new System.Drawing.Point(25, 271);
             this.txtApeCli456VG.Name = "txtApeCli456VG";
             this.txtApeCli456VG.Size = new System.Drawing.Size(128, 22);
             this.txtApeCli456VG.TabIndex = 41;
@@ -403,7 +342,7 @@
             // txtNomCli456VG
             // 
             this.txtNomCli456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomCli456VG.Location = new System.Drawing.Point(22, 416);
+            this.txtNomCli456VG.Location = new System.Drawing.Point(25, 221);
             this.txtNomCli456VG.Name = "txtNomCli456VG";
             this.txtNomCli456VG.Size = new System.Drawing.Size(128, 22);
             this.txtNomCli456VG.TabIndex = 40;
@@ -411,7 +350,7 @@
             // txtDNICli456VG
             // 
             this.txtDNICli456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDNICli456VG.Location = new System.Drawing.Point(22, 363);
+            this.txtDNICli456VG.Location = new System.Drawing.Point(25, 168);
             this.txtDNICli456VG.Name = "txtDNICli456VG";
             this.txtDNICli456VG.Size = new System.Drawing.Size(128, 22);
             this.txtDNICli456VG.TabIndex = 39;
@@ -420,7 +359,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(41, 305);
+            this.label8.Location = new System.Drawing.Point(44, 110);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(91, 18);
             this.label8.TabIndex = 47;
@@ -430,7 +369,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(263, 501);
+            this.label9.Location = new System.Drawing.Point(234, 306);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(36, 15);
             this.label9.TabIndex = 55;
@@ -440,7 +379,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(263, 447);
+            this.label10.Location = new System.Drawing.Point(234, 252);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(40, 15);
             this.label10.TabIndex = 54;
@@ -450,7 +389,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(263, 397);
+            this.label11.Location = new System.Drawing.Point(234, 202);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(31, 15);
             this.label11.TabIndex = 53;
@@ -460,7 +399,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(263, 344);
+            this.label12.Location = new System.Drawing.Point(234, 149);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 15);
             this.label12.TabIndex = 52;
@@ -469,7 +408,7 @@
             // txtLargo456VG
             // 
             this.txtLargo456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLargo456VG.Location = new System.Drawing.Point(266, 519);
+            this.txtLargo456VG.Location = new System.Drawing.Point(237, 324);
             this.txtLargo456VG.Name = "txtLargo456VG";
             this.txtLargo456VG.Size = new System.Drawing.Size(128, 22);
             this.txtLargo456VG.TabIndex = 51;
@@ -477,7 +416,7 @@
             // txtAncho456VG
             // 
             this.txtAncho456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAncho456VG.Location = new System.Drawing.Point(266, 465);
+            this.txtAncho456VG.Location = new System.Drawing.Point(237, 270);
             this.txtAncho456VG.Name = "txtAncho456VG";
             this.txtAncho456VG.Size = new System.Drawing.Size(128, 22);
             this.txtAncho456VG.TabIndex = 50;
@@ -485,7 +424,7 @@
             // txtAlto456VG
             // 
             this.txtAlto456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAlto456VG.Location = new System.Drawing.Point(266, 415);
+            this.txtAlto456VG.Location = new System.Drawing.Point(237, 220);
             this.txtAlto456VG.Name = "txtAlto456VG";
             this.txtAlto456VG.Size = new System.Drawing.Size(128, 22);
             this.txtAlto456VG.TabIndex = 49;
@@ -493,7 +432,7 @@
             // txtPeso456VG
             // 
             this.txtPeso456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPeso456VG.Location = new System.Drawing.Point(266, 362);
+            this.txtPeso456VG.Location = new System.Drawing.Point(237, 167);
             this.txtPeso456VG.Name = "txtPeso456VG";
             this.txtPeso456VG.Size = new System.Drawing.Size(128, 22);
             this.txtPeso456VG.TabIndex = 48;
@@ -502,18 +441,28 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(277, 305);
+            this.label13.Location = new System.Drawing.Point(248, 110);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(99, 18);
             this.label13.TabIndex = 56;
             this.label13.Text = "Datos Paquete\r\n";
+            // 
+            // btnCargPaq456VG
+            // 
+            this.btnCargPaq456VG.Location = new System.Drawing.Point(380, 313);
+            this.btnCargPaq456VG.Name = "btnCargPaq456VG";
+            this.btnCargPaq456VG.Size = new System.Drawing.Size(128, 34);
+            this.btnCargPaq456VG.TabIndex = 33;
+            this.btnCargPaq456VG.Text = "Cargar Paquete";
+            this.btnCargPaq456VG.UseVisualStyleBackColor = true;
+            this.btnCargPaq456VG.Click += new System.EventHandler(this.btnRegCli456VG_Click);
             // 
             // CrearEnvío_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1050, 555);
+            this.ClientSize = new System.Drawing.Size(1050, 362);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
@@ -532,12 +481,7 @@
             this.Controls.Add(this.txtApeCli456VG);
             this.Controls.Add(this.txtNomCli456VG);
             this.Controls.Add(this.txtDNICli456VG);
-            this.Controls.Add(this.btnVerifCli456VG);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtverifCli456VG);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1456VG);
-            this.Controls.Add(this.btnRegCli456VG);
+            this.Controls.Add(this.btnCargPaq456VG);
             this.Controls.Add(this.btnCrearEnvío456VG);
             this.Controls.Add(this.iconPictureBox1456VG);
             this.Controls.Add(this.label1);
@@ -563,7 +507,6 @@
             this.Name = "CrearEnvío_456VG";
             this.Text = "Crear Envío";
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,12 +535,6 @@
         private System.Windows.Forms.Label label1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1456VG;
         private System.Windows.Forms.Button btnCrearEnvío456VG;
-        private System.Windows.Forms.Button btnRegCli456VG;
-        private System.Windows.Forms.DataGridView dataGridView1456VG;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtverifCli456VG;
-        private System.Windows.Forms.Button btnVerifCli456VG;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -616,5 +553,6 @@
         private System.Windows.Forms.TextBox txtAlto456VG;
         private System.Windows.Forms.TextBox txtPeso456VG;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnCargPaq456VG;
     }
 }

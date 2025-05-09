@@ -390,7 +390,7 @@ namespace _456VG_DAL
         public Resultado_456VG<bool> bloquearUsuario456VG(BEUsuario_456VG usuario)
         {
             Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
-            string sqlQuery = "USE EnviosYA; UPDATE Usuario SET Bloqueado = 1, Activo = 0 WHERE DNI = @DNI";
+            string sqlQuery = "USE EnviosYA; UPDATE Usuario SET Bloqueado = 1 WHERE DNI = @DNI";
             try
             {
                 bool result = db.Conectar456VG();

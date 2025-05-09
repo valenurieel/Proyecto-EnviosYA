@@ -39,7 +39,7 @@ namespace Proyecto_EnviosYA
             txtdomicilio456VG.Enabled = true;
             cmbrol456VG.Enabled = true;
             btnAñadir456VG.Enabled = false;
-            btnElim456VG.Enabled = false;
+            //btnElim456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnDesbloq456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
@@ -77,7 +77,7 @@ namespace Proyecto_EnviosYA
             txtdomicilio456VG.Enabled = true;
             cmbrol456VG.Enabled = true;
             btnAñadir456VG.Enabled = true;
-            btnElim456VG.Enabled = true;
+            //btnElim456VG.Enabled = true;
             btnModif456VG.Enabled = true;
             btnDesbloq456VG.Enabled = true;
             btnAplicar456VG.Enabled = true;
@@ -87,6 +87,8 @@ namespace Proyecto_EnviosYA
             limpiar456VG();
             useractivos456VG();
             radioButton1456VG.Checked = true;
+            radioButton1456VG.Enabled = true;
+            radioButton2456VG.Enabled = true;
         }
         private void limpiar456VG()
         {
@@ -112,19 +114,23 @@ namespace Proyecto_EnviosYA
             txtdomicilio456VG.Enabled = false;
             cmbrol456VG.Enabled = false;
             btnAñadir456VG.Enabled = false;
-            btnElim456VG.Enabled = false;
+            //btnElim456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnDesbloq456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
             btnActivoDesac.Enabled = false;
+            radioButton1456VG.Checked = false;
+            radioButton2456VG.Checked = false;
+            radioButton1456VG.Enabled = false;
+            radioButton2456VG.Enabled = false;
             List<BEUsuario_456VG> listaUsuarios = BLLUser.leerEntidades456VG();
             var bloqueados = listaUsuarios.Where(u => u.Bloqueado456VG).ToList();
             if (bloqueados.Count == 0)
             {
                 MessageBox.Show("No hay usuarios bloqueados");
-                dataGridView1456VG.DataSource = null;
+                RegistrarUsuario_456VG_Load(null, null);
                 return;
             }
             var listaParaMostrar = bloqueados.Select(u => new
@@ -142,29 +148,29 @@ namespace Proyecto_EnviosYA
             }).ToList();
             dataGridView1456VG.DataSource = listaParaMostrar;
         }
-        private void btnElim_Click(object sender, EventArgs e)
-        {
-            limpiar456VG();
-            label13456VG.Text = "Modo Eliminar";
-            txtdni456VG.Enabled = false;
-            txtnombre456VG.Enabled = false;
-            txtapellido456VG.Enabled = false;
-            txtemail456VG.Enabled = false;
-            txttelef456VG.Enabled = false;
-            txtNameUser456VG.Enabled = false;
-            txtdomicilio456VG.Enabled = false;
-            cmbrol456VG.Enabled = false;
-            btnAñadir456VG.Enabled = false;
-            btnElim456VG.Enabled = false;
-            btnModif456VG.Enabled = false;
-            btnDesbloq456VG.Enabled = false;
-            btnAplicar456VG.Enabled = true;
-            btnCancelar456VG.Enabled = true;
-            btnVolver456VG.Enabled = false;
-            btnActivoDesac.Enabled = false;
-            allusers456VG();
-            radioButton2456VG.Checked = true;
-        }
+        //private void btnElim_Click(object sender, EventArgs e)
+        //{
+        //    limpiar456VG();
+        //    label13456VG.Text = "Modo Eliminar";
+        //    txtdni456VG.Enabled = false;
+        //    txtnombre456VG.Enabled = false;
+        //    txtapellido456VG.Enabled = false;
+        //    txtemail456VG.Enabled = false;
+        //    txttelef456VG.Enabled = false;
+        //    txtNameUser456VG.Enabled = false;
+        //    txtdomicilio456VG.Enabled = false;
+        //    cmbrol456VG.Enabled = false;
+        //    btnAñadir456VG.Enabled = false;
+        //    btnElim456VG.Enabled = false;
+        //    btnModif456VG.Enabled = false;
+        //    btnDesbloq456VG.Enabled = false;
+        //    btnAplicar456VG.Enabled = true;
+        //    btnCancelar456VG.Enabled = true;
+        //    btnVolver456VG.Enabled = false;
+        //    btnActivoDesac.Enabled = false;
+        //    allusers456VG();
+        //    radioButton2456VG.Checked = true;
+        //}
         private void btnModif_Click(object sender, EventArgs e)
         {
             label13456VG.Text = "Modo Modificar";
@@ -178,13 +184,16 @@ namespace Proyecto_EnviosYA
             txtdomicilio456VG.Enabled = true;
             cmbrol456VG.Enabled = false;
             btnAñadir456VG.Enabled = false;
-            btnElim456VG.Enabled = false;
+            //btnElim456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnDesbloq456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
             btnActivoDesac.Enabled = false;
+            radioButton1456VG.Enabled = false;
+            radioButton1456VG.Checked = false;
+            radioButton2456VG.Checked = true;
             allusers456VG();
         }
 
@@ -220,6 +229,7 @@ namespace Proyecto_EnviosYA
                 {
                     MessageBox.Show("Usuario desbloqueado exitosamente.");
                     RegistrarUsuario_456VG_Load(null, null);
+                    return;
                 }
                 else
                 {
@@ -295,44 +305,44 @@ namespace Proyecto_EnviosYA
                     dataGridView1456VG.DataSource = filtro;
                 }
             }
-            if (label13456VG.Text == "Modo Eliminar")
-            {
-                if (dataGridView1456VG.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Debe seleccionar un Usuario para eliminar.");
-                    return;
-                }
-                DataGridViewRow fila = dataGridView1456VG.SelectedRows[0];
-                string dni = fila.Cells["DNI"].Value.ToString();
-                var resultadoRecuperar = BLLUser.recuperarUsuarioPorDNI456VG(dni);
-                if (!resultadoRecuperar.resultado)
-                {
-                    MessageBox.Show("Error al recuperar los datos del usuario: " + resultadoRecuperar.mensaje);
-                    return;
-                }
-                BEUsuario_456VG usuarioAEliminar = resultadoRecuperar.entidad;
-                DialogResult confirmacion = MessageBox.Show(
-                    "¿Está seguro de eliminar el Usuario seleccionado?",
-                    "Confirmar Eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-                if (confirmacion == DialogResult.No)
-                {
-                    RegistrarUsuario_456VG_Load(null, null);
-                    return;
-                }
-                var resultado = BLLUser.eliminarEntidad456VG(usuarioAEliminar);
-                if (resultado.resultado)
-                {
-                    MessageBox.Show("Usuario eliminado correctamente.");
-                    RegistrarUsuario_456VG_Load(null, null);
-                }
-                else
-                {
-                    MessageBox.Show("Error al eliminar usuario: " + resultado.mensaje);
-                }
-            }
+            //if (label13456VG.Text == "Modo Eliminar")
+            //{
+            //    if (dataGridView1456VG.SelectedRows.Count == 0)
+            //    {
+            //        MessageBox.Show("Debe seleccionar un Usuario para eliminar.");
+            //        return;
+            //    }
+            //    DataGridViewRow fila = dataGridView1456VG.SelectedRows[0];
+            //    string dni = fila.Cells["DNI"].Value.ToString();
+            //    var resultadoRecuperar = BLLUser.recuperarUsuarioPorDNI456VG(dni);
+            //    if (!resultadoRecuperar.resultado)
+            //    {
+            //        MessageBox.Show("Error al recuperar los datos del usuario: " + resultadoRecuperar.mensaje);
+            //        return;
+            //    }
+            //    BEUsuario_456VG usuarioAEliminar = resultadoRecuperar.entidad;
+            //    DialogResult confirmacion = MessageBox.Show(
+            //        "¿Está seguro de eliminar el Usuario seleccionado?",
+            //        "Confirmar Eliminación",
+            //        MessageBoxButtons.YesNo,
+            //        MessageBoxIcon.Warning
+            //    );
+            //    if (confirmacion == DialogResult.No)
+            //    {
+            //        RegistrarUsuario_456VG_Load(null, null);
+            //        return;
+            //    }
+            //    var resultado = BLLUser.eliminarEntidad456VG(usuarioAEliminar);
+            //    if (resultado.resultado)
+            //    {
+            //        MessageBox.Show("Usuario eliminado correctamente.");
+            //        RegistrarUsuario_456VG_Load(null, null);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Error al eliminar usuario: " + resultado.mensaje);
+            //    }
+            //}
             if (label13456VG.Text == "Modo Modificar")
             {
                 if (dataGridView1456VG.SelectedRows.Count == 0)
@@ -468,15 +478,17 @@ namespace Proyecto_EnviosYA
             txtdomicilio456VG.Enabled = false;
             cmbrol456VG.Enabled = false;
             btnAñadir456VG.Enabled = false;
-            btnElim456VG.Enabled = false;
+            //btnElim456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnDesbloq456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
             btnActivoDesac.Enabled = false;
-            allusers456VG();
+            radioButton1456VG.Enabled = false;
+            radioButton1456VG.Checked = false;
             radioButton2456VG.Checked = true;
+            allusers456VG();
         }
         private void dataGridView1456VG_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {

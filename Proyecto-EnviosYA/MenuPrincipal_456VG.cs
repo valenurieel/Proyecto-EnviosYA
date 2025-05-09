@@ -70,15 +70,10 @@ namespace Proyecto_EnviosYA
         }
         private void paquetesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
-            CargarPaquete_456VG fr = new CargarPaquete_456VG();
-            fr.ShowDialog();
-        }
-        private void crearEnvíoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
             CrearEnvío_456VG fr = new CrearEnvío_456VG();
             fr.ShowDialog();
         }
-        private void facturarToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        private void crearEnvíoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
             fr.ShowDialog();
