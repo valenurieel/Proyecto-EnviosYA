@@ -37,6 +37,7 @@
             this.label5456VG = new System.Windows.Forms.Label();
             this.button1456VG = new System.Windows.Forms.Button();
             this.btnCancelar456VG = new System.Windows.Forms.Button();
+            this.checkVer456VG = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtContraAct456VG
@@ -45,24 +46,27 @@
             this.txtContraAct456VG.Location = new System.Drawing.Point(331, 201);
             this.txtContraAct456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtContraAct456VG.Name = "txtContraAct456VG";
+            this.txtContraAct456VG.PasswordChar = '*';
             this.txtContraAct456VG.Size = new System.Drawing.Size(134, 24);
             this.txtContraAct456VG.TabIndex = 1;
             // 
             // txtContraNew456VG
             // 
             this.txtContraNew456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraNew456VG.Location = new System.Drawing.Point(208, 291);
+            this.txtContraNew456VG.Location = new System.Drawing.Point(207, 282);
             this.txtContraNew456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtContraNew456VG.Name = "txtContraNew456VG";
+            this.txtContraNew456VG.PasswordChar = '*';
             this.txtContraNew456VG.Size = new System.Drawing.Size(134, 24);
             this.txtContraNew456VG.TabIndex = 2;
             // 
             // txtContraConfirm456VG
             // 
             this.txtContraConfirm456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraConfirm456VG.Location = new System.Drawing.Point(462, 291);
+            this.txtContraConfirm456VG.Location = new System.Drawing.Point(461, 282);
             this.txtContraConfirm456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtContraConfirm456VG.Name = "txtContraConfirm456VG";
+            this.txtContraConfirm456VG.PasswordChar = '*';
             this.txtContraConfirm456VG.Size = new System.Drawing.Size(134, 24);
             this.txtContraConfirm456VG.TabIndex = 3;
             // 
@@ -80,7 +84,7 @@
             // 
             this.label3456VG.AutoSize = true;
             this.label3456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3456VG.Location = new System.Drawing.Point(207, 273);
+            this.label3456VG.Location = new System.Drawing.Point(206, 264);
             this.label3456VG.Name = "label3456VG";
             this.label3456VG.Size = new System.Drawing.Size(115, 17);
             this.label3456VG.TabIndex = 6;
@@ -90,7 +94,7 @@
             // 
             this.label4456VG.AutoSize = true;
             this.label4456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4456VG.Location = new System.Drawing.Point(459, 273);
+            this.label4456VG.Location = new System.Drawing.Point(458, 264);
             this.label4456VG.Name = "label4456VG";
             this.label4456VG.Size = new System.Drawing.Size(136, 17);
             this.label4456VG.TabIndex = 7;
@@ -127,12 +131,25 @@
             this.btnCancelar456VG.UseVisualStyleBackColor = true;
             this.btnCancelar456VG.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // checkVer456VG
+            // 
+            this.checkVer456VG.AutoSize = true;
+            this.checkVer456VG.Location = new System.Drawing.Point(345, 334);
+            this.checkVer456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkVer456VG.Name = "checkVer456VG";
+            this.checkVer456VG.Size = new System.Drawing.Size(110, 19);
+            this.checkVer456VG.TabIndex = 24;
+            this.checkVer456VG.Text = "Ver Contraseñas";
+            this.checkVer456VG.UseVisualStyleBackColor = true;
+            this.checkVer456VG.CheckedChanged += new System.EventHandler(this.checkVer456VG_CheckedChanged);
+            // 
             // CambiarContraseña_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(800, 519);
+            this.Controls.Add(this.checkVer456VG);
             this.Controls.Add(this.btnCancelar456VG);
             this.Controls.Add(this.button1456VG);
             this.Controls.Add(this.label5456VG);
@@ -162,5 +179,6 @@
         private System.Windows.Forms.Label label5456VG;
         private System.Windows.Forms.Button button1456VG;
         private System.Windows.Forms.Button btnCancelar456VG;
+        private System.Windows.Forms.CheckBox checkVer456VG;
     }
 }

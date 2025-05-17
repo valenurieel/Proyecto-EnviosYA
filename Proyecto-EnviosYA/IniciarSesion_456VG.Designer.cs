@@ -38,6 +38,7 @@
             this.txtcontraseña456VG = new System.Windows.Forms.TextBox();
             this.txtdni456VG = new System.Windows.Forms.TextBox();
             this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
+            this.btnCancelar456VG = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,12 +142,23 @@
             this.iconPictureBox1456VG.TabIndex = 24;
             this.iconPictureBox1456VG.TabStop = false;
             // 
+            // btnCancelar456VG
+            // 
+            this.btnCancelar456VG.Location = new System.Drawing.Point(779, 498);
+            this.btnCancelar456VG.Name = "btnCancelar456VG";
+            this.btnCancelar456VG.Size = new System.Drawing.Size(74, 33);
+            this.btnCancelar456VG.TabIndex = 25;
+            this.btnCancelar456VG.Text = "Cancelar";
+            this.btnCancelar456VG.UseVisualStyleBackColor = true;
+            this.btnCancelar456VG.Click += new System.EventHandler(this.btnCancelar456VG_Click);
+            // 
             // IniciarSesion_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(902, 562);
+            this.Controls.Add(this.btnCancelar456VG);
             this.Controls.Add(this.iconPictureBox1456VG);
             this.Controls.Add(this.checkVer456VG);
             this.Controls.Add(this.btningresar456VG);
@@ -178,5 +190,6 @@
         private System.Windows.Forms.TextBox txtcontraseña456VG;
         private System.Windows.Forms.TextBox txtdni456VG;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1456VG;
+        private System.Windows.Forms.Button btnCancelar456VG;
     }
 }

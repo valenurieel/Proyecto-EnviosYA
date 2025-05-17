@@ -20,6 +20,22 @@ namespace Proyecto_EnviosYA
             InitializeComponent();
             BasedeDatos_456VG bd = new BasedeDatos_456VG();
             bd.scriptInicio456VG();
+            deshabilitados();
+        }
+        public void HabilitarOpcionesMenu456VG()
+        {
+            cambiarIdiomaToolStripMenuItem456VG.Enabled = true;
+            cambiarClaveToolStripMenuItem456VG.Enabled = true;
+        }
+        public void deshabilitados()
+        {
+            perfilesToolStripMenuItem456VG.Enabled = false;
+            maestroToolStripMenuItem456VG.Enabled = false;
+            cambiarIdiomaToolStripMenuItem456VG.Enabled = false;
+            recepciónToolStripMenuItem.Enabled = false;
+            envíosToolStripMenuItem456VG.Enabled = false;
+            reportesToolStripMenuItem456VG.Enabled = false;
+            cambiarClaveToolStripMenuItem456VG.Enabled = false;
         }
         public void chau()
         {

@@ -43,17 +43,17 @@ namespace Proyecto_EnviosYA
             bool contraseñaCorrecta = hash.VerificarPassword456VG(txtContraAct456VG.Text, user.Contraseña456VG, user.Salt456VG);
             if (!contraseñaCorrecta)
             {
-                MessageBox.Show("La contraseña actual ingresada no es correcta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La Contraseña actual ingresada NO es correcta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (txtContraAct456VG.Text == txtContraNew456VG.Text)
             {
-                MessageBox.Show("La nueva contraseña no puede ser la contraseña actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La Nueva Contraseña NO puede ser la Contraseña actual.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (txtContraNew456VG.Text != txtContraConfirm456VG.Text)
             {
-                MessageBox.Show("Las nuevas contraseñas no coinciden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Las Nuevas Contraseñas NO coinciden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -61,17 +61,24 @@ namespace Proyecto_EnviosYA
                 var resultado = BLLUser.cambiarContraseña456VG(user, txtContraNew456VG.Text);
                 if (resultado.resultado)
                 {
-                    MessageBox.Show("Su contraseña ha sido cambiada correctamente.\nPor favor, vuelva a iniciar sesión con su nueva contraseña.",
+                    MessageBox.Show("Su Contraseña ha sido cambiada correctamente.\nPor favor, vuelva a iniciar sesión con su Nueva Contraseña.",
                                     "Cambio exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                    MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+                    if (menu != null)
+                    {
+                        menu.deshabilitados();
+                    }
+                    this.Hide();
                     IniciarSesion_456VG frm = new IniciarSesion_456VG();
-                    frm.Show();
+                    frm.StartPosition = FormStartPosition.CenterScreen;
+                    frm.ShowDialog();
                     label();
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show($"Error al cambiar la contraseña: {resultado.mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error al cambiar la Contraseña: {resultado.mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -87,6 +94,22 @@ namespace Proyecto_EnviosYA
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void checkVer456VG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkVer456VG.Checked)
+            {
+                txtContraAct456VG.PasswordChar = '\0';
+                txtContraNew456VG.PasswordChar = '\0';
+                txtContraConfirm456VG.PasswordChar = '\0';
+            }
+            else
+            {
+                txtContraAct456VG.PasswordChar = '*';
+                txtContraNew456VG.PasswordChar = '*';
+                txtContraConfirm456VG.PasswordChar = '*';
+            }
         }
     }
 }

@@ -26,8 +26,9 @@ namespace _456VG_BE
         public float Alto456VG { get; set; }
         public float Largo456VG { get; set; }
         public float Importe456VG { get; set; }
+        public bool Pagado456VG { get; set; }
 
-        public BEEnvío_456VG(int id, string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, float impo)
+        public BEEnvío_456VG(int id, string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, float impo, bool pagado)
         {
             this.id_envio456VG = id;
             this.DNICli456VG = dnicli;
@@ -47,8 +48,9 @@ namespace _456VG_BE
             this.Alto456VG = alto;
             this.Largo456VG = largo;
             this.Importe456VG = impo;
+            this.Pagado456VG = pagado;
         }
-        public BEEnvío_456VG(string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, float impo)
+        public BEEnvío_456VG(string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, float impo, bool pagado)
         {
             this.DNICli456VG = dnicli;
             this.NombreCli456VG = namecli;
@@ -67,6 +69,7 @@ namespace _456VG_BE
             this.Alto456VG = alto;
             this.Largo456VG = largo;
             this.Importe456VG = impo;
+            this.Pagado456VG = pagado;
         }
     }
 }

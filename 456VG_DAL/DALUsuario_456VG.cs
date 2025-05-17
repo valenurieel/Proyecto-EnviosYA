@@ -439,7 +439,7 @@ namespace _456VG_DAL
                             string hashSimpleAntiguo = reader.GetString(0);
                             if (hashSimpleAntiguo == nuevaContraseñaHashSimple)
                             {
-                                throw new Exception("La nueva contraseña ya fue utilizada anteriormente, por favor elija otra.");
+                                throw new Exception("La Nueva Contraseña ya fue utilizada anteriormente, por favor elija otra.");
                             }
                         }
                     }

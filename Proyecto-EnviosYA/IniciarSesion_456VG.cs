@@ -56,12 +56,12 @@ namespace Proyecto_EnviosYA
             usuarioActual456VG = resultUsuario.entidad;
             if (usuarioActual456VG.Bloqueado456VG)
             {
-                MessageBox.Show("El usuario está Bloqueado. Contacte a un administrador.");
+                MessageBox.Show("El usuario está BLOQUEADO. Contacte a un Administrador.");
                 return;
             }
             if (!usuarioActual456VG.Activo456VG)
             {
-                MessageBox.Show("El usuario está Desactivado. Contacte a un administrador.");
+                MessageBox.Show("El usuario está DESACTIVADO. Contacte a un Administrador.");
                 return;
             }
             HashSHA256_456VG hasheador = new HashSHA256_456VG();
@@ -82,13 +82,18 @@ namespace Proyecto_EnviosYA
                 {
                     usuarioActual456VG.Bloqueado456VG = true;
                     BLLUsuario.bloquearUsuario456VG(usuarioActual456VG);
-                    MessageBox.Show("Usuario bloqueado por superar los intentos fallidos.");
+                    MessageBox.Show("Usuario BLOQUEADO por superar los intentos fallidos. Contacte a un Administrador.");
                     this.Close();
                 }
                 return;
             }
             SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioActual456VG);
-            MessageBox.Show("Sesión iniciada correctamente");
+            MessageBox.Show("Sesión iniciada exitosamente");
+            MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+            if (menu != null)
+            {
+                menu.HabilitarOpcionesMenu456VG();
+            }
             label456VG();
             this.Hide();
         }
@@ -102,6 +107,11 @@ namespace Proyecto_EnviosYA
             {
                 txtcontraseña456VG.PasswordChar = '*';
             }
+        }
+
+        private void btnCancelar456VG_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

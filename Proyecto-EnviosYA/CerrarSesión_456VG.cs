@@ -30,11 +30,16 @@ namespace Proyecto_EnviosYA
             if (SessionManager_456VG.ObtenerInstancia456VG().Usuario != null)
             {
                 SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
-                MessageBox.Show("Se ha Cerrado la Sesión Correctamente");
+                MessageBox.Show("Se ha Cerrado la Sesión exitosamente");
+                MenuPrincipal_456VG menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+                if (menu != null)
+                {
+                    menu.deshabilitados();
+                }
             }
             else
             {
-                MessageBox.Show("No se ha Iniciado Sesión");
+                MessageBox.Show("No se ha Iniciado Sesión aún");
             }
             label456VG();
             this.Close();
