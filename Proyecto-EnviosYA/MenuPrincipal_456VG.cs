@@ -49,7 +49,7 @@ namespace Proyecto_EnviosYA
             BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia456VG().Usuario;
             if (usuarioLogueado != null)
             {
-                lblBienvenido456VG.Text = "¡Bienvenida/o " + usuarioLogueado.Nombre456VG + " " + usuarioLogueado.Apellido456VG + "!";
+                lblBienvenido456VG.Text = "¡Bienvenida/o " + usuarioLogueado.NombreUsuario456VG + "!";
             }
         }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
