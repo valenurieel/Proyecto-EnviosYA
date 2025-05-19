@@ -25,16 +25,16 @@ namespace _456VG_DAL
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             string queryUpdateUser = @"
-                    USE EnviosYA;
-                    UPDATE Usuario 
+                    USE EnviosYA_456VG;
+                    UPDATE Usuario_456VG 
                     SET 
-                        nombre = @Nombre,
-                        apellido = @Apellido,
-                        email = @Email,
-                        telefono = @Telefono,
-                        nombreusuario = @NombreUsuario,
-                        domicilio = @Domicilio
-                    WHERE dni = @DNI";
+                        nombre_456VG = @Nombre,
+                        apellido_456VG = @Apellido,
+                        email_456VG = @Email,
+                        telefono_456VG = @Telefono,
+                        nombreusuario_456VG = @NombreUsuario,
+                        domicilio_456VG = @Domicilio
+                    WHERE dni_456VG = @DNI";
             try
             {
                 bool result = db.Conectar456VG();
@@ -79,7 +79,7 @@ namespace _456VG_DAL
             {
                 db.Connection.Open();
                 var trans = db.Connection.BeginTransaction();
-                string queryToSearchUser = "USE EnviosYA; SELECT COUNT(*) FROM Usuario WHERE dni = @DNI";
+                string queryToSearchUser = "USE EnviosYA_456VG; SELECT COUNT(*) FROM Usuario_456VG WHERE dni_456VG = @DNI";
                 using (SqlCommand cmd = new SqlCommand(queryToSearchUser, db.Connection, trans))
                 {
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
@@ -92,8 +92,8 @@ namespace _456VG_DAL
                 string salt = hasher.GenerarSalt456VG();
                 string hashedPassword = hasher.HashPassword456VG(obj.Contraseña456VG, salt);
                 string queryToCreateUser = @"
-                    USE EnviosYA;
-                    INSERT INTO Usuario (dni, nombre, apellido, email, telefono, nombreusuario, contraseña, salt, domicilio, rol, bloqueado, activo)
+                    USE EnviosYA_456VG;
+                    INSERT INTO Usuario_456VG (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, bloqueado_456VG, activo_456VG)
                     VALUES (@DNI, @Nombre, @Apellido, @Email, @Telefono, @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, @Bloqueado, @Activo);";
                 using (SqlCommand cmd2 = new SqlCommand(queryToCreateUser, db.Connection, trans))
                 {
@@ -112,8 +112,8 @@ namespace _456VG_DAL
                     cmd2.ExecuteNonQuery();
                 }
                 string queryToInsertPasswordHistory = @"
-                    USE EnviosYA;
-                    INSERT INTO HistorialContraseñas (dni, contraseñahash, salt, fechacambio, hashsimple) 
+                    USE EnviosYA_456VG;
+                    INSERT INTO HistorialContraseñas_456VG (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG) 
                     VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);";
                 using (SqlCommand cmd3 = new SqlCommand(queryToInsertPasswordHistory, db.Connection, trans))
                 {
@@ -145,7 +145,7 @@ namespace _456VG_DAL
         public Resultado_456VG<BEUsuario_456VG> ActDesacUsuario456(string dni, bool nuevoEstadoActivo)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
-            string query = "USE EnviosYA; UPDATE Usuario SET Activo = @Activo WHERE DNI = @DNI";
+            string query = "USE EnviosYA_456VG; UPDATE Usuario_456VG SET Activo_456VG = @Activo WHERE DNI_456VG = @DNI";
             try
             {
                 bool conectado = db.Conectar456VG();
@@ -185,8 +185,8 @@ namespace _456VG_DAL
         public Resultado_456VG<BEUsuario_456VG> eliminarEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
-            string queryEliminarHistorialContraseñas = "USE EnviosYA; DELETE FROM HistorialContraseñas WHERE dni = @DNI";
-            string queryEliminarUsuario = "USE EnviosYA; DELETE FROM Usuario WHERE dni = @DNI";
+            string queryEliminarHistorialContraseñas = "USE EnviosYA_456VG; DELETE FROM HistorialContraseñas_456VG WHERE dni_456VG = @DNI";
+            string queryEliminarUsuario = "USE EnviosYA_456VG; DELETE FROM Usuario_456VG WHERE dni_456VG = @DNI";
             try
             {
                 bool conectado = db.Conectar456VG();
@@ -230,7 +230,7 @@ namespace _456VG_DAL
         public List<BEUsuario_456VG> leerEntidades456VG()
         {
             List<BEUsuario_456VG> list = new List<BEUsuario_456VG>();
-            string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario";
+            string sqlQuery = "USE EnviosYA_456VG; SELECT * FROM Usuario_456VG";
             try
             {
                 bool result = db.Conectar456VG();
@@ -241,18 +241,18 @@ namespace _456VG_DAL
                     {
                         while (lector.Read())
                         {
-                            string dni = !lector.IsDBNull(lector.GetOrdinal("dni")) ? lector.GetString(lector.GetOrdinal("dni")) : string.Empty;
-                            string name = !lector.IsDBNull(lector.GetOrdinal("nombre")) ? lector.GetString(lector.GetOrdinal("nombre")) : string.Empty;
-                            string ape = !lector.IsDBNull(lector.GetOrdinal("apellido")) ? lector.GetString(lector.GetOrdinal("apellido")) : string.Empty;
-                            string email = !lector.IsDBNull(lector.GetOrdinal("email")) ? lector.GetString(lector.GetOrdinal("email")) : string.Empty;
-                            string tel = !lector.IsDBNull(lector.GetOrdinal("telefono")) ? lector.GetString(lector.GetOrdinal("telefono")) : string.Empty;
-                            string nameuser = !lector.IsDBNull(lector.GetOrdinal("nombreusuario")) ? lector.GetString(lector.GetOrdinal("nombreusuario")) : string.Empty;
-                            string contraseña = !lector.IsDBNull(lector.GetOrdinal("contraseña")) ? lector.GetString(lector.GetOrdinal("contraseña")) : string.Empty;
-                            string salt = !lector.IsDBNull(lector.GetOrdinal("salt")) ? lector.GetString(lector.GetOrdinal("salt")) : string.Empty;
-                            string dom = !lector.IsDBNull(lector.GetOrdinal("domicilio")) ? lector.GetString(lector.GetOrdinal("domicilio")) : string.Empty;
-                            string rol = !lector.IsDBNull(lector.GetOrdinal("rol")) ? lector.GetString(lector.GetOrdinal("rol")) : string.Empty;
-                            bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado")) && lector.GetBoolean(lector.GetOrdinal("bloqueado"));
-                            bool activo = !lector.IsDBNull(lector.GetOrdinal("activo")) && lector.GetBoolean(lector.GetOrdinal("activo"));
+                            string dni = !lector.IsDBNull(lector.GetOrdinal("dni_456VG")) ? lector.GetString(lector.GetOrdinal("dni_456VG")) : string.Empty;
+                            string name = !lector.IsDBNull(lector.GetOrdinal("nombre_456VG")) ? lector.GetString(lector.GetOrdinal("nombre_456VG")) : string.Empty;
+                            string ape = !lector.IsDBNull(lector.GetOrdinal("apellido_456VG")) ? lector.GetString(lector.GetOrdinal("apellido_456VG")) : string.Empty;
+                            string email = !lector.IsDBNull(lector.GetOrdinal("email_456VG")) ? lector.GetString(lector.GetOrdinal("email_456VG")) : string.Empty;
+                            string tel = !lector.IsDBNull(lector.GetOrdinal("telefono_456VG")) ? lector.GetString(lector.GetOrdinal("telefono_456VG")) : string.Empty;
+                            string nameuser = !lector.IsDBNull(lector.GetOrdinal("nombreusuario_456VG")) ? lector.GetString(lector.GetOrdinal("nombreusuario_456VG")) : string.Empty;
+                            string contraseña = !lector.IsDBNull(lector.GetOrdinal("contraseña_456VG")) ? lector.GetString(lector.GetOrdinal("contraseña_456VG")) : string.Empty;
+                            string salt = !lector.IsDBNull(lector.GetOrdinal("salt_456VG")) ? lector.GetString(lector.GetOrdinal("salt_456VG")) : string.Empty;
+                            string dom = !lector.IsDBNull(lector.GetOrdinal("domicilio_456VG")) ? lector.GetString(lector.GetOrdinal("domicilio_456VG")) : string.Empty;
+                            string rol = !lector.IsDBNull(lector.GetOrdinal("rol_456VG")) ? lector.GetString(lector.GetOrdinal("rol_456VG")) : string.Empty;
+                            bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado_456VG")) && lector.GetBoolean(lector.GetOrdinal("bloqueado_456VG"));
+                            bool activo = !lector.IsDBNull(lector.GetOrdinal("activo_456VG")) && lector.GetBoolean(lector.GetOrdinal("activo_456VG"));
                             BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, contraseña, salt, dom, rol, bloqueado, activo);
                             list.Add(user);
                         }
@@ -334,7 +334,7 @@ namespace _456VG_DAL
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             List<BEUsuario_456VG> list = new List<BEUsuario_456VG>();
-            string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
+            string sqlQuery = "USE EnviosYA_456VG; SELECT * FROM Usuario_456VG WHERE DNI_456VG = @DNI";
             try
             {
                 bool result = db.Conectar456VG(); 
@@ -346,18 +346,18 @@ namespace _456VG_DAL
                     {
                         while (lector.Read())
                         {
-                            string dni = !lector.IsDBNull(lector.GetOrdinal("dni")) ? lector.GetString(lector.GetOrdinal("dni")) : string.Empty;
-                            string nombre = !lector.IsDBNull(lector.GetOrdinal("nombre")) ? lector.GetString(lector.GetOrdinal("nombre")) : string.Empty;
-                            string apellido = !lector.IsDBNull(lector.GetOrdinal("apellido")) ? lector.GetString(lector.GetOrdinal("apellido")) : string.Empty;
-                            string email = !lector.IsDBNull(lector.GetOrdinal("email")) ? lector.GetString(lector.GetOrdinal("email")) : string.Empty;
-                            string telefono = !lector.IsDBNull(lector.GetOrdinal("telefono")) ? lector.GetString(lector.GetOrdinal("telefono")) : string.Empty;
-                            string nombreusuario = !lector.IsDBNull(lector.GetOrdinal("nombreusuario")) ? lector.GetString(lector.GetOrdinal("nombreusuario")) : string.Empty;
-                            string contraseñahash = !lector.IsDBNull(lector.GetOrdinal("contraseña")) ? lector.GetString(lector.GetOrdinal("contraseña")) : string.Empty;
-                            string salt = !lector.IsDBNull(lector.GetOrdinal("salt")) ? lector.GetString(lector.GetOrdinal("salt")) : string.Empty;
-                            string domicilio = !lector.IsDBNull(lector.GetOrdinal("domicilio")) ? lector.GetString(lector.GetOrdinal("domicilio")) : string.Empty;
-                            string rol = !lector.IsDBNull(lector.GetOrdinal("rol")) ? lector.GetString(lector.GetOrdinal("rol")) : string.Empty;
-                            bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado")) && lector.GetBoolean(lector.GetOrdinal("bloqueado"));
-                            bool activo = !lector.IsDBNull(lector.GetOrdinal("activo")) && lector.GetBoolean(lector.GetOrdinal("activo"));
+                            string dni = !lector.IsDBNull(lector.GetOrdinal("dni_456VG")) ? lector.GetString(lector.GetOrdinal("dni_456VG")) : string.Empty;
+                            string nombre = !lector.IsDBNull(lector.GetOrdinal("nombre_456VG")) ? lector.GetString(lector.GetOrdinal("nombre_456VG")) : string.Empty;
+                            string apellido = !lector.IsDBNull(lector.GetOrdinal("apellido_456VG")) ? lector.GetString(lector.GetOrdinal("apellido_456VG")) : string.Empty;
+                            string email = !lector.IsDBNull(lector.GetOrdinal("email_456VG")) ? lector.GetString(lector.GetOrdinal("email_456VG")) : string.Empty;
+                            string telefono = !lector.IsDBNull(lector.GetOrdinal("telefono_456VG")) ? lector.GetString(lector.GetOrdinal("telefono_456VG")) : string.Empty;
+                            string nombreusuario = !lector.IsDBNull(lector.GetOrdinal("nombreusuario_456VG")) ? lector.GetString(lector.GetOrdinal("nombreusuario_456VG")) : string.Empty;
+                            string contraseñahash = !lector.IsDBNull(lector.GetOrdinal("contraseña_456VG")) ? lector.GetString(lector.GetOrdinal("contraseña_456VG")) : string.Empty;
+                            string salt = !lector.IsDBNull(lector.GetOrdinal("salt_456VG")) ? lector.GetString(lector.GetOrdinal("salt_456VG")) : string.Empty;
+                            string domicilio = !lector.IsDBNull(lector.GetOrdinal("domicilio_456VG")) ? lector.GetString(lector.GetOrdinal("domicilio_456VG")) : string.Empty;
+                            string rol = !lector.IsDBNull(lector.GetOrdinal("rol_456VG")) ? lector.GetString(lector.GetOrdinal("rol_456VG")) : string.Empty;
+                            bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado_456VG")) && lector.GetBoolean(lector.GetOrdinal("bloqueado_456VG"));
+                            bool activo = !lector.IsDBNull(lector.GetOrdinal("activo_456VG")) && lector.GetBoolean(lector.GetOrdinal("activo_456VG"));
                             BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, salt, domicilio, rol, bloqueado, activo);
                             list.Add(usuario);
                         }
@@ -390,7 +390,7 @@ namespace _456VG_DAL
         public Resultado_456VG<bool> bloquearUsuario456VG(BEUsuario_456VG usuario)
         {
             Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
-            string sqlQuery = "USE EnviosYA; UPDATE Usuario SET Bloqueado = 1 WHERE DNI = @DNI";
+            string sqlQuery = "USE EnviosYA_456VG; UPDATE Usuario_456VG SET Bloqueado_456VG = 1 WHERE DNI_456VG = @DNI";
             try
             {
                 bool result = db.Conectar456VG();
@@ -418,9 +418,9 @@ namespace _456VG_DAL
         public Resultado_456VG<bool> cambiarContraseña456VG(BEUsuario_456VG usuario, string nuevaContraseña)
         {
             Resultado_456VG<bool> resultado = new Resultado_456VG<bool>();
-            string sqlUpdateUsuario = "USE EnviosYA; UPDATE Usuario SET contraseña = @Contraseña, salt = @Salt WHERE DNI = @DNI";
-            string sqlInsertHistorial = "USE EnviosYA; INSERT INTO HistorialContraseñas (dni, contraseñahash, salt, fechacambio, hashsimple) VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple)";
-            string sqlSelectHistorial = "USE EnviosYA; SELECT hashsimple FROM HistorialContraseñas WHERE dni = @DniUsuario";
+            string sqlUpdateUsuario = "USE EnviosYA_456VG; UPDATE Usuario_456VG SET contraseña_456VG = @Contraseña, salt_456VG = @Salt WHERE DNI_456VG = @DNI";
+            string sqlInsertHistorial = "USE EnviosYA_456VG; INSERT INTO HistorialContraseñas_456VG (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG) VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple)";
+            string sqlSelectHistorial = "USE EnviosYA_456VG; SELECT hashsimple_456VG FROM HistorialContraseñas_456VG WHERE dni_456VG = @DniUsuario";
             try
             {
                 bool result = db.Conectar456VG();
@@ -486,7 +486,7 @@ namespace _456VG_DAL
             {
                 bool conectado = db.Conectar456VG();
                 if (!conectado) throw new Exception("Error al conectar con la base de datos.");
-                string query = "USE EnviosYA; UPDATE Usuario SET bloqueado = 0 WHERE dni = @DNI";
+                string query = "USE EnviosYA_456VG; UPDATE Usuario_456VG SET bloqueado_456VG = 0 WHERE dni_456VG = @DNI";
                 using (SqlCommand cmd = new SqlCommand(query, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@DNI", dni);
