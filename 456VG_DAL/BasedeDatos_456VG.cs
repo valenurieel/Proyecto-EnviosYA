@@ -14,7 +14,7 @@ namespace _456VG_DAL
     public class BasedeDatos_456VG
     {
         public static string dataSource = "DESKTOP-Q714KGU\\SQLEXPRESS";
-        public static string dbName = "EnviosYA";
+        public static string dbName = "EnviosYA_456VG";
         public static string conexionMaster = $"Data source={dataSource};Initial Catalog=master;Integrated Security=True;";
         public SqlConnection Connection = new SqlConnection(conexionMaster);
         public SqlCommand Command = new SqlCommand();
@@ -56,37 +56,37 @@ namespace _456VG_DAL
         }
         public void scriptInicio456VG()
         {
-            bool bdCreada = ejecutarQuery456VG("CREATE DATABASE EnviosYA;");
+            bool bdCreada = ejecutarQuery456VG("CREATE DATABASE EnviosYA_456VG;");
             if (bdCreada)
             {
-                ejecutarQuery456VG("USE EnviosYA; CREATE TABLE Usuario (" +
-                    "dni VARCHAR(20) PRIMARY KEY," +
-                    "nombre VARCHAR(50) NOT NULL," +
-                    "apellido VARCHAR(50) NOT NULL," +
-                    "email VARCHAR(50) NOT NULL," +
-                    "telefono VARCHAR(20) NOT NULL," +
-                    "nombreusuario VARCHAR(50) NOT NULL," +
-                    "contraseña VARCHAR(100) NOT NULL," + 
-                    "salt VARCHAR(24) NOT NULL," +
-                    "domicilio VARCHAR(100) NOT NULL," +
-                    "rol VARCHAR(100) NOT NULL," +
-                    "bloqueado BIT NOT NULL DEFAULT 0," +
-                    "activo BIT NOT NULL DEFAULT 1" +
+                ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE Usuario_456VG (" +
+                    "dni_456VG VARCHAR(20) PRIMARY KEY," +
+                    "nombre_456VG VARCHAR(50) NOT NULL," +
+                    "apellido_456VG VARCHAR(50) NOT NULL," +
+                    "email_456VG VARCHAR(50) NOT NULL," +
+                    "telefono_456VG VARCHAR(20) NOT NULL," +
+                    "nombreusuario_456VG VARCHAR(50) NOT NULL," +
+                    "contraseña_456VG VARCHAR(100) NOT NULL," +
+                    "salt_456VG VARCHAR(24) NOT NULL," +
+                    "domicilio_456VG VARCHAR(100) NOT NULL," +
+                    "rol_456VG VARCHAR(100) NOT NULL," +
+                    "bloqueado_456VG BIT NOT NULL DEFAULT 0," +
+                    "activo_456VG BIT NOT NULL DEFAULT 1" +
                 ");");
 
-                ejecutarQuery456VG("USE EnviosYA; CREATE TABLE HistorialContraseñas (" +
-                    "dni VARCHAR(20) NOT NULL, " +
-                    "contraseñahash VARCHAR(100) NOT NULL, " +
-                    "salt VARCHAR(24) NOT NULL, " +
-                    "fechacambio DATETIME NOT NULL DEFAULT GETDATE(), " +
-                    "hashsimple VARCHAR(100) NOT NULL, " +
-                    "PRIMARY KEY (dni, fechacambio) " + 
+                ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE HistorialContraseñas_456VG (" +
+                    "dni_456VG VARCHAR(20) NOT NULL, " +
+                    "contraseñahash_456VG VARCHAR(100) NOT NULL, " +
+                    "salt_456VG VARCHAR(24) NOT NULL, " +
+                    "fechacambio_456VG DATETIME NOT NULL DEFAULT GETDATE(), " +
+                    "hashsimple_456VG VARCHAR(100) NOT NULL, " +
+                    "PRIMARY KEY (dni_456VG, fechacambio_456VG) " + 
                 ");");
 
-                ejecutarQuery456VG("USE EnviosYA; " +
-                    "ALTER TABLE HistorialContraseñas " +
-                    "ADD CONSTRAINT FK_HistorialContraseñas_Usuario " +
-                    "FOREIGN KEY (dni) REFERENCES Usuario(dni)");
+                ejecutarQuery456VG("USE EnviosYA_456VG; " +
+                    "ALTER TABLE HistorialContraseñas_456VG " +
+                    "ADD CONSTRAINT FK_HistorialContraseñas_Usuario_456VG " +
+                    "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
             }
         }
     }
