@@ -13,7 +13,7 @@ namespace _456VG_DAL
 {
     public class BasedeDatos_456VG
     {
-        public static string dataSource = "090L3PC18-79695";
+        public static string dataSource = "DESKTOP-Q714KGU\\SQLEXPRESS";
         public static string dbName = "EnviosYA_456VG";
         public static string conexionMaster = $"Data source={dataSource};Initial Catalog=master;Integrated Security=True;";
         public SqlConnection Connection = new SqlConnection(conexionMaster);
