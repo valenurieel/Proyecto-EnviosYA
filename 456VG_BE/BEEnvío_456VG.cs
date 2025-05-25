@@ -25,10 +25,11 @@ namespace _456VG_BE
         public float Ancho456VG { get; set; }
         public float Alto456VG { get; set; }
         public float Largo456VG { get; set; }
+        public string tipoenvio456VG { get; set; }
         public float Importe456VG { get; set; }
         public bool Pagado456VG { get; set; }
 
-        public BEEnvío_456VG(int id, string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, float impo, bool pagado)
+        public BEEnvío_456VG(int id, string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, string tenvio, float impo, bool pagado)
         {
             this.id_envio456VG = id;
             this.DNICli456VG = dnicli;
@@ -47,10 +48,11 @@ namespace _456VG_BE
             this.Ancho456VG = ancho;
             this.Alto456VG = alto;
             this.Largo456VG = largo;
+            this.tipoenvio456VG = tenvio;
             this.Importe456VG = impo;
             this.Pagado456VG = pagado;
         }
-        public BEEnvío_456VG(string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, float impo, bool pagado)
+        public BEEnvío_456VG(string dnicli, string namecli, string apecli, string telcli, string dnidest, string namedest, string apedest, string teldest, float cp, string dom, string loc, string prov, float peso, float ancho, float alto, float largo, string tenvio, float impo, bool pagado)
         {
             this.DNICli456VG = dnicli;
             this.NombreCli456VG = namecli;
@@ -68,8 +70,31 @@ namespace _456VG_BE
             this.Ancho456VG = ancho;
             this.Alto456VG = alto;
             this.Largo456VG = largo;
+            this.tipoenvio456VG = tenvio;
             this.Importe456VG = impo;
             this.Pagado456VG = pagado;
+        }
+        public float CalcularImporte()
+        {
+            float volumen = (Alto456VG * Ancho456VG * Largo456VG) / 1000f;
+            float basePeso = Peso456VG * 10f;
+            float baseVolumen = volumen * 0.5f;
+            float tarifaBase = 500f;
+
+            float factorZona = 1.0f;
+            string prov = Provincia456VG?.ToLower() ?? "";
+            string loc = Localidad456VG?.ToLower() ?? "";
+
+            if (prov.Contains("Tierra del Fuego") || prov.Contains("Neuquén"))
+                factorZona = 1.5f;
+            else if (prov.Contains("Buenos Aires") && !loc.Contains("Capital"))
+                factorZona = 1.2f;
+            else if (loc.Contains("CABA") || loc.Contains("Capital Federal"))
+                factorZona = 1.0f;
+            else
+                factorZona = 1.3f;
+
+            return (tarifaBase + basePeso + baseVolumen) * factorZona;
         }
     }
 }

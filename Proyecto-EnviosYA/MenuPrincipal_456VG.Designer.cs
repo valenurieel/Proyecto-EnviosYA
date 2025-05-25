@@ -34,7 +34,6 @@
             this.usuariosToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
             this.perfilesToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
             this.maestroToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
-            this.empleadosToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
             this.usuarioToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarSesiónToolStripMenuItem456VG = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +71,7 @@
             this.menuStrip1456VG.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1456VG.Name = "menuStrip1456VG";
             this.menuStrip1456VG.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1456VG.Size = new System.Drawing.Size(127, 652);
+            this.menuStrip1456VG.Size = new System.Drawing.Size(113, 652);
             this.menuStrip1456VG.TabIndex = 0;
             this.menuStrip1456VG.Text = "menuStrip1";
             // 
@@ -102,18 +101,11 @@
             // maestroToolStripMenuItem456VG
             // 
             this.maestroToolStripMenuItem456VG.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.empleadosToolStripMenuItem456VG,
             this.clientesToolStripMenuItem456VG});
             this.maestroToolStripMenuItem456VG.Name = "maestroToolStripMenuItem456VG";
-            this.maestroToolStripMenuItem456VG.Size = new System.Drawing.Size(112, 22);
+            this.maestroToolStripMenuItem456VG.Size = new System.Drawing.Size(98, 22);
             this.maestroToolStripMenuItem456VG.Text = "Maestro";
             this.maestroToolStripMenuItem456VG.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // empleadosToolStripMenuItem456VG
-            // 
-            this.empleadosToolStripMenuItem456VG.Name = "empleadosToolStripMenuItem456VG";
-            this.empleadosToolStripMenuItem456VG.Size = new System.Drawing.Size(180, 22);
-            this.empleadosToolStripMenuItem456VG.Text = "Personal";
             // 
             // clientesToolStripMenuItem456VG
             // 
@@ -173,14 +165,14 @@
             // crearenvíoToolStripMenuItem456VG
             // 
             this.crearenvíoToolStripMenuItem456VG.Name = "crearenvíoToolStripMenuItem456VG";
-            this.crearenvíoToolStripMenuItem456VG.Size = new System.Drawing.Size(180, 22);
+            this.crearenvíoToolStripMenuItem456VG.Size = new System.Drawing.Size(153, 22);
             this.crearenvíoToolStripMenuItem456VG.Text = "Crear Envío";
             this.crearenvíoToolStripMenuItem456VG.Click += new System.EventHandler(this.paquetesToolStripMenuItem456VG_Click);
             // 
             // cobrarEnvíoToolStripMenuItem
             // 
             this.cobrarEnvíoToolStripMenuItem.Name = "cobrarEnvíoToolStripMenuItem";
-            this.cobrarEnvíoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cobrarEnvíoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.cobrarEnvíoToolStripMenuItem.Text = "Cobrar Envío";
             this.cobrarEnvíoToolStripMenuItem.Click += new System.EventHandler(this.crearEnvíoToolStripMenuItem_Click);
             // 
@@ -203,7 +195,7 @@
             // facturasIMPToolStripMenuItem456VG
             // 
             this.facturasIMPToolStripMenuItem456VG.Name = "facturasIMPToolStripMenuItem456VG";
-            this.facturasIMPToolStripMenuItem456VG.Size = new System.Drawing.Size(180, 22);
+            this.facturasIMPToolStripMenuItem456VG.Size = new System.Drawing.Size(161, 22);
             this.facturasIMPToolStripMenuItem456VG.Text = "Facturas - IMP";
             // 
             // ayudaToolStripMenuItem456VG
@@ -284,7 +276,6 @@
         private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem456VG;
         private System.Windows.Forms.ToolStripMenuItem facturasIMPToolStripMenuItem456VG;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem456VG;
-        private System.Windows.Forms.ToolStripMenuItem empleadosToolStripMenuItem456VG;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem456VG;
         private System.Windows.Forms.ToolStripMenuItem iniciarSesiónToolStripMenuItem456VG;
         private System.Windows.Forms.ToolStripMenuItem cambiarClaveToolStripMenuItem456VG;

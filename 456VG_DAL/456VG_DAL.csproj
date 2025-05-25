@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasedeDatos_456VG.cs" />
+    <Compile Include="DALCliente_456VG.cs" />
+    <Compile Include="DALEnvio_456VG.cs" />
+    <Compile Include="DALPaquete_456VG.cs" />
     <Compile Include="DALUsuario_456VG.cs" />
     <Compile Include="ICrud_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

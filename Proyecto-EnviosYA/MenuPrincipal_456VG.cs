@@ -94,5 +94,10 @@ namespace Proyecto_EnviosYA
             CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
             fr.ShowDialog();
         }
+
+        private void empleadosToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
