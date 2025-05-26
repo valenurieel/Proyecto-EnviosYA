@@ -70,6 +70,7 @@
             this.txtPeso456VG = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.btnCargPaq456VG = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -241,6 +242,9 @@
             // 
             this.cmbTipEnvio456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTipEnvio456VG.FormattingEnabled = true;
+            this.cmbTipEnvio456VG.Items.AddRange(new object[] {
+            "Express",
+            "Normal"});
             this.cmbTipEnvio456VG.Location = new System.Drawing.Point(907, 167);
             this.cmbTipEnvio456VG.Name = "cmbTipEnvio456VG";
             this.cmbTipEnvio456VG.Size = new System.Drawing.Size(121, 23);
@@ -458,12 +462,23 @@
             this.btnCargPaq456VG.UseVisualStyleBackColor = true;
             this.btnCargPaq456VG.Click += new System.EventHandler(this.btnRegCli456VG_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(850, 25);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(63, 34);
+            this.button1.TabIndex = 64;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CrearEnvío_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(1058, 367);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
@@ -556,5 +571,6 @@
         private System.Windows.Forms.TextBox txtPeso456VG;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnCargPaq456VG;
+        private System.Windows.Forms.Button button1;
     }
 }

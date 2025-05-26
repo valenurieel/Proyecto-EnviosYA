@@ -59,12 +59,6 @@
     <Compile Include="CambiarContraseña_456VG.Designer.cs">
       <DependentUpon>CambiarContraseña_456VG.cs</DependentUpon>
     </Compile>
-    <Compile Include="CargarPaquete_456VG.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CargarPaquete_456VG.Designer.cs">
-      <DependentUpon>CargarPaquete_456VG.cs</DependentUpon>
-    </Compile>
     <Compile Include="CerrarSesión_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,9 +105,6 @@
     </Compile>
     <EmbeddedResource Include="CambiarContraseña_456VG.resx">
       <DependentUpon>CambiarContraseña_456VG.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CargarPaquete_456VG.resx">
-      <DependentUpon>CargarPaquete_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CerrarSesión_456VG.resx">
       <DependentUpon>CerrarSesión_456VG.cs</DependentUpon>

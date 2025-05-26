@@ -42,6 +42,7 @@
             this.txtDomiCli456VG = new System.Windows.Forms.TextBox();
             this.dateTimePicker1456VG = new System.Windows.Forms.DateTimePicker();
             this.btnRegCli456VG = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label8
@@ -171,12 +172,23 @@
             this.btnRegCli456VG.UseVisualStyleBackColor = true;
             this.btnRegCli456VG.Click += new System.EventHandler(this.btnRegCli456VG_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(540, 223);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(63, 34);
+            this.button1.TabIndex = 63;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // RegistrarCliente_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(647, 269);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnRegCli456VG);
             this.Controls.Add(this.dateTimePicker1456VG);
             this.Controls.Add(this.label1);
@@ -193,6 +205,7 @@
             this.Controls.Add(this.txtDNICli456VG);
             this.Name = "RegistrarCliente_456VG";
             this.Text = "Registrar Clientes";
+            this.Load += new System.EventHandler(this.RegistrarCliente_456VG_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,5 +227,6 @@
         private System.Windows.Forms.TextBox txtDomiCli456VG;
         private System.Windows.Forms.DateTimePicker dateTimePicker1456VG;
         private System.Windows.Forms.Button btnRegCli456VG;
+        private System.Windows.Forms.Button button1;
     }
 }

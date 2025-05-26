@@ -11,12 +11,10 @@ namespace Proyecto_EnviosYA
         BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
         BLLPaquete_456VG BLLPaque = new BLLPaquete_456VG();
         BLLCliente_456VG BLLCliente = new BLLCliente_456VG();
-
+        private BEPaquete_456VG paqueteCargado;
         public CrearEnvío_456VG()
         {
             InitializeComponent();
-            //this.txtDNICli456VG.Leave += new System.EventHandler(this.txtDNICli456VG_Leave);
-
         }
 
         private void iconPictureBox1456VG_Click(object sender, EventArgs e)
@@ -26,48 +24,65 @@ namespace Proyecto_EnviosYA
 
         private void btnCrearEnvío456VG_Click(object sender, EventArgs e)
         {
-                string dni = txtDNID456VG.Text;
-                string name = txtNomD456VG.Text;
-                string ape = txtApeD456VG.Text;
-                string telef = txtTelD456VG.Text;
-                float codpostal = Convert.ToInt32(txtCP456VG.Text);
-                string domicilio = txtDom456VG.Text;
-                string localidad = txtLoc456VG.Text;
-                string prov = txtProv456VG.Text;
-                string dnicli = txtDNICli456VG.Text;
-                string namecli = txtNomCli456VG.Text;
-                string apecli = txtApeCli456VG.Text;
-                string telcli = txtTelCli456VG.Text;
-                float peso = Convert.ToSingle(txtPeso456VG.Text);
-                float ancho = Convert.ToSingle(txtAncho456VG.Text);
-                float alto = Convert.ToSingle(txtAlto456VG.Text);
-                float largo = Convert.ToSingle(txtLargo456VG.Text);
-                string tipoenvio = cmbTipEnvio456VG.SelectedItem?.ToString();
-                bool pagado = false;
-                BEEnvío_456VG envio = new BEEnvío_456VG(
-                    dnicli, namecli, apecli, telcli,
-                    dni, name, ape, telef,
-                    codpostal, domicilio, localidad, prov,
-                    peso, ancho, alto, largo,
-                    tipoenvio, 0f, pagado
-                );
-                envio.Importe456VG = envio.CalcularImporte();
-                Resultado_456VG<BEEnvío_456VG> resultado = BLLEnv.crearEntidad456VG(envio);
-                if (resultado.resultado)
-                {
-                    MessageBox.Show("Envío registrado correctamente.");
-                }
-                else
-                {
-                    MessageBox.Show($"Error al registrar el envío: {resultado.mensaje}");
-                }
+            if (paqueteCargado == null)
+            {
+                MessageBox.Show("Debe Cargar un Paquete.", "Paquete NO EXISTENTE",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var envio = new BEEnvío_456VG(
+                paqueteCargado.id_paquete456VG,
+                paqueteCargado.dnicliente456VG,
+                txtDNID456VG.Text.Trim(),
+                txtNomD456VG.Text.Trim(),
+                txtApeD456VG.Text.Trim(),
+                txtTelD456VG.Text.Trim(),
+                Convert.ToSingle(txtCP456VG.Text),
+                txtDom456VG.Text.Trim(),
+                txtLoc456VG.Text.Trim(),
+                txtProv456VG.Text.Trim(),
+                cmbTipEnvio456VG.SelectedItem?.ToString() ?? "normal",
+                0m,
+                false
+            );
+            envio.Paquete = paqueteCargado;
+            envio.Cliente = paqueteCargado.Cliente;
+            envio.Importe456VG = envio.CalcularImporte();
+            var resEnv = BLLEnv.crearEntidad456VG(envio);
+            if (!resEnv.resultado)
+            {
+                MessageBox.Show($"Error al crear el envío: {resEnv.mensaje}");
+                return;
+            }
+            paqueteCargado.Enviado456VG = true;
+            var upd = BLLPaque.actualizarEntidad456VG(paqueteCargado);
+            MessageBox.Show("Envío creado exitosamente.");
         }
         private void btnRegCli456VG_Click(object sender, EventArgs e)
         {
-            RegistrarCliente_456VG fr = new RegistrarCliente_456VG();
-            fr.Show();
+            string dniCli = txtDNICli456VG.Text.Trim();
+            var resCli = BLLCliente.ObtenerClientePorDNI456VG(dniCli);
+            if (!resCli.resultado)
+            {
+                MessageBox.Show("Debe ser Cliente para cargar un Paquete.", "Cliente NO EXISTENTE",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            paqueteCargado = new BEPaquete_456VG(
+                dniCli,
+                Convert.ToSingle(txtPeso456VG.Text),
+                Convert.ToSingle(txtAncho456VG.Text),
+                Convert.ToSingle(txtLargo456VG.Text),
+                Convert.ToSingle(txtAlto456VG.Text),
+                false
+            );
+            paqueteCargado.Cliente = resCli.entidad;
+            var resp = BLLPaque.crearEntidad456VG(paqueteCargado);
+            if (!resp.resultado)
+                MessageBox.Show($"Error al cargar el paquete: {resp.mensaje}");
+            else
+                MessageBox.Show($"Paquete cargado exitosamente.");
         }
-
         private void txtDNICli456VG_Leave(object sender, EventArgs e)
         {
             string dni = txtDNICli456VG.Text.Trim();
@@ -85,13 +100,19 @@ namespace Proyecto_EnviosYA
                 txtNomCli456VG.Clear();
                 txtApeCli456VG.Clear();
                 txtTelCli456VG.Clear();
-                MessageBox.Show("No se encontró un cliente con ese DNI.", "Cliente no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No se encontró un cliente con ese DNI.", "Cliente NO ENCONTRADO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                RegistrarCliente_456VG regcli = new RegistrarCliente_456VG();
+                regcli.ShowDialog();
             }
         }
-
         private void CrearEnvío_456VG_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

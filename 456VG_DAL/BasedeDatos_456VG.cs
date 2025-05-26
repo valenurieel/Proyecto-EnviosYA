@@ -93,7 +93,7 @@ namespace _456VG_DAL
                     "activo_456VG BIT NOT NULL DEFAULT 1" +
                 ");");
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE Clientes_456VG (" +
-                    "dni_456VG INT PRIMARY KEY," +
+                    "dni_456VG VARCHAR(20) PRIMARY KEY," +
                     "nombre_456VG VARCHAR(100) NOT NULL," +
                     "apellido_456VG VARCHAR(100) NOT NULL," +
                     "telefono_456VG VARCHAR(100) NOT NULL," +
@@ -102,18 +102,19 @@ namespace _456VG_DAL
                 ");");
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE Paquetes_456VG (" +
                     "id_paquete_456VG INT IDENTITY(1,1) PRIMARY KEY," +
-                    "dni_456VG INT NOT NULL," +
+                    "dni_456VG VARCHAR(20) NOT NULL," +
                     "peso_456VG FLOAT NOT NULL," +
                     "ancho_456VG FLOAT NOT NULL," +
                     "alto_456VG FLOAT NOT NULL," +
                     "largo_456VG FLOAT NOT NULL," +
                     "enviado_456VG BIT NOT NULL DEFAULT 0," +
+                    "codpaq_456VG VARCHAR(20) NOT NULL," +
                     "CONSTRAINT fk_paquete_cliente FOREIGN KEY (dni_456VG) REFERENCES Clientes_456VG(dni_456VG)" +
                 ");");
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE Envios_456VG (" +
                     "id_envio_456VG INT IDENTITY(1,1) PRIMARY KEY," +
                     "id_paquete_456VG INT NOT NULL," +
-                    "dni_cli_456VG INT NOT NULL," +
+                    "dni_cli_456VG VARCHAR(20) NOT NULL," +
                     "apellido_dest_456VG VARCHAR(100) NOT NULL," +
                     "nombre_dest_456VG VARCHAR(100) NOT NULL," +
                     "telefono_dest_456VG VARCHAR(100) NOT NULL," +
@@ -121,7 +122,7 @@ namespace _456VG_DAL
                     "localidad_456VG VARCHAR(100) NOT NULL," +
                     "provincia_456VG VARCHAR(100) NOT NULL," +
                     "domicilio_456VG VARCHAR(100) NOT NULL," +
-                    "importe_456VG FLOAT NOT NULL," +
+                    "importe_456VG DECIMAL(10,2) NOT NULL," +
                     "pagado_456VG BIT NOT NULL DEFAULT 0," +
                     "codpostal_456VG FLOAT NOT NULL," +
                     "CONSTRAINT fk_envio_cliente FOREIGN KEY (dni_cli_456VG) REFERENCES Clientes_456VG(dni_456VG)," +
