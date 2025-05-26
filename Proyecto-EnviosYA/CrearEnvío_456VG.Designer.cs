@@ -354,6 +354,7 @@
             this.txtDNICli456VG.Name = "txtDNICli456VG";
             this.txtDNICli456VG.Size = new System.Drawing.Size(128, 22);
             this.txtDNICli456VG.TabIndex = 39;
+            this.txtDNICli456VG.Leave += new System.EventHandler(this.txtDNICli456VG_Leave);
             // 
             // label8
             // 
@@ -506,6 +507,7 @@
             this.Controls.Add(this.txtDNID456VG);
             this.Name = "CrearEnvío_456VG";
             this.Text = "Crear Envío";
+            this.Load += new System.EventHandler(this.CrearEnvío_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

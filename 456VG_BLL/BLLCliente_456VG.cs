@@ -32,5 +32,9 @@ namespace _456VG_BLL
         {
             return dal.actualizarEntidad456VG(obj);
         }
+        public Resultado_456VG<BECliente_456VG> ObtenerClientePorDNI456VG(string dni)
+        {
+            return dal.ObtenerClientePorDNI456VG(dni);
+        }
     }
 }

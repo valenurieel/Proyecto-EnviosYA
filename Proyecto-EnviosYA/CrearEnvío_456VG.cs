@@ -10,10 +10,13 @@ namespace Proyecto_EnviosYA
     {
         BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
         BLLPaquete_456VG BLLPaque = new BLLPaquete_456VG();
+        BLLCliente_456VG BLLCliente = new BLLCliente_456VG();
 
         public CrearEnvío_456VG()
         {
             InitializeComponent();
+            //this.txtDNICli456VG.Leave += new System.EventHandler(this.txtDNICli456VG_Leave);
+
         }
 
         private void iconPictureBox1456VG_Click(object sender, EventArgs e)
@@ -63,6 +66,32 @@ namespace Proyecto_EnviosYA
         {
             RegistrarCliente_456VG fr = new RegistrarCliente_456VG();
             fr.Show();
+        }
+
+        private void txtDNICli456VG_Leave(object sender, EventArgs e)
+        {
+            string dni = txtDNICli456VG.Text.Trim();
+            if (string.IsNullOrEmpty(dni))
+                return;
+            var resultado = BLLCliente.ObtenerClientePorDNI456VG(dni);
+            if (resultado.resultado && resultado.entidad != null)
+            {
+                txtNomCli456VG.Text = resultado.entidad.Nombre456VG;
+                txtApeCli456VG.Text = resultado.entidad.Apellido456VG;
+                txtTelCli456VG.Text = resultado.entidad.Teléfono456VG;
+            }
+            else
+            {
+                txtNomCli456VG.Clear();
+                txtApeCli456VG.Clear();
+                txtTelCli456VG.Clear();
+                MessageBox.Show("No se encontró un cliente con ese DNI.", "Cliente no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void CrearEnvío_456VG_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -32,7 +32,6 @@ namespace Proyecto_EnviosYA
             perfilesToolStripMenuItem456VG.Enabled = false;
             maestroToolStripMenuItem456VG.Enabled = false;
             cambiarIdiomaToolStripMenuItem456VG.Enabled = false;
-            recepciónToolStripMenuItem.Enabled = false;
             envíosToolStripMenuItem456VG.Enabled = false;
             reportesToolStripMenuItem456VG.Enabled = false;
             cambiarClaveToolStripMenuItem456VG.Enabled = false;
