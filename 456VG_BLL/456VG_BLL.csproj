@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BLLCliente_456VG.cs" />
     <Compile Include="BLLEnvio_456VG.cs" />
+    <Compile Include="BLLFactura_456VG.cs" />
     <Compile Include="BLLPaquete_456VG.cs" />
     <Compile Include="BLLUsuario_456VG.cs" />
     <Compile Include="IEntidades_456VG.cs" />

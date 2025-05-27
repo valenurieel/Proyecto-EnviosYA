@@ -222,7 +222,7 @@
             // 
             this.LTipEnvio.AutoSize = true;
             this.LTipEnvio.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LTipEnvio.Location = new System.Drawing.Point(904, 148);
+            this.LTipEnvio.Location = new System.Drawing.Point(904, 214);
             this.LTipEnvio.Name = "LTipEnvio";
             this.LTipEnvio.Size = new System.Drawing.Size(78, 15);
             this.LTipEnvio.TabIndex = 25;
@@ -231,10 +231,10 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(119, 110);
+            this.label15.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(101, 110);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(127, 18);
+            this.label15.Size = new System.Drawing.Size(176, 26);
             this.label15.TabIndex = 27;
             this.label15.Text = "Datos Destinatario";
             // 
@@ -245,7 +245,7 @@
             this.cmbTipEnvio456VG.Items.AddRange(new object[] {
             "Express",
             "Normal"});
-            this.cmbTipEnvio456VG.Location = new System.Drawing.Point(907, 167);
+            this.cmbTipEnvio456VG.Location = new System.Drawing.Point(907, 233);
             this.cmbTipEnvio456VG.Name = "cmbTipEnvio456VG";
             this.cmbTipEnvio456VG.Size = new System.Drawing.Size(121, 23);
             this.cmbTipEnvio456VG.TabIndex = 28;
@@ -253,10 +253,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(445, 25);
+            this.label1.Font = new System.Drawing.Font("Open Sans", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(439, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 28);
+            this.label1.Size = new System.Drawing.Size(151, 33);
             this.label1.TabIndex = 29;
             this.label1.Text = "Crear Envío";
             // 
@@ -363,10 +363,10 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(428, 109);
+            this.label8.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(410, 109);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(91, 18);
+            this.label8.Size = new System.Drawing.Size(127, 26);
             this.label8.TabIndex = 47;
             this.label8.Text = "Datos Cliente";
             // 
@@ -445,10 +445,10 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(617, 109);
+            this.label13.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(601, 109);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(99, 18);
+            this.label13.Size = new System.Drawing.Size(139, 26);
             this.label13.TabIndex = 56;
             this.label13.Text = "Datos Paquete\r\n";
             // 
@@ -464,9 +464,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(850, 25);
+            this.button1.Location = new System.Drawing.Point(965, 159);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 34);
+            this.button1.Size = new System.Drawing.Size(63, 29);
             this.button1.TabIndex = 64;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = true;

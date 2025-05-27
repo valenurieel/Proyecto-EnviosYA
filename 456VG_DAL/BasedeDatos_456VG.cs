@@ -115,19 +115,32 @@ namespace _456VG_DAL
                     "id_envio_456VG INT IDENTITY(1,1) PRIMARY KEY," +
                     "id_paquete_456VG INT NOT NULL," +
                     "dni_cli_456VG VARCHAR(20) NOT NULL," +
-                    "apellido_dest_456VG VARCHAR(100) NOT NULL," +
-                    "nombre_dest_456VG VARCHAR(100) NOT NULL," +
-                    "telefono_dest_456VG VARCHAR(100) NOT NULL," +
                     "dni_dest_456VG VARCHAR(100) NOT NULL," +
-                    "localidad_456VG VARCHAR(100) NOT NULL," +
+                    "nombre_dest_456VG VARCHAR(100) NOT NULL," +
+                    "apellido_dest_456VG VARCHAR(100) NOT NULL," +
+                    "telefono_dest_456VG VARCHAR(100) NOT NULL," +
                     "provincia_456VG VARCHAR(100) NOT NULL," +
+                    "localidad_456VG VARCHAR(100) NOT NULL," +
                     "domicilio_456VG VARCHAR(100) NOT NULL," +
+                    "codpostal_456VG FLOAT NOT NULL," +
+                    "tipoenvio_456VG VARCHAR(20) NOT NULL," +
                     "importe_456VG DECIMAL(10,2) NOT NULL," +
                     "pagado_456VG BIT NOT NULL DEFAULT 0," +
-                    "codpostal_456VG FLOAT NOT NULL," +
                     "CONSTRAINT fk_envio_cliente FOREIGN KEY (dni_cli_456VG) REFERENCES Clientes_456VG(dni_456VG)," +
                     "CONSTRAINT fk_envio_paquete FOREIGN KEY (id_paquete_456VG) REFERENCES Paquetes_456VG(id_paquete_456VG)" +
                 ");");
+                ejecutarQuery456VG(
+                    "USE EnviosYA_456VG; CREATE TABLE Facturas_456VG (" +
+                        "id_factura_456VG      INT IDENTITY(1,1) PRIMARY KEY, " +
+                        "id_envio_456VG        INT NOT NULL, " +
+                        "id_paquete_456VG      INT NOT NULL, " +
+                        "dni_cli_456VG         VARCHAR(20) NOT NULL, " +
+                        "fechaemision_456VG    DATETIME NOT NULL DEFAULT GETDATE(), " +
+                        "CONSTRAINT fk_factura_envio    FOREIGN KEY (id_envio_456VG)   REFERENCES Envios_456VG(id_envio_456VG), " +
+                        "CONSTRAINT fk_factura_paquete  FOREIGN KEY (id_paquete_456VG) REFERENCES Paquetes_456VG(id_paquete_456VG), " +
+                        "CONSTRAINT fk_factura_cliente  FOREIGN KEY (dni_cli_456VG)    REFERENCES Clientes_456VG(dni_456VG)" +
+                    ");"
+                );
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE HistorialContraseñas_456VG (" +
                     "dni_456VG VARCHAR(20) NOT NULL, " +
                     "contraseñahash_456VG VARCHAR(100) NOT NULL, " +

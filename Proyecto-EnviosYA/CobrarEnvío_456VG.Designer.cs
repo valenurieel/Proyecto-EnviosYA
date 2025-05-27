@@ -44,34 +44,34 @@
             this.btnAggTarj456VG = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.lblImporte456VG = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dataGridView1456VG = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDNI456VG
             // 
-            this.txtDNI456VG.Location = new System.Drawing.Point(38, 250);
+            this.txtDNI456VG.Location = new System.Drawing.Point(37, 259);
             this.txtDNI456VG.Name = "txtDNI456VG";
             this.txtDNI456VG.Size = new System.Drawing.Size(121, 22);
             this.txtDNI456VG.TabIndex = 0;
             // 
             // txtNTarj456VG
             // 
-            this.txtNTarj456VG.Location = new System.Drawing.Point(196, 198);
+            this.txtNTarj456VG.Location = new System.Drawing.Point(195, 207);
             this.txtNTarj456VG.Name = "txtNTarj456VG";
             this.txtNTarj456VG.Size = new System.Drawing.Size(121, 22);
             this.txtNTarj456VG.TabIndex = 1;
             // 
             // txtTitular456VG
             // 
-            this.txtTitular456VG.Location = new System.Drawing.Point(196, 250);
+            this.txtTitular456VG.Location = new System.Drawing.Point(195, 259);
             this.txtTitular456VG.Name = "txtTitular456VG";
             this.txtTitular456VG.Size = new System.Drawing.Size(121, 22);
             this.txtTitular456VG.TabIndex = 2;
             // 
             // txtCVC456VG
             // 
-            this.txtCVC456VG.Location = new System.Drawing.Point(346, 250);
+            this.txtCVC456VG.Location = new System.Drawing.Point(345, 259);
             this.txtCVC456VG.Name = "txtCVC456VG";
             this.txtCVC456VG.Size = new System.Drawing.Size(121, 22);
             this.txtCVC456VG.TabIndex = 4;
@@ -79,7 +79,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 232);
+            this.label1.Location = new System.Drawing.Point(34, 241);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 15);
             this.label1.TabIndex = 5;
@@ -88,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(193, 180);
+            this.label2.Location = new System.Drawing.Point(192, 189);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 15);
             this.label2.TabIndex = 6;
@@ -97,7 +97,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(193, 232);
+            this.label3.Location = new System.Drawing.Point(192, 241);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 15);
             this.label3.TabIndex = 7;
@@ -106,7 +106,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(343, 180);
+            this.label4.Location = new System.Drawing.Point(342, 189);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(124, 15);
             this.label4.TabIndex = 8;
@@ -115,7 +115,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(343, 232);
+            this.label5.Location = new System.Drawing.Point(342, 241);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 15);
             this.label5.TabIndex = 9;
@@ -123,7 +123,7 @@
             // 
             // dateTimePicker1456VG
             // 
-            this.dateTimePicker1456VG.Location = new System.Drawing.Point(346, 198);
+            this.dateTimePicker1456VG.Location = new System.Drawing.Point(345, 207);
             this.dateTimePicker1456VG.Name = "dateTimePicker1456VG";
             this.dateTimePicker1456VG.Size = new System.Drawing.Size(200, 22);
             this.dateTimePicker1456VG.TabIndex = 10;
@@ -135,7 +135,7 @@
             "Mercado Pago",
             "Débito",
             "Crédito"});
-            this.cmbMedPago456VG.Location = new System.Drawing.Point(38, 198);
+            this.cmbMedPago456VG.Location = new System.Drawing.Point(37, 207);
             this.cmbMedPago456VG.Name = "cmbMedPago456VG";
             this.cmbMedPago456VG.Size = new System.Drawing.Size(121, 23);
             this.cmbMedPago456VG.TabIndex = 11;
@@ -143,7 +143,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 180);
+            this.label6.Location = new System.Drawing.Point(34, 189);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 15);
             this.label6.TabIndex = 12;
@@ -152,16 +152,16 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(274, 9);
+            this.label8.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(415, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(134, 26);
+            this.label8.Size = new System.Drawing.Size(146, 28);
             this.label8.TabIndex = 57;
             this.label8.Text = "Cobrar Envío";
             // 
             // btnAggTarj456VG
             // 
-            this.btnAggTarj456VG.Location = new System.Drawing.Point(569, 278);
+            this.btnAggTarj456VG.Location = new System.Drawing.Point(839, 277);
             this.btnAggTarj456VG.Name = "btnAggTarj456VG";
             this.btnAggTarj456VG.Size = new System.Drawing.Size(94, 39);
             this.btnAggTarj456VG.TabIndex = 58;
@@ -188,21 +188,21 @@
             this.lblImporte456VG.TabIndex = 60;
             this.lblImporte456VG.Text = "IMPORTE";
             // 
-            // dataGridView1
+            // dataGridView1456VG
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 53);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(662, 116);
-            this.dataGridView1.TabIndex = 61;
+            this.dataGridView1456VG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1456VG.Location = new System.Drawing.Point(12, 53);
+            this.dataGridView1456VG.Name = "dataGridView1456VG";
+            this.dataGridView1456VG.Size = new System.Drawing.Size(950, 116);
+            this.dataGridView1456VG.TabIndex = 61;
             // 
             // CobrarEnvío_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(686, 330);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(974, 330);
+            this.Controls.Add(this.dataGridView1456VG);
             this.Controls.Add(this.lblImporte456VG);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnAggTarj456VG);
@@ -222,7 +222,8 @@
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "CobrarEnvío_456VG";
             this.Text = "Cobrar Envío";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.CobrarEnvío_456VG_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,6 +247,6 @@
         private System.Windows.Forms.Button btnAggTarj456VG;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblImporte456VG;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView1456VG;
     }
 }

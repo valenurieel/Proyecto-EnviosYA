@@ -4,31 +4,27 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace _456VG_DAL
 {
-    public class DALEnvio_456VG: ICrud_456VG<BEEnvío_456VG>
+    public class DALFactura_456VG:ICrud_456VG<BEFactura_456VG>
     {
         BasedeDatos_456VG db { get; }
         HashSHA256_456VG hasher { get; set; }
-        
-        public DALEnvio_456VG()
+        public DALFactura_456VG()
         {
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
-        public Resultado_456VG<BEEnvío_456VG> actualizarEntidad456VG(BEEnvío_456VG obj)
+        public Resultado_456VG<BEFactura_456VG> actualizarEntidad456VG(BEFactura_456VG obj)
         {
             throw new Exception();
         }
-        public Resultado_456VG<BEEnvío_456VG> crearEntidad456VG(BEEnvío_456VG obj)
+        public Resultado_456VG<BEFactura_456VG> crearEntidad456VG(BEFactura_456VG obj)
         {
-            var resultado = new Resultado_456VG<BEEnvío_456VG>();
+            var resultado = new Resultado_456VG<BEFactura_456VG>();
             try
             {
                 db.Connection.Open();
@@ -36,29 +32,20 @@ namespace _456VG_DAL
                 {
                     const string sql =
                         "USE EnviosYA_456VG; " +
-                        "INSERT INTO Envios_456VG (id_paquete_456VG, dni_cli_456VG, apellido_dest_456VG, nombre_dest_456VG, telefono_dest_456VG, dni_dest_456VG, localidad_456VG, provincia_456VG, domicilio_456VG, importe_456VG, pagado_456VG, codpostal_456VG, tipoenvio_456VG) " +
-                        "VALUES (@IdPaq, @DniCli, @ApeDest, @NomDest, @TelDest, @DniDest, @Loc, @Prov, @Dom, @Imp, @Pag, @CP, @Tipo); " +
+                        "INSERT INTO Facturas_456VG (id_envio_456VG, id_paquete_456VG, dni_cli_456VG, fechaemision_456VG) " +
+                        "VALUES (@IdEnv, @IdPaq, @DniCli, @Fecha); " +
                         "SELECT CAST(SCOPE_IDENTITY() AS INT);";
                     using (var cmd = new SqlCommand(sql, db.Connection, tx))
                     {
+                        cmd.Parameters.AddWithValue("@IdEnv", obj.id_envio456VG);
                         cmd.Parameters.AddWithValue("@IdPaq", obj.id_paquete456VG);
                         cmd.Parameters.AddWithValue("@DniCli", obj.DNICli456VG);
-                        cmd.Parameters.AddWithValue("@ApeDest", obj.ApellidoDest456VG);
-                        cmd.Parameters.AddWithValue("@NomDest", obj.NombreDest456VG);
-                        cmd.Parameters.AddWithValue("@TelDest", obj.TeléfonoDest456VG);
-                        cmd.Parameters.AddWithValue("@DniDest", obj.DNIDest456VG);
-                        cmd.Parameters.AddWithValue("@Loc", obj.Localidad456VG);
-                        cmd.Parameters.AddWithValue("@Prov", obj.Provincia456VG);
-                        cmd.Parameters.AddWithValue("@Dom", obj.Domicilio456VG);
-                        cmd.Parameters.AddWithValue("@Imp", obj.Importe456VG);
-                        cmd.Parameters.AddWithValue("@Pag", obj.Pagado456VG);
-                        cmd.Parameters.AddWithValue("@CP", obj.CodPostal456VG);
-                        cmd.Parameters.AddWithValue("@Tipo", obj.tipoenvio456VG);
-                        obj.id_envio456VG = (int)cmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@Fecha", obj.FechaEmision456VG);
+                        obj.id_factura456VG = (int)cmd.ExecuteScalar();
                     }
                     tx.Commit();
                 }
-                resultado.resultado = true; resultado.entidad = obj; resultado.mensaje = "Envío creado correctamente.";
+                resultado.resultado = true; resultado.entidad = obj; resultado.mensaje = "Factura creada correctamente.";
             }
             catch (Exception ex)
             {
@@ -70,23 +57,24 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-        public Resultado_456VG<BEEnvío_456VG> eliminarEntidad456VG(BEEnvío_456VG obj)
+        public Resultado_456VG<BEFactura_456VG> eliminarEntidad456VG(BEFactura_456VG obj)
         {
             throw new Exception();
         }
-        public List<BEEnvío_456VG> leerEntidades456VG() // esto en FACTURA
+        public List<BEFactura_456VG> leerEntidades456VG()
         {
-            var list = new List<BEEnvío_456VG>();
+            var list = new List<BEFactura_456VG>();
             const string sql =
                 "USE EnviosYA_456VG; " +
                 "SELECT " +
-                "  e.id_envio_456VG, e.id_paquete_456VG, e.dni_cli_456VG, e.dni_dest_456VG, e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, " +
-                "  e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG, e.codpostal_456VG, e.tipoenvio_456VG, e.importe_456VG, e.pagado_456VG, " +
+                "  f.id_factura_456VG, f.id_envio_456VG, f.id_paquete_456VG, f.dni_cli_456VG, f.fechaemision_456VG, " +
+                "  e.dni_dest_456VG, e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG, e.tipoenvio_456VG, e.importe_456VG, e.pagado_456VG, " +
                 "  p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG, p.codpaq_456VG, " +
                 "  c.nombre_456VG AS cliNombre, c.apellido_456VG AS cliApellido, c.telefono_456VG AS cliTelefono, c.domicilio_456VG AS cliDomicilio, c.fechanacimiento_456VG " +
-                "FROM Envios_456VG e " +
-                "JOIN Paquetes_456VG p ON e.id_paquete_456VG = p.id_paquete_456VG " +
-                "JOIN Clientes_456VG c ON e.dni_cli_456VG    = c.dni_456VG;";
+                "FROM Facturas_456VG f " +
+                "JOIN Envios_456VG  e ON f.id_envio_456VG   = e.id_envio_456VG " +
+                "JOIN Paquetes_456VG p ON f.id_paquete_456VG = p.id_paquete_456VG " +
+                "JOIN Clientes_456VG c ON f.dni_cli_456VG     = c.dni_456VG;";
             try
             {
                 if (!db.Conectar456VG()) throw new Exception("Error al conectar BD");
@@ -94,9 +82,11 @@ namespace _456VG_DAL
                 using (var r = cmd.ExecuteReader())
                     while (r.Read())
                     {
-                        int idEnvio = r.GetInt32(r.GetOrdinal("id_envio_456VG"));
+                        int idFact = r.GetInt32(r.GetOrdinal("id_factura_456VG"));
+                        int idEnv = r.GetInt32(r.GetOrdinal("id_envio_456VG"));
                         int idPaq = r.GetInt32(r.GetOrdinal("id_paquete_456VG"));
                         string dniCli = r.GetString(r.GetOrdinal("dni_cli_456VG"));
+                        DateTime fecha = r.GetDateTime(r.GetOrdinal("fechaemision_456VG"));
                         string dniDest = r.GetString(r.GetOrdinal("dni_dest_456VG"));
                         string nomDest = r.GetString(r.GetOrdinal("nombre_dest_456VG"));
                         string apeDest = r.GetString(r.GetOrdinal("apellido_dest_456VG"));
@@ -104,7 +94,6 @@ namespace _456VG_DAL
                         string prov = r.GetString(r.GetOrdinal("provincia_456VG"));
                         string loc = r.GetString(r.GetOrdinal("localidad_456VG"));
                         string dom = r.GetString(r.GetOrdinal("domicilio_456VG"));
-                        float cp = (float)r.GetDouble(r.GetOrdinal("codpostal_456VG"));
                         string tipoEnv = r.GetString(r.GetOrdinal("tipoenvio_456VG"));
                         decimal imp = r.GetDecimal(r.GetOrdinal("importe_456VG"));
                         bool pagado = r.GetBoolean(r.GetOrdinal("pagado_456VG"));
@@ -121,12 +110,13 @@ namespace _456VG_DAL
                         DateTime cliFN = r.GetDateTime(r.GetOrdinal("fechanacimiento_456VG"));
                         var paquete = new BEPaquete_456VG(idPaq, dniCli, peso, ancho, largo, alto, enviado) { CodPaq456VG = codPaq };
                         paquete.Cliente = new BECliente_456VG(dniCli, cliNom, cliApe, cliTel, cliDom, cliFN);
-                        var envio = new BEEnvío_456VG(idEnvio, idPaq, dniCli, dniDest, nomDest, apeDest, telDest, cp, dom, loc, prov, tipoEnv, imp, pagado)
+                        var envio = new BEEnvío_456VG(idEnv, idPaq, dniCli, dniDest, nomDest, apeDest, telDest, 0f, dom, loc, prov, tipoEnv, imp, pagado)
                         {
                             Paquete = paquete,
                             Cliente = paquete.Cliente
                         };
-                        list.Add(envio);
+                        var factura = new BEFactura_456VG(idFact, idEnv, idPaq, dniCli, fecha) { Envio = envio, Paquete = paquete, Cliente = paquete.Cliente };
+                        list.Add(factura);
                     }
             }
             catch
