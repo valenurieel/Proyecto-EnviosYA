@@ -24,7 +24,39 @@ namespace _456VG_DAL
         }
         public Resultado_456VG<BEEnvío_456VG> actualizarEntidad456VG(BEEnvío_456VG obj)
         {
-            throw new Exception();
+            var resultado = new Resultado_456VG<BEEnvío_456VG>();
+            try
+            {
+                db.Connection.Open();
+                using (var tx = db.Connection.BeginTransaction())
+                {
+                    const string sql =
+                        "USE EnviosYA_456VG; " +
+                        "UPDATE Envios_456VG " +
+                        "SET pagado_456VG = @Pagado " +
+                        "WHERE id_envio_456VG = @Id;";
+                    using (var cmd = new SqlCommand(sql, db.Connection, tx))
+                    {
+                        cmd.Parameters.AddWithValue("@Pagado", obj.Pagado456VG);
+                        cmd.Parameters.AddWithValue("@Id", obj.id_envio456VG);
+                        cmd.ExecuteNonQuery();
+                    }
+                    tx.Commit();
+                }
+                resultado.resultado = true;
+                resultado.entidad = obj;
+                resultado.mensaje = "Envío marcado como Pagado.";
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = ex.Message;
+            }
+            finally
+            {
+                db.Connection.Close();
+            }
+            return resultado;
         }
         public Resultado_456VG<BEEnvío_456VG> crearEntidad456VG(BEEnvío_456VG obj)
         {

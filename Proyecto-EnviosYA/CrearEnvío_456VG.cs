@@ -11,6 +11,7 @@ namespace Proyecto_EnviosYA
         BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
         BLLPaquete_456VG BLLPaque = new BLLPaquete_456VG();
         BLLCliente_456VG BLLCliente = new BLLCliente_456VG();
+        BLLFactura_456VG BLLFactura = new BLLFactura_456VG();
         private BEPaquete_456VG paqueteCargado;
         public CrearEnvío_456VG()
         {
@@ -51,11 +52,27 @@ namespace Proyecto_EnviosYA
             var resEnv = BLLEnv.crearEntidad456VG(envio);
             if (!resEnv.resultado)
             {
-                MessageBox.Show($"Error al crear el envío: {resEnv.mensaje}");
+                MessageBox.Show($"Error al crear el Envío: {resEnv.mensaje}");
                 return;
             }
             paqueteCargado.Enviado456VG = true;
             var upd = BLLPaque.actualizarEntidad456VG(paqueteCargado);
+            BEEnvío_456VG envioCargado = resEnv.entidad;
+            var fact = new BEFactura_456VG(
+                envioCargado.id_envio456VG,
+                envioCargado.id_paquete456VG,
+                envioCargado.DNICli456VG,
+                DateTime.Now
+            );
+            fact.Envio = envioCargado;
+            fact.Paquete = paqueteCargado;
+            fact.Cliente = paqueteCargado.Cliente;
+            var resFact = BLLFactura.crearEntidad456VG(fact);
+            if (!resFact.resultado)
+            {
+                MessageBox.Show($"Error al crear la Factura: {resFact.mensaje}");
+                return;
+            }
             MessageBox.Show("Envío creado exitosamente.");
         }
         private void btnRegCli456VG_Click(object sender, EventArgs e)

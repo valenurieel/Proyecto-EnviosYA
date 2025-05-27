@@ -167,6 +167,7 @@
             this.btnAggTarj456VG.TabIndex = 58;
             this.btnAggTarj456VG.Text = "Cobrar Envío";
             this.btnAggTarj456VG.UseVisualStyleBackColor = true;
+            this.btnAggTarj456VG.Click += new System.EventHandler(this.btnAggTarj456VG_Click);
             // 
             // label7
             // 
@@ -187,6 +188,7 @@
             this.lblImporte456VG.Size = new System.Drawing.Size(82, 22);
             this.lblImporte456VG.TabIndex = 60;
             this.lblImporte456VG.Text = "IMPORTE";
+            this.lblImporte456VG.Click += new System.EventHandler(this.lblImporte456VG_Click);
             // 
             // dataGridView1456VG
             // 
@@ -195,6 +197,7 @@
             this.dataGridView1456VG.Name = "dataGridView1456VG";
             this.dataGridView1456VG.Size = new System.Drawing.Size(950, 116);
             this.dataGridView1456VG.TabIndex = 61;
+            this.dataGridView1456VG.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1456VG_CellClick);
             // 
             // CobrarEnvío_456VG
             // 
