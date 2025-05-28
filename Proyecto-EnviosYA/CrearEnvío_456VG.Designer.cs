@@ -358,6 +358,7 @@
             this.txtDNICli456VG.Name = "txtDNICli456VG";
             this.txtDNICli456VG.Size = new System.Drawing.Size(128, 22);
             this.txtDNICli456VG.TabIndex = 39;
+            this.txtDNICli456VG.TextChanged += new System.EventHandler(this.txtDNICli456VG_TextChanged);
             this.txtDNICli456VG.Leave += new System.EventHandler(this.txtDNICli456VG_Leave);
             // 
             // label8

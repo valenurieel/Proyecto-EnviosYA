@@ -58,7 +58,7 @@ namespace _456VG_BE
             this.Importe456VG = impo;
             this.Pagado456VG = pagado;
         }
-        public decimal CalcularImporte()
+        public decimal CalcularImporte456VG()
         {
             float volumen = (Paquete.Alto456VG * Paquete.Ancho456VG * Paquete.Largo456VG) / 1000f;
             float basePeso = Paquete.Peso456VG * 10f;
