@@ -19,30 +19,38 @@ namespace Proyecto_EnviosYA
     {
         BLLFactura_456VG BLLFac = new BLLFactura_456VG();
         BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
+        private List<BEFactura_456VG> _facturas;
         private BEEnvío_456VG envioCargado;
+        private BECliente_456VG clienteCargado;
+        private BEPaquete_456VG paqueteCargado;
         private string dniRemitenteSeleccionado;
+        private string cliente;
         public CobrarEnvío_456VG()
         {
             InitializeComponent();
         }
         private void CobrarEnvío_456VG_Load(object sender, EventArgs e)
         {
-            var facturas = BLLFac.leerEntidades456VG();
-            var datos = facturas.Select(f => new
-            {
-                Paquete = f.Paquete.CodPaq456VG,
-                Importe = f.Envio.Importe456VG.ToString("N2", CultureInfo.GetCultureInfo("es-AR")),
-                Remitente = $"{f.Cliente.Nombre456VG} {f.Cliente.Apellido456VG}",
-                DNI_Remitente = f.DNICli456VG,
-                Destinatario = $"{f.Envio.NombreDest456VG} {f.Envio.ApellidoDest456VG}",
-                DNI_Dest = f.Envio.DNIDest456VG,
-                Prov = f.Envio.Provincia456VG,
-                Localidad = f.Envio.Localidad456VG,
-                Domicilio = f.Envio.Domicilio456VG,
-                TipoEnvio = f.Envio.tipoenvio456VG,
-                Pagado = f.Envio.Pagado456VG ? "Sí" : "No",
-                FechaEmisión = f.FechaEmision456VG.ToString("dd/MM/yyyy"),
-            }).ToList();
+            _facturas = BLLFac.leerEntidades456VG() ?? new List<BEFactura_456VG>();
+            var datos = _facturas
+                .Where(f => !f.Envio.Pagado456VG)
+                .Select(f => new
+                {
+                    Paquete = f.Paquete.CodPaq456VG,
+                    Importe = f.Envio.Importe456VG
+                                       .ToString("N2", CultureInfo.GetCultureInfo("es-AR")),
+                    Remitente = $"{f.Cliente.Nombre456VG} {f.Cliente.Apellido456VG}",
+                    DNI_Remitente = f.DNICli456VG,
+                    Destinatario = $"{f.Envio.NombreDest456VG} {f.Envio.ApellidoDest456VG}",
+                    DNI_Dest = f.Envio.DNIDest456VG,
+                    Prov = f.Envio.Provincia456VG,
+                    Localidad = f.Envio.Localidad456VG,
+                    Domicilio = f.Envio.Domicilio456VG,
+                    TipoEnvio = f.Envio.tipoenvio456VG,
+                    Pagado = f.Envio.Pagado456VG ? "Sí" : "No",
+                    FechaEmisión = f.FechaEmision456VG.ToString("dd/MM/yyyy"),
+                })
+                .ToList();
             dataGridView1456VG.DataSource = datos;
             dataGridView1456VG.Columns["Paquete"].HeaderText = "Código Paquete";
             dataGridView1456VG.Columns["Importe"].HeaderText = "Importe $";
@@ -57,82 +65,87 @@ namespace Proyecto_EnviosYA
             dataGridView1456VG.Columns["Pagado"].HeaderText = "¿Pagado?";
             dataGridView1456VG.Columns["FechaEmisión"].HeaderText = "Fecha Emisión";
         }
-
-        private void lblImporte456VG_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView1456VG_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            var celda = dataGridView1456VG
-                           .Rows[e.RowIndex]
-                           .Cells["Importe"]
-                           .Value;
-            dniRemitenteSeleccionado = dataGridView1456VG
-                        .Rows[e.RowIndex]
-                        .Cells["DNI_Remitente"]
-                        .Value?.ToString();
-            lblImporte456VG.Text = celda?.ToString() ?? string.Empty;
+            var factura = _facturas[e.RowIndex];
+            envioCargado = factura.Envio;
+            paqueteCargado = factura.Paquete;
+            clienteCargado = factura.Cliente;
+            lblImporte456VG.Text = envioCargado
+                .Importe456VG
+                .ToString("N2", CultureInfo.GetCultureInfo("es-AR"));
+            dniRemitenteSeleccionado = factura.DNICli456VG;
+            cliente = clienteCargado.Nombre456VG + " " +clienteCargado.Apellido456VG;
         }
 
         private void btnAggTarj456VG_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNTarj456VG.Text) ||
-                string.IsNullOrWhiteSpace(txtCVC456VG.Text) ||
-                string.IsNullOrWhiteSpace(txtDNI456VG.Text) ||
-                dateTimePicker1456VG.Value == null)
+            if(envioCargado.Pagado456VG == false)
             {
-                MessageBox.Show("Todos los campos son obligatorios.",
-                                "Validación", MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                return;
+                if (string.IsNullOrWhiteSpace(txtNTarj456VG.Text) ||
+                    string.IsNullOrWhiteSpace(txtTitular456VG.Text) ||
+                    string.IsNullOrWhiteSpace(txtCVC456VG.Text) ||
+                    string.IsNullOrWhiteSpace(txtDNI456VG.Text) ||
+                    dateTimePicker1456VG.Value == null)
+                {
+                    MessageBox.Show("Todos los campos son obligatorios.",
+                                    "Validación", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+                var cardPattern = @"^\d{4}-\d{4}-\d{4}-\d{4}$";
+                if (!Regex.IsMatch(txtNTarj456VG.Text, cardPattern))
+                {
+                    MessageBox.Show("El Número de Tarjeta debe ser VÁLIDO.",
+                                    "Verificación de Tarjeta",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                var cvcPattern = @"^\d{3,4}$";
+                if (!Regex.IsMatch(txtCVC456VG.Text, cvcPattern))
+                {
+                    MessageBox.Show("El CVC debe tener 3 o 4 dígitos.",
+                                    "Verificación CVC",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (dateTimePicker1456VG.Value.Date < DateTime.Today)
+                {
+                    MessageBox.Show("La Fecha de Vencimiento debe ser MAYOR al Hoy.",
+                                    "Verificación Fecha",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (txtDNI456VG.Text.Trim() != dniRemitenteSeleccionado)
+                {
+                    MessageBox.Show("El DNI ingresado no coincide con el remitente.",
+                                    "Validación DNI",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (txtTitular456VG.Text.Trim() != cliente)
+                {
+                    MessageBox.Show("El DNI ingresado no coincide con el remitente.",
+                                    "Validación DNI",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                envioCargado.Pagado456VG = true;
+                var upd = BLLEnv.actualizarEntidad456VG(envioCargado);
+                MessageBox.Show("Cobrando...", "En Proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Se han cobrado {lblImporte456VG.Text} a {cliente}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            var cardPattern = @"^\d{4}-\d{4}-\d{4}-\d{4}$";
-            if (!Regex.IsMatch(txtNTarj456VG.Text, cardPattern))
+            else
             {
-                MessageBox.Show("El Número de Tarjeta debe ser VÁLIDO ",
-                                "Verificación de Tarjeta",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show("El Envío ya se ha PAGADO.", "Información",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            var cvcPattern = @"^\d{3,4}$";
-            if (!Regex.IsMatch(txtCVC456VG.Text, cvcPattern))
-            {
-                MessageBox.Show("El CVC debe tener 3 o 4 dígitos.",
-                                "Verificación CVC",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (dateTimePicker1456VG.Value.Date < DateTime.Today)
-            {
-                MessageBox.Show("La Fecha de Vencimiento no puede ser mayor a Hoy.",
-                                "Verificación Fecha",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (txtDNI456VG.Text.Trim() != dniRemitenteSeleccionado)
-            {
-                MessageBox.Show("El DNI ingresado no coincide con el DNI " +
-                                "del remitente seleccionado.",
-                                "Validación DNI",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            envioCargado
-            envioCargado.Pagado456VG = true;
-            var upd = BLLEnv.actualizarEntidad456VG(envioCargado);
-            MessageBox.Show("Cobrando...",
-                            "En Proceso",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-            MessageBox.Show(
-                            $"Se han cobrado {lblImporte456VG.Text}",
-                            "Éxito",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

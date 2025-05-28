@@ -45,6 +45,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblImporte456VG = new System.Windows.Forms.Label();
             this.dataGridView1456VG = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -188,7 +189,6 @@
             this.lblImporte456VG.Size = new System.Drawing.Size(82, 22);
             this.lblImporte456VG.TabIndex = 60;
             this.lblImporte456VG.Text = "IMPORTE";
-            this.lblImporte456VG.Click += new System.EventHandler(this.lblImporte456VG_Click);
             // 
             // dataGridView1456VG
             // 
@@ -199,12 +199,23 @@
             this.dataGridView1456VG.TabIndex = 61;
             this.dataGridView1456VG.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1456VG_CellClick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(839, 235);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 27);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CobrarEnvío_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(974, 330);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1456VG);
             this.Controls.Add(this.lblImporte456VG);
             this.Controls.Add(this.label7);
@@ -251,5 +262,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblImporte456VG;
         private System.Windows.Forms.DataGridView dataGridView1456VG;
+        private System.Windows.Forms.Button button1;
     }
 }
