@@ -24,6 +24,27 @@ namespace Proyecto_EnviosYA
 
         }
 
+        private void limpiar()
+        {
+            txtAlto456VG.Clear();
+            txtAncho456VG.Clear();
+            txtCP456VG.Clear();
+            txtDNID456VG.Clear();
+            txtDom456VG.Clear();
+            txtLargo456VG.Clear();
+            txtLoc456VG.Clear();
+            txtNomD456VG.Clear();
+            txtApeCli456VG.Clear();
+            txtNomCli456VG.Clear();
+            txtPeso456VG.Clear();
+            txtProv456VG.Clear();
+            txtTelD456VG.Clear();
+            txtTelCli456VG.Text = "";
+            txtApeD456VG.Text = "";
+            txtDNICli456VG.Text = "";
+            cmbTipEnvio456VG.SelectedIndex = -1;
+        }
+
         private void btnCrearEnvío456VG_Click(object sender, EventArgs e)
         {
             if (paqueteCargado == null)
@@ -75,6 +96,7 @@ namespace Proyecto_EnviosYA
                 return;
             }
             MessageBox.Show("Envío creado exitosamente.");
+            limpiar();
         }
         private void btnRegCli456VG_Click(object sender, EventArgs e)
         {
@@ -119,9 +141,9 @@ namespace Proyecto_EnviosYA
             else
             {
                 clienteCargado = null;
-                txtNomCli456VG.Clear();
-                txtApeCli456VG.Clear();
-                txtTelCli456VG.Clear();
+                txtNomCli456VG.Text = "";
+                txtApeCli456VG.Text = "";
+                txtTelCli456VG.Text = "";
                 MessageBox.Show(
                     "No se encontró un cliente con ese DNI.",
                     "Cliente NO ENCONTRADO",

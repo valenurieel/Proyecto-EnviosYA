@@ -28,7 +28,7 @@ namespace _456VG_BE
             this.Largo456VG = Largo;
             this.Alto456VG = Alto;
             this.Enviado456VG = enviado;
-            this.CodPaq456VG = GenerateCodPaq();
+            this.CodPaq456VG = GenerateCodPaq456VG();
         }
         public BEPaquete_456VG(string dnicli, float Peso, float Ancho, float Largo, float Alto, bool enviado)
         {
@@ -38,9 +38,9 @@ namespace _456VG_BE
             this.Largo456VG = Largo;
             this.Alto456VG = Alto;
             this.Enviado456VG = enviado;
-            this.CodPaq456VG = GenerateCodPaq();
+            this.CodPaq456VG = GenerateCodPaq456VG();
         }
-        public string GenerateCodPaq()
+        public string GenerateCodPaq456VG()
         {
             var sb = new StringBuilder(8);
             for (int i = 0; i < 4; i++)
