@@ -35,6 +35,7 @@ namespace _456VG_DAL
                         "INSERT INTO Facturas_456VG (id_envio_456VG, id_paquete_456VG, dni_cli_456VG, fechaemision_456VG) " +
                         "VALUES (@IdEnv, @IdPaq, @DniCli, @Fecha); " +
                         "SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
                     using (var cmd = new SqlCommand(sql, db.Connection, tx))
                     {
                         cmd.Parameters.AddWithValue("@IdEnv", obj.id_envio456VG);
@@ -43,13 +44,18 @@ namespace _456VG_DAL
                         cmd.Parameters.AddWithValue("@Fecha", obj.FechaEmision456VG);
                         obj.id_factura456VG = (int)cmd.ExecuteScalar();
                     }
+
                     tx.Commit();
                 }
-                resultado.resultado = true; resultado.entidad = obj; resultado.mensaje = "Factura creada correctamente.";
+
+                resultado.resultado = true;
+                resultado.entidad = obj;
+                resultado.mensaje = "Factura creada correctamente.";
             }
             catch (Exception ex)
             {
-                resultado.resultado = false; resultado.mensaje = ex.Message;
+                resultado.resultado = false;
+                resultado.mensaje = ex.Message;
             }
             finally
             {
