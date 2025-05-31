@@ -17,12 +17,10 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
         }
-
         private void iconPictureBox1456VG_Click(object sender, EventArgs e)
         {
 
         }
-
         private void limpiar()
         {
             txtAlto456VG.Clear();
@@ -43,7 +41,6 @@ namespace Proyecto_EnviosYA
             txtDNICli456VG.Text = "";
             cmbTipEnvio456VG.SelectedIndex = -1;
         }
-
         private void btnCrearEnvío456VG_Click(object sender, EventArgs e)
         {
             if (paqueteCargado == null)
