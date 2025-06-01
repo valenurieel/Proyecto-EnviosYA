@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "456VG_GUI", "Proyecto-EnviosYA\456VG_GUI.csproj", "{B1B7A19F-E835-4093-8EE0-36C96394745C}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "456VG_DAL", "456VG_DAL\456VG_DAL.csproj", "{7613B405-C671-4CF1-97D6-89DF69FCC164}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "456VG_Servicios", "456VG_Servicios\456VG_Servicios.csproj", "{EF5A906D-5C35-4B8E-A7F9-33D3FA83B258}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{6DAB4FCD-4608-4EC7-9032-390C800FD7E1}"
+	ProjectSection(SolutionItems) = preProject
+		Español.json = Español.json
+		Inglés.json = Inglés.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

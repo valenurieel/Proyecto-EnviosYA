@@ -34,10 +34,14 @@
     <Reference Include="FontAwesome.Sharp, Version=6.6.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.6.6.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Text.Json, Version=8.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HashSHA256_456VG.cs" />
+    <Compile Include="IObserver_456VG.cs" />
+    <Compile Include="ISubject_456VG.cs" />
+    <Compile Include="Lenguaje_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resultado_456VG.cs" />
     <Compile Include="SessionManager_456VG.cs" />

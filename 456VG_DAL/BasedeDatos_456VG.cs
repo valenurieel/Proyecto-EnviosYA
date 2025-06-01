@@ -57,10 +57,10 @@ namespace _456VG_DAL
         public void insertarDatosIniciales456VG()
         {
             ejecutarQuery456VG("USE EnviosYA_456VG; " +
-                "INSERT INTO Usuario_456VG (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, bloqueado_456VG, activo_456VG) " +
+                "INSERT INTO Usuario_456VG (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, bloqueado_456VG, activo_456VG, idioma_456VG) " +
                 "VALUES " +
-                "('45984456', 'Valentin', 'Giraldes', 'valentingiraldes@gmail.com', '1127118942', 'Valenurieel', '3a11feef3ccc351c8c9cad5adebdc26aaada19e32ed68361ab0d4f5aec8ccff2', 'y1/gWmtSuqEGbku6dOjasQ==', 'Jose Martí 1130', 'Administrador', 0, 1)," +
-                "('12345678', 'Rogelio', 'Martinez', 'rogemartinez@gmail.com', '1234567890', 'Rogelin123', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Martin 2346', 'Empleado Adminstrativo', 0, 1);");
+                "('45984456', 'Valentin', 'Giraldes', 'valentingiraldes@gmail.com', '1127118942', 'Valenurieel', '3a11feef3ccc351c8c9cad5adebdc26aaada19e32ed68361ab0d4f5aec8ccff2', 'y1/gWmtSuqEGbku6dOjasQ==', 'Jose Martí 1130', 'Administrador', 0, 1, 'ES')," +
+                "('12345678', 'Rogelio', 'Martinez', 'rogemartinez@gmail.com', '1234567890', 'Rogelin123', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Martin 2346', 'Empleado Administrativo', 0, 1, 'ES');");
             ejecutarQuery456VG("USE EnviosYA_456VG; " +
                 "INSERT INTO HistorialContraseñas_456VG (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG) " +
                 "VALUES " +
@@ -69,9 +69,9 @@ namespace _456VG_DAL
                 "('12345678', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', '2025-05-21 16:25:14.293', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3')," +
                 "('12345678', '5058e0c8ccf88b14e647fd2818f482c68d309ec3eeb6f5d198e475768f172d63', 'X781YT6M92Sw49EnecGZlw==', '2025-05-21 16:23:03.263', '1ccbfab998c38440481442508bcd161f8b90d67e9fca14e48dfaa472324de7ee');");
             ejecutarQuery456VG("USE EnviosYA_456VG; " +
-                "INSERT INTO Clientes_456VG (dni_456VG, nombre_456VG, apellido_456VG, telefono_456VG, domicilio_456VG, fechanacimiento_456VG) VALUES " +
-                "('987654321', 'Lucía', 'Fernández', '1122334455', 'Av. Rivadavia 1234', '1990-05-15')," +
-                "('262026202', 'Marcos', 'Pereyra', '1166778899', 'Calle Falsa 123', '1985-08-22');");
+                "INSERT INTO Clientes_456VG (dni_456VG, nombre_456VG, apellido_456VG, telefono_456VG, domicilio_456VG, fechanacimiento_456VG, activo_456VG) VALUES " +
+                "('987654321', 'Lucía', 'Fernández', '1122334455', 'Av. Rivadavia 1234', '1990-05-15', 1)," +
+                "('262026202', 'Marcos', 'Pereyra', '1166778899', 'Calle Falsa 123', '1985-08-22', 1);");
         }
         public void scriptInicio456VG()
         {
@@ -90,7 +90,8 @@ namespace _456VG_DAL
                     "domicilio_456VG VARCHAR(100) NOT NULL," +
                     "rol_456VG VARCHAR(100) NOT NULL," +
                     "bloqueado_456VG BIT NOT NULL DEFAULT 0," +
-                    "activo_456VG BIT NOT NULL DEFAULT 1" +
+                    "activo_456VG BIT NOT NULL DEFAULT 1," +
+                    "idioma_456VG VARCHAR(50) NOT NULL DEFAULT 'ES'" +
                 ");");
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE Clientes_456VG (" +
                     "dni_456VG VARCHAR(20) PRIMARY KEY," +
@@ -98,7 +99,8 @@ namespace _456VG_DAL
                     "apellido_456VG VARCHAR(100) NOT NULL," +
                     "telefono_456VG VARCHAR(100) NOT NULL," +
                     "domicilio_456VG VARCHAR(100) NOT NULL," +
-                    "fechanacimiento_456VG DATE NOT NULL" +
+                    "fechanacimiento_456VG DATE NOT NULL," +
+                    "activo_456VG BIT NOT NULL DEFAULT 1" +
                 ");");
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE Paquetes_456VG (" +
                     "id_paquete_456VG INT IDENTITY(1,1) PRIMARY KEY," +

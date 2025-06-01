@@ -28,6 +28,11 @@ namespace _456VG_BLL
         {
             return dal.eliminarEntidad456VG(obj);
         }
+        public bool modificarIdioma456VG(BEUsuario_456VG obj, string nuevoIdioma)
+        {
+            bool result = dal.modificarIdioma456VG(obj, nuevoIdioma);
+            return result;
+        }
         public Resultado_456VG<BEUsuario_456VG> actualizarEntidad456VG(BEUsuario_456VG obj)
         {
             return dal.actualizarEntidad456VG(obj);

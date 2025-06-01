@@ -21,24 +21,56 @@ namespace _456VG_DAL
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
+        public bool modificarIdioma456VG(BEUsuario_456VG user, string idiomaNuevo)
+        {
+                    const string query = @"
+                USE EnviosYA_456VG;
+                UPDATE Usuario_456VG
+                SET idioma_456VG = @Idioma
+                WHERE dni_456VG = @DNI;
+            ";
+            try
+            {
+                bool conectado = db.Conectar456VG();
+                if (!conectado)
+                    throw new Exception("No se pudo conectar a la base de datos.");
+                using (var cmd = new SqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@Idioma", idiomaNuevo);
+                    cmd.Parameters.AddWithValue("@DNI", user.DNI456VG);
+
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+                    db.Desconectar456VG();
+                    return filasAfectadas > 0;
+                }
+            }
+            catch (Exception)
+            {
+                try { db.Desconectar456VG(); } catch { }
+                return false;
+            }
+        }
         public Resultado_456VG<BEUsuario_456VG> actualizarEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             string queryUpdateUser = @"
-                    USE EnviosYA_456VG;
-                    UPDATE Usuario_456VG 
-                    SET 
-                        nombre_456VG = @Nombre,
-                        apellido_456VG = @Apellido,
-                        email_456VG = @Email,
-                        telefono_456VG = @Telefono,
-                        nombreusuario_456VG = @NombreUsuario,
-                        domicilio_456VG = @Domicilio
-                    WHERE dni_456VG = @DNI";
+                USE EnviosYA_456VG;
+                UPDATE Usuario_456VG 
+                SET 
+                    nombre_456VG       = @Nombre,
+                    apellido_456VG     = @Apellido,
+                    email_456VG        = @Email,
+                    telefono_456VG     = @Telefono,
+                    nombreusuario_456VG= @NombreUsuario,
+                    domicilio_456VG    = @Domicilio,
+                    idioma_456VG       = @Idioma
+                WHERE dni_456VG = @DNI;
+            ";
             try
             {
                 bool result = db.Conectar456VG();
-                if (!result) throw new Exception("Error al conectarse a la base de datos");
+                if (!result)
+                    throw new Exception("Error al conectarse a la base de datos");
                 using (SqlCommand cmd = new SqlCommand(queryUpdateUser, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@Nombre", obj.Nombre456VG);
@@ -47,7 +79,9 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@Telefono", obj.Teléfono456VG);
                     cmd.Parameters.AddWithValue("@NombreUsuario", obj.NombreUsuario456VG);
                     cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
+                    cmd.Parameters.AddWithValue("@Idioma", obj.Idioma456VG);
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+
                     int filasAfectadas = cmd.ExecuteNonQuery();
                     if (filasAfectadas > 0)
                     {
@@ -75,6 +109,7 @@ namespace _456VG_DAL
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
+
             try
             {
                 db.Connection.Open();
@@ -85,16 +120,25 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
                     int count = (int)cmd.ExecuteScalar();
                     if (count > 0)
-                    {
                         throw new Exception("Ya existe un usuario con ese DNI");
-                    }
                 }
                 string salt = hasher.GenerarSalt456VG();
                 string hashedPassword = hasher.HashPassword456VG(obj.Contraseña456VG, salt);
                 string queryToCreateUser = @"
                     USE EnviosYA_456VG;
-                    INSERT INTO Usuario_456VG (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, bloqueado_456VG, activo_456VG)
-                    VALUES (@DNI, @Nombre, @Apellido, @Email, @Telefono, @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, @Bloqueado, @Activo);";
+                    INSERT INTO Usuario_456VG 
+                    (
+                        dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, 
+                        nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, 
+                        bloqueado_456VG, activo_456VG, idioma_456VG
+                    )
+                    VALUES 
+                    (
+                        @DNI, @Nombre, @Apellido, @Email, @Telefono, 
+                        @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, 
+                        @Bloqueado, @Activo, @Idioma
+                    );
+                ";
                 using (SqlCommand cmd2 = new SqlCommand(queryToCreateUser, db.Connection, trans))
                 {
                     cmd2.Parameters.AddWithValue("@DNI", obj.DNI456VG);
@@ -109,19 +153,23 @@ namespace _456VG_DAL
                     cmd2.Parameters.AddWithValue("@Rol", obj.Rol456VG);
                     cmd2.Parameters.AddWithValue("@Bloqueado", obj.Bloqueado456VG);
                     cmd2.Parameters.AddWithValue("@Activo", obj.Activo456VG);
+                    cmd2.Parameters.AddWithValue("@Idioma", obj.Idioma456VG);
                     cmd2.ExecuteNonQuery();
                 }
                 string queryToInsertPasswordHistory = @"
                     USE EnviosYA_456VG;
-                    INSERT INTO HistorialContraseñas_456VG (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG) 
-                    VALUES (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);";
+                    INSERT INTO HistorialContraseñas_456VG 
+                    (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG) 
+                    VALUES 
+                    (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);
+                ";
                 using (SqlCommand cmd3 = new SqlCommand(queryToInsertPasswordHistory, db.Connection, trans))
                 {
                     cmd3.Parameters.AddWithValue("@DniUsuario", obj.DNI456VG);
                     cmd3.Parameters.AddWithValue("@ContraseñaHash", hashedPassword);
                     cmd3.Parameters.AddWithValue("@Salt", salt);
                     cmd3.Parameters.AddWithValue("@FechaCambio", DateTime.Now);
-                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple456VG(obj.Contraseña456VG));  // Aquí usamos el HashSimple para comparar las contraseñas simples
+                    cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple456VG(obj.Contraseña456VG));
                     cmd3.ExecuteNonQuery();
                 }
                 trans.Commit();
@@ -253,7 +301,8 @@ namespace _456VG_DAL
                             string rol = !lector.IsDBNull(lector.GetOrdinal("rol_456VG")) ? lector.GetString(lector.GetOrdinal("rol_456VG")) : string.Empty;
                             bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado_456VG")) && lector.GetBoolean(lector.GetOrdinal("bloqueado_456VG"));
                             bool activo = !lector.IsDBNull(lector.GetOrdinal("activo_456VG")) && lector.GetBoolean(lector.GetOrdinal("activo_456VG"));
-                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, contraseña, salt, dom, rol, bloqueado, activo);
+                            string idioma = !lector.IsDBNull(lector.GetOrdinal("idioma_456VG")) ? lector.GetString(lector.GetOrdinal("idioma_456VG")) : string.Empty;
+                            BEUsuario_456VG user = new BEUsuario_456VG(dni, name, ape, email, tel, nameuser, contraseña, salt, dom, rol, bloqueado, activo, idioma);
                             list.Add(user);
                         }
                     }
@@ -269,67 +318,6 @@ namespace _456VG_DAL
                 return null;
             }
         }
-        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario456VG(string DNI, string Contraseña)
-        //{
-        //    Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
-        //    string sqlQuery = "USE EnviosYA; SELECT * FROM Usuario WHERE DNI = @DNI";
-        //    try
-        //    {
-        //        bool result = db.Conectar();
-        //        if (!result) throw new Exception("Error al conectarse a la base de datos");
-        //        using (SqlCommand command = new SqlCommand(sqlQuery, db.Connection))
-        //        {
-        //            command.Parameters.AddWithValue("@DNI", DNI);
-
-        //            using (SqlDataReader lector = command.ExecuteReader())
-        //            {
-        //                if (!lector.HasRows)
-        //                {
-        //                    throw new Exception("No se encontró un usuario con ese DNI");
-        //                }
-        //                if (lector.Read())
-        //                {
-        //                    string dni = !lector.IsDBNull(0) ? lector.GetString(0) : "";
-        //                    string nombre = !lector.IsDBNull(1) ? lector.GetString(1) : "";
-        //                    string apellido = !lector.IsDBNull(2) ? lector.GetString(2) : "";
-        //                    string email = !lector.IsDBNull(3) ? lector.GetString(3) : "";
-        //                    string telefono = !lector.IsDBNull(4) ? lector.GetString(4) : string.Empty;
-        //                    string nombreusuario = !lector.IsDBNull(5) ? lector.GetString(5) : "";
-        //                    string contraseñahash = !lector.IsDBNull(6) ? lector.GetString(6) : "";
-        //                    string saltAlmacenado = !lector.IsDBNull(7) ? lector.GetString(7) : "";
-        //                    string domicilio = !lector.IsDBNull(8) ? lector.GetString(8) : "";
-        //                    string rol = !lector.IsDBNull(9) ? lector.GetString(9) : "";
-        //                    bool bloqueado = !lector.IsDBNull(10) && lector.GetBoolean(10);
-        //                    bool activo = !lector.IsDBNull(11) && lector.GetBoolean(11);
-        //                    if (!activo)
-        //                    {
-        //                        throw new Exception("El Usuario está Bloqueado.");
-        //                    }
-        //                    // Verificar contraseña usando SHA-256
-        //                    bool esContraseñaValida = hasher.VerificarPassword456VG(Contraseña, contraseñahash, saltAlmacenado);
-        //                    if (!esContraseñaValida)
-        //                    {
-        //                        throw new Exception("Contraseña incorrecta");
-        //                    }
-        //                    BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, saltAlmacenado, domicilio, rol, bloqueado, activo);
-        //                    resultado.resultado = true;
-        //                    resultado.entidad = usuario;
-        //                    resultado.mensaje = "Inicio de sesión correcto";
-        //                }
-        //            }
-        //        }
-        //        db.Desconectar();
-        //        return resultado;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        resultado.resultado = false;
-        //        resultado.mensaje = ex.Message;
-        //        resultado.entidad = null;
-        //        db.Desconectar();
-        //        return resultado;
-        //    }
-        //}
         public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI456VG(string DNI)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
@@ -358,7 +346,8 @@ namespace _456VG_DAL
                             string rol = !lector.IsDBNull(lector.GetOrdinal("rol_456VG")) ? lector.GetString(lector.GetOrdinal("rol_456VG")) : string.Empty;
                             bool bloqueado = !lector.IsDBNull(lector.GetOrdinal("bloqueado_456VG")) && lector.GetBoolean(lector.GetOrdinal("bloqueado_456VG"));
                             bool activo = !lector.IsDBNull(lector.GetOrdinal("activo_456VG")) && lector.GetBoolean(lector.GetOrdinal("activo_456VG"));
-                            BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, salt, domicilio, rol, bloqueado, activo);
+                            string idioma = !lector.IsDBNull(lector.GetOrdinal("idioma_456VG")) ? lector.GetString(lector.GetOrdinal("idioma_456VG")) : string.Empty;
+                            BEUsuario_456VG usuario = new BEUsuario_456VG(dni, nombre, apellido, email, telefono, nombreusuario, contraseñahash, salt, domicilio, rol, bloqueado, activo, idioma);
                             list.Add(usuario);
                         }
                     }

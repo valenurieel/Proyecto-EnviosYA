@@ -71,7 +71,7 @@
             this.menuStrip1456VG.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1456VG.Name = "menuStrip1456VG";
             this.menuStrip1456VG.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1456VG.Size = new System.Drawing.Size(113, 652);
+            this.menuStrip1456VG.Size = new System.Drawing.Size(127, 652);
             this.menuStrip1456VG.TabIndex = 0;
             this.menuStrip1456VG.Text = "menuStrip1";
             // 
@@ -103,7 +103,7 @@
             this.maestroToolStripMenuItem456VG.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clientesToolStripMenuItem456VG});
             this.maestroToolStripMenuItem456VG.Name = "maestroToolStripMenuItem456VG";
-            this.maestroToolStripMenuItem456VG.Size = new System.Drawing.Size(98, 22);
+            this.maestroToolStripMenuItem456VG.Size = new System.Drawing.Size(112, 22);
             this.maestroToolStripMenuItem456VG.Text = "Maestro";
             this.maestroToolStripMenuItem456VG.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -112,6 +112,7 @@
             this.clientesToolStripMenuItem456VG.Name = "clientesToolStripMenuItem456VG";
             this.clientesToolStripMenuItem456VG.Size = new System.Drawing.Size(180, 22);
             this.clientesToolStripMenuItem456VG.Text = "Clientes";
+            this.clientesToolStripMenuItem456VG.Click += new System.EventHandler(this.clientesToolStripMenuItem456VG_Click);
             // 
             // usuarioToolStripMenuItem456VG
             // 

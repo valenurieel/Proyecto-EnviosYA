@@ -76,7 +76,7 @@ namespace _456VG_DAL
                 "  f.id_factura_456VG, f.id_envio_456VG, f.id_paquete_456VG, f.dni_cli_456VG, f.fechaemision_456VG, " +
                 "  e.dni_dest_456VG, e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG, e.tipoenvio_456VG, e.importe_456VG, e.pagado_456VG, " +
                 "  p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG, p.codpaq_456VG, " +
-                "  c.nombre_456VG AS cliNombre, c.apellido_456VG AS cliApellido, c.telefono_456VG AS cliTelefono, c.domicilio_456VG AS cliDomicilio, c.fechanacimiento_456VG " +
+                "  c.nombre_456VG AS cliNombre, c.apellido_456VG AS cliApellido, c.telefono_456VG AS cliTelefono, c.domicilio_456VG AS cliDomicilio, c.fechanacimiento_456VG AS cliFN, c.activo_456VG AS cliActivo " +
                 "FROM Facturas_456VG f " +
                 "JOIN Envios_456VG  e ON f.id_envio_456VG   = e.id_envio_456VG " +
                 "JOIN Paquetes_456VG p ON f.id_paquete_456VG = p.id_paquete_456VG " +
@@ -114,8 +114,9 @@ namespace _456VG_DAL
                         string cliTel = r.GetString(r.GetOrdinal("cliTelefono"));
                         string cliDom = r.GetString(r.GetOrdinal("cliDomicilio"));
                         DateTime cliFN = r.GetDateTime(r.GetOrdinal("fechanacimiento_456VG"));
+                        bool cliActivo = r.GetBoolean(r.GetOrdinal("cliActivo"));
                         var paquete = new BEPaquete_456VG(idPaq, dniCli, peso, ancho, largo, alto, enviado) { CodPaq456VG = codPaq };
-                        paquete.Cliente = new BECliente_456VG(dniCli, cliNom, cliApe, cliTel, cliDom, cliFN);
+                        paquete.Cliente = new BECliente_456VG(dniCli, cliNom, cliApe, cliTel, cliDom, cliFN, cliActivo);
                         var envio = new BEEnvío_456VG(idEnv, idPaq, dniCli, dniDest, nomDest, apeDest, telDest, 0f, dom, loc, prov, tipoEnv, imp, pagado)
                         {
                             Paquete = paquete,

@@ -20,8 +20,9 @@ namespace _456VG_BE
         public string Rol456VG { get; set; }
         public bool Bloqueado456VG { get; set; }
         public bool Activo456VG { get; set; }
+        public string Idioma456VG { get; set; }
 
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo, string idioma)
         {
             this.DNI456VG = DNI;
             this.Nombre456VG = Nombre;
@@ -35,8 +36,9 @@ namespace _456VG_BE
             this.Rol456VG = Rol;
             this.Bloqueado456VG = Bloqueado;
             this.Activo456VG = Activo;
+            this.Idioma456VG = idioma;
         }
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Domicilio, string Rol, bool Bloqueado, bool Activo)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Domicilio, string Rol, bool Bloqueado, bool Activo, string idioma)
         {
             this.DNI456VG = DNI;
             this.Nombre456VG = Nombre;
@@ -49,6 +51,7 @@ namespace _456VG_BE
             this.Rol456VG = Rol;
             this.Bloqueado456VG = Bloqueado;
             this.Activo456VG = Activo;
+            this.Idioma456VG = idioma;
         }
         //Modificar button
         public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio)

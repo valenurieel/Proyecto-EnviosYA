@@ -67,13 +67,14 @@
             this.dataGridView1456VG.Name = "dataGridView1456VG";
             this.dataGridView1456VG.Size = new System.Drawing.Size(1045, 234);
             this.dataGridView1456VG.TabIndex = 0;
+            this.dataGridView1456VG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1456VG_CellContentClick);
             this.dataGridView1456VG.SelectionChanged += new System.EventHandler(this.dataGridView1456VG_SelectionChanged);
             // 
             // btnAñadir456VG
             // 
             this.btnAñadir456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAñadir456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAñadir456VG.Location = new System.Drawing.Point(624, 347);
+            this.btnAñadir456VG.Location = new System.Drawing.Point(624, 369);
             this.btnAñadir456VG.Name = "btnAñadir456VG";
             this.btnAñadir456VG.Size = new System.Drawing.Size(120, 56);
             this.btnAñadir456VG.TabIndex = 1;
@@ -85,7 +86,7 @@
             // 
             this.btnDesbloq456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDesbloq456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesbloq456VG.Location = new System.Drawing.Point(794, 431);
+            this.btnDesbloq456VG.Location = new System.Drawing.Point(794, 453);
             this.btnDesbloq456VG.Name = "btnDesbloq456VG";
             this.btnDesbloq456VG.Size = new System.Drawing.Size(120, 56);
             this.btnDesbloq456VG.TabIndex = 2;
@@ -97,7 +98,7 @@
             // 
             this.btnModif456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnModif456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModif456VG.Location = new System.Drawing.Point(624, 431);
+            this.btnModif456VG.Location = new System.Drawing.Point(624, 453);
             this.btnModif456VG.Name = "btnModif456VG";
             this.btnModif456VG.Size = new System.Drawing.Size(120, 56);
             this.btnModif456VG.TabIndex = 3;
@@ -109,7 +110,7 @@
             // 
             this.btnAplicar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAplicar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar456VG.Location = new System.Drawing.Point(624, 518);
+            this.btnAplicar456VG.Location = new System.Drawing.Point(624, 540);
             this.btnAplicar456VG.Name = "btnAplicar456VG";
             this.btnAplicar456VG.Size = new System.Drawing.Size(120, 56);
             this.btnAplicar456VG.TabIndex = 5;
@@ -121,7 +122,7 @@
             // 
             this.btnCancelar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnCancelar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar456VG.Location = new System.Drawing.Point(794, 518);
+            this.btnCancelar456VG.Location = new System.Drawing.Point(794, 540);
             this.btnCancelar456VG.Name = "btnCancelar456VG";
             this.btnCancelar456VG.Size = new System.Drawing.Size(120, 56);
             this.btnCancelar456VG.TabIndex = 6;
@@ -336,7 +337,7 @@
             // 
             this.btnVolver456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnVolver456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver456VG.Location = new System.Drawing.Point(989, 540);
+            this.btnVolver456VG.Location = new System.Drawing.Point(989, 562);
             this.btnVolver456VG.Name = "btnVolver456VG";
             this.btnVolver456VG.Size = new System.Drawing.Size(92, 34);
             this.btnVolver456VG.TabIndex = 36;
@@ -348,7 +349,7 @@
             // 
             this.btnActivoDesac.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnActivoDesac.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActivoDesac.Location = new System.Drawing.Point(794, 347);
+            this.btnActivoDesac.Location = new System.Drawing.Point(794, 369);
             this.btnActivoDesac.Name = "btnActivoDesac";
             this.btnActivoDesac.Size = new System.Drawing.Size(120, 56);
             this.btnActivoDesac.TabIndex = 37;

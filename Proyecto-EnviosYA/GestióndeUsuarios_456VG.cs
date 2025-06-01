@@ -20,7 +20,7 @@ namespace Proyecto_EnviosYA
         public GestióndeUsuarios_456VG()
         {
             InitializeComponent();
-            dataGridView1456VG.CellFormatting += new DataGridViewCellFormattingEventHandler(dataGridView1456VG_CellFormatting);
+            //dataGridView1456VG.CellFormatting += new DataGridViewCellFormattingEventHandler(dataGridView1456VG_CellFormatting);
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -506,6 +506,11 @@ namespace Proyecto_EnviosYA
             }
         }
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1456VG_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

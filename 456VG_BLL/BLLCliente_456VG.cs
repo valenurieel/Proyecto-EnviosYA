@@ -36,5 +36,13 @@ namespace _456VG_BLL
         {
             return dal.ObtenerClientePorDNI456VG(dni);
         }
+        public Resultado_456VG<BECliente_456VG> ActDesacCli456(string dni, bool nuevoEstadoActivo)
+        {
+            return dal.ActDesacCli456(dni, nuevoEstadoActivo);
+        }
+        public Resultado_456VG<BECliente_456VG> recuperarClientePorDNI456VG(string DNI)
+        {
+            return dal.recuperarClientePorDNI456VG(DNI);
+        }
     }
 }

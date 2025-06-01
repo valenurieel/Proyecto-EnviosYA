@@ -26,10 +26,15 @@ namespace Proyecto_EnviosYA
         {
             cambiarIdiomaToolStripMenuItem456VG.Enabled = true;
             cambiarClaveToolStripMenuItem456VG.Enabled = true;
+            maestroToolStripMenuItem456VG.Enabled = true;
+            administradorToolStripMenuItem456VG.Enabled = true;
+            recepciónToolStripMenuItem.Enabled = true;
+            reportesToolStripMenuItem456VG.Enabled = true;
         }
         public void deshabilitados()
         {
-            perfilesToolStripMenuItem456VG.Enabled = false;
+            recepciónToolStripMenuItem.Enabled = false;
+            administradorToolStripMenuItem456VG.Enabled = false;
             maestroToolStripMenuItem456VG.Enabled = false;
             cambiarIdiomaToolStripMenuItem456VG.Enabled = false;
             envíosToolStripMenuItem456VG.Enabled = false;
@@ -97,6 +102,12 @@ namespace Proyecto_EnviosYA
         private void empleadosToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void clientesToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+            GestiondeClientes_456VG fr = new GestiondeClientes_456VG();
+            fr.ShowDialog();
         }
     }
 }
