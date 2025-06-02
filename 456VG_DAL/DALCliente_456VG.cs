@@ -91,7 +91,7 @@ namespace _456VG_DAL
                         cmd.Parameters.AddWithValue("@Telefono", obj.Teléfono456VG);
                         cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
                         cmd.Parameters.AddWithValue("@FechaNacimiento", obj.FechaNacimiento456VG);
-                        cmd.Parameters.AddWithValue("@Activo", obj.Activo456VG);      // <-- Nuevo parámetro
+                        cmd.Parameters.AddWithValue("@Activo", obj.Activo456VG);
                         cmd.ExecuteNonQuery();
                     }
                     tx.Commit();

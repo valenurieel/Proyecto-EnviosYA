@@ -84,7 +84,7 @@ namespace Proyecto_EnviosYA
             // label13456VG
             // 
             this.label13456VG.AutoSize = true;
-            this.label13456VG.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13456VG.Font = new System.Drawing.Font("Open Sans SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13456VG.Location = new System.Drawing.Point(162, 335);
             this.label13456VG.Name = "label13456VG";
             this.label13456VG.Size = new System.Drawing.Size(58, 20);
@@ -332,7 +332,7 @@ namespace Proyecto_EnviosYA
             this.Controls.Add(this.btnAñadir456VG);
             this.Controls.Add(this.dataGridView1456VG);
             this.Name = "GestiondeClientes_456VG";
-            this.Text = "GestiondeClientes_456VG";
+            this.Text = "Gestión de Clientes";
             this.Load += new System.EventHandler(this.GestiondeClientes_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();
             this.ResumeLayout(false);

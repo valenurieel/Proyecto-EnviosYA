@@ -138,7 +138,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(315, 37);
             this.label1.TabIndex = 8;
-            this.label1.Text = "GESTION DE USUARIOS";
+            this.label1.Text = "GESTIÓN DE USUARIOS";
             // 
             // radioButton1456VG
             // 
@@ -314,7 +314,7 @@
             // label13456VG
             // 
             this.label13456VG.AutoSize = true;
-            this.label13456VG.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13456VG.Font = new System.Drawing.Font("Open Sans SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13456VG.Location = new System.Drawing.Point(186, 347);
             this.label13456VG.Name = "label13456VG";
             this.label13456VG.Size = new System.Drawing.Size(58, 20);
@@ -394,8 +394,8 @@
             this.Controls.Add(this.dataGridView1456VG);
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "GestióndeUsuarios_456VG";
-            this.Text = "Gestion de Usuarios";
-            this.Load += new System.EventHandler(this.RegistrarUsuario_456VG_Load);
+            this.Text = "Gestión de Usuarios";
+            this.Load += new System.EventHandler(this.GestióndeUsuarios_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

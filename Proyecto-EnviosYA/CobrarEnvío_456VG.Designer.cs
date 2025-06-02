@@ -198,6 +198,7 @@
             this.dataGridView1456VG.Size = new System.Drawing.Size(950, 199);
             this.dataGridView1456VG.TabIndex = 61;
             this.dataGridView1456VG.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1456VG_CellClick);
+            this.dataGridView1456VG.SelectionChanged += new System.EventHandler(this.dataGridView1456VG_SelectionChanged);
             // 
             // button1
             // 

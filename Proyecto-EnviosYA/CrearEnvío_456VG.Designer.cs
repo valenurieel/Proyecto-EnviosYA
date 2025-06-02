@@ -224,9 +224,9 @@
             this.LTipEnvio.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTipEnvio.Location = new System.Drawing.Point(904, 214);
             this.LTipEnvio.Name = "LTipEnvio";
-            this.LTipEnvio.Size = new System.Drawing.Size(78, 15);
+            this.LTipEnvio.Size = new System.Drawing.Size(81, 15);
             this.LTipEnvio.TabIndex = 25;
-            this.LTipEnvio.Text = "Tipo de Envío";
+            this.LTipEnvio.Text = "Tipo de Envío:";
             // 
             // label15
             // 
@@ -275,7 +275,7 @@
             this.iconPictureBox1456VG.Size = new System.Drawing.Size(85, 82);
             this.iconPictureBox1456VG.TabIndex = 30;
             this.iconPictureBox1456VG.TabStop = false;
-            this.iconPictureBox1456VG.Click += new System.EventHandler(this.iconPictureBox1456VG_Click);
+            //this.iconPictureBox1456VG.Click += new System.EventHandler(this.iconPictureBox1456VG_Click);
             // 
             // btnCrearEnvío456VG
             // 
@@ -377,9 +377,9 @@
             this.label9.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(603, 305);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(36, 15);
+            this.label9.Size = new System.Drawing.Size(39, 15);
             this.label9.TabIndex = 55;
-            this.label9.Text = "Largo";
+            this.label9.Text = "Largo:";
             // 
             // label10
             // 
@@ -387,9 +387,9 @@
             this.label10.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(603, 251);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 15);
+            this.label10.Size = new System.Drawing.Size(43, 15);
             this.label10.TabIndex = 54;
-            this.label10.Text = "Ancho";
+            this.label10.Text = "Ancho:";
             // 
             // label11
             // 

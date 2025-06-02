@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IniciarSesion_456VG));
             this.checkVer456VG = new System.Windows.Forms.CheckBox();
             this.btningresar456VG = new System.Windows.Forms.Button();
-            this.lblcambiaridioma456VG = new System.Windows.Forms.Label();
-            this.cmbcambiaridioma456VG = new System.Windows.Forms.ComboBox();
             this.lblcontraseña456VG = new System.Windows.Forms.Label();
             this.lbldni456VG = new System.Windows.Forms.Label();
             this.txtcontraseña456VG = new System.Windows.Forms.TextBox();
@@ -64,28 +62,6 @@
             this.btningresar456VG.Text = "Ingresar";
             this.btningresar456VG.UseVisualStyleBackColor = true;
             this.btningresar456VG.Click += new System.EventHandler(this.btningresar_Click);
-            // 
-            // lblcambiaridioma456VG
-            // 
-            this.lblcambiaridioma456VG.AutoSize = true;
-            this.lblcambiaridioma456VG.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcambiaridioma456VG.Location = new System.Drawing.Point(729, 43);
-            this.lblcambiaridioma456VG.Name = "lblcambiaridioma456VG";
-            this.lblcambiaridioma456VG.Size = new System.Drawing.Size(100, 17);
-            this.lblcambiaridioma456VG.TabIndex = 20;
-            this.lblcambiaridioma456VG.Text = "Cambiar Idioma:";
-            // 
-            // cmbcambiaridioma456VG
-            // 
-            this.cmbcambiaridioma456VG.FormattingEnabled = true;
-            this.cmbcambiaridioma456VG.Items.AddRange(new object[] {
-            "Inglés",
-            "Español"});
-            this.cmbcambiaridioma456VG.Location = new System.Drawing.Point(732, 66);
-            this.cmbcambiaridioma456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cmbcambiaridioma456VG.Name = "cmbcambiaridioma456VG";
-            this.cmbcambiaridioma456VG.Size = new System.Drawing.Size(121, 23);
-            this.cmbcambiaridioma456VG.TabIndex = 19;
             // 
             // lblcontraseña456VG
             // 
@@ -162,8 +138,6 @@
             this.Controls.Add(this.iconPictureBox1456VG);
             this.Controls.Add(this.checkVer456VG);
             this.Controls.Add(this.btningresar456VG);
-            this.Controls.Add(this.lblcambiaridioma456VG);
-            this.Controls.Add(this.cmbcambiaridioma456VG);
             this.Controls.Add(this.lblcontraseña456VG);
             this.Controls.Add(this.lbldni456VG);
             this.Controls.Add(this.txtcontraseña456VG);
@@ -171,8 +145,8 @@
             this.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "IniciarSesion_456VG";
-            this.Text = "Iniciar Sesion";
-            //this.Load += new System.EventHandler(this.IniciarSesion_456VG_Load);
+            this.Text = "Iniciar Sesión";
+            this.Load += new System.EventHandler(this.IniciarSesion_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -183,8 +157,6 @@
 
         private System.Windows.Forms.CheckBox checkVer456VG;
         private System.Windows.Forms.Button btningresar456VG;
-        private System.Windows.Forms.Label lblcambiaridioma456VG;
-        private System.Windows.Forms.ComboBox cmbcambiaridioma456VG;
         private System.Windows.Forms.Label lblcontraseña456VG;
         private System.Windows.Forms.Label lbldni456VG;
         private System.Windows.Forms.TextBox txtcontraseña456VG;

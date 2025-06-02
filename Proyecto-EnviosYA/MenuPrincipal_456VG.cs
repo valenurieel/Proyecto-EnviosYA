@@ -13,7 +13,7 @@ using _456VG_Servicios;
 
 namespace Proyecto_EnviosYA
 {
-    public partial class MenuPrincipal_456VG : Form
+    public partial class MenuPrincipal_456VG : Form, IObserver_456VG
     {
         public MenuPrincipal_456VG()
         {
@@ -21,6 +21,13 @@ namespace Proyecto_EnviosYA
             BasedeDatos_456VG bd = new BasedeDatos_456VG();
             bd.scriptInicio456VG();
             deshabilitados();
+            Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
+            Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "EN";
+        }
+        public void ActualizarIdioma_456VG()
+        {
+            Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
+            bienvenido456VG();
         }
         public void HabilitarOpcionesMenu456VG()
         {
@@ -28,12 +35,12 @@ namespace Proyecto_EnviosYA
             cambiarClaveToolStripMenuItem456VG.Enabled = true;
             maestroToolStripMenuItem456VG.Enabled = true;
             administradorToolStripMenuItem456VG.Enabled = true;
-            recepciónToolStripMenuItem.Enabled = true;
+            recepcionToolStripMenuItem.Enabled = true;
             reportesToolStripMenuItem456VG.Enabled = true;
         }
         public void deshabilitados()
         {
-            recepciónToolStripMenuItem.Enabled = false;
+            recepcionToolStripMenuItem.Enabled = false;
             administradorToolStripMenuItem456VG.Enabled = false;
             maestroToolStripMenuItem456VG.Enabled = false;
             cambiarIdiomaToolStripMenuItem456VG.Enabled = false;
@@ -43,21 +50,33 @@ namespace Proyecto_EnviosYA
         }
         public void chau()
         {
-            if (SessionManager_456VG.ObtenerInstancia456VG().Usuario == null)
-            {
-                lblBienvenido456VG.Text = "¡Bienvenida/o!";
-            }
+            lblBienvenido456VG.Visible = false;
+            lblBienvenidoDefault.Visible = true;
+            lblBienvenidoDefault.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
+                                        .ObtenerTexto_456VG("MenuPrincipal_456VG.lblBienvenidoDefault");
         }
         public void bienvenido456VG()
         {
             BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia456VG().Usuario;
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+
             if (usuarioLogueado != null)
             {
-                lblBienvenido456VG.Text = "¡Bienvenida/o " + usuarioLogueado.NombreUsuario456VG + "!";
+                lblBienvenidoDefault.Visible = false;
+                string plantilla = lng.ObtenerTexto_456VG("MenuPrincipal_456VG.lblBienvenido456VG");
+                lblBienvenido456VG.Text = string.Format(plantilla, usuarioLogueado.NombreUsuario456VG);
+                lblBienvenido456VG.Visible = true;
+            }
+            else
+            {
+                lblBienvenido456VG.Visible = false;
+                lblBienvenidoDefault.Text = lng.ObtenerTexto_456VG("MenuPrincipal_456VG.lblBienvenidoDefault");
+                lblBienvenidoDefault.Visible = true;
             }
         }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
         {
+            Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
             bienvenido456VG();
         }
         private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,6 +126,12 @@ namespace Proyecto_EnviosYA
         private void clientesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             GestiondeClientes_456VG fr = new GestiondeClientes_456VG();
+            fr.ShowDialog();
+        }
+
+        private void cambiarIdiomaToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+            CambiarIdioma_456VG fr = new CambiarIdioma_456VG();
             fr.ShowDialog();
         }
     }

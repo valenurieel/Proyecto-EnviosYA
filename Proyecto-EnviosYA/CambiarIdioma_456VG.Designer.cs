@@ -28,51 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.box = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button1456VG = new System.Windows.Forms.Button();
+            this.label1456VG = new System.Windows.Forms.Label();
+            this.box456VG = new System.Windows.Forms.ComboBox();
+            this.button2456VG = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // button1456VG
             // 
-            this.button1.Location = new System.Drawing.Point(141, 156);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 32);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cambiar Idioma";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1456VG.Location = new System.Drawing.Point(141, 156);
+            this.button1456VG.Name = "button1456VG";
+            this.button1456VG.Size = new System.Drawing.Size(113, 32);
+            this.button1456VG.TabIndex = 6;
+            this.button1456VG.Text = "Cambiar Idioma";
+            this.button1456VG.UseVisualStyleBackColor = true;
+            this.button1456VG.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label1
+            // label1456VG
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(122, 84);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Idioma:";
+            this.label1456VG.AutoSize = true;
+            this.label1456VG.Font = new System.Drawing.Font("Open Sans", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1456VG.Location = new System.Drawing.Point(122, 84);
+            this.label1456VG.Name = "label1456VG";
+            this.label1456VG.Size = new System.Drawing.Size(63, 20);
+            this.label1456VG.TabIndex = 7;
+            this.label1456VG.Text = "Idioma:";
             // 
-            // box
+            // box456VG
             // 
-            this.box.FormattingEnabled = true;
-            this.box.Items.AddRange(new object[] {
+            this.box456VG.FormattingEnabled = true;
+            this.box456VG.Items.AddRange(new object[] {
             "Español",
             "Inglés"});
-            this.box.Location = new System.Drawing.Point(125, 113);
-            this.box.Name = "box";
-            this.box.Size = new System.Drawing.Size(141, 21);
-            this.box.TabIndex = 5;
+            this.box456VG.Location = new System.Drawing.Point(125, 113);
+            this.box456VG.Name = "box456VG";
+            this.box456VG.Size = new System.Drawing.Size(141, 21);
+            this.box456VG.TabIndex = 5;
             // 
-            // button2
+            // button2456VG
             // 
-            this.button2.Location = new System.Drawing.Point(287, 247);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 27);
-            this.button2.TabIndex = 63;
-            this.button2.Text = "Volver";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2456VG.Location = new System.Drawing.Point(287, 247);
+            this.button2456VG.Name = "button2456VG";
+            this.button2456VG.Size = new System.Drawing.Size(94, 27);
+            this.button2456VG.TabIndex = 63;
+            this.button2456VG.Text = "Volver";
+            this.button2456VG.UseVisualStyleBackColor = true;
+            this.button2456VG.Click += new System.EventHandler(this.button2456VG_Click);
             // 
             // CambiarIdioma_456VG
             // 
@@ -80,12 +81,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(412, 286);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.box);
+            this.Controls.Add(this.button2456VG);
+            this.Controls.Add(this.button1456VG);
+            this.Controls.Add(this.label1456VG);
+            this.Controls.Add(this.box456VG);
             this.Name = "CambiarIdioma_456VG";
-            this.Text = "CambiarIdioma_456VG";
+            this.Text = "Cambiar Idioma";
+            this.Load += new System.EventHandler(this.CambiarIdioma_456VG_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,9 +95,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox box;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1456VG;
+        private System.Windows.Forms.Label label1456VG;
+        private System.Windows.Forms.ComboBox box456VG;
+        private System.Windows.Forms.Button button2456VG;
     }
 }

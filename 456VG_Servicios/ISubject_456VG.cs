@@ -10,7 +10,6 @@ namespace _456VG_Servicios
     {
         void Agregar_456VG(IObserver_456VG observer);
         void Quitar_456VG(IObserver_456VG observer);
-
         void Notificar_456VG();
     }
 }
