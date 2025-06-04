@@ -12,13 +12,11 @@ namespace _456VG_DAL
     {
         BasedeDatos_456VG db { get; }
         HashSHA256_456VG hasher { get; set; }
-
         public DALEnvio_456VG()
         {
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
-
         public Resultado_456VG<BEEnvío_456VG> actualizarEntidad456VG(BEEnvío_456VG obj)
         {
             var resultado = new Resultado_456VG<BEEnvío_456VG>();
@@ -26,7 +24,6 @@ namespace _456VG_DAL
             {
                 if (obj == null || string.IsNullOrWhiteSpace(obj.CodEnvio456VG))
                     throw new ArgumentException("El envío o su código no puede ser nulo.");
-
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {
@@ -35,7 +32,6 @@ namespace _456VG_DAL
                         "UPDATE Envios_456VG " +
                         "SET pagado_456VG = @Pagado " +
                         "WHERE codenvio_456VG = @CodEnvio;";
-
                     using (var cmd = new SqlCommand(sql, db.Connection, tx))
                     {
                         cmd.Parameters.AddWithValue("@Pagado", obj.Pagado456VG);
@@ -47,7 +43,6 @@ namespace _456VG_DAL
                     }
                     tx.Commit();
                 }
-
                 resultado.resultado = true;
                 resultado.entidad = obj;
                 resultado.mensaje = "Envío marcado como pagado.";
@@ -63,7 +58,6 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
         public Resultado_456VG<BEEnvío_456VG> crearEntidad456VG(BEEnvío_456VG obj)
         {
             var resultado = new Resultado_456VG<BEEnvío_456VG>();
@@ -75,17 +69,14 @@ namespace _456VG_DAL
                     throw new ArgumentException("El envío debe tener un cliente válido con DNI.");
                 if (obj.Paquetes == null || !obj.Paquetes.Any())
                     throw new ArgumentException("El envío debe contener al menos un paquete.");
-
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {
-                    // 1) Insertamos primero el envío, usando el CodEnvio generado por la BE
                     const string sqlEnvio =
                         "USE EnviosYA_456VG; " +
                         "INSERT INTO Envios_456VG " +
                         "  (codenvio_456VG, dni_cli_456VG, dni_dest_456VG, nombre_dest_456VG, apellido_dest_456VG, telefono_dest_456VG, provincia_456VG, localidad_456VG, domicilio_456VG, codpostal_456VG, tipoenvio_456VG, importe_456VG, pagado_456VG) " +
                         "VALUES (@CodEnvio, @DniCli, @DniDest, @NomDest, @ApeDest, @TelDest, @Prov, @Loc, @Dom, @CP, @Tipo, @Imp, @Pag);";
-
                     using (var cmdEnvio = new SqlCommand(sqlEnvio, db.Connection, tx))
                     {
                         cmdEnvio.Parameters.AddWithValue("@CodEnvio", obj.CodEnvio456VG);
@@ -104,18 +95,14 @@ namespace _456VG_DAL
 
                         cmdEnvio.ExecuteNonQuery();
                     }
-
-                    // 2) Insertamos la relación Envio–Paquete para cada paquete en obj.Paquetes
                     const string sqlEnvioPaq =
                         "USE EnviosYA_456VG; " +
                         "INSERT INTO EnviosPaquetes_456VG (codenvio_456VG, codpaq_456VG) " +
                         "VALUES (@CodEnvio, @CodPaq);";
-
                     foreach (var paquete in obj.Paquetes)
                     {
                         if (string.IsNullOrWhiteSpace(paquete.CodPaq456VG))
                             throw new ArgumentException("Cada paquete debe tener un CodPaq válido.");
-
                         using (var cmdEP = new SqlCommand(sqlEnvioPaq, db.Connection, tx))
                         {
                             cmdEP.Parameters.AddWithValue("@CodEnvio", obj.CodEnvio456VG);
@@ -123,10 +110,8 @@ namespace _456VG_DAL
                             cmdEP.ExecuteNonQuery();
                         }
                     }
-
                     tx.Commit();
                 }
-
                 resultado.resultado = true;
                 resultado.entidad = obj;
                 resultado.mensaje = "Envío creado correctamente.";
@@ -142,18 +127,15 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
         public Resultado_456VG<BEEnvío_456VG> eliminarEntidad456VG(BEEnvío_456VG obj)
         {
             throw new NotImplementedException();
         }
-
         public List<BEEnvío_456VG> leerEntidades456VG()
         {
             var listaEnvios = new List<BEEnvío_456VG>();
-
             string sqlEnvios =
-                                        "USE EnviosYA_456VG; " +
+                "USE EnviosYA_456VG; " +
                 "SELECT " +
                 "  e.codenvio_456VG, e.dni_cli_456VG, e.dni_dest_456VG, " +
                 "  e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, " +
@@ -164,7 +146,6 @@ namespace _456VG_DAL
                 "  c.fechanacimiento_456VG AS cliFN, c.activo_456VG AS cliActivo " +
                 "FROM Envios_456VG e " +
                 "JOIN Clientes_456VG c ON e.dni_cli_456VG = c.dni_456VG;";
-
             try
             {
                 db.Conectar456VG();
@@ -173,7 +154,6 @@ namespace _456VG_DAL
                 {
                     while (reader.Read())
                     {
-                        // 1) Leemos datos del envío y del cliente
                         string codEnvio = reader.GetString(reader.GetOrdinal("codenvio_456VG"));
                         string dniCli = reader.GetString(reader.GetOrdinal("dni_cli_456VG"));
                         string dniDest = reader.GetString(reader.GetOrdinal("dni_dest_456VG"));
@@ -187,21 +167,15 @@ namespace _456VG_DAL
                         string tipoEnv = reader.GetString(reader.GetOrdinal("tipoenvio_456VG"));
                         decimal importe = reader.GetDecimal(reader.GetOrdinal("importe_456VG"));
                         bool pagado = reader.GetBoolean(reader.GetOrdinal("pagado_456VG"));
-
-                        // Leer datos del cliente
                         string cliNom = reader.GetString(reader.GetOrdinal("cliNombre"));
                         string cliApe = reader.GetString(reader.GetOrdinal("cliApellido"));
                         string cliTel = reader.GetString(reader.GetOrdinal("cliTelefono"));
                         string cliDom = reader.GetString(reader.GetOrdinal("cliDomicilio"));
                         DateTime cliFN = reader.GetDateTime(reader.GetOrdinal("cliFN"));
                         bool cliActivo = reader.GetBoolean(reader.GetOrdinal("cliActivo"));
-
                         var clienteEnvio = new BECliente_456VG(
                             dniCli, cliNom, cliApe, cliTel, cliDom, cliFN, cliActivo
                         );
-
-                        // 2) Creamos la lista de paquetes con otro ExecuteReader() sin cerrar el primero,
-                        //    gracias a que MARS permite múltiples lectores en paralelo:
                         var paquetesEnvio = new List<BEPaquete_456VG>();
                         string sqlPaquetes =
                             "SELECT p.codpaq_456VG, p.peso_456VG, p.ancho_456VG, " +
@@ -209,13 +183,9 @@ namespace _456VG_DAL
                             "FROM Paquetes_456VG p " +
                             "JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG " +
                             "WHERE ep.codenvio_456VG = @CodEnvio;";
-
                         using (var cmdPaq = new SqlCommand(sqlPaquetes, db.Connection))
                         {
                             cmdPaq.Parameters.AddWithValue("@CodEnvio", codEnvio);
-
-                            // Este ExecuteReader se abrirá aunque el anterior (reader) siga activo, 
-                            // porque tenemos MultipleActiveResultSets=True
                             using (var rP = cmdPaq.ExecuteReader())
                             {
                                 while (rP.Read())
@@ -226,7 +196,6 @@ namespace _456VG_DAL
                                     float alto = (float)rP.GetDouble(rP.GetOrdinal("alto_456VG"));
                                     float largo = (float)rP.GetDouble(rP.GetOrdinal("largo_456VG"));
                                     bool enviadoPaq = rP.GetBoolean(rP.GetOrdinal("enviado_456VG"));
-
                                     var paquete = new BEPaquete_456VG(
                                         clienteEnvio, peso, ancho, largo, alto, enviadoPaq
                                     );
@@ -235,9 +204,6 @@ namespace _456VG_DAL
                                 }
                             }
                         }
-
-                        // 3) Ahora sí creamos el BEEnvío_456VG definitivo, le fijamos el CodEnvio real,
-                        //    y agregamos a la lista final.
                         var envio = new BEEnvío_456VG(
                             clienteEnvio,
                             paquetesEnvio,
@@ -253,22 +219,18 @@ namespace _456VG_DAL
                             pagado
                         );
                         envio.CodEnvio456VG = codEnvio;
-
                         listaEnvios.Add(envio);
                     }
                 }
             }
             catch
             {
-                // Manejo de errores si quieres...
             }
             finally
             {
                 db.Desconectar456VG();
             }
-
             return listaEnvios;
         }
-
     }
 }

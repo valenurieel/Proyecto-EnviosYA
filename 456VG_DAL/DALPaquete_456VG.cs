@@ -110,7 +110,89 @@ namespace _456VG_DAL
         }
         public List<BEPaquete_456VG> leerEntidades456VG()
         {
-            throw new NotImplementedException();
+            var listaPaquetes = new List<BEPaquete_456VG>();
+
+            const string sql =
+                "USE EnviosYA_456VG; " +
+                "SELECT " +
+                "  p.codpaq_456VG, " +
+                "  p.dni_456VG AS dniCliente, " +
+                "  p.peso_456VG, " +
+                "  p.ancho_456VG, " +
+                "  p.alto_456VG, " +
+                "  p.largo_456VG, " +
+                "  p.enviado_456VG, " +
+                "  c.nombre_456VG AS cliNombre, " +
+                "  c.apellido_456VG AS cliApellido, " +
+                "  c.telefono_456VG AS cliTelefono, " +
+                "  c.domicilio_456VG AS cliDomicilio, " +
+                "  c.fechanacimiento_456VG AS cliFN, " +
+                "  c.activo_456VG AS cliActivo " +
+                "FROM Paquetes_456VG p " +
+                "JOIN Clientes_456VG c ON p.dni_456VG = c.dni_456VG;";
+
+            try
+            {
+                if (!db.Conectar456VG())
+                    throw new Exception("Error al conectar a la base de datos.");
+
+                using (var cmd = new SqlCommand(sql, db.Connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // Leer datos del cliente
+                        string dniCliente = reader.GetString(reader.GetOrdinal("dniCliente"));
+                        string cliNombre = reader.GetString(reader.GetOrdinal("cliNombre"));
+                        string cliApellido = reader.GetString(reader.GetOrdinal("cliApellido"));
+                        string cliTelefono = reader.GetString(reader.GetOrdinal("cliTelefono"));
+                        string cliDomicilio = reader.GetString(reader.GetOrdinal("cliDomicilio"));
+                        DateTime cliFN = reader.GetDateTime(reader.GetOrdinal("cliFN"));
+                        bool cliActivo = reader.GetBoolean(reader.GetOrdinal("cliActivo"));
+
+                        var cliente = new BECliente_456VG(
+                            dniCliente,
+                            cliNombre,
+                            cliApellido,
+                            cliTelefono,
+                            cliDomicilio,
+                            cliFN,
+                            cliActivo
+                        );
+
+                        // Leer datos del paquete
+                        string codPaq = reader.GetString(reader.GetOrdinal("codpaq_456VG"));
+                        float peso = (float)reader.GetDouble(reader.GetOrdinal("peso_456VG"));
+                        float ancho = (float)reader.GetDouble(reader.GetOrdinal("ancho_456VG"));
+                        float alto = (float)reader.GetDouble(reader.GetOrdinal("alto_456VG"));
+                        float largo = (float)reader.GetDouble(reader.GetOrdinal("largo_456VG"));
+                        bool enviadoPaq = reader.GetBoolean(reader.GetOrdinal("enviado_456VG"));
+
+                        // Construir BEPaquete_456VG (el constructor genera un CodPaq, luego lo sobreescribimos)
+                        var paquete = new BEPaquete_456VG(
+                            cliente,
+                            peso,
+                            ancho,
+                            largo,
+                            alto,
+                            enviadoPaq
+                        );
+                        paquete.CodPaq456VG = codPaq;
+
+                        listaPaquetes.Add(paquete);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Si quieres, puedes registrar o propagar el error
+            }
+            finally
+            {
+                db.Desconectar456VG();
+            }
+
+            return listaPaquetes;
         }
     }
 }

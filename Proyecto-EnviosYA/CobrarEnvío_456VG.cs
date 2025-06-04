@@ -14,34 +14,22 @@ namespace Proyecto_EnviosYA
     {
         private BLLFactura_456VG BLLFac = new BLLFactura_456VG();
         private BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
-
         private List<BEEnvío_456VG> _envios;
         private BEEnvío_456VG envioCargado;
         private BECliente_456VG clienteCargado;
         private string dniRemitenteSeleccionado;
         private string clienteNombreCompleto;
-
         public CobrarEnvío_456VG()
         {
             InitializeComponent();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
-
-            // Configuramos columnas del grid de envíos (maestro)
             ConfigurarDataGridView();
-
-            // Configuramos columnas del grid de detalle (paquetes)
             ConfigurarDataGridViewDetallePaquetes();
         }
-
         public void ActualizarIdioma_456VG()
         {
-            // 1) Traducir todos los controles
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
-
-            // 2) Traducir encabezados de grid (maestro)
             TraducirEncabezadosDataGrid();
-
-            // 3) Traducir combo de medios de pago
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             cmbMedPago456VG.Items.Clear();
             cmbMedPago456VG.Items.Add(lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Combo.MercadoPago"));
@@ -49,31 +37,23 @@ namespace Proyecto_EnviosYA
             cmbMedPago456VG.Items.Add(lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Combo.Credito"));
             cmbMedPago456VG.SelectedIndex = -1;
         }
-
         private void CobrarEnvío_456VG_Load(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             ActualizarIdioma_456VG();
-
-            // 1) Obtener envíos no pagados
             var envios = BLLEnv.leerEntidades456VG()
                                .Where(w => !w.Pagado456VG)
                                .ToList();
-
             if (envios.Count == 0)
             {
                 MessageBox.Show("No se encontraron envíos sin pagar.", "Información",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             _envios = envios;
-
-            // 2) Construir lista anónima para el grid “maestro”
             var datos = envios.Select(w =>
             {
                 string paquetesConcatenados =
                     string.Join(", ", w.Paquetes.Select(p => p.CodPaq456VG));
-
                 return new
                 {
                     Paquete = paquetesConcatenados,
@@ -92,19 +72,14 @@ namespace Proyecto_EnviosYA
                     IdEnvio = w.CodEnvio456VG
                 };
             }).ToList();
-
             dataGridView1456VG.DataSource = datos;
             TraducirEncabezadosDataGrid();
-
-            // Al cargar, limpiamos el grid de detalle para que no muestre nada
             dgvPaquetesDetalle.DataSource = null;
         }
-
         private void TraducirEncabezadosDataGrid()
         {
             if (dataGridView1456VG.Columns.Count == 0) return;
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             dataGridView1456VG.Columns["Paquete"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Paquete");
             dataGridView1456VG.Columns["Importe"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Importe");
             dataGridView1456VG.Columns["Remitente"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Remitente");
@@ -118,7 +93,6 @@ namespace Proyecto_EnviosYA
             dataGridView1456VG.Columns["Pagado"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Pagado");
             dataGridView1456VG.Columns["IdEnvio"].Visible = false;
         }
-
         private void ConfigurarDataGridView()
         {
             dataGridView1456VG.AutoGenerateColumns = false;
@@ -127,7 +101,7 @@ namespace Proyecto_EnviosYA
             dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Paquete",
-                HeaderText = "Código  Paquete",
+                HeaderText = "Código Paquete",
                 DataPropertyName = "Paquete",
                 ReadOnly = true,
                 Width = 120
@@ -135,7 +109,7 @@ namespace Proyecto_EnviosYA
             dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Importe",
-                HeaderText = "Importe  $",
+                HeaderText = "Importe $",
                 DataPropertyName = "Importe",
                 ReadOnly = true,
                 Width = 90
@@ -222,12 +196,10 @@ namespace Proyecto_EnviosYA
             };
             dataGridView1456VG.Columns.Add(colIdEnvio);
         }
-
         private void ConfigurarDataGridViewDetallePaquetes()
         {
             dgvPaquetesDetalle.AutoGenerateColumns = false;
             dgvPaquetesDetalle.Columns.Clear();
-
             dgvPaquetesDetalle.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "CodPaq",
@@ -268,23 +240,19 @@ namespace Proyecto_EnviosYA
                 ReadOnly = true,
                 Width = 80
             });
-            dgvPaquetesDetalle.Columns.Add(new DataGridViewCheckBoxColumn
-            {
-                Name = "Enviado",
-                HeaderText = "Enviado",
-                DataPropertyName = "Enviado456VG",
-                ReadOnly = true,
-                Width = 60
-            });
-
-            // Al aranque, no hay detalle
+            //dgvPaquetesDetalle.Columns.Add(new DataGridViewCheckBoxColumn
+            //{
+            //    Name = "Enviado",
+            //    HeaderText = "Enviado",
+            //    DataPropertyName = "Enviado456VG",
+            //    ReadOnly = true,
+            //    Width = 60
+            //});
             dgvPaquetesDetalle.DataSource = null;
         }
-
         private void dataGridView1456VG_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             if (e.RowIndex < 0)
             {
                 lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
@@ -292,12 +260,10 @@ namespace Proyecto_EnviosYA
                 dgvPaquetesDetalle.DataSource = null;
                 return;
             }
-
             string codEnvioSeleccionado = dataGridView1456VG
                 .Rows[e.RowIndex]
                 .Cells["IdEnvio"]
                 .Value as string;
-
             envioCargado = _envios.FirstOrDefault(env => env.CodEnvio456VG == codEnvioSeleccionado);
             if (envioCargado == null)
             {
@@ -305,25 +271,19 @@ namespace Proyecto_EnviosYA
                 dgvPaquetesDetalle.DataSource = null;
                 return;
             }
-
             clienteCargado = envioCargado.Cliente;
             dniRemitenteSeleccionado = clienteCargado.DNI456VG;
             clienteNombreCompleto = $"{clienteCargado.Nombre456VG} {clienteCargado.Apellido456VG}";
-
             if (envioCargado.Pagado456VG)
             {
                 lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
                 dgvPaquetesDetalle.DataSource = null;
                 return;
             }
-
             lblImporte456VG.Text = envioCargado.Importe456VG
                                    .ToString("N2", CultureInfo.GetCultureInfo("es-AR"));
-
-            // **La clave**: asigno la lista de paquetes al segundo grid:
             dgvPaquetesDetalle.DataSource = envioCargado.Paquetes;
         }
-
         private void dataGridView1456VG_SelectionChanged(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -334,11 +294,9 @@ namespace Proyecto_EnviosYA
                 dgvPaquetesDetalle.DataSource = null;
             }
         }
-
         private void btnAggTarj456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             if (envioCargado == null)
             {
                 MessageBox.Show(
@@ -349,7 +307,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             if (envioCargado.Pagado456VG)
             {
                 MessageBox.Show(
@@ -360,7 +317,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             if (string.IsNullOrWhiteSpace(txtNTarj456VG.Text) ||
                 string.IsNullOrWhiteSpace(txtTitular456VG.Text) ||
                 string.IsNullOrWhiteSpace(txtCVC456VG.Text) ||
@@ -376,7 +332,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var cardPattern = @"^\d{4}-\d{4}-\d{4}-\d{4}$";
             if (!Regex.IsMatch(txtNTarj456VG.Text, cardPattern))
             {
@@ -388,7 +343,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var cvcPattern = @"^\d{3,4}$";
             if (!Regex.IsMatch(txtCVC456VG.Text, cvcPattern))
             {
@@ -400,7 +354,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             if (dateTimePicker1456VG.Value.Date <= DateTime.Today)
             {
                 MessageBox.Show(
@@ -411,7 +364,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             if (txtDNI456VG.Text.Trim() != dniRemitenteSeleccionado)
             {
                 MessageBox.Show(
@@ -422,7 +374,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             if (txtTitular456VG.Text.Trim() != clienteNombreCompleto)
             {
                 MessageBox.Show(
@@ -433,7 +384,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             envioCargado.Pagado456VG = true;
             var upd = BLLEnv.actualizarEntidad456VG(envioCargado);
             if (!upd.resultado)
@@ -449,7 +399,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var fact = new BEFactura_456VG(envioCargado, DateTime.Now);
             var resFact = BLLFac.crearEntidad456VG(fact);
             if (!resFact.resultado)
@@ -465,7 +414,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             MessageBox.Show(
                 string.Format(
                     lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.CobroExitoso"),
@@ -476,18 +424,15 @@ namespace Proyecto_EnviosYA
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-
             MessageBox.Show(
                 lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.PuedeImprimirFactura"),
                 lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.ExitoTitle"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-
             CobrarEnvío_456VG_Load(sender, e);
             LimpiarCampos();
         }
-
         private void LimpiarCampos()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -498,16 +443,12 @@ namespace Proyecto_EnviosYA
             txtDNI456VG.Text = "";
             lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
             dateTimePicker1456VG.Value = DateTime.Today;
-
             envioCargado = null;
             clienteCargado = null;
             dniRemitenteSeleccionado = null;
             clienteNombreCompleto = null;
-
-            // También limpiar el detalle por si queda algo
             dgvPaquetesDetalle.DataSource = null;
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
