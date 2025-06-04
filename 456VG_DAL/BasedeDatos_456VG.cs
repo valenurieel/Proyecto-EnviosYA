@@ -15,9 +15,18 @@ namespace _456VG_DAL
     {
         public static string dataSource = "DESKTOP-Q714KGU\\SQLEXPRESS";
         public static string dbName = "EnviosYA_456VG";
-        public static string conexionMaster = $"Data source={dataSource};Initial Catalog=master;Integrated Security=True;";
+
+        // 1) Cambiamos "Initial Catalog=master" a "Initial Catalog=EnviosYA_456VG"
+        // 2) Agregamos "MultipleActiveResultSets=True" para habilitar MARS
+        public static string conexionMaster =
+            $"Data Source={dataSource};" +
+            $"Initial Catalog={dbName};" +
+            "Integrated Security=True;" +
+            "MultipleActiveResultSets=True;";
+
         public SqlConnection Connection = new SqlConnection(conexionMaster);
-        public SqlCommand Command = new SqlCommand();
+        public SqlCommand Command;
+
         public bool Conectar456VG()
         {
             if (Connection.State == ConnectionState.Closed)
@@ -27,6 +36,7 @@ namespace _456VG_DAL
             }
             return false;
         }
+
         public bool Desconectar456VG()
         {
             if (Connection.State == ConnectionState.Open)
@@ -36,6 +46,7 @@ namespace _456VG_DAL
             }
             return false;
         }
+
         public bool ejecutarQuery456VG(string query)
         {
             try

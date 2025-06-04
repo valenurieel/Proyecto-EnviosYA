@@ -2,6 +2,7 @@
 using _456VG_BLL;
 using _456VG_Servicios;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Proyecto_EnviosYA
@@ -11,28 +12,22 @@ namespace Proyecto_EnviosYA
         BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
         BLLPaquete_456VG BLLPaque = new BLLPaquete_456VG();
         BLLCliente_456VG BLLCliente = new BLLCliente_456VG();
-
-        private BEPaquete_456VG paqueteCargado;
+        private List<BEPaquete_456VG> _paquetesPendientes = new List<BEPaquete_456VG>();
         private BECliente_456VG clienteCargado;
-
         public CrearEnvío_456VG()
         {
             InitializeComponent();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
+            ConfigurarDataGridViewPaquetes();
         }
-
         public void ActualizarIdioma_456VG()
         {
-            // Traduce todos los controles visibles (labels, botones, combo, etc.)
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
-
-            // Traducir manualmente ítems del ComboBox “Tipo de Envío”
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             cmbTipEnvio456VG.Items.Clear();
             cmbTipEnvio456VG.Items.Add(lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal"));
             cmbTipEnvio456VG.Items.Add(lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.express"));
         }
-
         private void limpiar()
         {
             txtAlto456VG.Clear();
@@ -52,14 +47,118 @@ namespace Proyecto_EnviosYA
             txtPeso456VG.Clear();
             txtProv456VG.Clear();
             cmbTipEnvio456VG.SelectedIndex = -1;
+            _paquetesPendientes.Clear();
+            ((BindingSource)dgvPaquetes.DataSource).ResetBindings(false);
         }
-
+        private void ConfigurarDataGridViewPaquetes()
+        {
+            dgvPaquetes.AutoGenerateColumns = false;
+            dgvPaquetes.Columns.Clear();
+            dgvPaquetes.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CodPaq",
+                HeaderText = "Cod. Paq",
+                DataPropertyName = "CodPaq456VG",
+                ReadOnly = true
+            });
+            dgvPaquetes.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Peso",
+                HeaderText = "Peso",
+                DataPropertyName = "Peso456VG",
+                ReadOnly = true
+            });
+            dgvPaquetes.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Ancho",
+                HeaderText = "Ancho",
+                DataPropertyName = "Ancho456VG",
+                ReadOnly = true
+            });
+            dgvPaquetes.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Largo",
+                HeaderText = "Largo",
+                DataPropertyName = "Largo456VG",
+                ReadOnly = true
+            });
+            dgvPaquetes.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Alto",
+                HeaderText = "Alto",
+                DataPropertyName = "Alto456VG",
+                ReadOnly = true
+            });
+            dgvPaquetes.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                Name = "Enviado",
+                HeaderText = "Enviado",
+                DataPropertyName = "Enviado456VG",
+                ReadOnly = true
+            });
+            dgvPaquetes.DataSource = new BindingSource { DataSource = _paquetesPendientes };
+        }
+        private void btnRegCli456VG_Click(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            if (clienteCargado == null)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ClienteNoExistente"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ClienteNoExistenteTitle"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (!float.TryParse(txtPeso456VG.Text, out float peso)) peso = 0f;
+            if (!float.TryParse(txtAncho456VG.Text, out float ancho)) ancho = 0f;
+            if (!float.TryParse(txtLargo456VG.Text, out float largo)) largo = 0f;
+            if (!float.TryParse(txtAlto456VG.Text, out float alto)) alto = 0f;
+            bool enviadoPaq = false;
+            var nuevoPaquete = new BEPaquete_456VG(
+                clienteCargado,
+                peso,
+                ancho,
+                largo,
+                alto,
+                enviadoPaq
+            );
+            var resp = BLLPaque.crearEntidad456VG(nuevoPaquete);
+            if (!resp.resultado)
+            {
+                MessageBox.Show(
+                    string.Format(
+                        lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ErrorCargarPaquete"),
+                        resp.mensaje
+                    ),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            else
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.PaqueteCargadoOK"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            _paquetesPendientes.Add(nuevoPaquete);
+            ((BindingSource)dgvPaquetes.DataSource).ResetBindings(false);
+            txtPeso456VG.Clear();
+            txtAncho456VG.Clear();
+            txtLargo456VG.Clear();
+            txtAlto456VG.Clear();
+            txtPeso456VG.Focus();
+        }
         private void btnCrearEnvío456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
-            // 1) Verificar que se haya cargado un paquete
-            if (paqueteCargado == null)
+            if (_paquetesPendientes == null || _paquetesPendientes.Count == 0)
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.PaqueteNoExistente"),
@@ -69,32 +168,50 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
-            // 2) Construir objeto BEEnvío_456VG
+            if (string.IsNullOrWhiteSpace(txtDNID456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtNomD456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtApeD456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtTelD456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtCP456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtDom456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtLoc456VG.Text) ||
+                string.IsNullOrWhiteSpace(txtProv456VG.Text) ||
+                cmbTipEnvio456VG.SelectedItem == null)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.FaltanDatosEnvio"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (!float.TryParse(txtCP456VG.Text, out float codPostal))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.CPInvalido"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            string tipoEnvio = cmbTipEnvio456VG.SelectedItem?.ToString()
+                                ?? lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal");
             var envio = new BEEnvío_456VG(
-                paqueteCargado.id_paquete456VG,
-                clienteCargado.DNI456VG,
+                clienteCargado,
+                new List<BEPaquete_456VG>(_paquetesPendientes),
                 txtDNID456VG.Text.Trim(),
                 txtNomD456VG.Text.Trim(),
                 txtApeD456VG.Text.Trim(),
                 txtTelD456VG.Text.Trim(),
-                float.TryParse(txtCP456VG.Text, out float cp) ? cp : 0f,
+                codPostal,
                 txtDom456VG.Text.Trim(),
                 txtLoc456VG.Text.Trim(),
                 txtProv456VG.Text.Trim(),
-                cmbTipEnvio456VG.SelectedItem?.ToString()
-                    ?? lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal"),
-                0m,
+                tipoEnvio,
                 false
-            )
-            {
-                Paquete = paqueteCargado,
-                Cliente = clienteCargado
-            };
-
-            envio.Importe456VG = envio.CalcularImporte456VG();
-
-            // 3) Intentar crear el envío
+            );
             var resEnv = BLLEnv.crearEntidad456VG(envio);
             if (!resEnv.resultado)
             {
@@ -110,80 +227,21 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 4) Marcar paquete como enviado
-            paqueteCargado.Enviado456VG = true;
-            BLLPaque.actualizarEntidad456VG(paqueteCargado);
-
-            // 5) Mostrar mensaje de éxito y limpiar campos
+            // 8) Opcional: Marcar todos los paquetes como enviados (tu lógica anterior
+            //    actualizaba solo “paqueteCargado”, aquí hacemos una iteración)
+            foreach (var paq in _paquetesPendientes)
+            {
+                paq.Enviado456VG = true;
+                BLLPaque.actualizarEntidad456VG(paq);
+            }
             MessageBox.Show(
                 lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.EnvioCreadoOK"),
                 lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-
             limpiar();
         }
-
-        private void btnRegCli456VG_Click(object sender, EventArgs e)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
-            // 1) Verificar que exista un cliente cargado
-            if (clienteCargado == null)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ClienteNoExistente"),
-                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ClienteNoExistenteTitle"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-
-            // 2) Crear objeto BEPaquete_456VG con datos del cliente y dimensiones
-            if (!float.TryParse(txtPeso456VG.Text, out float peso)) peso = 0f;
-            if (!float.TryParse(txtAncho456VG.Text, out float ancho)) ancho = 0f;
-            if (!float.TryParse(txtLargo456VG.Text, out float largo)) largo = 0f;
-            if (!float.TryParse(txtAlto456VG.Text, out float alto)) alto = 0f;
-
-            paqueteCargado = new BEPaquete_456VG(
-                clienteCargado.DNI456VG,
-                peso,
-                ancho,
-                largo,
-                alto,
-                false
-            )
-            {
-                Cliente = clienteCargado
-            };
-
-            // 3) Intentar guardar el paquete
-            var resp = BLLPaque.crearEntidad456VG(paqueteCargado);
-            if (!resp.resultado)
-            {
-                MessageBox.Show(
-                    string.Format(
-                        lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ErrorCargarPaquete"),
-                        resp.mensaje
-                    ),
-                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            else
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.PaqueteCargadoOK"),
-                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-            }
-        }
-
         private void txtDNICli456VG_Leave(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -204,32 +262,24 @@ namespace Proyecto_EnviosYA
                 txtNomCli456VG.Clear();
                 txtApeCli456VG.Clear();
                 txtTelCli456VG.Clear();
-
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ClienteNoEncontrado"),
                     lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ClienteNoEncontradoTitle"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
-
-                // Abrir formulario de registro de cliente
                 RegistrarCliente_456VG regcli = new RegistrarCliente_456VG();
                 regcli.ShowDialog();
             }
         }
-
         private void CrearEnvío_456VG_Load(object sender, EventArgs e)
         {
             ActualizarIdioma_456VG();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            // “Volver” / “Back”
             this.Close();
         }
-
-        // Este evento no se utiliza, pero debe existir si está en el diseñador
         private void txtDNICli456VG_TextChanged(object sender, EventArgs e) { }
     }
 }

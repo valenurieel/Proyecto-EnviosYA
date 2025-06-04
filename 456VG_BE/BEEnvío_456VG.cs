@@ -19,7 +19,7 @@ namespace _456VG_BE
         public string tipoenvio456VG { get; set; }
         public decimal Importe456VG { get; private set; }
         public bool Pagado456VG { get; set; }
-        public string CodEnvio456VG { get; private set; }
+        public string CodEnvio456VG { get; set; }
         public BEEnvío_456VG(
             BECliente_456VG cliente,
             List<BEPaquete_456VG> paquetes,

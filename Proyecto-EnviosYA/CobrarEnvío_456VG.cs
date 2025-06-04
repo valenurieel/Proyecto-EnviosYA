@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -15,86 +14,97 @@ namespace Proyecto_EnviosYA
     {
         private BLLFactura_456VG BLLFac = new BLLFactura_456VG();
         private BLLEnvio_456VG BLLEnv = new BLLEnvio_456VG();
+
         private List<BEEnvío_456VG> _envios;
         private BEEnvío_456VG envioCargado;
         private BECliente_456VG clienteCargado;
-        private BEPaquete_456VG paqueteCargado;
         private string dniRemitenteSeleccionado;
-        private string cliente;
+        private string clienteNombreCompleto;
 
         public CobrarEnvío_456VG()
         {
             InitializeComponent();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
+
+            // Configuramos columnas del grid de envíos (maestro)
+            ConfigurarDataGridView();
+
+            // Configuramos columnas del grid de detalle (paquetes)
+            ConfigurarDataGridViewDetallePaquetes();
         }
 
         public void ActualizarIdioma_456VG()
         {
-            // 1) Traduce todos los controles visibles (labels, botones, etc.)
+            // 1) Traducir todos los controles
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
 
-            // 2) Luego traducimos también los encabezados de DataGridView
+            // 2) Traducir encabezados de grid (maestro)
             TraducirEncabezadosDataGrid();
 
-            // 3) Finalmente, repoblamos el ComboBox de medios de pago
+            // 3) Traducir combo de medios de pago
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
-            // Limpiamos los ítems actuales
             cmbMedPago456VG.Items.Clear();
-
-            // Agregamos cada ítem traducido
             cmbMedPago456VG.Items.Add(lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Combo.MercadoPago"));
             cmbMedPago456VG.Items.Add(lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Combo.Debito"));
             cmbMedPago456VG.Items.Add(lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Combo.Credito"));
-
-            // (Opcional) Si quieres que no quede ningún elemento seleccionado por defecto:
             cmbMedPago456VG.SelectedIndex = -1;
         }
-
 
         private void CobrarEnvío_456VG_Load(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             ActualizarIdioma_456VG();
 
-            // 1) Recuperar todos los envíos no pagados
-            var envios = BLLEnv.leerEntidades456VG().Where(w => !w.Pagado456VG).ToList();
+            // 1) Obtener envíos no pagados
+            var envios = BLLEnv.leerEntidades456VG()
+                               .Where(w => !w.Pagado456VG)
+                               .ToList();
+
+            if (envios.Count == 0)
+            {
+                MessageBox.Show("No se encontraron envíos sin pagar.", "Información",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
             _envios = envios;
 
-            // 2) Generar la lista anónima para el DataGridView,
-            //    traduciéndole el “Sí/No” de la columna Pagado
-            var datos = envios.Select(w => new
+            // 2) Construir lista anónima para el grid “maestro”
+            var datos = envios.Select(w =>
             {
-                Paquete = w.Paquete.CodPaq456VG,
-                Importe = w.Importe456VG.ToString("N2", CultureInfo.GetCultureInfo("es-AR")),
-                Remitente = $"{w.Cliente.Nombre456VG} {w.Cliente.Apellido456VG}",
-                DNI_Remitente = w.DNICli456VG,
-                Destinatario = $"{w.NombreDest456VG} {w.ApellidoDest456VG}",
-                DNI_Dest = w.DNIDest456VG,
-                Prov = w.Provincia456VG,
-                Localidad = w.Localidad456VG,
-                Domicilio = w.Domicilio456VG,
-                TipoEnvio = w.tipoenvio456VG,
-                Pagado = w.Pagado456VG
-                                   ? lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Pagado.Sí")
-                                   : lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Pagado.No"),
-                IdEnvio = w.id_envio456VG
+                string paquetesConcatenados =
+                    string.Join(", ", w.Paquetes.Select(p => p.CodPaq456VG));
+
+                return new
+                {
+                    Paquete = paquetesConcatenados,
+                    Importe = w.Importe456VG.ToString("N2", CultureInfo.GetCultureInfo("es-AR")),
+                    Remitente = $"{w.Cliente.Nombre456VG} {w.Cliente.Apellido456VG}",
+                    DNI_Remitente = w.Cliente.DNI456VG,
+                    Destinatario = $"{w.NombreDest456VG} {w.ApellidoDest456VG}",
+                    DNI_Dest = w.DNIDest456VG,
+                    Prov = w.Provincia456VG,
+                    Localidad = w.Localidad456VG,
+                    Domicilio = w.Domicilio456VG,
+                    TipoEnvio = w.tipoenvio456VG,
+                    Pagado = w.Pagado456VG
+                                      ? lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Pagado.Sí")
+                                      : lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Pagado.No"),
+                    IdEnvio = w.CodEnvio456VG
+                };
             }).ToList();
 
-            // 3) Asignar al DataSource
             dataGridView1456VG.DataSource = datos;
-
-            // 4) Traducir encabezados (porque acabamos de volver a generar el DataSource)
             TraducirEncabezadosDataGrid();
+
+            // Al cargar, limpiamos el grid de detalle para que no muestre nada
+            dgvPaquetesDetalle.DataSource = null;
         }
 
         private void TraducirEncabezadosDataGrid()
         {
             if (dataGridView1456VG.Columns.Count == 0) return;
-
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
 
-            // Cada columna usa su clave en el JSON
             dataGridView1456VG.Columns["Paquete"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Paquete");
             dataGridView1456VG.Columns["Importe"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Importe");
             dataGridView1456VG.Columns["Remitente"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Remitente");
@@ -109,56 +119,226 @@ namespace Proyecto_EnviosYA
             dataGridView1456VG.Columns["IdEnvio"].Visible = false;
         }
 
+        private void ConfigurarDataGridView()
+        {
+            dataGridView1456VG.AutoGenerateColumns = false;
+            dataGridView1456VG.Columns.Clear();
+
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Paquete",
+                HeaderText = "Código  Paquete",
+                DataPropertyName = "Paquete",
+                ReadOnly = true,
+                Width = 120
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Importe",
+                HeaderText = "Importe  $",
+                DataPropertyName = "Importe",
+                ReadOnly = true,
+                Width = 90
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Remitente",
+                HeaderText = "Remitente",
+                DataPropertyName = "Remitente",
+                ReadOnly = true,
+                Width = 140
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "DNI_Remitente",
+                HeaderText = "DNI  Remitente",
+                DataPropertyName = "DNI_Remitente",
+                ReadOnly = true,
+                Width = 100
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Destinatario",
+                HeaderText = "Destinatario",
+                DataPropertyName = "Destinatario",
+                ReadOnly = true,
+                Width = 140
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "DNI_Dest",
+                HeaderText = "DNI  Destinatario",
+                DataPropertyName = "DNI_Dest",
+                ReadOnly = true,
+                Width = 100
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Prov",
+                HeaderText = "Provincia",
+                DataPropertyName = "Prov",
+                ReadOnly = true,
+                Width = 100
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Localidad",
+                HeaderText = "Localidad",
+                DataPropertyName = "Localidad",
+                ReadOnly = true,
+                Width = 100
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Domicilio",
+                HeaderText = "Domicilio",
+                DataPropertyName = "Domicilio",
+                ReadOnly = true,
+                Width = 150
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TipoEnvio",
+                HeaderText = "Tipo  Envío",
+                DataPropertyName = "TipoEnvio",
+                ReadOnly = true,
+                Width = 80
+            });
+            dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Pagado",
+                HeaderText = "Pagado",
+                DataPropertyName = "Pagado",
+                ReadOnly = true,
+                Width = 60
+            });
+            var colIdEnvio = new DataGridViewTextBoxColumn
+            {
+                Name = "IdEnvio",
+                HeaderText = "IdEnvio",
+                DataPropertyName = "IdEnvio",
+                ReadOnly = true,
+                Visible = false
+            };
+            dataGridView1456VG.Columns.Add(colIdEnvio);
+        }
+
+        private void ConfigurarDataGridViewDetallePaquetes()
+        {
+            dgvPaquetesDetalle.AutoGenerateColumns = false;
+            dgvPaquetesDetalle.Columns.Clear();
+
+            dgvPaquetesDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CodPaq",
+                HeaderText = "Código Paquete",
+                DataPropertyName = "CodPaq456VG",
+                ReadOnly = true,
+                Width = 150
+            });
+            dgvPaquetesDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Peso",
+                HeaderText = "Peso (kg)",
+                DataPropertyName = "Peso456VG",
+                ReadOnly = true,
+                Width = 80
+            });
+            dgvPaquetesDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Ancho",
+                HeaderText = "Ancho (cm)",
+                DataPropertyName = "Ancho456VG",
+                ReadOnly = true,
+                Width = 80
+            });
+            dgvPaquetesDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Largo",
+                HeaderText = "Largo (cm)",
+                DataPropertyName = "Largo456VG",
+                ReadOnly = true,
+                Width = 80
+            });
+            dgvPaquetesDetalle.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Alto",
+                HeaderText = "Alto (cm)",
+                DataPropertyName = "Alto456VG",
+                ReadOnly = true,
+                Width = 80
+            });
+            dgvPaquetesDetalle.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                Name = "Enviado",
+                HeaderText = "Enviado",
+                DataPropertyName = "Enviado456VG",
+                ReadOnly = true,
+                Width = 60
+            });
+
+            // Al aranque, no hay detalle
+            dgvPaquetesDetalle.DataSource = null;
+        }
+
         private void dataGridView1456VG_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
 
-            // 1) Si no es una fila válida, dejamos el texto por defecto.
             if (e.RowIndex < 0)
             {
                 lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
                 envioCargado = null;
+                dgvPaquetesDetalle.DataSource = null;
                 return;
             }
 
-            // 2) Recuperamos el id del envío en esa fila
-            int idEnvioSeleccionado = (int)dataGridView1456VG
+            string codEnvioSeleccionado = dataGridView1456VG
                 .Rows[e.RowIndex]
                 .Cells["IdEnvio"]
-                .Value;
+                .Value as string;
 
-            envioCargado = _envios.FirstOrDefault(env => env.id_envio456VG == idEnvioSeleccionado);
-
-            // 3) Si no lo encontramos (no debería ocurrir normalmente) o está null, devolvemos el valor por defecto
+            envioCargado = _envios.FirstOrDefault(env => env.CodEnvio456VG == codEnvioSeleccionado);
             if (envioCargado == null)
             {
                 lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
+                dgvPaquetesDetalle.DataSource = null;
                 return;
             }
 
-            // 4) Guardamos referencias a paquete/cliente
-            paqueteCargado = envioCargado.Paquete;
             clienteCargado = envioCargado.Cliente;
-            dniRemitenteSeleccionado = envioCargado.DNICli456VG;
-            cliente = $"{clienteCargado.Nombre456VG} {clienteCargado.Apellido456VG}";
+            dniRemitenteSeleccionado = clienteCargado.DNI456VG;
+            clienteNombreCompleto = $"{clienteCargado.Nombre456VG} {clienteCargado.Apellido456VG}";
 
-            // 5) Si el envío ya está pagado, volvemos al valor por defecto
             if (envioCargado.Pagado456VG)
             {
                 lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
+                dgvPaquetesDetalle.DataSource = null;
                 return;
             }
 
-            // 6) Finalmente, si no está pagado, mostramos su importe
-            lblImporte456VG.Text = envioCargado.Importe456VG.ToString("N2", CultureInfo.GetCultureInfo("es-AR"));
+            lblImporte456VG.Text = envioCargado.Importe456VG
+                                   .ToString("N2", CultureInfo.GetCultureInfo("es-AR"));
+
+            // **La clave**: asigno la lista de paquetes al segundo grid:
+            dgvPaquetesDetalle.DataSource = envioCargado.Paquetes;
         }
 
+        private void dataGridView1456VG_SelectionChanged(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            if (dataGridView1456VG.SelectedRows.Count == 0)
+            {
+                lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
+                envioCargado = null;
+                dgvPaquetesDetalle.DataSource = null;
+            }
+        }
 
         private void btnAggTarj456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
 
-            // 1) Verificar que se haya seleccionado un envío
             if (envioCargado == null)
             {
                 MessageBox.Show(
@@ -170,7 +350,6 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 2) Si ya está pagado, avisar
             if (envioCargado.Pagado456VG)
             {
                 MessageBox.Show(
@@ -182,12 +361,12 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 3) Validar que todos los campos estén completos
             if (string.IsNullOrWhiteSpace(txtNTarj456VG.Text) ||
                 string.IsNullOrWhiteSpace(txtTitular456VG.Text) ||
                 string.IsNullOrWhiteSpace(txtCVC456VG.Text) ||
                 string.IsNullOrWhiteSpace(txtDNI456VG.Text) ||
-                dateTimePicker1456VG.Value == null)
+                dateTimePicker1456VG.Value == null ||
+                cmbMedPago456VG.SelectedIndex < 0)
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.CamposObligatorios"),
@@ -198,7 +377,6 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 4) Validar formato de tarjeta: "1234-1234-1234-1234"
             var cardPattern = @"^\d{4}-\d{4}-\d{4}-\d{4}$";
             if (!Regex.IsMatch(txtNTarj456VG.Text, cardPattern))
             {
@@ -211,7 +389,6 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 5) Validar CVC (3 o 4 dígitos)
             var cvcPattern = @"^\d{3,4}$";
             if (!Regex.IsMatch(txtCVC456VG.Text, cvcPattern))
             {
@@ -224,7 +401,6 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 6) Validar que la fecha de vencimiento sea mayor a la de hoy
             if (dateTimePicker1456VG.Value.Date <= DateTime.Today)
             {
                 MessageBox.Show(
@@ -236,7 +412,6 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 7) Validar que el DNI ingresado coincida con el remitente
             if (txtDNI456VG.Text.Trim() != dniRemitenteSeleccionado)
             {
                 MessageBox.Show(
@@ -248,8 +423,7 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 8) Validar que el titular coincida con el remitente
-            if (txtTitular456VG.Text.Trim() != cliente)
+            if (txtTitular456VG.Text.Trim() != clienteNombreCompleto)
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.TitularInvalido"),
@@ -260,7 +434,6 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 9) Marcar el envío como pagado y actualizarlo en la base
             envioCargado.Pagado456VG = true;
             var upd = BLLEnv.actualizarEntidad456VG(envioCargado);
             if (!upd.resultado)
@@ -277,17 +450,7 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 10) Crear la factura correspondiente
-            var fact = new BEFactura_456VG(
-                envioCargado.id_envio456VG,
-                envioCargado.id_paquete456VG,
-                clienteCargado.DNI456VG,
-                DateTime.Now
-            );
-            fact.Envio = envioCargado;
-            fact.Paquete = paqueteCargado;
-            fact.Cliente = clienteCargado;
-
+            var fact = new BEFactura_456VG(envioCargado, DateTime.Now);
             var resFact = BLLFac.crearEntidad456VG(fact);
             if (!resFact.resultado)
             {
@@ -303,19 +466,17 @@ namespace Proyecto_EnviosYA
                 return;
             }
 
-            // 11) Mensaje de cobro exitoso (usamos formato {valor} a {cliente})
             MessageBox.Show(
                 string.Format(
                     lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.CobroExitoso"),
                     lblImporte456VG.Text,
-                    cliente
+                    clienteNombreCompleto
                 ),
                 lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.ExitoTitle"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
 
-            // 12) Mensaje adicional para indicar que ya puede imprimir
             MessageBox.Show(
                 lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.PuedeImprimirFactura"),
                 lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.ExitoTitle"),
@@ -323,40 +484,33 @@ namespace Proyecto_EnviosYA
                 MessageBoxIcon.Information
             );
 
-            // 13) Recargar la grilla y limpiar campos
             CobrarEnvío_456VG_Load(sender, e);
-            limpiar();
+            LimpiarCampos();
         }
 
-        private void limpiar()
+        private void LimpiarCampos()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             cmbMedPago456VG.Text = "";
             txtNTarj456VG.Text = "";
             txtTitular456VG.Text = "";
             txtCVC456VG.Text = "";
             txtDNI456VG.Text = "";
-            // Aquí corregimos la llamada a ObtenerTexto_456VG
             lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
             dateTimePicker1456VG.Value = DateTime.Today;
+
+            envioCargado = null;
+            clienteCargado = null;
+            dniRemitenteSeleccionado = null;
+            clienteNombreCompleto = null;
+
+            // También limpiar el detalle por si queda algo
+            dgvPaquetesDetalle.DataSource = null;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void dataGridView1456VG_SelectionChanged(object sender, EventArgs e)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
-            // Si no hay ninguna fila seleccionada, devolvemos el valor por defecto
-            if (dataGridView1456VG.SelectedRows.Count == 0)
-            {
-                lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
-                envioCargado = null;
-            }
         }
     }
 }

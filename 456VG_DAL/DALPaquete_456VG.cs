@@ -66,6 +66,8 @@ namespace _456VG_DAL
             {
                 if (obj == null || obj.Cliente == null || string.IsNullOrWhiteSpace(obj.Cliente.DNI456VG))
                     throw new ArgumentException("El paquete y su cliente (con DNI) no pueden ser nulos.");
+                if (string.IsNullOrWhiteSpace(obj.CodPaq456VG))
+                    throw new Exception("El paquete no tiene asignado un CodPaq.");
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {

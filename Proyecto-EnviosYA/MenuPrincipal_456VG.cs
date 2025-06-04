@@ -22,7 +22,7 @@ namespace Proyecto_EnviosYA
             bd.scriptInicio456VG();
             deshabilitados();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
-            Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "EN";
+            Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
         }
         public void ActualizarIdioma_456VG()
         {
