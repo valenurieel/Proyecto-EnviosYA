@@ -155,6 +155,15 @@ namespace _456VG_DAL
                     "CONSTRAINT fk_factura_envio FOREIGN KEY (codenvio_456VG) REFERENCES Envios_456VG(codenvio_456VG), " +
                     "CONSTRAINT fk_factura_cliente FOREIGN KEY (dni_cli_456VG) REFERENCES Clientes_456VG(dni_456VG)" +
                 ");");
+                ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE DatosPago_456VG (" +
+                    "dni_cliente_456VG VARCHAR(20) PRIMARY KEY, " +
+                    "medio_pago_456VG    VARCHAR(50) NOT NULL, " +
+                    "numtarjeta_456VG    VARCHAR(20) NOT NULL, " +
+                    "titular_456VG       VARCHAR(100) NOT NULL, " +
+                    "fechavencimiento_456VG DATE NOT NULL, " +
+                    "cvc_456VG           VARCHAR(4) NOT NULL, " +
+                    "CONSTRAINT fk_datospago_cliente FOREIGN KEY (dni_cliente_456VG) REFERENCES Clientes_456VG(dni_456VG)" +
+                ");");
                 ejecutarQuery456VG("USE EnviosYA_456VG; CREATE TABLE HistorialContraseñas_456VG (" +
                     "dni_456VG VARCHAR(20) NOT NULL, " +
                     "contraseñahash_456VG VARCHAR(100) NOT NULL, " +

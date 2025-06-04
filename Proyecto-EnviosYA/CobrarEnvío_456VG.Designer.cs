@@ -59,6 +59,7 @@
             this.txtDNI456VG.Name = "txtDNI456VG";
             this.txtDNI456VG.Size = new System.Drawing.Size(121, 22);
             this.txtDNI456VG.TabIndex = 0;
+            this.txtDNI456VG.Leave += new System.EventHandler(this.txtDNI456VG_Leave_1);
             // 
             // txtNTarj456VG
             // 

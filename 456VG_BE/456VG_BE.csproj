@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BECliente_456VG.cs" />
+    <Compile Include="BEDatosPago_456VG.cs" />
     <Compile Include="BEEnvío_456VG.cs" />
     <Compile Include="BEFactura_456VG.cs" />
     <Compile Include="BEPaquete_456VG.cs" />
