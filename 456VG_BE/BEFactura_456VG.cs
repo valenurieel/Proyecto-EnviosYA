@@ -1,35 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _456VG_BE
 {
     public class BEFactura_456VG
     {
-        public int id_factura456VG { get; set; }
-        public int id_envio456VG { get; set; }
+        public string CodFactura456VG { get; private set; }
         public BEEnvío_456VG Envio { get; set; }
-        public int id_paquete456VG { get; set; }
-        public BEPaquete_456VG Paquete { get; set; }
-        public string DNICli456VG { get; set; }
-        public BECliente_456VG Cliente { get; set; }
-        public DateTime FechaEmision456VG { get; set; }
-        public BEFactura_456VG(int id, int idenv, int idpaq, string dnicli, DateTime fecha)
+        public DateTime FechaEmision456VG { get; private set; }
+        public TimeSpan HoraEmision456VG { get; private set; }
+        public BEFactura_456VG(BEEnvío_456VG envio, DateTime fechaHoraEmision)
         {
-            this.id_factura456VG = id;
-            this.id_envio456VG = idenv;
-            this.id_paquete456VG = idpaq;
-            this.DNICli456VG = dnicli;
-            this.FechaEmision456VG = fecha;
+            this.Envio = envio;
+            this.FechaEmision456VG = fechaHoraEmision.Date;
+            this.HoraEmision456VG = fechaHoraEmision.TimeOfDay;
+            this.CodFactura456VG = GenerateCodFactura456VG();
         }
-        public BEFactura_456VG(int idenv, int idpaq, string dnicli, DateTime fecha)
+        private string GenerateCodFactura456VG()
         {
-            this.id_envio456VG = idenv;
-            this.id_paquete456VG = idpaq;
-            this.DNICli456VG = dnicli;
-            this.FechaEmision456VG = fecha;
+            int cantidadPaquetes = Envio.Paquetes.Count;
+            string dni = (Envio.Cliente.DNI456VG ?? "").Length >= 3
+                ? Envio.Cliente.DNI456VG.Substring(0, 3).ToUpper()
+                : (Envio.Cliente.DNI456VG ?? "").ToUpper().PadRight(3, 'X');
+            string nombre = (Envio.Cliente.Nombre456VG ?? "").Length >= 3
+                ? Envio.Cliente.Nombre456VG.Substring(0, 3).ToUpper()
+                : (Envio.Cliente.Nombre456VG ?? "").ToUpper().PadRight(3, 'X');
+            string dia = FechaEmision456VG.Day.ToString("D2");
+            string mes = FechaEmision456VG.Month.ToString("D2");
+            string año = FechaEmision456VG.Year.ToString("D4");
+            return $"{cantidadPaquetes}{dni}{nombre}{dia}{mes}{año}";
         }
     }
 }

@@ -2,14 +2,13 @@
 using _456VG_Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _456VG_DAL
 {
-    public class DALFactura_456VG:ICrud_456VG<BEFactura_456VG>
+    public class DALFactura_456VG : ICrud_456VG<BEFactura_456VG>
     {
         BasedeDatos_456VG db { get; }
         HashSHA256_456VG hasher { get; set; }
@@ -20,34 +19,42 @@ namespace _456VG_DAL
         }
         public Resultado_456VG<BEFactura_456VG> actualizarEntidad456VG(BEFactura_456VG obj)
         {
-            throw new Exception();
+            throw new NotImplementedException();
         }
         public Resultado_456VG<BEFactura_456VG> crearEntidad456VG(BEFactura_456VG obj)
         {
             var resultado = new Resultado_456VG<BEFactura_456VG>();
             try
             {
+                if (obj == null)
+                    throw new ArgumentException("La factura no puede ser nula.");
+                if (obj.Envio == null || string.IsNullOrWhiteSpace(obj.Envio.CodEnvio456VG))
+                    throw new ArgumentException("La factura debe tener un envío válido con código.");
+                if (string.IsNullOrWhiteSpace(obj.CodFactura456VG))
+                    throw new ArgumentException("El código de factura no puede ser nulo o vacío.");
+                if (obj.Envio.Cliente == null || string.IsNullOrWhiteSpace(obj.Envio.Cliente.DNI456VG))
+                    throw new ArgumentException("La factura debe tener un cliente válido con DNI.");
+                DateTime fecha = obj.FechaEmision456VG;
+                TimeSpan hora = obj.HoraEmision456VG;
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {
                     const string sql =
                         "USE EnviosYA_456VG; " +
-                        "INSERT INTO Facturas_456VG (id_envio_456VG, id_paquete_456VG, dni_cli_456VG, fechaemision_456VG) " +
-                        "VALUES (@IdEnv, @IdPaq, @DniCli, @Fecha); " +
-                        "SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
+                        "INSERT INTO Facturas_456VG " +
+                        "  (codfactura_456VG, codenvio_456VG, dni_cli_456VG, fechaemision_456VG, horaemision_456VG) " +
+                        "VALUES (@CodFactura, @CodEnvio, @DniCli, @Fecha, @Hora);";
                     using (var cmd = new SqlCommand(sql, db.Connection, tx))
                     {
-                        cmd.Parameters.AddWithValue("@IdEnv", obj.id_envio456VG);
-                        cmd.Parameters.AddWithValue("@IdPaq", obj.id_paquete456VG);
-                        cmd.Parameters.AddWithValue("@DniCli", obj.DNICli456VG);
-                        cmd.Parameters.AddWithValue("@Fecha", obj.FechaEmision456VG);
-                        obj.id_factura456VG = (int)cmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@CodFactura", obj.CodFactura456VG);
+                        cmd.Parameters.AddWithValue("@CodEnvio", obj.Envio.CodEnvio456VG);
+                        cmd.Parameters.AddWithValue("@DniCli", obj.Envio.Cliente.DNI456VG);
+                        cmd.Parameters.AddWithValue("@Fecha", fecha);
+                        cmd.Parameters.AddWithValue("@Hora", hora);
+                        cmd.ExecuteNonQuery();
                     }
-
                     tx.Commit();
                 }
-
                 resultado.resultado = true;
                 resultado.entidad = obj;
                 resultado.mensaje = "Factura creada correctamente.";
@@ -65,66 +72,133 @@ namespace _456VG_DAL
         }
         public Resultado_456VG<BEFactura_456VG> eliminarEntidad456VG(BEFactura_456VG obj)
         {
-            throw new Exception();
+            throw new NotImplementedException();
         }
         public List<BEFactura_456VG> leerEntidades456VG()
         {
-            var list = new List<BEFactura_456VG>();
-            const string sql =
+            var listaFacturas = new List<BEFactura_456VG>();
+            string sqlFacturas =
                 "USE EnviosYA_456VG; " +
                 "SELECT " +
-                "  f.id_factura_456VG, f.id_envio_456VG, f.id_paquete_456VG, f.dni_cli_456VG, f.fechaemision_456VG, " +
-                "  e.dni_dest_456VG, e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG, e.tipoenvio_456VG, e.importe_456VG, e.pagado_456VG, " +
-                "  p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG, p.codpaq_456VG, " +
-                "  c.nombre_456VG AS cliNombre, c.apellido_456VG AS cliApellido, c.telefono_456VG AS cliTelefono, c.domicilio_456VG AS cliDomicilio, c.fechanacimiento_456VG AS cliFN, c.activo_456VG AS cliActivo " +
+                "  f.codfactura_456VG, " +
+                "  f.codenvio_456VG, " +
+                "  f.dni_cli_456VG AS dniCliEnv, " +
+                "  f.fechaemision_456VG, " +
+                "  f.horaemision_456VG, " +
+                "  e.dni_dest_456VG, " +
+                "  e.nombre_dest_456VG, " +
+                "  e.apellido_dest_456VG, " +
+                "  e.telefono_dest_456VG, " +
+                "  e.provincia_456VG, " +
+                "  e.localidad_456VG, " +
+                "  e.domicilio_456VG, " +
+                "  e.codpostal_456VG, " +
+                "  e.tipoenvio_456VG, " +
+                "  e.importe_456VG, " +
+                "  e.pagado_456VG, " +
+                "  cEnv.nombre_456VG AS cliNombreEnv, " +
+                "  cEnv.apellido_456VG AS cliApellidoEnv, " +
+                "  cEnv.telefono_456VG AS cliTelefonoEnv, " +
+                "  cEnv.domicilio_456VG AS cliDomicilioEnv, " +
+                "  cEnv.fechanacimiento_456VG AS cliFNEnv, " +
+                "  cEnv.activo_456VG AS cliActivoEnv " +
                 "FROM Facturas_456VG f " +
-                "JOIN Envios_456VG  e ON f.id_envio_456VG   = e.id_envio_456VG " +
-                "JOIN Paquetes_456VG p ON f.id_paquete_456VG = p.id_paquete_456VG " +
-                "JOIN Clientes_456VG c ON f.dni_cli_456VG     = c.dni_456VG;";
+                "JOIN Envios_456VG e ON f.codenvio_456VG = e.codenvio_456VG " +
+                "JOIN Clientes_456VG cEnv ON e.dni_cli_456VG = cEnv.dni_456VG;";
             try
             {
-                if (!db.Conectar456VG()) throw new Exception("Error al conectar BD");
-                using (var cmd = new SqlCommand(sql, db.Connection))
-                using (var r = cmd.ExecuteReader())
-                    while (r.Read())
+                if (!db.Conectar456VG())
+                    throw new Exception("Error al conectar a la base de datos.");
+                using (var cmdF = new SqlCommand(sqlFacturas, db.Connection))
+                using (var readerF = cmdF.ExecuteReader())
+                {
+                    while (readerF.Read())
                     {
-                        int idFact = r.GetInt32(r.GetOrdinal("id_factura_456VG"));
-                        int idEnv = r.GetInt32(r.GetOrdinal("id_envio_456VG"));
-                        int idPaq = r.GetInt32(r.GetOrdinal("id_paquete_456VG"));
-                        string dniCli = r.GetString(r.GetOrdinal("dni_cli_456VG"));
-                        DateTime fecha = r.GetDateTime(r.GetOrdinal("fechaemision_456VG"));
-                        string dniDest = r.GetString(r.GetOrdinal("dni_dest_456VG"));
-                        string nomDest = r.GetString(r.GetOrdinal("nombre_dest_456VG"));
-                        string apeDest = r.GetString(r.GetOrdinal("apellido_dest_456VG"));
-                        string telDest = r.GetString(r.GetOrdinal("telefono_dest_456VG"));
-                        string prov = r.GetString(r.GetOrdinal("provincia_456VG"));
-                        string loc = r.GetString(r.GetOrdinal("localidad_456VG"));
-                        string dom = r.GetString(r.GetOrdinal("domicilio_456VG"));
-                        string tipoEnv = r.GetString(r.GetOrdinal("tipoenvio_456VG"));
-                        decimal imp = r.GetDecimal(r.GetOrdinal("importe_456VG"));
-                        bool pagado = r.GetBoolean(r.GetOrdinal("pagado_456VG"));
-                        float peso = (float)r.GetDouble(r.GetOrdinal("peso_456VG"));
-                        float ancho = (float)r.GetDouble(r.GetOrdinal("ancho_456VG"));
-                        float alto = (float)r.GetDouble(r.GetOrdinal("alto_456VG"));
-                        float largo = (float)r.GetDouble(r.GetOrdinal("largo_456VG"));
-                        bool enviado = r.GetBoolean(r.GetOrdinal("enviado_456VG"));
-                        string codPaq = r.GetString(r.GetOrdinal("codpaq_456VG"));
-                        string cliNom = r.GetString(r.GetOrdinal("cliNombre"));
-                        string cliApe = r.GetString(r.GetOrdinal("cliApellido"));
-                        string cliTel = r.GetString(r.GetOrdinal("cliTelefono"));
-                        string cliDom = r.GetString(r.GetOrdinal("cliDomicilio"));
-                        DateTime cliFN = r.GetDateTime(r.GetOrdinal("fechanacimiento_456VG"));
-                        bool cliActivo = r.GetBoolean(r.GetOrdinal("cliActivo"));
-                        var paquete = new BEPaquete_456VG(idPaq, dniCli, peso, ancho, largo, alto, enviado) { CodPaq456VG = codPaq };
-                        paquete.Cliente = new BECliente_456VG(dniCli, cliNom, cliApe, cliTel, cliDom, cliFN, cliActivo);
-                        var envio = new BEEnvío_456VG(idEnv, idPaq, dniCli, dniDest, nomDest, apeDest, telDest, 0f, dom, loc, prov, tipoEnv, imp, pagado)
+                        string codFactura = readerF.GetString(readerF.GetOrdinal("codfactura_456VG"));
+                        string codEnvio = readerF.GetString(readerF.GetOrdinal("codenvio_456VG"));
+                        string dniCliEnv = readerF.GetString(readerF.GetOrdinal("dniCliEnv"));
+                        DateTime fechaF = readerF.GetDateTime(readerF.GetOrdinal("fechaemision_456VG"));
+                        TimeSpan horaF = readerF.GetTimeSpan(readerF.GetOrdinal("horaemision_456VG"));
+                        string dniDest = readerF.GetString(readerF.GetOrdinal("dni_dest_456VG"));
+                        string nomDest = readerF.GetString(readerF.GetOrdinal("nombre_dest_456VG"));
+                        string apeDest = readerF.GetString(readerF.GetOrdinal("apellido_dest_456VG"));
+                        string telDest = readerF.GetString(readerF.GetOrdinal("telefono_dest_456VG"));
+                        string prov = readerF.GetString(readerF.GetOrdinal("provincia_456VG"));
+                        string loc = readerF.GetString(readerF.GetOrdinal("localidad_456VG"));
+                        string domEnv = readerF.GetString(readerF.GetOrdinal("domicilio_456VG"));
+                        float codPostal = (float)readerF.GetDouble(readerF.GetOrdinal("codpostal_456VG"));
+                        string tipoEnv = readerF.GetString(readerF.GetOrdinal("tipoenvio_456VG"));
+                        bool pagado = readerF.GetBoolean(readerF.GetOrdinal("pagado_456VG"));
+                        string cliNomEnv = readerF.GetString(readerF.GetOrdinal("cliNombreEnv"));
+                        string cliApeEnv = readerF.GetString(readerF.GetOrdinal("cliApellidoEnv"));
+                        string cliTelEnv = readerF.GetString(readerF.GetOrdinal("cliTelefonoEnv"));
+                        string cliDomEnv = readerF.GetString(readerF.GetOrdinal("cliDomicilioEnv"));
+                        DateTime cliFNEnv = readerF.GetDateTime(readerF.GetOrdinal("cliFNEnv"));
+                        bool cliActivoEnv = readerF.GetBoolean(readerF.GetOrdinal("cliActivoEnv"));
+                        var clienteEnvio = new BECliente_456VG(
+                            dniCliEnv,
+                            cliNomEnv,
+                            cliApeEnv,
+                            cliTelEnv,
+                            cliDomEnv,
+                            cliFNEnv,
+                            cliActivoEnv
+                        );
+                        var paquetesEnvio = new List<BEPaquete_456VG>();
+                        string sqlPaquetes =
+                            "USE EnviosYA_456VG; " +
+                            "SELECT " +
+                            "  p.peso_456VG, " +
+                            "  p.ancho_456VG, " +
+                            "  p.alto_456VG, " +
+                            "  p.largo_456VG, " +
+                            "  p.enviado_456VG " +
+                            "FROM Paquetes_456VG p " +
+                            "JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG " +
+                            "WHERE ep.codenvio_456VG = @CodEnvio;";
+                        using (var cmdP = new SqlCommand(sqlPaquetes, db.Connection))
                         {
-                            Paquete = paquete,
-                            Cliente = paquete.Cliente
-                        };
-                        var factura = new BEFactura_456VG(idFact, idEnv, idPaq, dniCli, fecha) { Envio = envio, Paquete = paquete, Cliente = paquete.Cliente };
-                        list.Add(factura);
+                            cmdP.Parameters.AddWithValue("@CodEnvio", codEnvio);
+
+                            using (var readerP = cmdP.ExecuteReader())
+                            {
+                                while (readerP.Read())
+                                {
+                                    float peso = (float)readerP.GetDouble(readerP.GetOrdinal("peso_456VG"));
+                                    float ancho = (float)readerP.GetDouble(readerP.GetOrdinal("ancho_456VG"));
+                                    float alto = (float)readerP.GetDouble(readerP.GetOrdinal("alto_456VG"));
+                                    float largo = (float)readerP.GetDouble(readerP.GetOrdinal("largo_456VG"));
+                                    bool enviadoPaq = readerP.GetBoolean(readerP.GetOrdinal("enviado_456VG"));
+                                    var paquete = new BEPaquete_456VG(
+                                        clienteEnvio,
+                                        peso,
+                                        ancho,
+                                        largo,
+                                        alto,
+                                        enviadoPaq
+                                    );
+                                    paquetesEnvio.Add(paquete);
+                                }
+                            }
+                        }
+                        var envio = new BEEnvío_456VG(
+                            clienteEnvio,
+                            paquetesEnvio,
+                            dniDest,
+                            nomDest,
+                            apeDest,
+                            telDest,
+                            codPostal,
+                            domEnv,
+                            loc,
+                            prov,
+                            tipoEnv,
+                            pagado
+                        );
+                        var factura = new BEFactura_456VG(envio, fechaF.Add(horaF));
+                        listaFacturas.Add(factura);
                     }
+                }
             }
             catch
             {
@@ -133,7 +207,8 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
-            return list;
+
+            return listaFacturas;
         }
     }
 }

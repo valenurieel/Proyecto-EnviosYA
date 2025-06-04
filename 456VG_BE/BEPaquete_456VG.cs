@@ -1,53 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace _456VG_BE
 {
     public class BEPaquete_456VG
     {
-        private readonly Random _rnd = new Random();
-        private const string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        public int id_paquete456VG { get; set; }
-        public string dnicliente456VG { get; set; }
         public BECliente_456VG Cliente { get; set; }
         public float Peso456VG { get; set; }
         public float Ancho456VG { get; set; }
         public float Largo456VG { get; set; }
         public float Alto456VG { get; set; }
         public bool Enviado456VG { get; set; }
-        public string CodPaq456VG { get; set; }
-        public BEPaquete_456VG(int id_paquete, string dnicli, float Peso, float Ancho, float Largo, float Alto, bool enviado)
+        public string CodPaq456VG { get; private set; }
+
+        public BEPaquete_456VG(BECliente_456VG cliente, float peso, float ancho, float largo, float alto, bool enviado)
         {
-            this.id_paquete456VG = id_paquete;
-            this.dnicliente456VG = dnicli;
-            this.Peso456VG = Peso;
-            this.Ancho456VG = Ancho;
-            this.Largo456VG = Largo;
-            this.Alto456VG = Alto;
+            this.Cliente = cliente;
+            this.Peso456VG = peso;
+            this.Ancho456VG = ancho;
+            this.Largo456VG = largo;
+            this.Alto456VG = alto;
             this.Enviado456VG = enviado;
             this.CodPaq456VG = GenerateCodPaq456VG();
         }
-        public BEPaquete_456VG(string dnicli, float Peso, float Ancho, float Largo, float Alto, bool enviado)
+        private string GenerateCodPaq456VG()
         {
-            this.dnicliente456VG = dnicli;
-            this.Peso456VG = Peso;
-            this.Ancho456VG = Ancho;
-            this.Largo456VG = Largo;
-            this.Alto456VG = Alto;
-            this.Enviado456VG = enviado;
-            this.CodPaq456VG = GenerateCodPaq456VG();
-        }
-        public string GenerateCodPaq456VG()
-        {
-            var sb = new StringBuilder(8);
-            for (int i = 0; i < 4; i++)
-                sb.Append(_letters[_rnd.Next(_letters.Length)]);
-            for (int i = 0; i < 4; i++)
-                sb.Append(_rnd.Next(10));
-            return sb.ToString();
+            string dni = (Cliente.DNI456VG ?? "").Length >= 3
+                ? Cliente.DNI456VG.Substring(0, 3).ToUpper()
+                : Cliente.DNI456VG.ToUpper().PadRight(3, 'X');
+            string nombre = (Cliente.Nombre456VG ?? "").Length >= 3
+                ? Cliente.Nombre456VG.Substring(0, 3).ToUpper()
+                : Cliente.Nombre456VG.ToUpper().PadRight(3, 'X');
+            return $"{dni}{nombre}";
         }
     }
 }
