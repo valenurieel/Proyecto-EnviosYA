@@ -23,33 +23,12 @@ namespace Proyecto_EnviosYA
         }
         public void ActualizarIdioma_456VG()
         {
-            Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            lng.CambiarIdiomaControles_456VG(this);
             cmbTipEnvio456VG.Items.Clear();
             cmbTipEnvio456VG.Items.Add(lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal"));
             cmbTipEnvio456VG.Items.Add(lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.express"));
-        }
-        private void limpiar()
-        {
-            txtAlto456VG.Clear();
-            txtAncho456VG.Clear();
-            txtCP456VG.Clear();
-            txtDNID456VG.Clear();
-            txtDom456VG.Clear();
-            txtLargo456VG.Clear();
-            txtLoc456VG.Clear();
-            txtNomD456VG.Clear();
-            txtApeD456VG.Clear();
-            txtNomCli456VG.Clear();
-            txtApeCli456VG.Clear();
-            txtTelD456VG.Clear();
-            txtTelCli456VG.Clear();
-            txtDNICli456VG.Clear();
-            txtPeso456VG.Clear();
-            txtProv456VG.Clear();
-            cmbTipEnvio456VG.SelectedIndex = -1;
-            _paquetesPendientes.Clear();
-            ((BindingSource)dgvPaquetes.DataSource).ResetBindings(false);
+            TraducirEncabezadosDataGridPaquetes();
         }
         private void ConfigurarDataGridViewPaquetes()
         {
@@ -61,7 +40,7 @@ namespace Proyecto_EnviosYA
                 HeaderText = "Código Paquete",
                 DataPropertyName = "CodPaq456VG",
                 ReadOnly = true,
-                Width = 140
+                Width = 120
             });
             dgvPaquetes.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -96,6 +75,38 @@ namespace Proyecto_EnviosYA
                 Width = 80
             });
             dgvPaquetes.DataSource = new BindingSource { DataSource = _paquetesPendientes };
+        }
+        private void TraducirEncabezadosDataGridPaquetes()
+        {
+            if (dgvPaquetes.Columns.Count == 0) return;
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            dgvPaquetes.Columns["CodPaq"].HeaderText = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Columna.CodPaq");
+            dgvPaquetes.Columns["Peso"].HeaderText = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Columna.Peso");
+            dgvPaquetes.Columns["Ancho"].HeaderText = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Columna.Ancho");
+            dgvPaquetes.Columns["Largo"].HeaderText = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Columna.Largo");
+            dgvPaquetes.Columns["Alto"].HeaderText = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Columna.Alto");
+        }
+        private void limpiar()
+        {
+            txtAlto456VG.Clear();
+            txtAncho456VG.Clear();
+            txtCP456VG.Clear();
+            txtDNID456VG.Clear();
+            txtDom456VG.Clear();
+            txtLargo456VG.Clear();
+            txtLoc456VG.Clear();
+            txtNomD456VG.Clear();
+            txtApeD456VG.Clear();
+            txtNomCli456VG.Clear();
+            txtApeCli456VG.Clear();
+            txtTelD456VG.Clear();
+            txtTelCli456VG.Clear();
+            txtDNICli456VG.Clear();
+            txtPeso456VG.Clear();
+            txtProv456VG.Clear();
+            cmbTipEnvio456VG.SelectedIndex = -1;
+            _paquetesPendientes.Clear();
+            ((BindingSource)dgvPaquetes.DataSource).ResetBindings(false);
         }
         private void btnRegCli456VG_Click(object sender, EventArgs e)
         {

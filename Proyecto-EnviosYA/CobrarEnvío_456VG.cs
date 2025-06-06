@@ -102,7 +102,7 @@ namespace Proyecto_EnviosYA
                 HeaderText = "Importe $",
                 DataPropertyName = "Importe",
                 ReadOnly = true,
-                Width = 90
+                Width = 70
             });
             dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -118,7 +118,7 @@ namespace Proyecto_EnviosYA
                 HeaderText = "DNI Remitente",
                 DataPropertyName = "DNI_Remitente",
                 ReadOnly = true,
-                Width = 90
+                Width = 80
             });
             dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -134,7 +134,7 @@ namespace Proyecto_EnviosYA
                 HeaderText = "DNI Destinatario",
                 DataPropertyName = "DNI_Dest",
                 ReadOnly = true,
-                Width = 90
+                Width = 80
             });
             dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -158,7 +158,7 @@ namespace Proyecto_EnviosYA
                 HeaderText = "Domicilio",
                 DataPropertyName = "Domicilio",
                 ReadOnly = true,
-                Width = 100
+                Width = 90
             });
             dataGridView1456VG.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -166,7 +166,7 @@ namespace Proyecto_EnviosYA
                 HeaderText = "Tipo de Envío",
                 DataPropertyName = "TipoEnvio",
                 ReadOnly = true,
-                Width = 90
+                Width = 60
             });
             var colIdEnvio = new DataGridViewTextBoxColumn
             {

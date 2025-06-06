@@ -134,6 +134,11 @@
   "CrearEnvío_456VG.Msg.AltoInvalido": "El alto debe ser un número mayor que cero.",
   "CrearEnvío_456VG.Msg.ValidacionTitle": "Validación",
   "CrearEnvío_456VG.Msg.CPInvalido": "El código postal no es válido.",
+  "CrearEnvío_456VG.Columna.CodPaq": "Código Paquete",
+  "CrearEnvío_456VG.Columna.Peso": "Peso (kg)",
+  "CrearEnvío_456VG.Columna.Ancho": "Ancho (cm)",
+  "CrearEnvío_456VG.Columna.Largo": "Largo (cm)",
+  "CrearEnvío_456VG.Columna.Alto": "Alto (cm)",
 
   "GestiondeClientes_456VG.Text": "Gestión de Clientes",
   "GestiondeClientes_456VG.label1": "GESTIÓN DE CLIENTES",

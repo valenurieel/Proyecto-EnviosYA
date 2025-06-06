@@ -134,6 +134,11 @@
   "CrearEnvío_456VG.Msg.AltoInvalido": "Height must be a number greater than zero.",
   "CrearEnvío_456VG.Msg.ValidacionTitle": "Validation",
   "CrearEnvío_456VG.Msg.CPInvalido": "Postal code is not valid.",
+  "CrearEnvío_456VG.Columna.CodPaq": "Package Code",
+  "CrearEnvío_456VG.Columna.Peso": "Weight (kg)",
+  "CrearEnvío_456VG.Columna.Ancho": "Width (cm)",
+  "CrearEnvío_456VG.Columna.Largo": "Length (cm)",
+  "CrearEnvío_456VG.Columna.Alto": "Height (cm)",
 
   "GestiondeClientes_456VG.Text": "Customer Management",
   "GestiondeClientes_456VG.label1": "CUSTOMER MANAGEMENT",
