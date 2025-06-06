@@ -43,6 +43,8 @@
   "CobrarEnvío_456VG.label3": "Cardholder:",
   "CobrarEnvío_456VG.label4": "Expiration Date:",
   "CobrarEnvío_456VG.label5": "CVC:",
+  "CobrarEnvío_456VG.label9": "Unpaid Shipping:",
+  "CobrarEnvío_456VG.label15": "Package Details:",
   "CobrarEnvío_456VG.label7": "Total Shipment Amount:",
   "CobrarEnvío_456VG.lblImporte456VG": "AMOUNT",
   "CobrarEnvío_456VG.button1": "Back",
@@ -180,6 +182,7 @@
   "GestiondeClientes_456VG.Msg.ErrorActDesac": "Error: {0}",
   "GestiondeClientes_456VG.Msg.ConfirmCancel": "Are you sure you want to cancel the operation?",
   "GestiondeClientes_456VG.Msg.ConfirmTitle": "Confirmation",
+  "GestiondeClientes_456VG.checkVer456VG": "View Address",
   "GestiondeClientes_456VG.Msg.ErrorRecuperar": "Error retrieving client data: {0}",
 
   "GestióndeUsuarios_456VG.Text": "User Management",

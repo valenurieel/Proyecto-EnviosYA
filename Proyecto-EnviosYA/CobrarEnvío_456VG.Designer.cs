@@ -167,7 +167,7 @@
             // 
             // btnAggTarj456VG
             // 
-            this.btnAggTarj456VG.Location = new System.Drawing.Point(837, 430);
+            this.btnAggTarj456VG.Location = new System.Drawing.Point(811, 430);
             this.btnAggTarj456VG.Name = "btnAggTarj456VG";
             this.btnAggTarj456VG.Size = new System.Drawing.Size(94, 39);
             this.btnAggTarj456VG.TabIndex = 58;
@@ -200,14 +200,14 @@
             this.dataGridView1456VG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1456VG.Location = new System.Drawing.Point(12, 61);
             this.dataGridView1456VG.Name = "dataGridView1456VG";
-            this.dataGridView1456VG.Size = new System.Drawing.Size(950, 115);
+            this.dataGridView1456VG.Size = new System.Drawing.Size(893, 115);
             this.dataGridView1456VG.TabIndex = 61;
             this.dataGridView1456VG.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1456VG_CellClick);
             this.dataGridView1456VG.SelectionChanged += new System.EventHandler(this.dataGridView1456VG_SelectionChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(837, 388);
+            this.button1.Location = new System.Drawing.Point(811, 388);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 27);
             this.button1.TabIndex = 62;
@@ -220,7 +220,7 @@
             this.dgvPaquetesDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPaquetesDetalle.Location = new System.Drawing.Point(12, 216);
             this.dgvPaquetesDetalle.Name = "dgvPaquetesDetalle";
-            this.dgvPaquetesDetalle.Size = new System.Drawing.Size(950, 115);
+            this.dgvPaquetesDetalle.Size = new System.Drawing.Size(893, 115);
             this.dgvPaquetesDetalle.TabIndex = 63;
             // 
             // label15
@@ -248,7 +248,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(974, 480);
+            this.ClientSize = new System.Drawing.Size(919, 480);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.dgvPaquetesDetalle);

@@ -308,10 +308,11 @@ namespace Proyecto_EnviosYA
             this.checkVer456VG.Location = new System.Drawing.Point(364, 470);
             this.checkVer456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkVer456VG.Name = "checkVer456VG";
-            this.checkVer456VG.Size = new System.Drawing.Size(42, 17);
+            this.checkVer456VG.Size = new System.Drawing.Size(87, 17);
             this.checkVer456VG.TabIndex = 69;
-            this.checkVer456VG.Text = "Ver";
+            this.checkVer456VG.Text = "Ver Domicilio";
             this.checkVer456VG.UseVisualStyleBackColor = true;
+            this.checkVer456VG.CheckedChanged += new System.EventHandler(this.checkVer456VG_CheckedChanged);
             // 
             // GestiondeClientes_456VG
             // 

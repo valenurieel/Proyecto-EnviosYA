@@ -72,6 +72,7 @@ namespace _456VG_DAL
         public Resultado_456VG<BECliente_456VG> crearEntidad456VG(BECliente_456VG obj)
         {
             var resultado = new Resultado_456VG<BECliente_456VG>();
+            string hashDomicilio = hasher.EncryptAes(obj.Domicilio456VG);
             try
             {
                 db.Connection.Open();
@@ -89,7 +90,7 @@ namespace _456VG_DAL
                         cmd.Parameters.AddWithValue("@Nombre", obj.Nombre456VG);
                         cmd.Parameters.AddWithValue("@Apellido", obj.Apellido456VG);
                         cmd.Parameters.AddWithValue("@Telefono", obj.Teléfono456VG);
-                        cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
+                        cmd.Parameters.AddWithValue("@Domicilio", hashDomicilio);
                         cmd.Parameters.AddWithValue("@FechaNacimiento", obj.FechaNacimiento456VG);
                         cmd.Parameters.AddWithValue("@Activo", obj.Activo456VG);
                         cmd.ExecuteNonQuery();

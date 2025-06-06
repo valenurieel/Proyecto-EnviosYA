@@ -420,39 +420,31 @@ namespace Proyecto_EnviosYA
 
         private void dataGridView1456VG_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1456VG.SelectedRows.Count > 0)
+            if (dataGridView1456VG.SelectedRows.Count == 0) return;
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
+            var resultadoRecuperar = BLLCli.recuperarClientePorDNI456VG(dniSeleccionado);
+            if (!resultadoRecuperar.resultado)
             {
-                var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
-                string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
-                var resultadoRecuperar = BLLCli.recuperarClientePorDNI456VG(dniSeleccionado);
-
-                if (resultadoRecuperar.resultado)
-                {
-                    BECliente_456VG clienteSeleccionado = resultadoRecuperar.entidad;
-                    txtdni456VG.Text = clienteSeleccionado.DNI456VG;
-                    txtnombre456VG.Text = clienteSeleccionado.Nombre456VG;
-                    txtapellido456VG.Text = clienteSeleccionado.Apellido456VG;
-                    txttelef456VG.Text = clienteSeleccionado.Teléfono456VG;
-                    txtdomicilio456VG.Text = clienteSeleccionado.Domicilio456VG;
-                    dateTimePicker1456VG.Value = clienteSeleccionado.FechaNacimiento456VG;
-                }
-                else
-                {
-                    MessageBox.Show(
-                        string.Format(
-                            lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ErrorRecuperar"),
-                            resultadoRecuperar.mensaje
-                        ),
-                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
+                MessageBox.Show(
+                    string.Format(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ErrorRecuperar"),
+                        resultadoRecuperar.mensaje
+                    ),
+                    lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
             }
+            BECliente_456VG clienteSeleccionado = resultadoRecuperar.entidad;
+            txtdni456VG.Text = clienteSeleccionado.DNI456VG;
+            txtnombre456VG.Text = clienteSeleccionado.Nombre456VG;
+            txtapellido456VG.Text = clienteSeleccionado.Apellido456VG;
+            txttelef456VG.Text = clienteSeleccionado.Teléfono456VG;
+            dateTimePicker1456VG.Value = clienteSeleccionado.FechaNacimiento456VG;
+            txtdomicilio456VG.Text = clienteSeleccionado.Domicilio456VG;
         }
-
-        // Método para traducir encabezados de DataGridView
         private void TraducirEncabezadosDataGrid()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -460,6 +452,35 @@ namespace Proyecto_EnviosYA
             {
                 string clave = $"GestiondeClientes_456VG.Columna.{col.Name}";
                 col.HeaderText = lng.ObtenerTexto_456VG(clave);
+            }
+        }
+        private void checkVer456VG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1456VG.SelectedRows.Count == 0) return;
+            if (checkVer456VG.Checked)
+            {
+                var aes = new HashSHA256_456VG();
+                try
+                {
+                    string cifrado = txtdomicilio456VG.Text;
+                    string desencriptado = aes.DecryptAes(cifrado);
+                    txtdomicilio456VG.Text = desencriptado;
+                }
+                catch
+                {
+                }
+            }
+            else
+            {
+                if (dataGridView1456VG.SelectedRows.Count > 0)
+                {
+                    string dni = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
+                    var resultado = BLLCli.recuperarClientePorDNI456VG(dni);
+                    if (resultado.resultado)
+                    {
+                        txtdomicilio456VG.Text = resultado.entidad.Domicilio456VG;
+                    }
+                }
             }
         }
     }

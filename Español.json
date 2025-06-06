@@ -43,6 +43,8 @@
   "CobrarEnvío_456VG.label3": "Titular:",
   "CobrarEnvío_456VG.label4": "Fecha de Vencimiento:",
   "CobrarEnvío_456VG.label5": "CVC:",
+  "CobrarEnvío_456VG.label9": "Envíos no Pagados:",
+  "CobrarEnvío_456VG.label15": "Detalles Paquete:",
   "CobrarEnvío_456VG.label7": "Importe Total del Envío:",
   "CobrarEnvío_456VG.lblImporte456VG": "IMPORTE",
   "CobrarEnvío_456VG.button1": "Volver",
@@ -181,6 +183,7 @@
   "GestiondeClientes_456VG.Msg.ConfirmCancel": "¿Está seguro de Cancelar la Operación?",
   "GestiondeClientes_456VG.Msg.ConfirmTitle": "Confirmación",
   "GestiondeClientes_456VG.Msg.ErrorRecuperar": "Error al recuperar los datos del cliente: {0}",
+  "GestiondeClientes_456VG.checkVer456VG": "Ver Domicilio",
 
   "GestióndeUsuarios_456VG.Text": "Gestión de Usuarios",
   "GestióndeUsuarios_456VG.label1": "GESTIÓN DE USUARIOS",

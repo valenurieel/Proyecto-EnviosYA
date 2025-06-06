@@ -53,5 +53,58 @@ namespace _456VG_Servicios
                 return sb.ToString();
             }
         }
+        private const string AES_KEY = "TuClaveSuperSecreta_De32BytesExactos!!";
+        private static byte[] GetAesKey(string key, int length = 32)
+        {
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            Array.Resize(ref keyBytes, length);
+            return keyBytes;
+        }
+        public string EncryptAes(string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText))
+                return string.Empty;
+            byte[] encrypted;
+            byte[] keyBytes = GetAesKey(AES_KEY, 32);
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = keyBytes;
+                aes.IV = keyBytes.Take(16).ToArray();
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                    using (var sw = new StreamWriter(cs, Encoding.UTF8))
+                    {
+                        sw.Write(plainText);
+                    }
+                    encrypted = ms.ToArray();
+                }
+            }
+            return Convert.ToBase64String(encrypted);
+        }
+        public string DecryptAes(string cipherTextBase64)
+        {
+            if (string.IsNullOrEmpty(cipherTextBase64))
+                return string.Empty;
+            byte[] cipherBytes = Convert.FromBase64String(cipherTextBase64);
+            byte[] keyBytes = GetAesKey(AES_KEY, 32);
+            string plaintext;
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = keyBytes;
+                aes.IV = keyBytes.Take(16).ToArray();
+
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                using (var ms = new MemoryStream(cipherBytes))
+                using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                using (var sr = new StreamReader(cs, Encoding.UTF8))
+                {
+                    plaintext = sr.ReadToEnd();
+                }
+            }
+            return plaintext;
+        }
     }
 }
