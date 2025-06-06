@@ -21,6 +21,35 @@ namespace _456VG_DAL
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
+        public string RecuperarIdioma456VG(string dniUsuario)
+        {
+            const string sqlQuery = @"
+                USE EnviosYA_456VG;
+                SELECT idioma_456VG 
+                FROM Usuario_456VG 
+                WHERE dni_456VG = @DNI;
+            ";
+            try
+            {
+                if (!db.Conectar456VG())
+                    throw new Exception("No se pudo conectar a la base de datos.");
+                using (var cmd = new SqlCommand(sqlQuery, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@DNI", dniUsuario);
+                    object result = cmd.ExecuteScalar();
+                    db.Desconectar456VG();
+                    if (result == null || result == DBNull.Value)
+                        return "ES";
+                    string idioma = Convert.ToString(result);
+                    return string.IsNullOrWhiteSpace(idioma) ? "ES" : idioma;
+                }
+            }
+            catch
+            {
+                try { db.Desconectar456VG(); } catch {}
+                return "ES";
+            }
+        }
         public bool modificarIdioma456VG(BEUsuario_456VG user, string idiomaNuevo)
         {
                     const string query = @"
@@ -417,7 +446,6 @@ namespace _456VG_DAL
                 string nuevoSalt = hasher.GenerarSalt456VG();
                 string nuevaContraseñaHasheada = hasher.HashPassword456VG(nuevaContraseña, nuevoSalt);
                 string nuevaContraseñaHashSimple = hasher.HashSimple456VG(nuevaContraseña);
-                // Validar que la nueva contraseña no haya sido usada antes
                 using (SqlCommand selectCommand = new SqlCommand(sqlSelectHistorial, db.Connection))
                 {
                     selectCommand.Parameters.AddWithValue("@DniUsuario", usuario.DNI456VG);

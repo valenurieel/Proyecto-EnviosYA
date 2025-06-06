@@ -54,6 +54,7 @@ namespace Proyecto_EnviosYA
             this.dataGridView1456VG = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1456VG = new System.Windows.Forms.DateTimePicker();
+            this.checkVer456VG = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -301,12 +302,24 @@ namespace Proyecto_EnviosYA
             this.dateTimePicker1456VG.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1456VG.TabIndex = 68;
             // 
+            // checkVer456VG
+            // 
+            this.checkVer456VG.AutoSize = true;
+            this.checkVer456VG.Location = new System.Drawing.Point(364, 470);
+            this.checkVer456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkVer456VG.Name = "checkVer456VG";
+            this.checkVer456VG.Size = new System.Drawing.Size(42, 17);
+            this.checkVer456VG.TabIndex = 69;
+            this.checkVer456VG.Text = "Ver";
+            this.checkVer456VG.UseVisualStyleBackColor = true;
+            // 
             // GestiondeClientes_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(768, 556);
+            this.Controls.Add(this.checkVer456VG);
             this.Controls.Add(this.dateTimePicker1456VG);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnActivoDesac);
@@ -366,5 +379,6 @@ namespace Proyecto_EnviosYA
         private System.Windows.Forms.DataGridView dataGridView1456VG;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1456VG;
+        private CheckBox checkVer456VG;
     }
 }

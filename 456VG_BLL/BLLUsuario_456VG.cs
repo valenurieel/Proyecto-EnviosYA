@@ -16,6 +16,10 @@ namespace _456VG_BLL
         {
             dal = new DALUsuario_456VG();
         }
+        public string RecuperarIdioma456VG(string dniUsuario)
+        {
+            return dal.RecuperarIdioma456VG(dniUsuario);
+        }
         public List<BEUsuario_456VG> leerEntidades456VG()
         {
             return dal.leerEntidades456VG();
