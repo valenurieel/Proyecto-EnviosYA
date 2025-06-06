@@ -38,7 +38,6 @@ namespace _456VG_BLL
         {
             if (string.IsNullOrWhiteSpace(dni))
                 return null;
-
             return dal.LeerPorDni(dni);
         }
     }

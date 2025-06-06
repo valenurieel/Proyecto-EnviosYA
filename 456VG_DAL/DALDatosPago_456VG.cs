@@ -93,7 +93,6 @@ namespace _456VG_DAL
             {
                 if (obj == null || obj.Cliente_456VG == null || string.IsNullOrWhiteSpace(obj.Cliente_456VG.DNI456VG))
                     throw new ArgumentException("Los datos de pago y el cliente con DNI no pueden ser nulos.");
-
                 string dni = obj.Cliente_456VG.DNI456VG.Trim();
                 if (string.IsNullOrWhiteSpace(obj.MedioPago456VG) ||
                     string.IsNullOrWhiteSpace(obj.NumTarjeta) ||
@@ -103,7 +102,6 @@ namespace _456VG_DAL
                 {
                     throw new ArgumentException("Todos los campos de DatosPago deben estar completos.");
                 }
-
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {
@@ -124,15 +122,12 @@ namespace _456VG_DAL
                         cmd.Parameters.AddWithValue("@Tit", obj.Titular.Trim());
                         cmd.Parameters.AddWithValue("@FecVenc", obj.FechaVencimiento.Date);
                         cmd.Parameters.AddWithValue("@CVC", obj.CVC.Trim());
-
                         int filasAfectadas = cmd.ExecuteNonQuery();
                         if (filasAfectadas == 0)
                             throw new Exception($"No se encontró ningún registro de datos de pago para el cliente {dni}.");
                     }
-
                     tx.Commit();
                 }
-
                 resultado.resultado = true;
                 resultado.entidad = obj;
                 resultado.mensaje = "Datos de pago actualizados correctamente.";
@@ -146,7 +141,6 @@ namespace _456VG_DAL
             {
                 db.Connection.Close();
             }
-
             return resultado;
         }
 
@@ -157,85 +151,107 @@ namespace _456VG_DAL
 
         public List<BEDatosPago_456VG> leerEntidades456VG()
         {
-            var lista = new List<BEDatosPago_456VG>();
+            //var lista = new List<BEDatosPago_456VG>();
+            //const string sql =
+            //    "USE EnviosYA_456VG; " +
+            //    "SELECT dni_cliente_456VG, medio_pago_456VG, numtarjeta_456VG, titular_456VG, fechavencimiento_456VG, cvc_456VG " +
+            //    "FROM DatosPago_456VG;";
+            //try
+            //{
+            //    db.Conectar456VG();
+            //    using (var cmd = new SqlCommand(sql, db.Connection))
+            //    using (var reader = cmd.ExecuteReader())
+            //    {
+            //        while (reader.Read())
+            //        {
+            //            string dniCli = reader.GetString(reader.GetOrdinal("dni_cliente_456VG"));
+            //            string medioPago = reader.GetString(reader.GetOrdinal("medio_pago_456VG"));
+            //            string numTarjeta = reader.GetString(reader.GetOrdinal("numtarjeta_456VG"));
+            //            string titular = reader.GetString(reader.GetOrdinal("titular_456VG"));
+            //            DateTime fechaVenc = reader.GetDateTime(reader.GetOrdinal("fechavencimiento_456VG"));
+            //            string cvc = reader.GetString(reader.GetOrdinal("cvc_456VG"));
 
-            const string sql =
-                "USE EnviosYA_456VG; " +
-                "SELECT dni_cliente_456VG, medio_pago_456VG, numtarjeta_456VG, titular_456VG, fechavencimiento_456VG, cvc_456VG " +
-                "FROM DatosPago_456VG;";
-
-            try
-            {
-                db.Conectar456VG();
-                using (var cmd = new SqlCommand(sql, db.Connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string dniCli = reader.GetString(reader.GetOrdinal("dni_cliente_456VG"));
-                        string medioPago = reader.GetString(reader.GetOrdinal("medio_pago_456VG"));
-                        string numTarjeta = reader.GetString(reader.GetOrdinal("numtarjeta_456VG"));
-                        string titular = reader.GetString(reader.GetOrdinal("titular_456VG"));
-                        DateTime fechaVenc = reader.GetDateTime(reader.GetOrdinal("fechavencimiento_456VG"));
-                        string cvc = reader.GetString(reader.GetOrdinal("cvc_456VG"));
-
-                        var datosPago = new BEDatosPago_456VG(
-                            cliente: null,       // Si necesitas el BECliente, asínalo después en la BLL
-                            mediopago: medioPago,
-                            numtarj: numTarjeta,
-                            titu: titular,
-                            fvenc: fechaVenc,
-                            cvc: cvc
-                        );
-                        lista.Add(datosPago);
-                    }
-                }
-            }
-            catch
-            {
-                // En caso de error, devolvemos lista vacía
-            }
-            finally
-            {
-                db.Desconectar456VG();
-            }
-
-            return lista;
+            //            var datosPago = new BEDatosPago_456VG(
+            //                cliente: null,       // Si necesitas el BECliente, asínalo después en la BLL
+            //                mediopago: medioPago,
+            //                numtarj: numTarjeta,
+            //                titu: titular,
+            //                fvenc: fechaVenc,
+            //                cvc: cvc
+            //            );
+            //            lista.Add(datosPago);
+            //        }
+            //    }
+            //}
+            //catch
+            //{
+            //}
+            //finally
+            //{
+            //    db.Desconectar456VG();
+            //}
+            //return lista;
+            throw new NotImplementedException();
         }
-
         public BEDatosPago_456VG LeerPorDni(string dni)
         {
             BEDatosPago_456VG resultado = null;
-
             const string sql =
                 "USE EnviosYA_456VG; " +
-                "SELECT medio_pago_456VG, numtarjeta_456VG, titular_456VG, fechavencimiento_456VG, cvc_456VG " +
-                "FROM DatosPago_456VG " +
-                "WHERE dni_cliente_456VG = @Dni;";
-
+                "SELECT " +
+                "  c.dni_456VG              AS ClienteDNI, " +
+                "  c.nombre_456VG           AS ClienteNombre, " +
+                "  c.apellido_456VG         AS ClienteApellido, " +
+                "  c.telefono_456VG         AS ClienteTelefono, " +
+                "  c.domicilio_456VG        AS ClienteDomicilio, " +
+                "  c.fechanacimiento_456VG  AS ClienteFechaNacimiento, " +
+                "  c.activo_456VG           AS ClienteActivo, " +
+                "  dp.medio_pago_456VG      AS MedioPago, " +
+                "  dp.numtarjeta_456VG      AS NumTarjeta, " +
+                "  dp.titular_456VG         AS Titular, " +
+                "  dp.fechavencimiento_456VG AS FechaVencimiento, " +
+                "  dp.cvc_456VG             AS CVC " +
+                "FROM DatosPago_456VG dp " +
+                "JOIN Clientes_456VG c " +
+                "  ON c.dni_456VG = dp.dni_cliente_456VG " +
+                "WHERE dp.dni_cliente_456VG = @Dni;";
             try
             {
                 db.Conectar456VG();
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@Dni", dni);
-
                     using (var reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            string medioPago = reader.GetString(reader.GetOrdinal("medio_pago_456VG"));
-                            string numTarjeta = reader.GetString(reader.GetOrdinal("numtarjeta_456VG"));
-                            string titular = reader.GetString(reader.GetOrdinal("titular_456VG"));
-                            DateTime fechaVenc = reader.GetDateTime(reader.GetOrdinal("fechavencimiento_456VG"));
-                            string cvc = reader.GetString(reader.GetOrdinal("cvc_456VG"));
-
+                            string dniCliente = reader.GetString(reader.GetOrdinal("ClienteDNI"));
+                            string nombreCliente = reader.GetString(reader.GetOrdinal("ClienteNombre"));
+                            string apellidoCliente = reader.GetString(reader.GetOrdinal("ClienteApellido"));
+                            string telefonoCliente = reader.GetString(reader.GetOrdinal("ClienteTelefono"));
+                            string domicilioCliente = reader.GetString(reader.GetOrdinal("ClienteDomicilio"));
+                            DateTime fnacCliente = reader.GetDateTime(reader.GetOrdinal("ClienteFechaNacimiento"));
+                            bool activoCliente = reader.GetBoolean(reader.GetOrdinal("ClienteActivo"));
+                            var cliente = new BECliente_456VG(
+                                dni: dniCliente,
+                                name: nombreCliente,
+                                ape: apellidoCliente,
+                                tel: telefonoCliente,
+                                dom: domicilioCliente,
+                                fechanac: fnacCliente,
+                                act: activoCliente
+                            );
+                            string medioPago = reader.GetString(reader.GetOrdinal("MedioPago"));
+                            string numTarj = reader.GetString(reader.GetOrdinal("NumTarjeta"));
+                            string titular = reader.GetString(reader.GetOrdinal("Titular"));
+                            DateTime fvenc = reader.GetDateTime(reader.GetOrdinal("FechaVencimiento"));
+                            string cvc = reader.GetString(reader.GetOrdinal("CVC"));
                             resultado = new BEDatosPago_456VG(
-                                cliente: null,      // La BLL asignará BECliente_456VG si lo desea
+                                cliente: cliente,
                                 mediopago: medioPago,
-                                numtarj: numTarjeta,
+                                numtarj: numTarj,
                                 titu: titular,
-                                fvenc: fechaVenc,
+                                fvenc: fvenc,
                                 cvc: cvc
                             );
                         }
@@ -250,8 +266,8 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
-
             return resultado;
         }
+
     }
 }
