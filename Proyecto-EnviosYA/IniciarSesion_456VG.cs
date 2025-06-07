@@ -12,6 +12,7 @@ namespace Proyecto_EnviosYA
     {
         BLLUsuario_456VG BLLUsuario = new BLLUsuario_456VG();
         private Dictionary<string, int> intentosFallidosPorUsuario = new Dictionary<string, int>();
+        public event EventHandler LoginExitoso;
         public IniciarSesion_456VG()
         {
             InitializeComponent();
@@ -20,16 +21,6 @@ namespace Proyecto_EnviosYA
         public void ActualizarIdioma_456VG()
         {
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
-        }
-        private void label456VG()
-        {
-            MenuPrincipal_456VG menu = Application.OpenForms
-                                          .OfType<MenuPrincipal_456VG>()
-                                          .FirstOrDefault();
-            if (menu != null)
-            {
-                menu.bienvenido456VG();
-            }
         }
         private void btningresar_Click(object sender, EventArgs e)
         {
@@ -127,7 +118,6 @@ namespace Proyecto_EnviosYA
                     );
                     this.Close();
                 }
-
                 return;
             }
             SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuario);
@@ -140,15 +130,8 @@ namespace Proyecto_EnviosYA
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-            MenuPrincipal_456VG menu = Application.OpenForms
-                                          .OfType<MenuPrincipal_456VG>()
-                                          .FirstOrDefault();
-            if (menu != null)
-            {
-                menu.HabilitarOpcionesMenu456VG();
-                menu.ActualizarIdioma_456VG();
-            }
-            label456VG();
+            SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuario);
+            LoginExitoso?.Invoke(this, EventArgs.Empty);
             this.Hide();
         }
         private void checkVer_CheckedChanged(object sender, EventArgs e)

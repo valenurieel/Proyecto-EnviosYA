@@ -14,7 +14,6 @@ namespace _456VG_Servicios
         private string idiomaActual_456VG;
         private static Lenguaje_456VG instance_456VG;
         private Lenguaje_456VG() { }
-
         public static Lenguaje_456VG ObtenerInstancia_456VG()
         {
             if (instance_456VG == null)
@@ -23,17 +22,14 @@ namespace _456VG_Servicios
             }
             return instance_456VG;
         }
-
         public void Agregar_456VG(IObserver_456VG observer)
         {
             ListaForms_456VG.Add(observer);
         }
-
         public void Quitar_456VG(IObserver_456VG observer)
         {
             ListaForms_456VG.Remove(observer);
         }
-
         public void Notificar_456VG()
         {
             foreach (IObserver_456VG observer in ListaForms_456VG)
@@ -41,7 +37,6 @@ namespace _456VG_Servicios
                 observer.ActualizarIdioma_456VG();
             }
         }
-
         public string IdiomaActual_456VG
         {
             get => idiomaActual_456VG;
@@ -52,7 +47,6 @@ namespace _456VG_Servicios
                 Notificar_456VG();
             }
         }
-
         private void CargarIdioma_456VG()
         {
             try
@@ -79,30 +73,23 @@ namespace _456VG_Servicios
                 Diccionario_456VG = new Dictionary<string, string>();
             }
         }
-
         public string ObtenerTexto_456VG(string key)
         {
             return (Diccionario_456VG != null && Diccionario_456VG.ContainsKey(key))
                    ? Diccionario_456VG[key]
                    : key;
         }
-
         public void CambiarIdiomaControles_456VG(Control frm)
         {
             try
             {
-                // 1) Traducir título de la ventana
                 frm.Text = ObtenerTexto_456VG(frm.Name + ".Text");
-
                 foreach (Control c in frm.Controls)
                 {
-                    // 2) Si es Button, Label, RadioButton o CheckBox, traducir su Text
                     if (c is Button || c is Label || c is RadioButton || c is CheckBox)
                     {
                         c.Text = ObtenerTexto_456VG(frm.Name + "." + c.Name);
                     }
-
-                    // 3) Si es ComboBox, vaciar y recargar Items desde JSON
                     if (c is ComboBox cb)
                     {
                         string prefijo = frm.Name + ".Item.";
@@ -116,8 +103,6 @@ namespace _456VG_Servicios
                             }
                         }
                     }
-
-                    // 4) Si es MenuStrip, traducir recursivamente cada ToolStripMenuItem
                     if (c is MenuStrip m)
                     {
                         foreach (ToolStripMenuItem item in m.Items)
@@ -126,8 +111,6 @@ namespace _456VG_Servicios
                             CambiarIdiomaMenuStrip_456VG(item.DropDownItems, frm);
                         }
                     }
-
-                    // 5) Recursividad para controles hijos
                     if (c.Controls.Count > 0)
                     {
                         CambiarIdiomaControles_456VG(c);
@@ -139,7 +122,6 @@ namespace _456VG_Servicios
                 Console.WriteLine($"Error al cambiar el idioma de los controles: {ex.Message}");
             }
         }
-
         private void CambiarIdiomaMenuStrip_456VG(ToolStripItemCollection items, Control frm)
         {
             foreach (ToolStripItem item in items)
@@ -151,7 +133,6 @@ namespace _456VG_Servicios
                 }
             }
         }
-
         public static string ObtenerEtiqueta_456VG(string NombreControl)
         {
             return ObtenerInstancia_456VG().ObtenerTexto_456VG(NombreControl);

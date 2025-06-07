@@ -135,6 +135,95 @@ namespace _456VG_DAL
             }
             return resultado;
         }
+        public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dniUsuario)
+        {
+            var permisos = new List<Permiso_456VG>();
+            var perfilesPendientes = new List<int>();
+            try
+            {
+                if (!db.Conectar456VG())
+                    throw new Exception("Error al conectarse a la base de datos");
+                const string sql = @"
+                    USE EnviosYA_456VG;
+                    SELECT 
+                        P.nombre_456VG,
+                        P.nombre_formulario_456VG,
+                        P.isPerfil_456VG,
+                        P.id_permiso_456VG
+                      FROM UsuarioPermiso_456VG UP
+                      JOIN PermisosComp_456VG P 
+                        ON UP.id_permiso_456VG = P.id_permiso_456VG
+                     WHERE UP.dni_456VG = @dni;";
+                using (var cmd = new SqlCommand(sql, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@dni", dniUsuario);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
+                            string formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
+                                                ? null
+                                                : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
+                            bool isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
+                            int idPermiso = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
+                            permisos.Add(new Permiso_456VG(nombre, formulario, isPerfil));
+                            if (isPerfil)
+                                perfilesPendientes.Add(idPermiso);
+                        }
+                    }
+                }
+                foreach (int padreId in perfilesPendientes)
+                {
+                    permisos.AddRange(ObtenerPermisosHijos456VG(padreId));
+                }
+                if (!db.Desconectar456VG())
+                    throw new Exception("Error al desconectarse de la base de datos");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener los permisos del usuario: " + ex.Message);
+            }
+            return permisos;
+        }
+        private List<Permiso_456VG> ObtenerPermisosHijos456VG(int idPermisoPadre)
+        {
+            var resultados = new List<Permiso_456VG>();
+            var nuevosPerfiles = new List<int>();
+            const string sqlHijos = @"
+                USE EnviosYA_456VG;
+                SELECT
+                    nombre_456VG,
+                    nombre_formulario_456VG,
+                    isPerfil_456VG,
+                    id_permiso_456VG
+                  FROM PermisosComp_456VG
+                 WHERE parent_id_456VG = @padre;";
+            using (var cmd = new SqlCommand(sqlHijos, db.Connection))
+            {
+                cmd.Parameters.AddWithValue("@padre", idPermisoPadre);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
+                        string formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
+                                            ? null
+                                            : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
+                        bool isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
+                        int idHijo = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
+                        resultados.Add(new Permiso_456VG(nombre, formulario, isPerfil));
+                        if (isPerfil)
+                            nuevosPerfiles.Add(idHijo);
+                    }
+                }
+            }
+            foreach (int hijoId in nuevosPerfiles)
+            {
+                resultados.AddRange(ObtenerPermisosHijos456VG(hijoId));
+            }
+            return resultados;
+        }
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();

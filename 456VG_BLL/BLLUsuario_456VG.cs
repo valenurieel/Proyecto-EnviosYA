@@ -20,6 +20,10 @@ namespace _456VG_BLL
         {
             return dal.RecuperarIdioma456VG(dniUsuario);
         }
+        public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dni)
+        {
+            return dal.obtenerPermisosUsuario456VG(dni);
+        }
         public List<BEUsuario_456VG> leerEntidades456VG()
         {
             return dal.leerEntidades456VG();

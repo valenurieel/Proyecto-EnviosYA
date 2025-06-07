@@ -1,0 +1,281 @@
+﻿namespace Proyecto_EnviosYA
+{
+    partial class Perfiles_456VG
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Perfiles_456VG));
+            this.button7456VG = new System.Windows.Forms.Button();
+            this.button4456VG = new System.Windows.Forms.Button();
+            this.button6456VG = new System.Windows.Forms.Button();
+            this.comboBox3456VG = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox2456VG = new System.Windows.Forms.ComboBox();
+            this.button5456VG = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox1456VG = new System.Windows.Forms.ComboBox();
+            this.button3456VG = new System.Windows.Forms.Button();
+            this.button2456VG = new System.Windows.Forms.Button();
+            this.button1456VG = new System.Windows.Forms.Button();
+            this.treeView1456VG = new System.Windows.Forms.TreeView();
+            this.textBox1456VG = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button8456VG = new System.Windows.Forms.Button();
+            this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // button7456VG
+            // 
+            this.button7456VG.Location = new System.Drawing.Point(279, 365);
+            this.button7456VG.Name = "button7456VG";
+            this.button7456VG.Size = new System.Drawing.Size(110, 23);
+            this.button7456VG.TabIndex = 33;
+            this.button7456VG.Text = "Configurar Usuarios";
+            this.button7456VG.UseVisualStyleBackColor = true;
+            // 
+            // button4456VG
+            // 
+            this.button4456VG.Location = new System.Drawing.Point(511, 146);
+            this.button4456VG.Name = "button4456VG";
+            this.button4456VG.Size = new System.Drawing.Size(107, 23);
+            this.button4456VG.TabIndex = 32;
+            this.button4456VG.Text = "Seleccionar Perfil";
+            this.button4456VG.UseVisualStyleBackColor = true;
+            // 
+            // button6456VG
+            // 
+            this.button6456VG.Location = new System.Drawing.Point(511, 362);
+            this.button6456VG.Name = "button6456VG";
+            this.button6456VG.Size = new System.Drawing.Size(107, 23);
+            this.button6456VG.TabIndex = 31;
+            this.button6456VG.Text = "Configurar Familias";
+            this.button6456VG.UseVisualStyleBackColor = true;
+            // 
+            // comboBox3456VG
+            // 
+            this.comboBox3456VG.FormattingEnabled = true;
+            this.comboBox3456VG.Location = new System.Drawing.Point(511, 119);
+            this.comboBox3456VG.Name = "comboBox3456VG";
+            this.comboBox3456VG.Size = new System.Drawing.Size(107, 21);
+            this.comboBox3456VG.TabIndex = 30;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(508, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Perfiles";
+            // 
+            // comboBox2456VG
+            // 
+            this.comboBox2456VG.FormattingEnabled = true;
+            this.comboBox2456VG.Location = new System.Drawing.Point(511, 286);
+            this.comboBox2456VG.Name = "comboBox2456VG";
+            this.comboBox2456VG.Size = new System.Drawing.Size(107, 21);
+            this.comboBox2456VG.TabIndex = 28;
+            // 
+            // button5456VG
+            // 
+            this.button5456VG.Location = new System.Drawing.Point(511, 313);
+            this.button5456VG.Name = "button5456VG";
+            this.button5456VG.Size = new System.Drawing.Size(107, 23);
+            this.button5456VG.TabIndex = 27;
+            this.button5456VG.Text = "Agregar Familia";
+            this.button5456VG.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(508, 270);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Familias";
+            // 
+            // comboBox1456VG
+            // 
+            this.comboBox1456VG.FormattingEnabled = true;
+            this.comboBox1456VG.Location = new System.Drawing.Point(511, 203);
+            this.comboBox1456VG.Name = "comboBox1456VG";
+            this.comboBox1456VG.Size = new System.Drawing.Size(107, 21);
+            this.comboBox1456VG.TabIndex = 25;
+            // 
+            // button3456VG
+            // 
+            this.button3456VG.Location = new System.Drawing.Point(511, 230);
+            this.button3456VG.Name = "button3456VG";
+            this.button3456VG.Size = new System.Drawing.Size(107, 23);
+            this.button3456VG.TabIndex = 24;
+            this.button3456VG.Text = "Agregar Permiso";
+            this.button3456VG.UseVisualStyleBackColor = true;
+            // 
+            // button2456VG
+            // 
+            this.button2456VG.Location = new System.Drawing.Point(71, 181);
+            this.button2456VG.Name = "button2456VG";
+            this.button2456VG.Size = new System.Drawing.Size(100, 23);
+            this.button2456VG.TabIndex = 23;
+            this.button2456VG.Text = "Eliminar Perfiles";
+            this.button2456VG.UseVisualStyleBackColor = true;
+            // 
+            // button1456VG
+            // 
+            this.button1456VG.Location = new System.Drawing.Point(71, 152);
+            this.button1456VG.Name = "button1456VG";
+            this.button1456VG.Size = new System.Drawing.Size(100, 23);
+            this.button1456VG.TabIndex = 22;
+            this.button1456VG.Text = "Crear Perfil";
+            this.button1456VG.UseVisualStyleBackColor = true;
+            // 
+            // treeView1456VG
+            // 
+            this.treeView1456VG.Location = new System.Drawing.Point(210, 92);
+            this.treeView1456VG.Name = "treeView1456VG";
+            this.treeView1456VG.Size = new System.Drawing.Size(248, 258);
+            this.treeView1456VG.TabIndex = 21;
+            // 
+            // textBox1456VG
+            // 
+            this.textBox1456VG.Location = new System.Drawing.Point(71, 126);
+            this.textBox1456VG.Name = "textBox1456VG";
+            this.textBox1456VG.Size = new System.Drawing.Size(100, 20);
+            this.textBox1456VG.TabIndex = 20;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(508, 187);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Permisos";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(68, 110);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Nombre del Perfil";
+            // 
+            // button8456VG
+            // 
+            this.button8456VG.Location = new System.Drawing.Point(654, 362);
+            this.button8456VG.Name = "button8456VG";
+            this.button8456VG.Size = new System.Drawing.Size(61, 23);
+            this.button8456VG.TabIndex = 34;
+            this.button8456VG.Text = "Volver";
+            this.button8456VG.UseVisualStyleBackColor = true;
+            // 
+            // iconPictureBox1456VG
+            // 
+            this.iconPictureBox1456VG.BackColor = System.Drawing.Color.LightCoral;
+            this.iconPictureBox1456VG.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("iconPictureBox1456VG.BackgroundImage")));
+            this.iconPictureBox1456VG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.iconPictureBox1456VG.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.iconPictureBox1456VG.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.iconPictureBox1456VG.IconColor = System.Drawing.SystemColors.ControlText;
+            this.iconPictureBox1456VG.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconPictureBox1456VG.IconSize = 82;
+            this.iconPictureBox1456VG.Location = new System.Drawing.Point(630, 12);
+            this.iconPictureBox1456VG.Name = "iconPictureBox1456VG";
+            this.iconPictureBox1456VG.Size = new System.Drawing.Size(85, 82);
+            this.iconPictureBox1456VG.TabIndex = 35;
+            this.iconPictureBox1456VG.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Open Sans", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(257, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(176, 33);
+            this.label5.TabIndex = 36;
+            this.label5.Text = "Crear Perfiles";
+            // 
+            // Perfiles_456VG
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightCoral;
+            this.ClientSize = new System.Drawing.Size(748, 410);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.iconPictureBox1456VG);
+            this.Controls.Add(this.button8456VG);
+            this.Controls.Add(this.button7456VG);
+            this.Controls.Add(this.button4456VG);
+            this.Controls.Add(this.button6456VG);
+            this.Controls.Add(this.comboBox3456VG);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.comboBox2456VG);
+            this.Controls.Add(this.button5456VG);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBox1456VG);
+            this.Controls.Add(this.button3456VG);
+            this.Controls.Add(this.button2456VG);
+            this.Controls.Add(this.button1456VG);
+            this.Controls.Add(this.treeView1456VG);
+            this.Controls.Add(this.textBox1456VG);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Name = "Perfiles_456VG";
+            this.Text = "Perfiles";
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button button7456VG;
+        private System.Windows.Forms.Button button4456VG;
+        private System.Windows.Forms.Button button6456VG;
+        private System.Windows.Forms.ComboBox comboBox3456VG;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox2456VG;
+        private System.Windows.Forms.Button button5456VG;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox1456VG;
+        private System.Windows.Forms.Button button3456VG;
+        private System.Windows.Forms.Button button2456VG;
+        private System.Windows.Forms.Button button1456VG;
+        private System.Windows.Forms.TreeView treeView1456VG;
+        private System.Windows.Forms.TextBox textBox1456VG;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button8456VG;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1456VG;
+        private System.Windows.Forms.Label label5;
+    }
+}

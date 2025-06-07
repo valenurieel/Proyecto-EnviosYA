@@ -83,10 +83,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Componente_456VG.cs" />
+    <Compile Include="Forms_456VG.cs" />
     <Compile Include="HashSHA256_456VG.cs" />
     <Compile Include="IObserver_456VG.cs" />
     <Compile Include="ISubject_456VG.cs" />
     <Compile Include="Lenguaje_456VG.cs" />
+    <Compile Include="Perfil_456VG.cs" />
+    <Compile Include="Permisos_456VG.cs" />
+    <Compile Include="Permiso_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resultado_456VG.cs" />
     <Compile Include="SessionManager_456VG.cs" />

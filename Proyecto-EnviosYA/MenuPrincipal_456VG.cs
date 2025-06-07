@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using _456VG_BE;
 using _456VG_DAL;
 using _456VG_Servicios;
+using _456VG_BLL;
 
 namespace Proyecto_EnviosYA
 {
     public partial class MenuPrincipal_456VG : Form, IObserver_456VG
     {
+        BLLUsuario_456VG bllUsuario = new BLLUsuario_456VG();
         public MenuPrincipal_456VG()
         {
             InitializeComponent();
@@ -28,15 +30,6 @@ namespace Proyecto_EnviosYA
         {
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
             bienvenido456VG();
-        }
-        public void HabilitarOpcionesMenu456VG()
-        {
-            cambiarIdiomaToolStripMenuItem456VG.Enabled = true;
-            cambiarClaveToolStripMenuItem456VG.Enabled = true;
-            maestroToolStripMenuItem456VG.Enabled = true;
-            administradorToolStripMenuItem456VG.Enabled = true;
-            recepcionToolStripMenuItem.Enabled = true;
-            reportesToolStripMenuItem456VG.Enabled = true;
         }
         public void deshabilitados()
         {
@@ -74,6 +67,15 @@ namespace Proyecto_EnviosYA
                 lblBienvenidoDefault.Visible = true;
             }
         }
+        Forms_456VG formManager = new Forms_456VG();
+        private void AplicarPermisos(object sender, EventArgs e)
+        {
+            List<Permiso_456VG> permisos = bllUsuario.obtenerPermisosUsuario456VG(SessionManager_456VG.Obtenerdatosuser456VG().DNI456VG);
+            foreach (ToolStripMenuItem item in menuStrip1456VG.Items)
+            {
+                formManager.HabilitarMenusPorPermisos(item, permisos);
+            }
+        }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
         {
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
@@ -81,8 +83,9 @@ namespace Proyecto_EnviosYA
         }
         private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IniciarSesion_456VG fRM = new IniciarSesion_456VG();
-            fRM.ShowDialog();
+            var frmLogin = new IniciarSesion_456VG();
+            frmLogin.LoginExitoso += AplicarPermisos;
+            frmLogin.ShowDialog();
         }
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -133,6 +136,11 @@ namespace Proyecto_EnviosYA
         {
             CambiarIdioma_456VG fr = new CambiarIdioma_456VG();
             fr.ShowDialog();
+        }
+
+        private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -164,6 +164,30 @@ public class BasedeDatos_456VG
                 "ALTER TABLE HistorialContraseñas_456VG " +
                 "ADD CONSTRAINT FK_HistorialContraseñas_Usuario_456VG " +
                 "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
+            dbReal.ejecutarQuery456VG(
+              "USE EnviosYA_456VG; " +
+              "CREATE TABLE PermisosComp_456VG (" +
+                "id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY, " +
+                "nombre_456VG               VARCHAR(100) NOT NULL, " +
+                "nombre_formulario_456VG    VARCHAR(100) NULL, " +
+                "isPerfil_456VG             BIT NOT NULL DEFAULT 0, " +
+                "parent_id_456VG            INT NULL, " +
+                "CONSTRAINT FK_PermisosComp_Self FOREIGN KEY(parent_id_456VG) " +
+                  "REFERENCES PermisosComp_456VG(id_permiso_456VG)" +
+              ");"
+            );
+            dbReal.ejecutarQuery456VG(
+              "USE EnviosYA_456VG; " +
+              "CREATE TABLE UsuarioPermiso_456VG (" +
+                "dni_456VG            VARCHAR(20) NOT NULL " +
+                  "CONSTRAINT FK_UP_Usuario FOREIGN KEY(dni_456VG) " +
+                    "REFERENCES Usuario_456VG(dni_456VG), " +
+                "id_permiso_456VG           INT NOT NULL " +
+                  "CONSTRAINT FK_UP_Permiso FOREIGN KEY(id_permiso_456VG) " +
+                    "REFERENCES PermisosComp_456VG(id_permiso_456VG), " +
+                "PRIMARY KEY (dni_456VG, id_permiso_456VG)" +
+              ");"
+            );
             dbReal.insertarDatosIniciales456VG();
         }
         else
@@ -179,7 +203,8 @@ public class BasedeDatos_456VG
             "INSERT INTO Usuario_456VG (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, bloqueado_456VG, activo_456VG, idioma_456VG) " +
             "VALUES " +
             "('45984456', 'Valentin', 'Giraldes', 'valentinGiraldes@gmail.com', '1127118942', 'Valenurieel', '3a11feef3ccc351c8c9cad5adebdc26aaada19e32ed68361ab0d4f5aec8ccff2', 'y1/gWmtSuqEGbku6dOjasQ==', 'Jose Martí 1130', 'Administrador', 0, 1, 'ES')," +
-            "('12345678', 'Rogelio', 'Martinez', 'rogemartinez@gmail.com', '1234567890', 'Rogelin123', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Martin 2346', 'Empleado Administrativo', 0, 1, 'ES');"
+            "('12345678', 'Rogelio', 'Martinez', 'rogemartinez@gmail.com', '1234567890', 'Rogelin123', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Martin 2346', 'Empleado Administrativo', 0, 1, 'EN')," +
+            "('26202620', 'Venus', 'Ginna', 'venusginna@gmail.com', '1127119824', 'Chinnelon', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Jose Martinez 1140', 'Cajero', 0, 1, 'ES');"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -188,13 +213,75 @@ public class BasedeDatos_456VG
             "('45984456', '3a11feef3ccc351c8c9cad5adebdc26aaada19e32ed68361ab0d4f5aec8ccff2', 'y1/gWmtSuqEGbku6dOjasQ==', '2025-05-21 16:24:08.150', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3')," +
             "('45984456', 'add2edfc88b30590e2db973f0df825a406597f09100d12ed4576af0805947818', 'M7wSHlkRAEPLkLEBuaiFGg==', '2025-05-21 16:22:27.397', '8354ffe30f3c1fde68fdf0723c14aff6db9a1b05f947c4059b8041484de0a6b5')," +
             "('12345678', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', '2025-05-21 16:25:14.293', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3')," +
-            "('12345678', '5058e0c8ccf88b14e647fd2818f482c68d309ec3eeb6f5d198e475768f172d63', 'X781YT6M92Sw49EnecGZlw==', '2025-05-21 16:23:03.263', '1ccbfab998c38440481442508bcd161f8b90d67e9fca14e48dfaa472324de7ee');"
+            "('12345678', '5058e0c8ccf88b14e647fd2818f482c68d309ec3eeb6f5d198e475768f172d63', 'X781YT6M92Sw49EnecGZlw==', '2025-05-21 16:23:03.263', '1ccbfab998c38440481442508bcd161f8b90d67e9fca14e48dfaa472324de7ee')," +
+            "('26202620', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', '2025-05-21 16:25:14.293', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3')," +
+            "('26202620', '5058e0c8ccf88b14e647fd2818f482c68d309ec3eeb6f5d198e475768f172d63', 'X781YT6M92Sw49EnecGZlw==', '2025-05-21 16:23:03.263', '1ccbfab998c38440481442508bcd161f8b90d67e9fca14e48dfaa472324de7ee');"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
             "INSERT INTO Clientes_456VG (dni_456VG, nombre_456VG, apellido_456VG, telefono_456VG, domicilio_456VG, fechanacimiento_456VG, activo_456VG) VALUES " +
-            "('987654321', 'Lucía', 'Fernández', '1122334455', 'Av. Rivadavia 1234', '1990-05-15', 1)," +
-            "('262026202', 'Marcos', 'Pereyra', '1166778899', 'Calle Falsa 123', '1985-08-22', 1);"
+            "('987654321', 'Lucía', 'Fernández', '1122334455', 'grnz2nXJeEXZzQxF+TQijC+Jpsif9hO8B64LimW7jOk=', '1990-05-15', 1)," +
+            "('262026202', 'Marcos', 'Pereyra', '1166778899', 'GQFNqxUb+Ua8rCxDQxtcbOUo9dVwZk5UTn3gNS2X74g=', '1985-08-22', 1);"
+        );
+        dbReal.ejecutarQuery456VG(
+          "USE EnviosYA_456VG; " +
+          "INSERT INTO PermisosComp_456VG " +
+            "(nombre_456VG, nombre_formulario_456VG, isPerfil_456VG, parent_id_456VG) " +
+          "VALUES " +
+            "('Cajero',    'usuarioToolStripMenuItem456VG',1, NULL)," + 
+            "('Empleado Administrativo',   'usuarioToolStripMenuItem456VG',1, NULL)," + 
+            "('Admin',      'usuarioToolStripMenuItem456VG',1, NULL)," + 
+
+            "('Recepción',    'recepcionToolStripMenuItem',0, 1 )," +
+            "('CobrarEnv',  'cobrarEnvíoToolStripMenuItem',0, 1 )," +
+            "('Ayuda',    'ayudaToolStripMenuItem456VG',0, 1 )," +
+            "('Exit',      'salirToolStripMenuItem456VG',0, 1 )," +
+            "('Usuarios',    'usuarioToolStripMenuItem456VG',0, 1 )," +
+            "('IniSes',        'iniciarSesiónToolStripMenuItem456VG',0, 1 )," +
+            "('CerSes',        'cerrarSesiónToolStripMenuItem456VG',0, 1 )," +
+            "('MenuCamIdiom',  'cambiarIdiomaToolStripMenuItem456VG',0, 1 )," +
+            "('CambiarContra',  'cambiarClaveToolStripMenuItem456VG',0, 1 )," +
+            "('Reportes',        'reportesToolStripMenuItem456VG',0, 1 )," +
+            "('Facturas - IMP',   'facturasIMPToolStripMenuItem456VG',0, 1 )," +
+
+            "('Recepción',    'recepcionToolStripMenuItem',0, 2 )," +
+            "('Envios',  'envíosToolStripMenuItem456VG',0, 2 )," +
+            "('CrearEnv',  'crearenvíoToolStripMenuItem456VG',0, 2 )," +
+            "('Exit',      'salirToolStripMenuItem456VG',0, 2 )," +
+            "('Ayuda',    'ayudaToolStripMenuItem456VG',0, 2 )," +
+            "('Usuarios',    'usuarioToolStripMenuItem456VG',0, 2 )," +
+            "('IniSes',        'iniciarSesiónToolStripMenuItem456VG',0, 2 )," +
+            "('CerSes',        'cerrarSesiónToolStripMenuItem456VG',0, 2 )," +
+            "('MenuCamIdiom',  'cambiarIdiomaToolStripMenuItem456VG',0, 2 )," +
+            "('CambiarContra',  'cambiarClaveToolStripMenuItem456VG',0, 2 )," +
+            "('Maestro',      'maestroToolStripMenuItem456VG',0, 2 )," +
+            "('Gestión de Clientes',  'clientesToolStripMenuItem456VG',0, 2 )," +
+
+            "('Usuarios',    'usuarioToolStripMenuItem456VG',0, 3 )," +
+            "('IniSes',        'iniciarSesiónToolStripMenuItem456VG',0, 3 )," +
+            "('CerSes',        'cerrarSesiónToolStripMenuItem456VG',0, 3 )," +
+            "('MenuCamIdiom',  'cambiarIdiomaToolStripMenuItem456VG',0, 3 )," +
+            "('CambiarContra',  'cambiarClaveToolStripMenuItem456VG',0, 3 )," +
+            "('Exit',      'salirToolStripMenuItem456VG',0, 3 )," +
+            "('Ayuda',    'ayudaToolStripMenuItem456VG',0, 3 )," +
+            "('Administrador',    'administradorToolStripMenuItem456VG',0, 3 )," +
+            "('Maestro',      'maestroToolStripMenuItem456VG',0, 3 )," +
+            "('Recepción',    'recepcionToolStripMenuItem',0, 3 )," +
+            "('GestUsers',  'usuariosToolStripMenuItem456VG',0, 3 )," +
+            "('Perfiles',  'perfilesToolStripMenuItem456VG',0, 3 )," +
+            "('Gestión de Clientes',  'clientesToolStripMenuItem456VG',0, 3 )," +
+            "('CrearEnv',  'crearenvíoToolStripMenuItem456VG',0, 3 )," +
+            "('CobrarEnv',  'cobrarEnvíoToolStripMenuItem',0, 3 )," +
+            "('Envios',  'envíosToolStripMenuItem456VG',0, 3 )," +
+            "('Reportes',        'reportesToolStripMenuItem456VG',0, 3 )," +
+            "('Facturas - IMP',   'facturasIMPToolStripMenuItem456VG',0, 3 );"
+        );
+        dbReal.ejecutarQuery456VG(
+          "USE EnviosYA_456VG; " +
+          "INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG) VALUES " +
+            "('45984456', 3), " + 
+            "('12345678', 2), " + 
+            "('26202620', 1);"
         );
     }
 }
