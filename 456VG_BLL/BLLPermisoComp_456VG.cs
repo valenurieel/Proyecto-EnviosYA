@@ -24,13 +24,5 @@ namespace _456VG_BLL
         {
             return dal.ListaPermisos456VG();
         }
-        public List<BEPerfil_456VG> CargarCBPermisos456VG()
-        {
-            return dal.CargarCBPermisos456VG();
-        }
-        public List<BEPerfil_456VG> CargarPermisosPorPerfil(int id)
-        {
-            return dal.CargarPermisosPorPerfil(id);
-        }
     }
 }

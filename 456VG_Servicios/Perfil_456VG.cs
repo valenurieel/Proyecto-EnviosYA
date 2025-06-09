@@ -14,7 +14,6 @@ namespace _456VG_Servicios
         {
             Nombre456VG = nombre;
         }
-
         public override void AgregarHijo456VG(Componente_456VG c)
         {
             Hijos456VG.Add(c);

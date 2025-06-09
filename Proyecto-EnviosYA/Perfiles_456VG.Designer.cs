@@ -29,14 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Perfiles_456VG));
-            this.button7456VG = new System.Windows.Forms.Button();
             this.button4456VG = new System.Windows.Forms.Button();
             this.button6456VG = new System.Windows.Forms.Button();
             this.comboBox3456VG = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox2456VG = new System.Windows.Forms.ComboBox();
-            this.button5456VG = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.comboBox1456VG = new System.Windows.Forms.ComboBox();
             this.button3456VG = new System.Windows.Forms.Button();
             this.button2456VG = new System.Windows.Forms.Button();
@@ -51,15 +47,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
             // 
-            // button7456VG
-            // 
-            this.button7456VG.Location = new System.Drawing.Point(279, 365);
-            this.button7456VG.Name = "button7456VG";
-            this.button7456VG.Size = new System.Drawing.Size(110, 23);
-            this.button7456VG.TabIndex = 33;
-            this.button7456VG.Text = "Configurar Usuarios";
-            this.button7456VG.UseVisualStyleBackColor = true;
-            // 
             // button4456VG
             // 
             this.button4456VG.Location = new System.Drawing.Point(511, 146);
@@ -72,7 +59,7 @@
             // 
             // button6456VG
             // 
-            this.button6456VG.Location = new System.Drawing.Point(511, 362);
+            this.button6456VG.Location = new System.Drawing.Point(511, 327);
             this.button6456VG.Name = "button6456VG";
             this.button6456VG.Size = new System.Drawing.Size(107, 23);
             this.button6456VG.TabIndex = 31;
@@ -96,32 +83,6 @@
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 29;
             this.label4.Text = "Perfiles";
-            // 
-            // comboBox2456VG
-            // 
-            this.comboBox2456VG.FormattingEnabled = true;
-            this.comboBox2456VG.Location = new System.Drawing.Point(511, 286);
-            this.comboBox2456VG.Name = "comboBox2456VG";
-            this.comboBox2456VG.Size = new System.Drawing.Size(107, 21);
-            this.comboBox2456VG.TabIndex = 28;
-            // 
-            // button5456VG
-            // 
-            this.button5456VG.Location = new System.Drawing.Point(511, 313);
-            this.button5456VG.Name = "button5456VG";
-            this.button5456VG.Size = new System.Drawing.Size(107, 23);
-            this.button5456VG.TabIndex = 27;
-            this.button5456VG.Text = "Agregar Familia";
-            this.button5456VG.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(508, 270);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 26;
-            this.label3.Text = "Familias";
             // 
             // comboBox1456VG
             // 
@@ -195,7 +156,7 @@
             // 
             // button8456VG
             // 
-            this.button8456VG.Location = new System.Drawing.Point(654, 362);
+            this.button8456VG.Location = new System.Drawing.Point(654, 327);
             this.button8456VG.Name = "button8456VG";
             this.button8456VG.Size = new System.Drawing.Size(61, 23);
             this.button8456VG.TabIndex = 34;
@@ -234,18 +195,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(748, 410);
+            this.ClientSize = new System.Drawing.Size(748, 365);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.iconPictureBox1456VG);
             this.Controls.Add(this.button8456VG);
-            this.Controls.Add(this.button7456VG);
             this.Controls.Add(this.button4456VG);
             this.Controls.Add(this.button6456VG);
             this.Controls.Add(this.comboBox3456VG);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox2456VG);
-            this.Controls.Add(this.button5456VG);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1456VG);
             this.Controls.Add(this.button3456VG);
             this.Controls.Add(this.button2456VG);
@@ -264,15 +221,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button7456VG;
         private System.Windows.Forms.Button button4456VG;
         private System.Windows.Forms.Button button6456VG;
         private System.Windows.Forms.ComboBox comboBox3456VG;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox2456VG;
-        private System.Windows.Forms.Button button5456VG;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1456VG;
         private System.Windows.Forms.Button button3456VG;
         private System.Windows.Forms.Button button2456VG;
