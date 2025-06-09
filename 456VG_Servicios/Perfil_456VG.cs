@@ -1,13 +1,11 @@
 ﻿using _456VG_BE;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using _456VG_Servicios;
 
 namespace _456VG_Servicios
 {
-    public class Perfil_456VG: Componente_456VG
+    public class Perfil_456VG : Componente_456VG
     {
         public string Nombre456VG { get; set; }
         public string Permisos456VG { get; set; }
@@ -16,6 +14,7 @@ namespace _456VG_Servicios
         {
             Nombre456VG = nombre;
         }
+
         public override void AgregarHijo456VG(Componente_456VG c)
         {
             Hijos456VG.Add(c);

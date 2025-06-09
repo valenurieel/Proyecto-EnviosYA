@@ -142,5 +142,11 @@ namespace Proyecto_EnviosYA
         {
 
         }
+
+        private void perfilesToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+            Perfiles_456VG perfiles_456VG = new Perfiles_456VG();
+            perfiles_456VG.ShowDialog();
+        }
     }
 }

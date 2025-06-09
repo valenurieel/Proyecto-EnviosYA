@@ -164,30 +164,54 @@ public class BasedeDatos_456VG
                 "ALTER TABLE HistorialContraseñas_456VG " +
                 "ADD CONSTRAINT FK_HistorialContraseñas_Usuario_456VG " +
                 "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
-            dbReal.ejecutarQuery456VG(
-              "USE EnviosYA_456VG; " +
-              "CREATE TABLE PermisosComp_456VG (" +
-                "id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY, " +
-                "nombre_456VG               VARCHAR(100) NOT NULL, " +
-                "nombre_formulario_456VG    VARCHAR(100) NULL, " +
-                "isPerfil_456VG             BIT NOT NULL DEFAULT 0, " +
-                "parent_id_456VG            INT NULL, " +
-                "CONSTRAINT FK_PermisosComp_Self FOREIGN KEY(parent_id_456VG) " +
-                  "REFERENCES PermisosComp_456VG(id_permiso_456VG)" +
-              ");"
-            );
-            dbReal.ejecutarQuery456VG(
-              "USE EnviosYA_456VG; " +
-              "CREATE TABLE UsuarioPermiso_456VG (" +
-                "dni_456VG            VARCHAR(20) NOT NULL " +
-                  "CONSTRAINT FK_UP_Usuario FOREIGN KEY(dni_456VG) " +
-                    "REFERENCES Usuario_456VG(dni_456VG), " +
-                "id_permiso_456VG           INT NOT NULL " +
-                  "CONSTRAINT FK_UP_Permiso FOREIGN KEY(id_permiso_456VG) " +
-                    "REFERENCES PermisosComp_456VG(id_permiso_456VG), " +
-                "PRIMARY KEY (dni_456VG, id_permiso_456VG)" +
-              ");"
-            );
+            // 1) Tabla de componentes/permisos
+            dbReal.ejecutarQuery456VG(@"
+                USE EnviosYA_456VG;
+                IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
+                CREATE TABLE PermisosComp_456VG (
+                    id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
+                    nombre_456VG               NVARCHAR(100) NOT NULL,
+                    nombre_formulario_456VG    NVARCHAR(100) NULL,
+                    isPerfil_456VG             BIT NOT NULL DEFAULT 0
+                );
+                ");
+            // 2) Tabla de relación padre→hijo (jerarquía)
+            dbReal.ejecutarQuery456VG(@"
+                USE EnviosYA_456VG;
+                IF OBJECT_ID('dbo.PermisoPermiso_456VG','U') IS NULL
+                CREATE TABLE PermisoPermiso_456VG (
+                    id_permisopadre_456VG INT NOT NULL,
+                    id_permisohijo_456VG  INT NOT NULL,
+                    CONSTRAINT PK_PermisoPermiso_456VG PRIMARY KEY(id_permisopadre_456VG, id_permisohijo_456VG),
+                    -- Cascada sólo cuando borres el padre
+                    CONSTRAINT FK_PP_Padre_456VG FOREIGN KEY(id_permisopadre_456VG)
+                        REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE CASCADE,
+                    -- Al borrar el hijo, NO cascades (se manejará manualmente si hace falta)
+                    CONSTRAINT FK_PP_Hijo_456VG FOREIGN KEY(id_permisohijo_456VG)
+                        REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE NO ACTION
+                );
+        ");
+            // 3) Tabla de asignación usuario→permiso
+            dbReal.ejecutarQuery456VG(@"
+                USE EnviosYA_456VG;
+                IF OBJECT_ID('dbo.UsuarioPermiso_456VG', 'U') IS NULL
+                CREATE TABLE UsuarioPermiso_456VG (
+                    dni_456VG            VARCHAR(20) NOT NULL,
+                    id_permiso_456VG     INT         NOT NULL,
+                    CONSTRAINT PK_UsuarioPermiso_456VG PRIMARY KEY(dni_456VG, id_permiso_456VG),
+                    CONSTRAINT FK_UP_Usuario_456VG FOREIGN KEY(dni_456VG)
+                        REFERENCES Usuario_456VG(dni_456VG) ON DELETE CASCADE,
+                    CONSTRAINT FK_UP_Permiso_456VG FOREIGN KEY(id_permiso_456VG)
+                        REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE CASCADE
+                );
+                IF NOT EXISTS (
+                    SELECT 1 FROM sys.indexes
+                    WHERE name = 'IDX_UsuarioPermiso_Permiso_456VG'
+                      AND object_id = OBJECT_ID('dbo.UsuarioPermiso_456VG')
+                )
+                CREATE INDEX IDX_UsuarioPermiso_Permiso_456VG
+                    ON UsuarioPermiso_456VG(id_permiso_456VG);
+            ");
             dbReal.insertarDatosIniciales456VG();
         }
         else
@@ -223,64 +247,89 @@ public class BasedeDatos_456VG
             "('987654321', 'Lucía', 'Fernández', '1122334455', 'grnz2nXJeEXZzQxF+TQijC+Jpsif9hO8B64LimW7jOk=', '1990-05-15', 1)," +
             "('262026202', 'Marcos', 'Pereyra', '1166778899', 'GQFNqxUb+Ua8rCxDQxtcbOUo9dVwZk5UTn3gNS2X74g=', '1985-08-22', 1);"
         );
-        dbReal.ejecutarQuery456VG(
-          "USE EnviosYA_456VG; " +
-          "INSERT INTO PermisosComp_456VG " +
-            "(nombre_456VG, nombre_formulario_456VG, isPerfil_456VG, parent_id_456VG) " +
-          "VALUES " +
-            "('Cajero',    'usuarioToolStripMenuItem456VG',1, NULL)," + 
-            "('Empleado Administrativo',   'usuarioToolStripMenuItem456VG',1, NULL)," + 
-            "('Admin',      'usuarioToolStripMenuItem456VG',1, NULL)," + 
+        dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            INSERT INTO PermisosComp_456VG
+                (nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
+            VALUES
+                -- Perfiles
+                ('Cajero',                   'usuarioToolStripMenuItem456VG',      1),
+                ('Empleado Administrativo',  'usuarioToolStripMenuItem456VG',      1),
+                ('Admin',                    'usuarioToolStripMenuItem456VG',      1),
 
-            "('Recepción',    'recepcionToolStripMenuItem',0, 1 )," +
-            "('CobrarEnv',  'cobrarEnvíoToolStripMenuItem',0, 1 )," +
-            "('Ayuda',    'ayudaToolStripMenuItem456VG',0, 1 )," +
-            "('Exit',      'salirToolStripMenuItem456VG',0, 1 )," +
-            "('Usuarios',    'usuarioToolStripMenuItem456VG',0, 1 )," +
-            "('IniSes',        'iniciarSesiónToolStripMenuItem456VG',0, 1 )," +
-            "('CerSes',        'cerrarSesiónToolStripMenuItem456VG',0, 1 )," +
-            "('MenuCamIdiom',  'cambiarIdiomaToolStripMenuItem456VG',0, 1 )," +
-            "('CambiarContra',  'cambiarClaveToolStripMenuItem456VG',0, 1 )," +
-            "('Reportes',        'reportesToolStripMenuItem456VG',0, 1 )," +
-            "('Facturas - IMP',   'facturasIMPToolStripMenuItem456VG',0, 1 )," +
-
-            "('Recepción',    'recepcionToolStripMenuItem',0, 2 )," +
-            "('Envios',  'envíosToolStripMenuItem456VG',0, 2 )," +
-            "('CrearEnv',  'crearenvíoToolStripMenuItem456VG',0, 2 )," +
-            "('Exit',      'salirToolStripMenuItem456VG',0, 2 )," +
-            "('Ayuda',    'ayudaToolStripMenuItem456VG',0, 2 )," +
-            "('Usuarios',    'usuarioToolStripMenuItem456VG',0, 2 )," +
-            "('IniSes',        'iniciarSesiónToolStripMenuItem456VG',0, 2 )," +
-            "('CerSes',        'cerrarSesiónToolStripMenuItem456VG',0, 2 )," +
-            "('MenuCamIdiom',  'cambiarIdiomaToolStripMenuItem456VG',0, 2 )," +
-            "('CambiarContra',  'cambiarClaveToolStripMenuItem456VG',0, 2 )," +
-            "('Maestro',      'maestroToolStripMenuItem456VG',0, 2 )," +
-            "('Gestión de Clientes',  'clientesToolStripMenuItem456VG',0, 2 )," +
-
-            "('Usuarios',    'usuarioToolStripMenuItem456VG',0, 3 )," +
-            "('IniSes',        'iniciarSesiónToolStripMenuItem456VG',0, 3 )," +
-            "('CerSes',        'cerrarSesiónToolStripMenuItem456VG',0, 3 )," +
-            "('MenuCamIdiom',  'cambiarIdiomaToolStripMenuItem456VG',0, 3 )," +
-            "('CambiarContra',  'cambiarClaveToolStripMenuItem456VG',0, 3 )," +
-            "('Exit',      'salirToolStripMenuItem456VG',0, 3 )," +
-            "('Ayuda',    'ayudaToolStripMenuItem456VG',0, 3 )," +
-            "('Administrador',    'administradorToolStripMenuItem456VG',0, 3 )," +
-            "('Maestro',      'maestroToolStripMenuItem456VG',0, 3 )," +
-            "('Recepción',    'recepcionToolStripMenuItem',0, 3 )," +
-            "('GestUsers',  'usuariosToolStripMenuItem456VG',0, 3 )," +
-            "('Perfiles',  'perfilesToolStripMenuItem456VG',0, 3 )," +
-            "('Gestión de Clientes',  'clientesToolStripMenuItem456VG',0, 3 )," +
-            "('CrearEnv',  'crearenvíoToolStripMenuItem456VG',0, 3 )," +
-            "('CobrarEnv',  'cobrarEnvíoToolStripMenuItem',0, 3 )," +
-            "('Envios',  'envíosToolStripMenuItem456VG',0, 3 )," +
-            "('Reportes',        'reportesToolStripMenuItem456VG',0, 3 )," +
-            "('Facturas - IMP',   'facturasIMPToolStripMenuItem456VG',0, 3 );"
-        );
+                -- Permisos generales
+                ('Recepción',                'recepcionToolStripMenuItem',         0),
+                ('CobrarEnv',                'cobrarEnvíoToolStripMenuItem',       0),
+                ('Ayuda',                    'ayudaToolStripMenuItem456VG',        0),
+                ('Exit',                     'salirToolStripMenuItem456VG',        0),
+                ('Usuarios',                 'usuarioToolStripMenuItem456VG',      0),
+                ('IniSes',                   'iniciarSesiónToolStripMenuItem456VG',0),
+                ('CerSes',                   'cerrarSesiónToolStripMenuItem456VG', 0),
+                ('MenuCamIdiom',             'cambiarIdiomaToolStripMenuItem456VG',0),
+                ('CambiarContra',            'cambiarClaveToolStripMenuItem456VG', 0),
+                ('Reportes',                 'reportesToolStripMenuItem456VG',     0),
+                ('Facturas - IMP',           'facturasIMPToolStripMenuItem456VG',  0),
+                ('Envios',                   'envíosToolStripMenuItem456VG',       0),
+                ('CrearEnv',                 'crearenvíoToolStripMenuItem456VG',   0),
+                ('Maestro',                  'maestroToolStripMenuItem456VG',      0),
+                ('Gestión de Clientes',      'clientesToolStripMenuItem456VG',     0),
+                ('Administrador',            'administradorToolStripMenuItem456VG',0),
+                ('GestUsers',                'usuariosToolStripMenuItem456VG',     0),
+                ('Perfiles',                 'perfilesToolStripMenuItem456VG',     0)
+        ");
+        dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            INSERT INTO PermisoPermiso_456VG
+                (id_permisopadre_456VG, id_permisohijo_456VG)
+            VALUES
+                (1,  4),
+                (1,  5),
+                (1,  6),
+                (1,  7),
+                (1,  8),
+                (1,  9),
+                (1, 10),
+                (1, 11),
+                (1, 12),
+                (1, 13),
+                (1, 14),
+                (2,  4),
+                (2,  6),
+                (2,  7),
+                (2,  8),
+                (2,  9),
+                (2, 10),
+                (2, 11),
+                (2, 12),
+                (2, 15),
+                (2, 16),
+                (2, 17),
+                (2, 18),
+                (3,  3),
+                (3,  4),
+                (3,  5),
+                (3,  6),
+                (3,  7),
+                (3,  8),
+                (3,  9),
+                (3, 10),
+                (3, 11),
+                (3, 12),
+                (3, 13),
+                (3, 14),
+                (3, 15),
+                (3, 16),
+                (3, 17),
+                (3, 18),
+                (3, 19),
+                (3, 20),
+                (3, 21);
+        ");
         dbReal.ejecutarQuery456VG(
           "USE EnviosYA_456VG; " +
           "INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG) VALUES " +
-            "('45984456', 3), " + 
-            "('12345678', 2), " + 
+            "('45984456', 3), " +
+            "('12345678', 2), " +
             "('26202620', 1);"
         );
     }

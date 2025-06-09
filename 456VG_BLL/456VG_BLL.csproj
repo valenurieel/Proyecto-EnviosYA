@@ -88,6 +88,8 @@
     <Compile Include="BLLEnvio_456VG.cs" />
     <Compile Include="BLLFactura_456VG.cs" />
     <Compile Include="BLLPaquete_456VG.cs" />
+    <Compile Include="BLLPerfil_456VG.cs" />
+    <Compile Include="BLLPermisoComp_456VG.cs" />
     <Compile Include="BLLUsuario_456VG.cs" />
     <Compile Include="IEntidades_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

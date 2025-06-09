@@ -98,6 +98,7 @@
             this.perfilesToolStripMenuItem456VG.Name = "perfilesToolStripMenuItem456VG";
             this.perfilesToolStripMenuItem456VG.Size = new System.Drawing.Size(195, 22);
             this.perfilesToolStripMenuItem456VG.Text = "Gestión de Perfiles";
+            this.perfilesToolStripMenuItem456VG.Click += new System.EventHandler(this.perfilesToolStripMenuItem456VG_Click);
             // 
             // maestroToolStripMenuItem456VG
             // 
@@ -168,14 +169,14 @@
             // crearenvíoToolStripMenuItem456VG
             // 
             this.crearenvíoToolStripMenuItem456VG.Name = "crearenvíoToolStripMenuItem456VG";
-            this.crearenvíoToolStripMenuItem456VG.Size = new System.Drawing.Size(180, 22);
+            this.crearenvíoToolStripMenuItem456VG.Size = new System.Drawing.Size(153, 22);
             this.crearenvíoToolStripMenuItem456VG.Text = "Crear Envío";
             this.crearenvíoToolStripMenuItem456VG.Click += new System.EventHandler(this.paquetesToolStripMenuItem456VG_Click);
             // 
             // cobrarEnvíoToolStripMenuItem
             // 
             this.cobrarEnvíoToolStripMenuItem.Name = "cobrarEnvíoToolStripMenuItem";
-            this.cobrarEnvíoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cobrarEnvíoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.cobrarEnvíoToolStripMenuItem.Text = "Cobrar Envío";
             this.cobrarEnvíoToolStripMenuItem.Click += new System.EventHandler(this.crearEnvíoToolStripMenuItem_Click);
             // 

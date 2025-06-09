@@ -68,6 +68,7 @@
             this.button4456VG.TabIndex = 32;
             this.button4456VG.Text = "Seleccionar Perfil";
             this.button4456VG.UseVisualStyleBackColor = true;
+            this.button4456VG.Click += new System.EventHandler(this.button4456VG_Click);
             // 
             // button6456VG
             // 
@@ -85,6 +86,7 @@
             this.comboBox3456VG.Name = "comboBox3456VG";
             this.comboBox3456VG.Size = new System.Drawing.Size(107, 21);
             this.comboBox3456VG.TabIndex = 30;
+            this.comboBox3456VG.SelectedIndexChanged += new System.EventHandler(this.comboBox3456VG_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -137,6 +139,7 @@
             this.button3456VG.TabIndex = 24;
             this.button3456VG.Text = "Agregar Permiso";
             this.button3456VG.UseVisualStyleBackColor = true;
+            this.button3456VG.Click += new System.EventHandler(this.button3456VG_Click);
             // 
             // button2456VG
             // 
@@ -146,6 +149,7 @@
             this.button2456VG.TabIndex = 23;
             this.button2456VG.Text = "Eliminar Perfiles";
             this.button2456VG.UseVisualStyleBackColor = true;
+            this.button2456VG.Click += new System.EventHandler(this.button2456VG_Click);
             // 
             // button1456VG
             // 
@@ -155,6 +159,7 @@
             this.button1456VG.TabIndex = 22;
             this.button1456VG.Text = "Crear Perfil";
             this.button1456VG.UseVisualStyleBackColor = true;
+            this.button1456VG.Click += new System.EventHandler(this.button1456VG_Click);
             // 
             // treeView1456VG
             // 
@@ -196,6 +201,7 @@
             this.button8456VG.TabIndex = 34;
             this.button8456VG.Text = "Volver";
             this.button8456VG.UseVisualStyleBackColor = true;
+            this.button8456VG.Click += new System.EventHandler(this.button8456VG_Click);
             // 
             // iconPictureBox1456VG
             // 
@@ -250,6 +256,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Perfiles_456VG";
             this.Text = "Perfiles";
+            this.Load += new System.EventHandler(this.Perfiles_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

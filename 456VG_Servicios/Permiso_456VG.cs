@@ -24,7 +24,7 @@ namespace _456VG_Servicios
         }
 
         // Método para verificar si este permiso incluye un permiso hijo
-        public bool IncluyePermiso456VG(string permisoRequerido)
+        public bool IncluyePermiso(string permisoRequerido)
         {
             if (Nombre456VG == permisoRequerido)
             {
@@ -34,7 +34,7 @@ namespace _456VG_Servicios
             // Recorrer los permisos hijos
             foreach (var permisoHijo in PermisosHijos456VG)
             {
-                if (permisoHijo.IncluyePermiso456VG(permisoRequerido))
+                if (permisoHijo.IncluyePermiso(permisoRequerido))
                 {
                     return true;  // Si alguno de los hijos incluye el permiso requerido
                 }

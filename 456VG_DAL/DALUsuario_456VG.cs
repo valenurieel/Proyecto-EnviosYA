@@ -139,90 +139,106 @@ namespace _456VG_DAL
         {
             var permisos = new List<Permiso_456VG>();
             var perfilesPendientes = new List<int>();
+
             try
             {
+                // 1) Conectar
                 if (!db.Conectar456VG())
                     throw new Exception("Error al conectarse a la base de datos");
-                const string sql = @"
-                    USE EnviosYA_456VG;
-                    SELECT 
-                        P.nombre_456VG,
-                        P.nombre_formulario_456VG,
-                        P.isPerfil_456VG,
-                        P.id_permiso_456VG
-                      FROM UsuarioPermiso_456VG UP
-                      JOIN PermisosComp_456VG P 
-                        ON UP.id_permiso_456VG = P.id_permiso_456VG
-                     WHERE UP.dni_456VG = @dni;";
-                using (var cmd = new SqlCommand(sql, db.Connection))
+
+                // 2) Traer permisos directos (perfiles + permisos)
+                const string sqlDirectos = @"
+                USE EnviosYA_456VG;
+                SELECT 
+                    P.nombre_456VG,
+                    P.nombre_formulario_456VG,
+                    P.isPerfil_456VG,
+                    P.id_permiso_456VG
+                FROM UsuarioPermiso_456VG UP
+                JOIN PermisosComp_456VG P 
+                  ON UP.id_permiso_456VG = P.id_permiso_456VG
+                WHERE UP.dni_456VG = @dni;";
+
+                using (var cmd = new SqlCommand(sqlDirectos, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@dni", dniUsuario);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            string nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
-                            string formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
-                                                ? null
-                                                : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
-                            bool isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
-                            int idPermiso = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
+                            var nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
+                            var formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
+                                            ? null
+                                            : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
+                            var isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
+                            var idPermiso = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
+
                             permisos.Add(new Permiso_456VG(nombre, formulario, isPerfil));
+
                             if (isPerfil)
                                 perfilesPendientes.Add(idPermiso);
                         }
                     }
                 }
-                foreach (int padreId in perfilesPendientes)
+
+                // 3) Para cada perfil, traer sus hijos
+                foreach (var padreId in perfilesPendientes)
                 {
                     permisos.AddRange(ObtenerPermisosHijos456VG(padreId));
                 }
+
+                // 4) Desconectar
                 if (!db.Desconectar456VG())
                     throw new Exception("Error al desconectarse de la base de datos");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al obtener los permisos del usuario: " + ex.Message);
+                Console.WriteLine("Error al obtener permisos de usuario: " + ex.Message);
             }
+
             return permisos;
         }
-        private List<Permiso_456VG> ObtenerPermisosHijos456VG(int idPermisoPadre)
+        public List<Permiso_456VG> ObtenerPermisosHijos456VG(int idPermisoPadre)
         {
-            var resultados = new List<Permiso_456VG>();
-            var nuevosPerfiles = new List<int>();
-            const string sqlHijos = @"
+            var permisosHijos = new List<Permiso_456VG>();
+
+            try
+            {
+                const string sqlHijos = @"
                 USE EnviosYA_456VG;
                 SELECT
-                    nombre_456VG,
-                    nombre_formulario_456VG,
-                    isPerfil_456VG,
-                    id_permiso_456VG
-                  FROM PermisosComp_456VG
-                 WHERE parent_id_456VG = @padre;";
-            using (var cmd = new SqlCommand(sqlHijos, db.Connection))
-            {
-                cmd.Parameters.AddWithValue("@padre", idPermisoPadre);
-                using (var reader = cmd.ExecuteReader())
+                    P.nombre_456VG,
+                    P.nombre_formulario_456VG,
+                    P.isPerfil_456VG
+                FROM PermisoPermiso_456VG PP
+                JOIN PermisosComp_456VG P 
+                  ON PP.id_permisohijo_456VG = P.id_permiso_456VG
+                WHERE PP.id_permisopadre_456VG = @padreId;";
+
+                using (var cmd = new SqlCommand(sqlHijos, db.Connection))
                 {
-                    while (reader.Read())
+                    cmd.Parameters.AddWithValue("@padreId", idPermisoPadre);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        string nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
-                        string formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
+                        while (reader.Read())
+                        {
+                            var nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
+                            var formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
                                             ? null
                                             : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
-                        bool isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
-                        int idHijo = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
-                        resultados.Add(new Permiso_456VG(nombre, formulario, isPerfil));
-                        if (isPerfil)
-                            nuevosPerfiles.Add(idHijo);
+                            var isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
+
+                            permisosHijos.Add(new Permiso_456VG(nombre, formulario, isPerfil));
+                        }
                     }
                 }
             }
-            foreach (int hijoId in nuevosPerfiles)
+            catch (Exception ex)
             {
-                resultados.AddRange(ObtenerPermisosHijos456VG(hijoId));
+                Console.WriteLine("Error al obtener permisos hijos: " + ex.Message);
             }
-            return resultados;
+
+            return permisosHijos;
         }
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {

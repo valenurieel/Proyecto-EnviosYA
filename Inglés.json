@@ -298,5 +298,26 @@
   "RegistrarCliente_456VG.Msg.RegistroExitoso": "Client registered successfully.",
   "RegistrarCliente_456VG.Msg.RegistroExitosoTitle": "Successful Registration",
   "RegistrarCliente_456VG.Msg.ErrorRegistro": "Error registering client: {0}",
-  "RegistrarCliente_456VG.Msg.ErrorRegistroTitle": "Registration Error"
+  "RegistrarCliente_456VG.Msg.ErrorRegistroTitle": "Registration Error",
+
+  "Perfiles_456VG.Item.comboBox3456VG.Cajero": "Cashier",
+  "Perfiles_456VG.Item.comboBox3456VG.Empleado Administrativo": "Administrative Staff",
+  "Perfiles_456VG.Item.comboBox3456VG.Administrador": "Administrator",
+  "Perfiles_456VG.Item.comboBox1456VG.Recepción": "Reception",
+  "Perfiles_456VG.Item.comboBox1456VG.CobrarEnv": "Charge Shipment",
+  "Perfiles_456VG.Item.comboBox1456VG.Ayuda": "Help",
+  "Perfiles_456VG.Item.comboBox1456VG.Exit": "Exit",
+  "Perfiles_456VG.Item.comboBox1456VG.Usuarios": "Users",
+  "Perfiles_456VG.Item.comboBox1456VG.IniSes": "Log In",
+  "Perfiles_456VG.Item.comboBox1456VG.CerSes": "Log Out",
+  "Perfiles_456VG.Item.comboBox1456VG.MenuCamIdiom": "Change Language",
+  "Perfiles_456VG.Item.comboBox1456VG.CambiarContra": "Change Password",
+  "Perfiles_456VG.Item.comboBox1456VG.Reportes": "Reports",
+  "Perfiles_456VG.Item.comboBox1456VG.Facturas - IMP": "Invoices - IMP",
+  "Perfiles_456VG.Item.comboBox1456VG.Envios": "Shipments",
+  "Perfiles_456VG.Item.comboBox1456VG.CrearEnv": "Create Shipment",
+  "Perfiles_456VG.Item.comboBox1456VG.Maestro": "Master",
+  "Perfiles_456VG.Item.comboBox1456VG.Gestión de Clientes": "Customer Management",
+  "Perfiles_456VG.Item.comboBox1456VG.GestUsers": "User Management",
+  "Perfiles_456VG.Item.comboBox1456VG.Perfiles": "Profiles"
 }
