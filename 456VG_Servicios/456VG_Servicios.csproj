@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Componente_456VG.cs" />
+    <Compile Include="Familia_456VG.cs" />
     <Compile Include="Forms_456VG.cs" />
     <Compile Include="HashSHA256_456VG.cs" />
     <Compile Include="IObserver_456VG.cs" />

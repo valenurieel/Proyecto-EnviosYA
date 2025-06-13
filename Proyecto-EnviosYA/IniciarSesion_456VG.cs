@@ -13,6 +13,7 @@ namespace Proyecto_EnviosYA
         BLLUsuario_456VG BLLUsuario = new BLLUsuario_456VG();
         private Dictionary<string, int> intentosFallidosPorUsuario = new Dictionary<string, int>();
         public event EventHandler LoginExitoso;
+        
         public IniciarSesion_456VG()
         {
             InitializeComponent();
@@ -144,6 +145,8 @@ namespace Proyecto_EnviosYA
         }
         private void IniciarSesion_456VG_Load(object sender, EventArgs e)
         {
+            txtcontraseña456VG.Text = "123";
+            txtdni456VG.Text = "45984456";
             ActualizarIdioma_456VG();
         }
     }

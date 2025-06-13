@@ -14,7 +14,10 @@ namespace _456VG_Servicios
             Nombre456VG = nombre;
         }
         public override void AgregarHijo456VG(Componente_456VG c) { }
-        public override List<Componente_456VG> ObtenerHijos456VG() { return null; }
+        public override List<Componente_456VG> ObtenerHijos456VG()
+        {
+            return new List<Componente_456VG>();
+        }
         public override void QuitarHijo456VG(Componente_456VG c) { }
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="DALDatosPago_456VG.cs" />
     <Compile Include="DALEnvio_456VG.cs" />
     <Compile Include="DALFactura_456VG.cs" />
+    <Compile Include="DALFamilia_456VG.cs" />
     <Compile Include="DALPaquete_456VG.cs" />
     <Compile Include="DALPerfil_456VG.cs" />
     <Compile Include="DALPermisoComp_456VG.cs" />

@@ -16,5 +16,10 @@ namespace Proyecto_EnviosYA
         {
             InitializeComponent();
         }
+
+        private void Familias_456VG_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

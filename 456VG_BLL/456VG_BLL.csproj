@@ -87,6 +87,7 @@
     <Compile Include="BLLDatosPago_456VG.cs" />
     <Compile Include="BLLEnvio_456VG.cs" />
     <Compile Include="BLLFactura_456VG.cs" />
+    <Compile Include="BLLFamilia_456VG.cs" />
     <Compile Include="BLLPaquete_456VG.cs" />
     <Compile Include="BLLPerfil_456VG.cs" />
     <Compile Include="BLLPermisoComp_456VG.cs" />

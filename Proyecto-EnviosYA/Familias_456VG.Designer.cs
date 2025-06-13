@@ -136,7 +136,7 @@
             this.BTNAplicar456VG.Name = "BTNAplicar456VG";
             this.BTNAplicar456VG.Size = new System.Drawing.Size(129, 23);
             this.BTNAplicar456VG.TabIndex = 65;
-            this.BTNAplicar456VG.Text = "Aplicar";
+            this.BTNAplicar456VG.Text = "Agregar Familia";
             this.BTNAplicar456VG.UseVisualStyleBackColor = true;
             // 
             // label5
@@ -196,6 +196,7 @@
             this.Controls.Add(this.BTNAplicar456VG);
             this.Name = "Familias_456VG";
             this.Text = "Familias";
+            this.Load += new System.EventHandler(this.Familias_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
