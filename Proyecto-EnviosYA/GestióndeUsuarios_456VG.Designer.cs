@@ -68,6 +68,7 @@
             this.dataGridView1456VG.Size = new System.Drawing.Size(1045, 234);
             this.dataGridView1456VG.TabIndex = 0;
             this.dataGridView1456VG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1456VG_CellContentClick);
+            this.dataGridView1456VG.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1456VG_CellFormatting);
             this.dataGridView1456VG.SelectionChanged += new System.EventHandler(this.dataGridView1456VG_SelectionChanged);
             // 
             // btnAñadir456VG
@@ -324,10 +325,6 @@
             // cmbrol456VG
             // 
             this.cmbrol456VG.FormattingEnabled = true;
-            this.cmbrol456VG.Items.AddRange(new object[] {
-            "Administrador",
-            "Empleado Adminstrativo",
-            "Cajero"});
             this.cmbrol456VG.Location = new System.Drawing.Point(251, 571);
             this.cmbrol456VG.Name = "cmbrol456VG";
             this.cmbrol456VG.Size = new System.Drawing.Size(121, 23);

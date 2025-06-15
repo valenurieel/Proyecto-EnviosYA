@@ -15,6 +15,7 @@ namespace Proyecto_EnviosYA
     public partial class GestióndeUsuarios_456VG : Form, IObserver_456VG
     {
         BLLUsuario_456VG BLLUser = new BLLUsuario_456VG();
+        BLLPerfil_456VG bllPerfil = new BLLPerfil_456VG();
         public GestióndeUsuarios_456VG()
         {
             InitializeComponent();
@@ -27,11 +28,21 @@ namespace Proyecto_EnviosYA
                                   .ObtenerTexto_456VG("GestióndeUsuarios_456VG.Modo.Consulta");
             TraducirEncabezadosDataGrid();
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+        }
+        private void CargarPerfilesEnComboBox456VG()
+        {
             cmbrol456VG.Items.Clear();
-            cmbrol456VG.Items.Add(lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Combo.Administrador"));
-            cmbrol456VG.Items.Add(lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Combo.EmpleadoAdministrativo"));
-            cmbrol456VG.Items.Add(lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Combo.Cajero"));
-            cmbrol456VG.SelectedIndex = -1;
+            cmbrol456VG.DisplayMember = "nombre456VG";
+            cmbrol456VG.ValueMember = "id_permiso456VG";
+            List<BEPerfil_456VG> perfiles = bllPerfil.CargarCBPerfil456VG();
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            foreach (var perfil in perfiles)
+            {
+                string clave = $"GestióndeUsuarios_456VG.Combo.{perfil.nombre456VG.Replace(" ", "")}";
+                string textoTraducido = lng.ObtenerTexto_456VG(clave);
+                perfil.nombre456VG = textoTraducido;
+                cmbrol456VG.Items.Add(perfil);
+            }
         }
         private void TraducirEncabezadosDataGrid()
         {
@@ -78,7 +89,8 @@ namespace Proyecto_EnviosYA
                 Telefono = u.Teléfono456VG,
                 NombreUsuario = u.NombreUsuario456VG,
                 Domicilio = u.Domicilio456VG,
-                Rol = u.Rol456VG,
+                Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
                 Bloqueado = u.Bloqueado456VG,
                 Activo = u.Activo456VG,
             }).ToList();
@@ -87,6 +99,7 @@ namespace Proyecto_EnviosYA
         }
         private void GestióndeUsuarios_456VG_Load(object sender, EventArgs e)
         {
+            CargarPerfilesEnComboBox456VG();
             ActualizarIdioma_456VG();
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                   .ObtenerTexto_456VG("GestióndeUsuarios_456VG.Modo.Consulta");
@@ -170,7 +183,8 @@ namespace Proyecto_EnviosYA
                 Telefono = u.Teléfono456VG,
                 NombreUsuario = u.NombreUsuario456VG,
                 Domicilio = u.Domicilio456VG,
-                Rol = u.Rol456VG,
+                Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
                 Bloqueado = u.Bloqueado456VG,
                 Activo = u.Activo456VG,
             }).ToList();
@@ -301,9 +315,12 @@ namespace Proyecto_EnviosYA
                 bool bloqueado = false;
                 bool activo = true;
                 string idioma = "ES";
+                var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
+                string perfil = perfilSeleccionado.nombre456VG;
+                int idPerfil = perfilSeleccionado.id_permiso456VG;
                 BEUsuario_456VG usernew = new BEUsuario_456VG(
                     dni, name, ape, email, telef,
-                    nameuser, pass, domicilio, rol,
+                    nameuser, pass, domicilio, perfil,
                     bloqueado, activo, idioma
                 );
                 Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.crearEntidad456VG(usernew);
@@ -353,7 +370,8 @@ namespace Proyecto_EnviosYA
                     Telefono = u.Teléfono456VG,
                     NombreUsuario = u.NombreUsuario456VG,
                     Domicilio = u.Domicilio456VG,
-                    Rol = u.Rol456VG,
+                    Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
                     Bloqueado = u.Bloqueado456VG,
                     Activo = u.Activo456VG,
                 }).ToList();
@@ -507,7 +525,8 @@ namespace Proyecto_EnviosYA
                 Telefono = u.Teléfono456VG,
                 NombreUsuario = u.NombreUsuario456VG,
                 Domicilio = u.Domicilio456VG,
-                Rol = u.Rol456VG,
+                Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
                 Bloqueado = u.Bloqueado456VG,
                 Activo = u.Activo456VG,
             }).ToList();
@@ -542,7 +561,16 @@ namespace Proyecto_EnviosYA
                     txttelef456VG.Text = usuarioSeleccionado.Teléfono456VG;
                     txtNameUser456VG.Text = usuarioSeleccionado.NombreUsuario456VG;
                     txtdomicilio456VG.Text = usuarioSeleccionado.Domicilio456VG;
-                    cmbrol456VG.SelectedItem = usuarioSeleccionado.Rol456VG;
+                    foreach (var item in cmbrol456VG.Items)
+                    {
+                        var perfil = item as BEPerfil_456VG;
+                        if (perfil != null && perfil.nombre456VG == Lenguaje_456VG.ObtenerInstancia_456VG()
+                                .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{usuarioSeleccionado.Rol456VG.Replace(" ", "")}"))
+                        {
+                            cmbrol456VG.SelectedItem = item;
+                            break;
+                        }
+                    }
                 }
                 else
                 {
@@ -605,6 +633,12 @@ namespace Proyecto_EnviosYA
         }
         private void dataGridView1456VG_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+        //recarga ComboBox Perfiles
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            CargarPerfilesEnComboBox456VG();
         }
     }
 }

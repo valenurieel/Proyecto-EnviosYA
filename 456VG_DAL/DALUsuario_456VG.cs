@@ -136,26 +136,26 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-        //Recupera el Rol del Usuario que se loguea con sus Permisos.
+        //Recupera el Perfil del Usuario que se loguea con sus Permisos.
         public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dniUsuario)
         {
             var permisos = new List<Permiso_456VG>();
-            var perfilesPendientes = new List<int>();
+            var procesados = new HashSet<int>();
             try
             {
                 if (!db.Conectar456VG())
                     throw new Exception("Error al conectarse a la base de datos");
                 const string sqlDirectos = @"
-                USE EnviosYA_456VG;
-                SELECT 
-                    P.nombre_456VG,
-                    P.nombre_formulario_456VG,
-                    P.isPerfil_456VG,
-                    P.id_permiso_456VG
-                FROM UsuarioPermiso_456VG UP
-                JOIN PermisosComp_456VG P 
-                  ON UP.id_permiso_456VG = P.id_permiso_456VG
-                WHERE UP.dni_456VG = @dni;";
+                    USE EnviosYA_456VG;
+                    SELECT 
+                        P.id_permiso_456VG,
+                        P.nombre_456VG,
+                        P.nombre_formulario_456VG,
+                        P.isPerfil_456VG
+                    FROM UsuarioPermiso_456VG UP
+                    JOIN PermisosComp_456VG P 
+                      ON UP.id_permiso_456VG = P.id_permiso_456VG
+                    WHERE UP.dni_456VG = @dni;";
                 using (var cmd = new SqlCommand(sqlDirectos, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@dni", dniUsuario);
@@ -163,25 +163,23 @@ namespace _456VG_DAL
                     {
                         while (reader.Read())
                         {
-                            var nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
-                            var formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
-                                            ? null
-                                            : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
-                            var isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
-                            var idPermiso = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
-                            permisos.Add(new Permiso_456VG(nombre, formulario, isPerfil));
-
-                            if (isPerfil)
-                                perfilesPendientes.Add(idPermiso);
+                            int idPermiso = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
+                            string nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
+                            string formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
+                                ? null
+                                : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
+                            bool isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
+                            var permiso = new Permiso_456VG(nombre, formulario, isPerfil);
+                            permisos.Add(permiso);
+                            if (!procesados.Contains(idPermiso))
+                            {
+                                procesados.Add(idPermiso);
+                                permisos.AddRange(ObtenerPermisosHijos456VG(idPermiso, procesados));
+                            }
                         }
                     }
                 }
-                foreach (var padreId in perfilesPendientes)
-                {
-                    permisos.AddRange(ObtenerPermisosHijos456VG(padreId));
-                }
-                if (!db.Desconectar456VG())
-                    throw new Exception("Error al desconectarse de la base de datos");
+                db.Desconectar456VG();
             }
             catch (Exception ex)
             {
@@ -189,15 +187,15 @@ namespace _456VG_DAL
             }
             return permisos;
         }
-        //Obtiene Permisos del Perfil que tiene el Usuario con el método de arriba.
-        public List<Permiso_456VG> ObtenerPermisosHijos456VG(int idPermisoPadre)
+        //Obtiene Permisos y Familias + sus Permisos del Perfil que tiene el Usuario.
+        public List<Permiso_456VG> ObtenerPermisosHijos456VG(int idPermisoPadre, HashSet<int> yaProcesados)
         {
             var permisosHijos = new List<Permiso_456VG>();
-            try
-            {
-                const string sqlHijos = @"
+
+            const string sqlHijos = @"
                 USE EnviosYA_456VG;
                 SELECT
+                    P.id_permiso_456VG,
                     P.nombre_456VG,
                     P.nombre_formulario_456VG,
                     P.isPerfil_456VG
@@ -205,30 +203,33 @@ namespace _456VG_DAL
                 JOIN PermisosComp_456VG P 
                   ON PP.id_permisohijo_456VG = P.id_permiso_456VG
                 WHERE PP.id_permisopadre_456VG = @padreId;";
-                using (var cmd = new SqlCommand(sqlHijos, db.Connection))
+            using (var cmd = new SqlCommand(sqlHijos, db.Connection))
+            {
+                cmd.Parameters.AddWithValue("@padreId", idPermisoPadre);
+                using (var reader = cmd.ExecuteReader())
                 {
-                    cmd.Parameters.AddWithValue("@padreId", idPermisoPadre);
-                    using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
-                            var formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
-                                            ? null
-                                            : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
-                            var isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
+                        int idHijo = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
+                        string nombre = reader.GetString(reader.GetOrdinal("nombre_456VG"));
+                        string formulario = reader.IsDBNull(reader.GetOrdinal("nombre_formulario_456VG"))
+                            ? null
+                            : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
+                        bool isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
 
-                            permisosHijos.Add(new Permiso_456VG(nombre, formulario, isPerfil));
+                        var permiso = new Permiso_456VG(nombre, formulario, isPerfil);
+                        permisosHijos.Add(permiso);
+                        if (!yaProcesados.Contains(idHijo))
+                        {
+                            yaProcesados.Add(idHijo);
+                            permisosHijos.AddRange(ObtenerPermisosHijos456VG(idHijo, yaProcesados));
                         }
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al obtener permisos hijos: " + ex.Message);
-            }
             return permisosHijos;
         }
+
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
@@ -236,7 +237,11 @@ namespace _456VG_DAL
             {
                 db.Connection.Open();
                 var trans = db.Connection.BeginTransaction();
-                string queryToSearchUser = "USE EnviosYA_456VG; SELECT COUNT(*) FROM Usuario_456VG WHERE dni_456VG = @DNI";
+
+                // Verificar si ya existe el usuario
+                string queryToSearchUser = @"
+            USE EnviosYA_456VG;
+            SELECT COUNT(*) FROM Usuario_456VG WHERE dni_456VG = @DNI;";
                 using (SqlCommand cmd = new SqlCommand(queryToSearchUser, db.Connection, trans))
                 {
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
@@ -244,23 +249,22 @@ namespace _456VG_DAL
                     if (count > 0)
                         throw new Exception("Ya existe un usuario con ese DNI");
                 }
+
+                // Encriptar contraseña
                 string salt = hasher.GenerarSalt456VG();
                 string hashedPassword = hasher.HashPassword456VG(obj.Contraseña456VG, salt);
+
+                // Crear usuario
                 string queryToCreateUser = @"
-                    USE EnviosYA_456VG;
-                    INSERT INTO Usuario_456VG 
-                    (
-                        dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, 
-                        nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, 
-                        bloqueado_456VG, activo_456VG, idioma_456VG
-                    )
-                    VALUES 
-                    (
-                        @DNI, @Nombre, @Apellido, @Email, @Telefono, 
-                        @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol, 
-                        @Bloqueado, @Activo, @Idioma
-                    );
-                ";
+            USE EnviosYA_456VG;
+            INSERT INTO Usuario_456VG 
+            (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG,
+             nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG,
+             bloqueado_456VG, activo_456VG, idioma_456VG)
+            VALUES 
+            (@DNI, @Nombre, @Apellido, @Email, @Telefono,
+             @NombreUsuario, @Contraseña, @Salt, @Domicilio, @Rol,
+             @Bloqueado, @Activo, @Idioma);";
                 using (SqlCommand cmd2 = new SqlCommand(queryToCreateUser, db.Connection, trans))
                 {
                     cmd2.Parameters.AddWithValue("@DNI", obj.DNI456VG);
@@ -272,19 +276,20 @@ namespace _456VG_DAL
                     cmd2.Parameters.AddWithValue("@Contraseña", hashedPassword);
                     cmd2.Parameters.AddWithValue("@Salt", salt);
                     cmd2.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
-                    cmd2.Parameters.AddWithValue("@Rol", obj.Rol456VG);
+                    cmd2.Parameters.AddWithValue("@Rol", obj.Rol456VG); // aún guardamos el nombre
                     cmd2.Parameters.AddWithValue("@Bloqueado", obj.Bloqueado456VG);
                     cmd2.Parameters.AddWithValue("@Activo", obj.Activo456VG);
                     cmd2.Parameters.AddWithValue("@Idioma", obj.Idioma456VG);
                     cmd2.ExecuteNonQuery();
                 }
+
+                // Insertar historial de contraseña
                 string queryToInsertPasswordHistory = @"
-                    USE EnviosYA_456VG;
-                    INSERT INTO HistorialContraseñas_456VG 
-                    (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG) 
-                    VALUES 
-                    (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);
-                ";
+            USE EnviosYA_456VG;
+            INSERT INTO HistorialContraseñas_456VG 
+            (dni_456VG, contraseñahash_456VG, salt_456VG, fechacambio_456VG, hashsimple_456VG)
+            VALUES 
+            (@DniUsuario, @ContraseñaHash, @Salt, @FechaCambio, @HashSimple);";
                 using (SqlCommand cmd3 = new SqlCommand(queryToInsertPasswordHistory, db.Connection, trans))
                 {
                     cmd3.Parameters.AddWithValue("@DniUsuario", obj.DNI456VG);
@@ -294,6 +299,35 @@ namespace _456VG_DAL
                     cmd3.Parameters.AddWithValue("@HashSimple", hasher.HashSimple456VG(obj.Contraseña456VG));
                     cmd3.ExecuteNonQuery();
                 }
+
+                // Recuperar el ID del perfil por nombre
+                int idPerfil = -1;
+                string queryGetIdPerfil = @"
+            USE EnviosYA_456VG;
+            SELECT TOP 1 id_permiso_456VG
+              FROM PermisosComp_456VG
+             WHERE nombre_456VG = @NombrePerfil AND isPerfil_456VG = 1;";
+                using (SqlCommand cmd4 = new SqlCommand(queryGetIdPerfil, db.Connection, trans))
+                {
+                    cmd4.Parameters.AddWithValue("@NombrePerfil", obj.Rol456VG);
+                    object result = cmd4.ExecuteScalar();
+                    if (result == null || result == DBNull.Value)
+                        throw new Exception("No se encontró el perfil con el nombre especificado.");
+                    idPerfil = Convert.ToInt32(result);
+                }
+
+                // Asignar perfil al usuario en UsuarioPermiso
+                string queryInsertUsuarioPermiso = @"
+            USE EnviosYA_456VG;
+            INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG)
+            VALUES (@DNI, @IdPermiso);";
+                using (SqlCommand cmdRol = new SqlCommand(queryInsertUsuarioPermiso, db.Connection, trans))
+                {
+                    cmdRol.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+                    cmdRol.Parameters.AddWithValue("@IdPermiso", idPerfil);
+                    cmdRol.ExecuteNonQuery();
+                }
+
                 trans.Commit();
                 resultado.resultado = true;
                 resultado.mensaje = "Usuario creado correctamente.";
@@ -310,8 +344,10 @@ namespace _456VG_DAL
             {
                 db.Connection.Close();
             }
+
             return resultado;
         }
+
         public Resultado_456VG<BEUsuario_456VG> ActDesacUsuario456(string dni, bool nuevoEstadoActivo)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
