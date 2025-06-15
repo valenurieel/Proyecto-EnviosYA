@@ -199,27 +199,60 @@ namespace Proyecto_EnviosYA
             }
             var root = treeView1456VG.Nodes[0];
             root.Nodes.Clear();
-            var nodoPerfil = new TreeNode(bePerfil.nombre456VG)
+            string clave = $"{Name}.Item.{comboBox3456VG.Name}.{bePerfil.nombre456VG}";
+            string textoTraducido = lng.ObtenerTexto_456VG(clave);
+            if (textoTraducido == clave)
+                textoTraducido = bePerfil.nombre456VG;
+
+            var nodoPerfil = new TreeNode(textoTraducido)
             {
+                Name = clave,
                 Tag = perfilComp
             };
+
             root.Nodes.Add(nodoPerfil);
             PintaChildren(nodoPerfil, perfilComp);
             root.Expand();
         }
         private void PintaChildren(TreeNode padre, Componente_456VG comp)
         {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+
             foreach (var hijo in comp.ObtenerHijos456VG() ?? Enumerable.Empty<Componente_456VG>())
             {
                 string texto;
-                if (hijo is Perfil_456VG p) texto = p.Nombre456VG;
-                else if (hijo is Familia_456VG f) texto = f.Nombre456VG;
-                else texto = ((Permisos_456VG)hijo).Nombre456VG;
-                var n = new TreeNode(texto) { Tag = hijo };
-                padre.Nodes.Add(n);
-                PintaChildren(n, hijo);
+                string clave;
+
+                if (hijo is Perfil_456VG p)
+                {
+                    clave = $"{Name}.Item.{comboBox3456VG.Name}.{p.Nombre456VG}";
+                    texto = lng.ObtenerTexto_456VG(clave);
+                    if (texto == clave) texto = p.Nombre456VG;
+                }
+                else if (hijo is Familia_456VG f)
+                {
+                    clave = $"{Name}.Item.{cmboxflia456VG.Name}.{f.Nombre456VG}";
+                    texto = lng.ObtenerTexto_456VG(clave);
+                    if (texto == clave) texto = f.Nombre456VG;
+                }
+                else if (hijo is Permisos_456VG perm)
+                {
+                    clave = $"{Name}.Item.{comboBox1456VG.Name}.{perm.Nombre456VG}";
+                    texto = lng.ObtenerTexto_456VG(clave);
+                    if (texto == clave) texto = perm.Nombre456VG;
+                }
+                else
+                {
+                    texto = "???";
+                    clave = "???";
+                }
+
+                var nodo = new TreeNode(texto) { Name = clave, Tag = hijo };
+                padre.Nodes.Add(nodo);
+                PintaChildren(nodo, hijo); // recursión
             }
         }
+
         private void button3456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -382,8 +415,11 @@ namespace Proyecto_EnviosYA
         }
         private void button6456VG_Click(object sender, EventArgs e)
         {
-            Familias_456VG fr = new Familias_456VG();
-            fr.ShowDialog();
+            using (var fr = new Familias_456VG())
+            {
+                fr.ShowDialog();
+                cargarcb(); // <--- esto vuelve a cargar todos los combos
+            }
         }
         private void cmboxflia456VG_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -392,16 +428,53 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1456VG.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Perfil_456VG padrePerfil))
+
+            if (nodoSel == null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaPerfilArbol"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    "Please select a node from the tree to add the family.",
+                    "Profiles",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
                 return;
             }
+
+            if (nodoSel.Tag is Permisos_456VG)
+            {
+                MessageBox.Show(
+                    "You cannot assign a family to a permission. Please select a profile.",
+                    "Profiles",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            var padrePerfil = nodoSel.Tag as Perfil_456VG;
+            if (padrePerfil == null)
+            {
+                MessageBox.Show(
+                    "You can only assign families to profiles. Please select a profile node.",
+                    "Profiles",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+
+            if (padrePerfil.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(
+                    "You cannot assign a family to the BASE node. Please create or select another profile.",
+                    "Profiles",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             var sel = cmboxflia456VG.SelectedItem as KeyValuePair<BEFamilia_456VG, string>?;
             if (!sel.HasValue)
             {
@@ -413,10 +486,12 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
+
             var beFamilia = sel.Value.Key;
             var familiaObj = new Familia_456VG(beFamilia.nombre456VG);
             var hijosRel = bllf.ObtenerRelacionesDeFamilia456VG(beFamilia.id_permiso456VG);
             var todosPermisosBE = bllp.CargarCBPermisos456VG();
+
             foreach (var rel in hijosRel)
             {
                 var permisoBE = todosPermisosBE
@@ -424,6 +499,7 @@ namespace Proyecto_EnviosYA
                 if (permisoBE == null) continue;
                 familiaObj.AgregarHijo456VG(new Permisos_456VG(permisoBE.nombre456VG));
             }
+
             try
             {
                 padrePerfil.AgregarHijo456VG(familiaObj);
@@ -438,23 +514,28 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
+
             string claveFam = $"{Name}.Item.{cmboxflia456VG.Name}.{beFamilia.nombre456VG}";
             string textoFam = lng.ObtenerTexto_456VG(claveFam);
             if (textoFam == claveFam) textoFam = beFamilia.nombre456VG;
+
             var nodoFam = new TreeNode(textoFam)
             {
                 Name = claveFam,
                 Tag = familiaObj
             };
             nodoSel.Nodes.Add(nodoFam);
+
             foreach (var rel in hijosRel)
             {
                 var permisoBE = todosPermisosBE
                     .FirstOrDefault(p => p.id_permiso456VG == rel.id_permisohijo456VG);
                 if (permisoBE == null) continue;
+
                 string clavePerm = $"{Name}.Item.{comboBox1456VG.Name}.{permisoBE.nombre456VG}";
                 string textoPerm = lng.ObtenerTexto_456VG(clavePerm);
                 if (textoPerm == clavePerm) textoPerm = permisoBE.nombre456VG;
+
                 var nodoPerm = new TreeNode(textoPerm)
                 {
                     Name = clavePerm,
@@ -462,12 +543,15 @@ namespace Proyecto_EnviosYA
                 };
                 nodoFam.Nodes.Add(nodoPerm);
             }
+
             nodoSel.Expand();
+
             int idPerfil = ObtenerIdPorNombre456VG(padrePerfil.Nombre456VG);
             int idFamilia = beFamilia.id_permiso456VG;
             var resBD = bllper.aggPermisos456VG(
                 new BEPermisoComp_456VG(idPerfil, idFamilia)
             );
+
             if (!resBD.resultado)
             {
                 MessageBox.Show(

@@ -70,6 +70,7 @@
             this.BTNCrearFamilia456VG.TabIndex = 73;
             this.BTNCrearFamilia456VG.Text = "Crear familia";
             this.BTNCrearFamilia456VG.UseVisualStyleBackColor = true;
+            this.BTNCrearFamilia456VG.Click += new System.EventHandler(this.BTNCrearFamilia456VG_Click);
             // 
             // BTNEliminarFamilia456VG
             // 
@@ -79,6 +80,7 @@
             this.BTNEliminarFamilia456VG.TabIndex = 72;
             this.BTNEliminarFamilia456VG.Text = "Eliminar familia";
             this.BTNEliminarFamilia456VG.UseVisualStyleBackColor = true;
+            this.BTNEliminarFamilia456VG.Click += new System.EventHandler(this.BTNEliminarFamilia456VG_Click);
             // 
             // BTNAgregarPermiso456VG
             // 
@@ -88,6 +90,7 @@
             this.BTNAgregarPermiso456VG.TabIndex = 71;
             this.BTNAgregarPermiso456VG.Text = "Agregar Permiso";
             this.BTNAgregarPermiso456VG.UseVisualStyleBackColor = true;
+            this.BTNAgregarPermiso456VG.Click += new System.EventHandler(this.BTNAgregarPermiso456VG_Click);
             // 
             // treeView1456VG
             // 
@@ -138,6 +141,7 @@
             this.BTNAplicar456VG.TabIndex = 65;
             this.BTNAplicar456VG.Text = "Agregar Familia";
             this.BTNAplicar456VG.UseVisualStyleBackColor = true;
+            this.BTNAplicar456VG.Click += new System.EventHandler(this.BTNAplicar456VG_Click);
             // 
             // label5
             // 
@@ -173,6 +177,7 @@
             this.button8456VG.TabIndex = 78;
             this.button8456VG.Text = "Volver";
             this.button8456VG.UseVisualStyleBackColor = true;
+            this.button8456VG.Click += new System.EventHandler(this.button8456VG_Click);
             // 
             // Familias_456VG
             // 

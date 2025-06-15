@@ -166,15 +166,26 @@ public class BasedeDatos_456VG
                 "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
             // 1) Tabla de componentes/permisos
             dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
-                CREATE TABLE PermisosComp_456VG (
-                    id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
-                    nombre_456VG               NVARCHAR(100) NOT NULL,
-                    nombre_formulario_456VG    NVARCHAR(100) NULL,
-                    isPerfil_456VG             BIT NOT NULL DEFAULT 0
-                );
-                ");
+    USE EnviosYA_456VG;
+    IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
+    CREATE TABLE PermisosComp_456VG (
+        id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
+        nombre_456VG               NVARCHAR(100) NOT NULL,
+        nombre_formulario_456VG    NVARCHAR(100) NULL,
+        isPerfil_456VG             BIT NOT NULL DEFAULT 0
+    );
+
+    -- Índice único solo para familias (nombre único si es familia)
+    IF NOT EXISTS (
+        SELECT 1 FROM sys.indexes 
+         WHERE name = 'UQ_Familias_nombre_456VG'
+           AND object_id = OBJECT_ID('dbo.PermisosComp_456VG')
+    )
+    CREATE UNIQUE INDEX UQ_Familias_nombre_456VG
+        ON PermisosComp_456VG(nombre_456VG)
+        WHERE isPerfil_456VG = 0 AND nombre_formulario_456VG IS NULL;
+");
+
             // 2) Tabla de relación padre→hijo (jerarquía)
             dbReal.ejecutarQuery456VG(@"
                 USE EnviosYA_456VG;

@@ -50,12 +50,23 @@ namespace _456VG_DAL
         public Resultado_456VG<BEFamilia_456VG> crearEntidad456VG(BEFamilia_456VG be)
         {
             var resultado = new Resultado_456VG<BEFamilia_456VG>();
+
+            // Verificar si ya existe
+            var yaExiste = leerEntidades456VG()
+                .Any(f => f.nombre456VG.Equals(be.nombre456VG, StringComparison.OrdinalIgnoreCase));
+            if (yaExiste)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = "Ya existe una familia con ese nombre.";
+                return resultado;
+            }
+
             const string sql = @"
-                INSERT INTO PermisosComp_456VG
-                    (nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
-                VALUES
-                    (@nombre, NULL, 0);
-                SELECT SCOPE_IDENTITY();";
+        INSERT INTO PermisosComp_456VG
+            (nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
+        VALUES
+            (@nombre, NULL, 0);
+        SELECT SCOPE_IDENTITY();";
 
             try
             {
@@ -131,21 +142,50 @@ namespace _456VG_DAL
         public Resultado_456VG<BEFamilia_456VG> eliminarEntidad456VG(BEFamilia_456VG be)
         {
             var resultado = new Resultado_456VG<BEFamilia_456VG>();
-            const string sql = @"
-                DELETE FROM PermisosComp_456VG
-                 WHERE id_permiso_456VG = @id AND isPerfil_456VG = 0;";
+            const string verificarUsoSql = @"
+        SELECT COUNT(*) 
+          FROM PermisoPermiso_456VG 
+         WHERE id_permisohijo_456VG = @id;";
+
+            const string deleteSql = @"
+        DELETE FROM PermisoPermiso_456VG
+         WHERE id_permisopadre_456VG = @id;
+
+        DELETE FROM PermisosComp_456VG
+         WHERE id_permiso_456VG = @id AND isPerfil_456VG = 0;
+    ";
 
             try
             {
                 db.Conectar456VG();
-                using (var cmd = new SqlCommand(sql, db.Connection))
+                using (var tx = db.Connection.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@id", be.id_permiso456VG);
-                    var rows = cmd.ExecuteNonQuery();
-                    resultado.resultado = rows > 0;
-                    resultado.entidad = be;
-                    if (!resultado.resultado)
-                        resultado.mensaje = "No se pudo eliminar la familia.";
+                    // 1. Verificar si la familia está en uso
+                    using (var verificarCmd = new SqlCommand(verificarUsoSql, db.Connection, tx))
+                    {
+                        verificarCmd.Parameters.AddWithValue("@id", be.id_permiso456VG);
+                        int usos = (int)verificarCmd.ExecuteScalar();
+                        if (usos > 0)
+                        {
+                            resultado.resultado = false;
+                            resultado.mensaje = "No se puede eliminar la familia porque está siendo utilizada por otra entidad.";
+                            return resultado;
+                        }
+                    }
+
+                    // 2. Eliminar relaciones hijas y la familia
+                    using (var deleteCmd = new SqlCommand(deleteSql, db.Connection, tx))
+                    {
+                        deleteCmd.Parameters.AddWithValue("@id", be.id_permiso456VG);
+                        int filas = deleteCmd.ExecuteNonQuery();
+                        resultado.resultado = filas > 0;
+                        resultado.entidad = be;
+
+                        if (!resultado.resultado)
+                            resultado.mensaje = "No se encontró la familia o no pudo eliminarse.";
+                    }
+
+                    tx.Commit();
                 }
             }
             catch (Exception ex)
@@ -160,6 +200,7 @@ namespace _456VG_DAL
 
             return resultado;
         }
+
 
         // 5) Obtener relaciones padre→hijo
         public List<BEPermisoComp_456VG> ObtenerRelacionesDeFamilia456VG(int idFamiliaPadre)
