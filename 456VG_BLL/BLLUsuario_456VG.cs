@@ -45,10 +45,6 @@ namespace _456VG_BLL
         {
             return dal.actualizarEntidad456VG(obj);
         }
-        //public Resultado_456VG<BEUsuario_456VG> recuperarUsuario456VG(string DNI, string Contraseña)
-        //{
-        //    return dal.recuperarUsuario456VG(DNI, Contraseña);
-        //}
         public Resultado_456VG<BEUsuario_456VG> recuperarUsuarioPorDNI456VG(string DNI)
         {
             return dal.recuperarUsuarioPorDNI456VG(DNI);

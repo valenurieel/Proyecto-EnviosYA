@@ -141,7 +141,6 @@ namespace _456VG_DAL
                 {
                     while (reader.Read())
                     {
-                        // Leer datos del cliente
                         string dniCliente = reader.GetString(reader.GetOrdinal("dniCliente"));
                         string cliNombre = reader.GetString(reader.GetOrdinal("cliNombre"));
                         string cliApellido = reader.GetString(reader.GetOrdinal("cliApellido"));
@@ -159,16 +158,12 @@ namespace _456VG_DAL
                             cliFN,
                             cliActivo
                         );
-
-                        // Leer datos del paquete
                         string codPaq = reader.GetString(reader.GetOrdinal("codpaq_456VG"));
                         float peso = (float)reader.GetDouble(reader.GetOrdinal("peso_456VG"));
                         float ancho = (float)reader.GetDouble(reader.GetOrdinal("ancho_456VG"));
                         float alto = (float)reader.GetDouble(reader.GetOrdinal("alto_456VG"));
                         float largo = (float)reader.GetDouble(reader.GetOrdinal("largo_456VG"));
                         bool enviadoPaq = reader.GetBoolean(reader.GetOrdinal("enviado_456VG"));
-
-                        // Construir BEPaquete_456VG (el constructor genera un CodPaq, luego lo sobreescribimos)
                         var paquete = new BEPaquete_456VG(
                             cliente,
                             peso,
@@ -178,20 +173,17 @@ namespace _456VG_DAL
                             enviadoPaq
                         );
                         paquete.CodPaq456VG = codPaq;
-
                         listaPaquetes.Add(paquete);
                     }
                 }
             }
             catch (Exception)
             {
-                // Si quieres, puedes registrar o propagar el error
             }
             finally
             {
                 db.Desconectar456VG();
             }
-
             return listaPaquetes;
         }
     }

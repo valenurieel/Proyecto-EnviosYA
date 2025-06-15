@@ -24,9 +24,5 @@ namespace _456VG_BLL
         {
             return dal.ListaPermisos456VG();
         }
-        public List<BEPerfil_456VG> ListarPermisosSimples456VG()
-        {
-            return new DALPerfil_456VG().CargarSoloPermisos456VG();
-        }
     }
 }

@@ -92,7 +92,6 @@ namespace _456VG_DAL
                         cmdEnvio.Parameters.AddWithValue("@Tipo", obj.tipoenvio456VG);
                         cmdEnvio.Parameters.AddWithValue("@Imp", obj.Importe456VG);
                         cmdEnvio.Parameters.AddWithValue("@Pag", obj.Pagado456VG);
-
                         cmdEnvio.ExecuteNonQuery();
                     }
                     const string sqlEnvioPaq =

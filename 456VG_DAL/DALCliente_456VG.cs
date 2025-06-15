@@ -113,7 +113,6 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
         public Resultado_456VG<BECliente_456VG> ActDesacCli456(string dni, bool nuevoEstadoActivo)
         {
             Resultado_456VG<BECliente_456VG> resultado = new Resultado_456VG<BECliente_456VG>();

@@ -9,7 +9,7 @@ namespace _456VG_DAL
     public class DALPerfil_456VG
     {
         BasedeDatos_456VG db = new BasedeDatos_456VG();
-
+        //Elimina el Perfil
         public Resultado_456VG<int> EliminarPerfil456VG(int idPerfil)
         {
             var resultado = new Resultado_456VG<int>();
@@ -50,6 +50,7 @@ namespace _456VG_DAL
             }
             return resultado;
         }
+        //Agregar Perfil
         public Resultado_456VG<BEPerfil_456VG> aggPerfil456VG(
             BEPerfil_456VG perfil,
             int? parentId = null)
@@ -99,8 +100,7 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
-
+        //Cargar Perfiles en ComboBox
         public List<BEPerfil_456VG> CargarCBPerfil456VG()
         {
             var lista = new List<BEPerfil_456VG>();
@@ -132,15 +132,16 @@ namespace _456VG_DAL
             }
             return lista;
         }
-        public List<BEPerfil_456VG> CargarSoloPermisos456VG()
+        //Cargar Permisos en ComboBox
+        public List<BEPerfil_456VG> CargarCBPermisos456VG()
         {
             var lista = new List<BEPerfil_456VG>();
             const string sql = @"
         USE EnviosYA_456VG;
         SELECT id_permiso_456VG, nombre_456VG, nombre_formulario_456VG
-        FROM PermisosComp_456VG
-        WHERE isPerfil_456VG = 0 AND nombre_formulario_456VG IS NOT NULL;
-    ";
+          FROM PermisosComp_456VG
+WHERE isPerfil_456VG = 0
+  AND nombre_formulario_456VG IS NOT NULL;";
             try
             {
                 db.Conectar456VG();
@@ -153,7 +154,7 @@ namespace _456VG_DAL
                             reader.GetInt32(0),
                             reader.GetString(1),
                             reader.GetString(2),
-                            false
+                            is_perfil: false
                         ));
                     }
                 }
@@ -162,40 +163,6 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
-            return lista;
-        }
-        public List<BEPerfil_456VG> CargarCBPermisos456VG()
-        {
-            var lista = new List<BEPerfil_456VG>();
-            const string sql = @"
-        USE EnviosYA_456VG;
-        SELECT id_permiso_456VG, nombre_456VG, nombre_formulario_456VG
-          FROM PermisosComp_456VG
-WHERE isPerfil_456VG = 0
-  AND nombre_formulario_456VG IS NOT NULL;";
-
-            try
-            {
-                db.Conectar456VG();
-                using (var cmd = new SqlCommand(sql, db.Connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        lista.Add(new BEPerfil_456VG(
-                            reader.GetInt32(0),                // id
-                            reader.GetString(1),               // nombre
-                            reader.GetString(2),               // formulario (no null)
-                            is_perfil: false                   // isPerfil = 0
-                        ));
-                    }
-                }
-            }
-            finally
-            {
-                db.Desconectar456VG();
-            }
-
             return lista;
         }
     }

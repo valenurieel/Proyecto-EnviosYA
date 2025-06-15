@@ -67,7 +67,6 @@ namespace Proyecto_EnviosYA
             TraducirEncabezadosDataGrid();
             dgvPaquetesDetalle.DataSource = null;
         }
-
         private void TraducirEncabezadosDataGrid()
         {
             if (dataGridView1456VG.Columns.Count == 0) return;

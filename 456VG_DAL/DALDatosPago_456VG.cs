@@ -10,13 +10,11 @@ namespace _456VG_DAL
     {
         BasedeDatos_456VG db { get; }
         HashSHA256_456VG hasher { get; set; }
-
         public DALDatosPago_456VG()
         {
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
-
         public Resultado_456VG<BEDatosPago_456VG> crearEntidad456VG(BEDatosPago_456VG obj)
         {
             var resultado = new Resultado_456VG<BEDatosPago_456VG>();
@@ -24,7 +22,6 @@ namespace _456VG_DAL
             {
                 if (obj == null || obj.Cliente_456VG == null || string.IsNullOrWhiteSpace(obj.Cliente_456VG.DNI456VG))
                     throw new ArgumentException("Los datos de pago y el cliente con DNI no pueden ser nulos.");
-
                 string dni = obj.Cliente_456VG.DNI456VG.Trim();
                 if (string.IsNullOrWhiteSpace(obj.MedioPago456VG) ||
                     string.IsNullOrWhiteSpace(obj.NumTarjeta) ||
@@ -34,7 +31,6 @@ namespace _456VG_DAL
                 {
                     throw new ArgumentException("Todos los campos de DatosPago deben estar completos.");
                 }
-
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {
@@ -48,7 +44,6 @@ namespace _456VG_DAL
                         if (existe > 0)
                             throw new Exception($"Ya existen datos de pago para el cliente {dni}.");
                     }
-
                     const string insertSql =
                         "USE EnviosYA_456VG; " +
                         "INSERT INTO DatosPago_456VG " +
@@ -65,10 +60,8 @@ namespace _456VG_DAL
 
                         cmd.ExecuteNonQuery();
                     }
-
                     tx.Commit();
                 }
-
                 resultado.resultado = true;
                 resultado.entidad = obj;
                 resultado.mensaje = "Datos de pago guardados correctamente.";
@@ -82,10 +75,8 @@ namespace _456VG_DAL
             {
                 db.Connection.Close();
             }
-
             return resultado;
         }
-
         public Resultado_456VG<BEDatosPago_456VG> actualizarEntidad456VG(BEDatosPago_456VG obj)
         {
             var resultado = new Resultado_456VG<BEDatosPago_456VG>();
@@ -143,54 +134,12 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
         public Resultado_456VG<BEDatosPago_456VG> eliminarEntidad456VG(BEDatosPago_456VG obj)
         {
             throw new NotImplementedException();
         }
-
         public List<BEDatosPago_456VG> leerEntidades456VG()
         {
-            //var lista = new List<BEDatosPago_456VG>();
-            //const string sql =
-            //    "USE EnviosYA_456VG; " +
-            //    "SELECT dni_cliente_456VG, medio_pago_456VG, numtarjeta_456VG, titular_456VG, fechavencimiento_456VG, cvc_456VG " +
-            //    "FROM DatosPago_456VG;";
-            //try
-            //{
-            //    db.Conectar456VG();
-            //    using (var cmd = new SqlCommand(sql, db.Connection))
-            //    using (var reader = cmd.ExecuteReader())
-            //    {
-            //        while (reader.Read())
-            //        {
-            //            string dniCli = reader.GetString(reader.GetOrdinal("dni_cliente_456VG"));
-            //            string medioPago = reader.GetString(reader.GetOrdinal("medio_pago_456VG"));
-            //            string numTarjeta = reader.GetString(reader.GetOrdinal("numtarjeta_456VG"));
-            //            string titular = reader.GetString(reader.GetOrdinal("titular_456VG"));
-            //            DateTime fechaVenc = reader.GetDateTime(reader.GetOrdinal("fechavencimiento_456VG"));
-            //            string cvc = reader.GetString(reader.GetOrdinal("cvc_456VG"));
-
-            //            var datosPago = new BEDatosPago_456VG(
-            //                cliente: null,       // Si necesitas el BECliente, asínalo después en la BLL
-            //                mediopago: medioPago,
-            //                numtarj: numTarjeta,
-            //                titu: titular,
-            //                fvenc: fechaVenc,
-            //                cvc: cvc
-            //            );
-            //            lista.Add(datosPago);
-            //        }
-            //    }
-            //}
-            //catch
-            //{
-            //}
-            //finally
-            //{
-            //    db.Desconectar456VG();
-            //}
-            //return lista;
             throw new NotImplementedException();
         }
         public BEDatosPago_456VG LeerPorDni(string dni)
@@ -268,6 +217,5 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
     }
 }

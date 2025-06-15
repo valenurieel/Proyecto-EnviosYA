@@ -55,14 +55,12 @@ namespace _456VG_Servicios
                     AppDomain.CurrentDomain.BaseDirectory,
                     $"{(idiomaActual_456VG == "ES" ? "Español" : "Inglés")}.json"
                 );
-
                 if (!File.Exists(nombreArchivo))
                 {
                     Console.WriteLine($"El archivo de idioma '{nombreArchivo}' no existe.");
                     Diccionario_456VG = new Dictionary<string, string>();
                     return;
                 }
-
                 string jsonString = File.ReadAllText(nombreArchivo);
                 Diccionario_456VG = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonString)
                                    ?? new Dictionary<string, string>();

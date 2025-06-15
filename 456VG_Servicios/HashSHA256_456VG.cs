@@ -60,6 +60,7 @@ namespace _456VG_Servicios
             Array.Resize(ref keyBytes, length);
             return keyBytes;
         }
+        //Encriptación para Desencriptado (AES-256)
         public string EncryptAes(string plainText)
         {
             if (string.IsNullOrEmpty(plainText))
@@ -83,6 +84,7 @@ namespace _456VG_Servicios
             }
             return Convert.ToBase64String(encrypted);
         }
+        //Desencriptar
         public string DecryptAes(string cipherTextBase64)
         {
             if (string.IsNullOrEmpty(cipherTextBase64))
@@ -90,7 +92,6 @@ namespace _456VG_Servicios
             byte[] cipherBytes = Convert.FromBase64String(cipherTextBase64);
             byte[] keyBytes = GetAesKey(AES_KEY, 32);
             string plaintext;
-
             using (Aes aes = Aes.Create())
             {
                 aes.Key = keyBytes;

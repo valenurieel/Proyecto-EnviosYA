@@ -102,7 +102,6 @@ namespace Proyecto_EnviosYA
                                    : hijo.ToString();
                 string clave = $"{Name}.Item.{comboName}.{nombre}";
                 string texto = lng.ObtenerTexto_456VG(clave);
-
                 var nodo = new TreeNode(texto) { Name = clave, Tag = hijo };
                 padre.Nodes.Add(nodo);
                 AgregarHijos(nodo);
@@ -203,13 +202,11 @@ namespace Proyecto_EnviosYA
             string textoTraducido = lng.ObtenerTexto_456VG(clave);
             if (textoTraducido == clave)
                 textoTraducido = bePerfil.nombre456VG;
-
             var nodoPerfil = new TreeNode(textoTraducido)
             {
                 Name = clave,
                 Tag = perfilComp
             };
-
             root.Nodes.Add(nodoPerfil);
             PintaChildren(nodoPerfil, perfilComp);
             root.Expand();
@@ -222,7 +219,6 @@ namespace Proyecto_EnviosYA
             {
                 string texto;
                 string clave;
-
                 if (hijo is Perfil_456VG p)
                 {
                     clave = $"{Name}.Item.{comboBox3456VG.Name}.{p.Nombre456VG}";
@@ -246,13 +242,11 @@ namespace Proyecto_EnviosYA
                     texto = "???";
                     clave = "???";
                 }
-
                 var nodo = new TreeNode(texto) { Name = clave, Tag = hijo };
                 padre.Nodes.Add(nodo);
-                PintaChildren(nodo, hijo); // recursión
+                PintaChildren(nodo, hijo);
             }
         }
-
         private void button3456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -418,7 +412,7 @@ namespace Proyecto_EnviosYA
             using (var fr = new Familias_456VG())
             {
                 fr.ShowDialog();
-                cargarcb(); // <--- esto vuelve a cargar todos los combos
+                cargarcb();
             }
         }
         private void cmboxflia456VG_SelectedIndexChanged(object sender, EventArgs e)
@@ -428,7 +422,6 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1456VG.SelectedNode;
-
             if (nodoSel == null)
             {
                 MessageBox.Show(
@@ -439,7 +432,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             if (nodoSel.Tag is Permisos_456VG)
             {
                 MessageBox.Show(
@@ -450,7 +442,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var padrePerfil = nodoSel.Tag as Perfil_456VG;
             if (padrePerfil == null)
             {
@@ -462,8 +453,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
-
             if (padrePerfil.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show(
@@ -474,7 +463,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var sel = cmboxflia456VG.SelectedItem as KeyValuePair<BEFamilia_456VG, string>?;
             if (!sel.HasValue)
             {
@@ -486,12 +474,10 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var beFamilia = sel.Value.Key;
             var familiaObj = new Familia_456VG(beFamilia.nombre456VG);
             var hijosRel = bllf.ObtenerRelacionesDeFamilia456VG(beFamilia.id_permiso456VG);
             var todosPermisosBE = bllp.CargarCBPermisos456VG();
-
             foreach (var rel in hijosRel)
             {
                 var permisoBE = todosPermisosBE
@@ -499,7 +485,6 @@ namespace Proyecto_EnviosYA
                 if (permisoBE == null) continue;
                 familiaObj.AgregarHijo456VG(new Permisos_456VG(permisoBE.nombre456VG));
             }
-
             try
             {
                 padrePerfil.AgregarHijo456VG(familiaObj);
@@ -514,28 +499,23 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             string claveFam = $"{Name}.Item.{cmboxflia456VG.Name}.{beFamilia.nombre456VG}";
             string textoFam = lng.ObtenerTexto_456VG(claveFam);
             if (textoFam == claveFam) textoFam = beFamilia.nombre456VG;
-
             var nodoFam = new TreeNode(textoFam)
             {
                 Name = claveFam,
                 Tag = familiaObj
             };
             nodoSel.Nodes.Add(nodoFam);
-
             foreach (var rel in hijosRel)
             {
                 var permisoBE = todosPermisosBE
                     .FirstOrDefault(p => p.id_permiso456VG == rel.id_permisohijo456VG);
                 if (permisoBE == null) continue;
-
                 string clavePerm = $"{Name}.Item.{comboBox1456VG.Name}.{permisoBE.nombre456VG}";
                 string textoPerm = lng.ObtenerTexto_456VG(clavePerm);
                 if (textoPerm == clavePerm) textoPerm = permisoBE.nombre456VG;
-
                 var nodoPerm = new TreeNode(textoPerm)
                 {
                     Name = clavePerm,
@@ -543,15 +523,12 @@ namespace Proyecto_EnviosYA
                 };
                 nodoFam.Nodes.Add(nodoPerm);
             }
-
             nodoSel.Expand();
-
             int idPerfil = ObtenerIdPorNombre456VG(padrePerfil.Nombre456VG);
             int idFamilia = beFamilia.id_permiso456VG;
             var resBD = bllper.aggPermisos456VG(
                 new BEPermisoComp_456VG(idPerfil, idFamilia)
             );
-
             if (!resBD.resultado)
             {
                 MessageBox.Show(

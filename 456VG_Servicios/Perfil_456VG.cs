@@ -18,6 +18,7 @@ namespace _456VG_Servicios
         {
             return ObtenerTodosNombresPermisos().Contains(nombrePermiso);
         }
+        //Agrega Perfil y Permisos dentro del Perfil
         public override void AgregarHijo456VG(Componente_456VG nuevo)
         {
             var existentes = new HashSet<string>(ObtenerTodosNombresPermisos());

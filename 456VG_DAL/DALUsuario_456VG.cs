@@ -21,6 +21,7 @@ namespace _456VG_DAL
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
+        //Recupera el Idioma que tiene el Usuario y lo cambia.
         public string RecuperarIdioma456VG(string dniUsuario)
         {
             const string sqlQuery = @"
@@ -50,6 +51,7 @@ namespace _456VG_DAL
                 return "ES";
             }
         }
+        //Cambia el Idioma del Usuario en BD.
         public bool modificarIdioma456VG(BEUsuario_456VG user, string idiomaNuevo)
         {
                     const string query = @"
@@ -110,7 +112,6 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
                     cmd.Parameters.AddWithValue("@Idioma", obj.Idioma456VG);
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
-
                     int filasAfectadas = cmd.ExecuteNonQuery();
                     if (filasAfectadas > 0)
                     {
@@ -135,18 +136,15 @@ namespace _456VG_DAL
             }
             return resultado;
         }
+        //Recupera el Rol del Usuario que se loguea con sus Permisos.
         public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dniUsuario)
         {
             var permisos = new List<Permiso_456VG>();
             var perfilesPendientes = new List<int>();
-
             try
             {
-                // 1) Conectar
                 if (!db.Conectar456VG())
                     throw new Exception("Error al conectarse a la base de datos");
-
-                // 2) Traer permisos directos (perfiles + permisos)
                 const string sqlDirectos = @"
                 USE EnviosYA_456VG;
                 SELECT 
@@ -158,7 +156,6 @@ namespace _456VG_DAL
                 JOIN PermisosComp_456VG P 
                   ON UP.id_permiso_456VG = P.id_permiso_456VG
                 WHERE UP.dni_456VG = @dni;";
-
                 using (var cmd = new SqlCommand(sqlDirectos, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@dni", dniUsuario);
@@ -172,7 +169,6 @@ namespace _456VG_DAL
                                             : reader.GetString(reader.GetOrdinal("nombre_formulario_456VG"));
                             var isPerfil = reader.GetBoolean(reader.GetOrdinal("isPerfil_456VG"));
                             var idPermiso = reader.GetInt32(reader.GetOrdinal("id_permiso_456VG"));
-
                             permisos.Add(new Permiso_456VG(nombre, formulario, isPerfil));
 
                             if (isPerfil)
@@ -180,14 +176,10 @@ namespace _456VG_DAL
                         }
                     }
                 }
-
-                // 3) Para cada perfil, traer sus hijos
                 foreach (var padreId in perfilesPendientes)
                 {
                     permisos.AddRange(ObtenerPermisosHijos456VG(padreId));
                 }
-
-                // 4) Desconectar
                 if (!db.Desconectar456VG())
                     throw new Exception("Error al desconectarse de la base de datos");
             }
@@ -195,13 +187,12 @@ namespace _456VG_DAL
             {
                 Console.WriteLine("Error al obtener permisos de usuario: " + ex.Message);
             }
-
             return permisos;
         }
+        //Obtiene Permisos del Perfil que tiene el Usuario con el método de arriba.
         public List<Permiso_456VG> ObtenerPermisosHijos456VG(int idPermisoPadre)
         {
             var permisosHijos = new List<Permiso_456VG>();
-
             try
             {
                 const string sqlHijos = @"
@@ -214,7 +205,6 @@ namespace _456VG_DAL
                 JOIN PermisosComp_456VG P 
                   ON PP.id_permisohijo_456VG = P.id_permiso_456VG
                 WHERE PP.id_permisopadre_456VG = @padreId;";
-
                 using (var cmd = new SqlCommand(sqlHijos, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@padreId", idPermisoPadre);
@@ -237,13 +227,11 @@ namespace _456VG_DAL
             {
                 Console.WriteLine("Error al obtener permisos hijos: " + ex.Message);
             }
-
             return permisosHijos;
         }
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
-
             try
             {
                 db.Connection.Open();
@@ -363,7 +351,6 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-
         public Resultado_456VG<BEUsuario_456VG> eliminarEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();

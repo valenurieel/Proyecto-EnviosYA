@@ -11,35 +11,30 @@ namespace _456VG_Servicios
     {
         public string Nombre456VG { get; set; }
         public string NombreFormulario456VG { get; set; }
-        public bool IsPerfil456VG { get; set; }  // Indica si el permiso es un perfil compuesto
-
-        public List<Permiso_456VG> PermisosHijos456VG { get; set; }  // Lista de permisos hijos
-
+        public bool IsPerfil456VG { get; set; }
+        public List<Permiso_456VG> PermisosHijos456VG { get; set; }
         public Permiso_456VG(string nombre, string formulario, bool isPerfil = false)
         {
             Nombre456VG = nombre;
             NombreFormulario456VG = formulario;
             IsPerfil456VG = isPerfil;
-            PermisosHijos456VG = new List<Permiso_456VG>();  // Inicializamos la lista de permisos hijos
+            PermisosHijos456VG = new List<Permiso_456VG>();
         }
-
-        // Método para verificar si este permiso incluye un permiso hijo
+        //Ver si tiene Hijos
         public bool IncluyePermiso(string permisoRequerido)
         {
             if (Nombre456VG == permisoRequerido)
             {
-                return true;  // Si este permiso es el requerido
+                return true;
             }
-
-            // Recorrer los permisos hijos
             foreach (var permisoHijo in PermisosHijos456VG)
             {
                 if (permisoHijo.IncluyePermiso(permisoRequerido))
                 {
-                    return true;  // Si alguno de los hijos incluye el permiso requerido
+                    return true;
                 }
             }
-            return false;  // Si no se encuentra el permiso en este perfil ni en sus hijos
+            return false;
         }
     }
 }

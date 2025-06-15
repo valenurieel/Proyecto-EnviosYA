@@ -12,8 +12,7 @@ namespace Proyecto_EnviosYA
     {
         BLLUsuario_456VG BLLUsuario = new BLLUsuario_456VG();
         private Dictionary<string, int> intentosFallidosPorUsuario = new Dictionary<string, int>();
-        public event EventHandler LoginExitoso;
-        
+        public event EventHandler LoginExitoso;    
         public IniciarSesion_456VG()
         {
             InitializeComponent();

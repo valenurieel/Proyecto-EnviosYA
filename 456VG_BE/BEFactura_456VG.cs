@@ -16,6 +16,7 @@ namespace _456VG_BE
             this.HoraEmision456VG = fechaHoraEmision.TimeOfDay;
             this.CodFactura456VG = GenerateCodFactura456VG();
         }
+        //genero codigo de factura
         private string GenerateCodFactura456VG()
         {
             int cantidadPaquetes = Envio.Paquetes.Count;

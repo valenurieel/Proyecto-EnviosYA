@@ -164,29 +164,26 @@ public class BasedeDatos_456VG
                 "ALTER TABLE HistorialContraseñas_456VG " +
                 "ADD CONSTRAINT FK_HistorialContraseñas_Usuario_456VG " +
                 "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
-            // 1) Tabla de componentes/permisos
+            //Tabla Perfiles, Permisos y Familias.
             dbReal.ejecutarQuery456VG(@"
-    USE EnviosYA_456VG;
-    IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
-    CREATE TABLE PermisosComp_456VG (
-        id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
-        nombre_456VG               NVARCHAR(100) NOT NULL,
-        nombre_formulario_456VG    NVARCHAR(100) NULL,
-        isPerfil_456VG             BIT NOT NULL DEFAULT 0
-    );
-
-    -- Índice único solo para familias (nombre único si es familia)
-    IF NOT EXISTS (
-        SELECT 1 FROM sys.indexes 
-         WHERE name = 'UQ_Familias_nombre_456VG'
-           AND object_id = OBJECT_ID('dbo.PermisosComp_456VG')
-    )
-    CREATE UNIQUE INDEX UQ_Familias_nombre_456VG
-        ON PermisosComp_456VG(nombre_456VG)
-        WHERE isPerfil_456VG = 0 AND nombre_formulario_456VG IS NULL;
-");
-
-            // 2) Tabla de relación padre→hijo (jerarquía)
+                USE EnviosYA_456VG;
+                IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
+                CREATE TABLE PermisosComp_456VG (
+                    id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
+                    nombre_456VG               NVARCHAR(100) NOT NULL,
+                    nombre_formulario_456VG    NVARCHAR(100) NULL,
+                    isPerfil_456VG             BIT NOT NULL DEFAULT 0
+                );
+                IF NOT EXISTS (
+                    SELECT 1 FROM sys.indexes 
+                     WHERE name = 'UQ_Familias_nombre_456VG'
+                       AND object_id = OBJECT_ID('dbo.PermisosComp_456VG')
+                )
+                CREATE UNIQUE INDEX UQ_Familias_nombre_456VG
+                    ON PermisosComp_456VG(nombre_456VG)
+                    WHERE isPerfil_456VG = 0 AND nombre_formulario_456VG IS NULL;
+            ");
+            //Tabla que relaciona permisos y perfiles, familias, etc
             dbReal.ejecutarQuery456VG(@"
                 USE EnviosYA_456VG;
                 IF OBJECT_ID('dbo.PermisoPermiso_456VG','U') IS NULL
@@ -194,15 +191,13 @@ public class BasedeDatos_456VG
                     id_permisopadre_456VG INT NOT NULL,
                     id_permisohijo_456VG  INT NOT NULL,
                     CONSTRAINT PK_PermisoPermiso_456VG PRIMARY KEY(id_permisopadre_456VG, id_permisohijo_456VG),
-                    -- Cascada sólo cuando borres el padre
                     CONSTRAINT FK_PP_Padre_456VG FOREIGN KEY(id_permisopadre_456VG)
                         REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE CASCADE,
-                    -- Al borrar el hijo, NO cascades (se manejará manualmente si hace falta)
                     CONSTRAINT FK_PP_Hijo_456VG FOREIGN KEY(id_permisohijo_456VG)
                         REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE NO ACTION
                 );
-        ");
-            // 3) Tabla de asignación usuario→permiso
+            ");
+            //Tabla de Usuario Rol(Perfil)
             dbReal.ejecutarQuery456VG(@"
                 USE EnviosYA_456VG;
                 IF OBJECT_ID('dbo.UsuarioPermiso_456VG', 'U') IS NULL
@@ -260,20 +255,15 @@ public class BasedeDatos_456VG
         );
         dbReal.ejecutarQuery456VG(@"
                 USE EnviosYA_456VG;
-                -- Perfiles
                 IF NOT EXISTS(SELECT 1 FROM PermisosComp_456VG WHERE nombre_456VG='Cajero'                   AND isPerfil_456VG=1)
                     INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
                     VALUES('Cajero','usuarioToolStripMenuItem456VG',1);
-
                 IF NOT EXISTS(SELECT 1 FROM PermisosComp_456VG WHERE nombre_456VG='Empleado Administrativo' AND isPerfil_456VG=1)
                     INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
                     VALUES('Empleado Administrativo','usuarioToolStripMenuItem456VG',1);
-
                 IF NOT EXISTS(SELECT 1 FROM PermisosComp_456VG WHERE nombre_456VG='Administrador'                   AND isPerfil_456VG=1)
                     INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
                     VALUES('Administrador','usuarioToolStripMenuItem456VG',1);
-
-                -- Permisos generales
                 DECLARE @lista TABLE(nombre NVARCHAR(100), formulario NVARCHAR(100));
                 INSERT INTO @lista VALUES
                     ('Recepción','recepcionToolStripMenuItem'),
@@ -294,7 +284,6 @@ public class BasedeDatos_456VG
                     ('Administrador','administradorToolStripMenuItem456VG'),
                     ('Gestión de Usuarios','usuariosToolStripMenuItem456VG'),
                     ('Gestión de Perfiles','perfilesToolStripMenuItem456VG');
-
                 INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
                 SELECT l.nombre, l.formulario, 0
                 FROM @lista l
@@ -302,8 +291,8 @@ public class BasedeDatos_456VG
                     SELECT 1 FROM PermisosComp_456VG pc
                      WHERE pc.nombre_456VG = l.nombre
                        AND pc.nombre_formulario_456VG = l.formulario
-                );
-            ");
+                );"
+       );
         dbReal.ejecutarQuery456VG(@"
                 USE EnviosYA_456VG;
                 DECLARE @rel TABLE(padre INT, hijo INT);
@@ -312,7 +301,6 @@ public class BasedeDatos_456VG
                     (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,15),(2,16),(2,17),(2,18),
                     (3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),
                     (3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21);
-
                 INSERT INTO PermisoPermiso_456VG(id_permisopadre_456VG,id_permisohijo_456VG)
                 SELECT r.padre, r.hijo
                 FROM @rel r
@@ -320,50 +308,38 @@ public class BasedeDatos_456VG
                     SELECT 1 FROM PermisoPermiso_456VG pp
                      WHERE pp.id_permisopadre_456VG = r.padre
                        AND pp.id_permisohijo_456VG  = r.hijo
-                );
-            ");
-                dbReal.ejecutarQuery456VG(
-                  "USE EnviosYA_456VG; " +
-                  "INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG) VALUES " +
-                    "('45984456', 3), " +
-                    "('12345678', 2), " +
-                    "('26202620', 1);"
-                );
-                dbReal.ejecutarQuery456VG(@"
-        USE EnviosYA_456VG;
-
-        /* 1) Insertar las 3 familias y capturar sus IDs */
-        DECLARE @idSeguridad   INT, @idCobranza INT, @idRecepciones INT;
-
-        INSERT INTO PermisosComp_456VG(nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
-        VALUES
-          ('Seguridad',    NULL, 0),
-          ('Cobranza',     NULL, 0),
-          ('Recepciones',  NULL, 0);
-
-        -- Ahora obtenemos los IDs recién generados (suponiendo que no hay más inserciones concurrentes)
-        SELECT 
-          @idSeguridad   = MAX(CASE WHEN nombre_456VG = 'Seguridad'   THEN id_permiso_456VG END),
-          @idCobranza    = MAX(CASE WHEN nombre_456VG = 'Cobranza'    THEN id_permiso_456VG END),
-          @idRecepciones = MAX(CASE WHEN nombre_456VG = 'Recepciones' THEN id_permiso_456VG END)
-        FROM PermisosComp_456VG
-        WHERE isPerfil_456VG = 0;
-
-        /* 2) Asociar permisos a cada familia */
-        INSERT INTO PermisoPermiso_456VG(id_permisopadre_456VG, id_permisohijo_456VG)
-        VALUES
-          /* Seguridad: 6,7,8,9,10,11,12 */
-          (@idSeguridad,  6),(@idSeguridad,  7),(@idSeguridad,  8),
-          (@idSeguridad,  9),(@idSeguridad, 10),(@idSeguridad, 11),
-          (@idSeguridad, 12),
-
-          /* Cobranza: 4,5 */
-          (@idCobranza,   4),(@idCobranza,   5),
-
-          /* Recepciones: 4,16,17,18,15,14,13 */
-          (@idRecepciones, 4),(@idRecepciones,16),(@idRecepciones,17),
-          (@idRecepciones,18),(@idRecepciones,15),(@idRecepciones,14),
-          (@idRecepciones,13);
-        ");
+                );"
+        );
+        dbReal.ejecutarQuery456VG(
+              "USE EnviosYA_456VG; " +
+              "INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG) VALUES " +
+               "('45984456', 3), " +
+               "('12345678', 2), " +
+               "('26202620', 1);"
+        );
+        dbReal.ejecutarQuery456VG(@"
+                USE EnviosYA_456VG;
+                DECLARE @idSeguridad   INT, @idCobranza INT, @idRecepciones INT;
+                INSERT INTO PermisosComp_456VG(nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
+                VALUES
+                  ('Seguridad',    NULL, 0),
+                  ('Cobranza',     NULL, 0),
+                  ('Recepciones',  NULL, 0);
+                SELECT 
+                  @idSeguridad   = MAX(CASE WHEN nombre_456VG = 'Seguridad'   THEN id_permiso_456VG END),
+                  @idCobranza    = MAX(CASE WHEN nombre_456VG = 'Cobranza'    THEN id_permiso_456VG END),
+                  @idRecepciones = MAX(CASE WHEN nombre_456VG = 'Recepciones' THEN id_permiso_456VG END)
+                FROM PermisosComp_456VG
+                WHERE isPerfil_456VG = 0;
+                INSERT INTO PermisoPermiso_456VG(id_permisopadre_456VG, id_permisohijo_456VG)
+                VALUES
+                  (@idSeguridad,  6),(@idSeguridad,  7),(@idSeguridad,  8),
+                  (@idSeguridad,  9),(@idSeguridad, 10),(@idSeguridad, 11),
+                  (@idSeguridad, 12),
+                  (@idCobranza,   4),(@idCobranza,   5),
+                  (@idRecepciones, 4),(@idRecepciones,16),(@idRecepciones,17),
+                  (@idRecepciones,18),(@idRecepciones,15),(@idRecepciones,14),
+                  (@idRecepciones,13);"
+        );
     }
 }

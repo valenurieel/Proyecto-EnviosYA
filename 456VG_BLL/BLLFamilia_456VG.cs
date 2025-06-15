@@ -33,10 +33,5 @@ namespace _456VG_BLL
 
         public Resultado_456VG<BEPermisoComp_456VG> AgregarHijo456VG(int idPadre, int idHijo)
             => dal.AgregarHijo456VG(idPadre, idHijo);
-
-        public Resultado_456VG<BEPermisoComp_456VG> eliminarEntidadHijo456VG(int idPadre, int idHijo)
-        {
-            return dal.eliminarEntidadHijo456VG(idPadre, idHijo);
-        }
     }
 }

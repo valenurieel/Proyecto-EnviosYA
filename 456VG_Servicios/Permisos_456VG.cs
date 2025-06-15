@@ -8,7 +8,7 @@ namespace _456VG_Servicios
 {
     public class Permisos_456VG: Componente_456VG
     {
-        public string Nombre456VG { get; set; } // Nombre del permiso
+        public string Nombre456VG { get; set; }
         public Permisos_456VG(string nombre)
         {
             Nombre456VG = nombre;

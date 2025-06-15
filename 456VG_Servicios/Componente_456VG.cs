@@ -13,7 +13,6 @@ namespace _456VG_Servicios
         public abstract List<Componente_456VG> ObtenerHijos456VG();
         public IEnumerable<string> ObtenerTodosNombresPermisos()
         {
-            // Si es hoja
             if (this is Permisos_456VG hoja)
                 yield return hoja.Nombre456VG;
             else

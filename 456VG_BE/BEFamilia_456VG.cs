@@ -10,9 +10,7 @@ namespace _456VG_BE
     {
         public int id_permiso456VG { get; set; }
         public string nombre456VG { get; set; }
-        public bool is_perfil456VG { get; set; } = false;  // siempre false para familias
-        // Si quieres devolver hijos ya sea planos o anidados:
-        public List<BEPermisoComp_456VG> Hijos { get; set; } = new List<BEPermisoComp_456VG>();
+        public bool is_perfil456VG { get; set; } = false; // 1 = perfil, 0 = familias y permisos
 
         public BEFamilia_456VG() { }
 

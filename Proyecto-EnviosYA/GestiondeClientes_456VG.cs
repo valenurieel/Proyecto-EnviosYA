@@ -12,20 +12,15 @@ namespace Proyecto_EnviosYA
     public partial class GestiondeClientes_456VG : Form, IObserver_456VG
     {
         BLLCliente_456VG BLLCli = new BLLCliente_456VG();
-
         public GestiondeClientes_456VG()
         {
             InitializeComponent();
-            // Nos suscribimos para que, al cambiar de idioma, se actualicen los controles
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
         }
-
         public void ActualizarIdioma_456VG()
         {
-            // Traduce todos los controles visibles (botones, labels, radios, etc.) 
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
         }
-
         private void dataGridView1456VG_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridView1456VG.Columns[e.ColumnIndex].Name == "Activo")
@@ -35,21 +30,17 @@ namespace Proyecto_EnviosYA
                     isActive ? Color.White : Color.Red;
             }
         }
-
         private void btnAñadir456VG_Click(object sender, EventArgs e)
         {
             limpiar456VG();
-            // Texto traducido: “Modo Añadir”
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                      .ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Añadir");
-
             txtdni456VG.Enabled = true;
             txtnombre456VG.Enabled = true;
             txtapellido456VG.Enabled = true;
             txttelef456VG.Enabled = true;
             txtdomicilio456VG.Enabled = true;
             dateTimePicker1456VG.Enabled = true;
-
             btnAñadir456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
@@ -57,74 +48,56 @@ namespace Proyecto_EnviosYA
             btnVolver456VG.Enabled = false;
             btnActivoDesac.Enabled = false;
         }
-
         private void btnActivoDesac_Click(object sender, EventArgs e)
         {
             limpiar456VG();
-            // Texto traducido: “Modo Activar / Desactivar”
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                      .ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.ActDesac");
-
             txtdni456VG.Enabled = false;
             txtnombre456VG.Enabled = false;
             txtapellido456VG.Enabled = false;
             txttelef456VG.Enabled = false;
             txtdomicilio456VG.Enabled = false;
             dateTimePicker1456VG.Enabled = false;
-
             btnAñadir456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
             btnActivoDesac.Enabled = false;
-
             radioButton1456VG.Enabled = false;
             radioButton1456VG.Checked = false;
             radioButton2456VG.Checked = true;
-
             allusers456VG();
         }
-
         private void btnModif456VG_Click(object sender, EventArgs e)
         {
-            // Texto traducido: “Modo Modificar”
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                      .ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Modificar");
-
             limpiar456VG();
-
             txtdni456VG.Enabled = false;
             txtnombre456VG.Enabled = true;
             txtapellido456VG.Enabled = true;
             txttelef456VG.Enabled = true;
             txtdomicilio456VG.Enabled = true;
             dateTimePicker1456VG.Enabled = true;
-
             btnAñadir456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = true;
             btnVolver456VG.Enabled = false;
             btnActivoDesac.Enabled = false;
-
             radioButton1456VG.Enabled = false;
             radioButton1456VG.Checked = false;
             radioButton2456VG.Checked = true;
-
             allusers456VG();
         }
-
         private void btnDesbloq456VG_Click(object sender, EventArgs e)
         {
-            // (vacío en el original)
         }
-
         private void btnAplicar456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
-            // --- MODO Añadir ---
             if (label13456VG.Text == lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Añadir"))
             {
                 string dni = txtdni456VG.Text;
@@ -134,11 +107,9 @@ namespace Proyecto_EnviosYA
                 string domicilio = txtdomicilio456VG.Text;
                 DateTime fechaNacimiento = dateTimePicker1456VG.Value;
                 bool activo = true;
-
                 BECliente_456VG clinew = new BECliente_456VG(
                     dni, name, ape, telef, domicilio, fechaNacimiento, activo
                 );
-
                 Resultado_456VG<BECliente_456VG> resultado = BLLCli.crearEntidad456VG(clinew);
                 if (resultado.resultado)
                 {
@@ -163,13 +134,10 @@ namespace Proyecto_EnviosYA
                     );
                 }
             }
-
-            // --- MODO Consulta ---
             if (label13456VG.Text == lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Consulta"))
             {
                 radioButton1456VG.Checked = false;
                 radioButton2456VG.Checked = false;
-
                 List<BECliente_456VG> listaCli = BLLCli.leerEntidades456VG();
                 var filtro = listaCli.Where(u =>
                     (string.IsNullOrWhiteSpace(txtdni456VG.Text) || u.DNI456VG.ToLower().Contains(txtdni456VG.Text.ToLower())) &&
@@ -189,7 +157,6 @@ namespace Proyecto_EnviosYA
                     Activo = u.Activo456VG
                 })
                 .ToList();
-
                 if (filtro.Count == 0)
                 {
                     MessageBox.Show(
@@ -206,8 +173,6 @@ namespace Proyecto_EnviosYA
                     TraducirEncabezadosDataGrid();
                 }
             }
-
-            // --- MODO Modificar ---
             if (label13456VG.Text == lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Modificar"))
             {
                 if (dataGridView1456VG.SelectedRows.Count == 0)
@@ -220,7 +185,6 @@ namespace Proyecto_EnviosYA
                     );
                     return;
                 }
-
                 string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
                 BECliente_456VG cliAActualizar = new BECliente_456VG(
                     dniSeleccionado,
@@ -230,7 +194,6 @@ namespace Proyecto_EnviosYA
                     txtdomicilio456VG.Text.Trim(),
                     dateTimePicker1456VG.Value.Date
                 );
-
                 Resultado_456VG<BECliente_456VG> resultado = BLLCli.actualizarEntidad456VG(cliAActualizar);
                 if (resultado.resultado)
                 {
@@ -255,8 +218,6 @@ namespace Proyecto_EnviosYA
                     );
                 }
             }
-
-            // --- MODO Activar / Desactivar ---
             if (label13456VG.Text == lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.ActDesac"))
             {
                 if (dataGridView1456VG.SelectedRows.Count == 0)
@@ -269,7 +230,6 @@ namespace Proyecto_EnviosYA
                     );
                     return;
                 }
-
                 string dniSeleccionado = dataGridView1456VG.SelectedRows[0].Cells["DNI"].Value.ToString();
                 bool estadoActivo = Convert.ToBoolean(
                     dataGridView1456VG.SelectedRows[0].Cells["Activo"].Value
@@ -279,14 +239,11 @@ namespace Proyecto_EnviosYA
                 var resultado = BLLCli.ActDesacCli456(dniSeleccionado, nuevoEstadoActivo);
                 if (resultado.resultado)
                 {
-                    // Cliente {0} correctamente.
                     MessageBox.Show(
                         string.Format(
                             lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ClienteActDesacOK"),
                             (nuevoEstadoActivo ? lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Columna.Activo")
                                                 : lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Columna.Activo"))
-                        // Aquí, el segundo parámetro “{0}” podría usarse para “Activado”/“Desactivado”, 
-                        // pero para simplicidad repetimos “Activo” (“Active”) en ambos idiomas.
                         ),
                         lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
                         MessageBoxButtons.OK,
@@ -308,7 +265,6 @@ namespace Proyecto_EnviosYA
                 }
             }
         }
-
         private void btnCancelar456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -323,28 +279,23 @@ namespace Proyecto_EnviosYA
                 GestiondeClientes_456VG_Load(null, null);
             }
         }
-
         private void btnVolver456VG_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         private void radioButton1456VG_CheckedChanged(object sender, EventArgs e)
         {
             useractivos456VG();
         }
-
         private void radioButton2456VG_CheckedChanged(object sender, EventArgs e)
         {
             allusers456VG();
         }
-
         private void useractivos456VG()
         {
             List<BECliente_456VG> listaCliActivos = BLLCli.leerEntidades456VG()
                                                  .Where(u => u.Activo456VG)
                                                  .ToList();
-
             var listaParaMostrar = listaCliActivos.Select(u => new
             {
                 DNI = u.DNI456VG,
@@ -355,11 +306,9 @@ namespace Proyecto_EnviosYA
                 FechaNacimiento = u.FechaNacimiento456VG.ToShortDateString(),
                 Activo = u.Activo456VG
             }).ToList();
-
             dataGridView1456VG.DataSource = listaParaMostrar;
             TraducirEncabezadosDataGrid();
         }
-
         private void allusers456VG()
         {
             List<BECliente_456VG> listcli = BLLCli.leerEntidades456VG();
@@ -373,41 +322,32 @@ namespace Proyecto_EnviosYA
                 FechaNacimiento = u.FechaNacimiento456VG.ToShortDateString(),
                 Activo = u.Activo456VG
             }).ToList();
-
             dataGridView1456VG.DataSource = listaParaMostrar;
             TraducirEncabezadosDataGrid();
         }
-
         private void GestiondeClientes_456VG_Load(object sender, EventArgs e)
         {
             ActualizarIdioma_456VG();
-
-            // Texto traducido: “Modo Consulta”
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                    .ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Consulta");
-
             txtdni456VG.Enabled = true;
             txtnombre456VG.Enabled = true;
             txtapellido456VG.Enabled = true;
             txttelef456VG.Enabled = true;
             txtdomicilio456VG.Enabled = true;
             dateTimePicker1456VG.Enabled = true;
-
             btnAñadir456VG.Enabled = true;
             btnModif456VG.Enabled = true;
             btnAplicar456VG.Enabled = true;
             btnCancelar456VG.Enabled = false;
             btnVolver456VG.Enabled = true;
             btnActivoDesac.Enabled = true;
-
             limpiar456VG();
             useractivos456VG();
-
             radioButton1456VG.Checked = true;
             radioButton1456VG.Enabled = true;
             radioButton2456VG.Enabled = true;
         }
-
         private void limpiar456VG()
         {
             txtdni456VG.Text = "";
@@ -417,7 +357,6 @@ namespace Proyecto_EnviosYA
             txtdomicilio456VG.Text = "";
             dateTimePicker1456VG.Value = DateTime.Now;
         }
-
         private void dataGridView1456VG_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1456VG.SelectedRows.Count == 0) return;

@@ -17,7 +17,6 @@ namespace Proyecto_EnviosYA
         private readonly BLLPerfil_456VG bllPerfil = new BLLPerfil_456VG();
         private List<BEPerfil_456VG> permisosDisponibles456VG;
         private List<BEFamilia_456VG> familiasDisponibles456VG;
-
         public Familias_456VG()
         {
             InitializeComponent();
@@ -26,7 +25,6 @@ namespace Proyecto_EnviosYA
             CargarCombos456VG();
             CargarTreeView456VG();
         }
-
         public void ActualizarIdioma_456VG()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -34,25 +32,20 @@ namespace Proyecto_EnviosYA
             CargarCombos456VG();
             ActualizarTextosTree456VG(treeView1456VG.Nodes);
         }
-
         private void Familias_456VG_Load(object sender, EventArgs e)
         {
             ActualizarIdioma_456VG();
         }
-
-        // --------------------------- CARGA COMBOS Y NODOS ---------------------------
-
         private void CargarCombos456VG()
         {
             permisosDisponibles456VG = bllPerfil.CargarCBPermisos456VG()
                                            .Where(p => !p.is_perfil456VG)
                                            .ToList();
             familiasDisponibles456VG = bllFamilia.leerEntidades456VG();
-
             CargarCombo456VG(CBPermisos456VG, permisosDisponibles456VG, p => p.nombre456VG);
             CargarCombo456VG(CBFamilias456VG, familiasDisponibles456VG, f => f.nombre456VG);
         }
-
+        //ComboBox con elementos Traducidos
         private void CargarCombo456VG<T>(ComboBox cb, IEnumerable<T> lista, Func<T, string> getNombre)
         {
             cb.Items.Clear();
@@ -65,37 +58,33 @@ namespace Proyecto_EnviosYA
             cb.DisplayMember = "Value";
             cb.ValueMember = "Key";
         }
-
         private void CargarTreeView456VG()
         {
             treeView1456VG.Nodes.Clear();
             string claveRoot = $"{Name}.Item.{CBPermisos456VG.Name}.BASE";
             string txtRoot = TraducirItem456VG(CBPermisos456VG.Name, "BASE");
-
             nuevaFamilia456VG = new Familia_456VG("BASE");
             var root = new TreeNode(txtRoot) { Name = claveRoot, Tag = nuevaFamilia456VG };
             treeView1456VG.Nodes.Add(root);
             AgregarHijos456VG(root);
         }
-
+        //Agrega Hijos debajo de Cada "Padre"
         private void AgregarHijos456VG(TreeNode padre)
         {
             var comp = padre.Tag as Componente_456VG;
             if (comp == null) return;
-
             foreach (var hijo in comp.ObtenerHijos456VG() ?? Enumerable.Empty<Componente_456VG>())
             {
                 bool esPermiso = hijo is Permisos_456VG;
                 string controlName = esPermiso ? CBPermisos456VG.Name : CBFamilias456VG.Name;
                 string nombre = hijo is Permisos_456VG p ? p.Nombre456VG :
                                 hijo is Familia_456VG f ? f.Nombre456VG : "Componente";
-
                 var nodo = CrearNodoTraducido456VG(controlName, nombre, hijo);
                 padre.Nodes.Add(nodo);
                 AgregarHijos456VG(nodo);
             }
         }
-
+        //Traduce los textos en el Treeview
         private void ActualizarTextosTree456VG(TreeNodeCollection nodes)
         {
             foreach (TreeNode n in nodes)
@@ -113,7 +102,6 @@ namespace Proyecto_EnviosYA
                     ActualizarTextosTree456VG(n.Nodes);
             }
         }
-
         private void ActualizarTree456VG()
         {
             treeView1456VG.Nodes.Clear();
@@ -124,7 +112,7 @@ namespace Proyecto_EnviosYA
             PintarNodosRecursivo456VG(nuevaFamilia456VG, root);
             treeView1456VG.ExpandAll();
         }
-
+        //Agrega Hijos de cada Padre y traduce.
         private void PintarNodosRecursivo456VG(Componente_456VG comp, TreeNode nodo)
         {
             foreach (var hijo in comp.ObtenerHijos456VG())
@@ -139,10 +127,6 @@ namespace Proyecto_EnviosYA
                 PintarNodosRecursivo456VG(hijo, sub);
             }
         }
-
-
-        // --------------------------- ACCIONES ---------------------------
-
         private void BTNAgregarPermiso456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -164,21 +148,16 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             try
             {
                 familiaSel.AgregarHijo456VG(permisoObj);
                 ActualizarTree456VG();
-
-                // Guardar en BD si familia seleccionada ya está creada
                 var familiaExistente = familiasDisponibles456VG.FirstOrDefault(f =>
                     f.nombre456VG.Equals(familiaSel.Nombre456VG, StringComparison.OrdinalIgnoreCase));
-
                 if (familiaExistente != null)
                 {
                     int idPadre = familiaExistente.id_permiso456VG;
                     int idHijo = permisoBE.id_permiso456VG;
-
                     var res = bllFamilia.AgregarHijo456VG(idPadre, idHijo);
                     if (!res.resultado)
                     {
@@ -205,24 +184,20 @@ namespace Proyecto_EnviosYA
                 );
             }
         }
-
         private void BTNAplicar456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var sel = CBFamilias456VG.SelectedItem as KeyValuePair<BEFamilia_456VG, string>?;
             if (!sel.HasValue) return;
-
             var famBE = sel.Value.Key;
             var subFamilia = new Familia_456VG(famBE.nombre456VG);
             var hijos = bllFamilia.ObtenerRelacionesDeFamilia456VG(famBE.id_permiso456VG);
-
             foreach (var rel in hijos)
             {
                 var permisoBE = permisosDisponibles456VG.FirstOrDefault(p => p.id_permiso456VG == rel.id_permisohijo456VG);
                 if (permisoBE != null)
                     subFamilia.AgregarHijo456VG(new Permisos_456VG(permisoBE.nombre456VG));
             }
-
             try
             {
                 nuevaFamilia456VG.AgregarHijo456VG(subFamilia);
@@ -236,12 +211,10 @@ namespace Proyecto_EnviosYA
                                 MessageBoxIcon.Warning);
             }
         }
-
         private void BTNCrearFamilia456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             if (!ValidarNombreFamilia456VG(out string nombre)) return;
-
             var beNuevaFamilia = new BEFamilia_456VG() { nombre456VG = nombre };
             var res = bllFamilia.crearEntidad456VG(beNuevaFamilia);
             if (!res.resultado)
@@ -251,7 +224,6 @@ namespace Proyecto_EnviosYA
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             int idNueva = res.entidad.id_permiso456VG;
             foreach (var hijo in nuevaFamilia456VG.ObtenerHijos456VG())
             {
@@ -259,7 +231,6 @@ namespace Proyecto_EnviosYA
                 if (idHijo > 0)
                     bllFamilia.AgregarHijo456VG(idNueva, idHijo);
             }
-
             MessageBox.Show(lng.ObtenerTexto_456VG("Familias_456VG.Msg.FamiliaCreadaOK"),
                             lng.ObtenerTexto_456VG("Familias_456VG.Text"),
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -267,12 +238,10 @@ namespace Proyecto_EnviosYA
             CargarTreeView456VG();
             TXTFamilia456VG.Clear();
         }
-
         private void BTNEliminarFamilia456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1456VG.SelectedNode;
-
             if (nodoSel == null || !(nodoSel.Tag is Familia_456VG familiaSel))
             {
                 MessageBox.Show(
@@ -282,7 +251,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Warning);
                 return;
             }
-
             if (familiaSel.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show(
@@ -292,20 +260,15 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Error);
                 return;
             }
-
             var confirm = MessageBox.Show(
                 lng.ObtenerTexto_456VG("Familias_456VG.Msg.ConfirmarElim")
                    .Replace("{0}", familiaSel.Nombre456VG),
                 lng.ObtenerTexto_456VG("Familias_456VG.Text"),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
-
             if (confirm != DialogResult.Yes) return;
-
-            // Buscar ID de la familia a eliminar
             var familiaBE = familiasDisponibles456VG
                 .FirstOrDefault(f => f.nombre456VG.Equals(familiaSel.Nombre456VG, StringComparison.OrdinalIgnoreCase));
-
             if (familiaBE == null)
             {
                 MessageBox.Show(
@@ -315,7 +278,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Error);
                 return;
             }
-
             var resultado = bllFamilia.eliminarEntidad456VG(familiaBE);
             if (!resultado.resultado)
             {
@@ -327,28 +289,19 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Error);
                 return;
             }
-
-            // Quitar nodo del TreeView
             nodoSel.Remove();
-
-            // Refrescar combos
             CargarCombos456VG();
-
             MessageBox.Show(
                 lng.ObtenerTexto_456VG("Familias_456VG.Msg.EliminadaOK"),
                 lng.ObtenerTexto_456VG("Familias_456VG.Text"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
-
-
         private void button8456VG_Click(object sender, EventArgs e)
         {
             Close();
         }
-
-        // --------------------------- HELPERS ---------------------------
-
+        //Busca el ID de un Componente sea Familia o Permiso.
         private int BuscarID(Componente_456VG comp)
         {
             if (comp is Permisos_456VG p)
@@ -357,7 +310,7 @@ namespace Proyecto_EnviosYA
                 return familiasDisponibles456VG.FirstOrDefault(x => x.nombre456VG == f.Nombre456VG)?.id_permiso456VG ?? -1;
             return -1;
         }
-
+        //Valida al crear Familia.
         private bool ValidarNombreFamilia456VG(out string nombre)
         {
             nombre = TXTFamilia456VG.Text.Trim();
@@ -371,7 +324,7 @@ namespace Proyecto_EnviosYA
             }
             return true;
         }
-
+        //Traduce item y devuelve resultado desde BD.
         private string TraducirItem456VG(string controlName, string nombre)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -379,7 +332,7 @@ namespace Proyecto_EnviosYA
             string texto = lng.ObtenerTexto_456VG(clave);
             return texto == clave ? nombre : texto;
         }
-
+        //Nodo traducido y crea el Tag.
         private TreeNode CrearNodoTraducido456VG(string controlName, string nombre, object tag)
         {
             string clave = $"{Name}.Item.{controlName}.{nombre}";

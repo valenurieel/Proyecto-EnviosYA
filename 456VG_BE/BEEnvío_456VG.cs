@@ -42,6 +42,7 @@ namespace _456VG_BE
             this.CodEnvio456VG = GenerateCodEnvio456VG();
             this.Importe456VG = CalcularImporte456VG();
         }
+        //genero codigo de envio
         private string GenerateCodEnvio456VG()
         {
             int cantidadPaquetes = Paquetes.Count;
@@ -53,6 +54,7 @@ namespace _456VG_BE
                 : Cliente.Nombre456VG.ToUpper().PadRight(3, 'X');
             return $"{cantidadPaquetes}{dni}{nombre}";
         }
+        //calculo importe del envio
         public decimal CalcularImporte456VG()
         {
             decimal totalBruto = 0m;

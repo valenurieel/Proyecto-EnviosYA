@@ -207,7 +207,6 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
-
             return listaFacturas;
         }
     }

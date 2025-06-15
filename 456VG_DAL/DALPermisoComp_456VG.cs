@@ -9,6 +9,7 @@ namespace _456VG_DAL
     public class DALPermisoComp_456VG
     {
         BasedeDatos_456VG db = new BasedeDatos_456VG();
+        //Trae Permisos
         public List<BEPermisoComp_456VG> ListaPermisos456VG()
         {
             var lista = new List<BEPermisoComp_456VG>();
@@ -40,6 +41,7 @@ namespace _456VG_DAL
             }
             return lista;
         }
+        //Agregar Permisos
         public Resultado_456VG<BEPermisoComp_456VG> aggPermisos456VG(BEPermisoComp_456VG rel)
         {
             var resultado = new Resultado_456VG<BEPermisoComp_456VG>();

@@ -52,7 +52,6 @@ namespace Proyecto_EnviosYA
         {
             BEUsuario_456VG usuarioLogueado = SessionManager_456VG.ObtenerInstancia456VG().Usuario;
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             if (usuarioLogueado != null)
             {
                 lblBienvenidoDefault.Visible = false;
@@ -104,7 +103,6 @@ namespace Proyecto_EnviosYA
         }
         private void lblBienvenido_Click(object sender, EventArgs e)
         {
-
         }
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -120,29 +118,22 @@ namespace Proyecto_EnviosYA
             CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
             fr.ShowDialog();
         }
-
         private void empleadosToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
-
         }
-
         private void clientesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             GestiondeClientes_456VG fr = new GestiondeClientes_456VG();
             fr.ShowDialog();
         }
-
         private void cambiarIdiomaToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             CambiarIdioma_456VG fr = new CambiarIdioma_456VG();
             fr.ShowDialog();
         }
-
         private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
-
         private void perfilesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             Perfiles_456VG perfiles_456VG = new Perfiles_456VG();

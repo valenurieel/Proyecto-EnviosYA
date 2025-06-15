@@ -53,7 +53,6 @@ namespace _456VG_BE
             this.Activo456VG = Activo;
             this.Idioma456VG = idioma;
         }
-        //Modificar button
         public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio)
         {
             this.DNI456VG = dni;
