@@ -85,18 +85,18 @@ namespace _456VG_DAL
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             string queryUpdateUser = @"
-                USE EnviosYA_456VG;
-                UPDATE Usuario_456VG 
-                SET 
-                    nombre_456VG       = @Nombre,
-                    apellido_456VG     = @Apellido,
-                    email_456VG        = @Email,
-                    telefono_456VG     = @Telefono,
-                    nombreusuario_456VG= @NombreUsuario,
-                    domicilio_456VG    = @Domicilio,
-                    idioma_456VG       = @Idioma
-                WHERE dni_456VG = @DNI;
-            ";
+                    USE EnviosYA_456VG;
+                    UPDATE Usuario_456VG 
+                    SET 
+                        nombre_456VG       = @Nombre,
+                        apellido_456VG     = @Apellido,
+                        email_456VG        = @Email,
+                        telefono_456VG     = @Telefono,
+                        nombreusuario_456VG= @NombreUsuario,
+                        domicilio_456VG    = @Domicilio,
+                        rol_456VG          = @Rol
+                    WHERE dni_456VG = @DNI;
+                ";
             try
             {
                 bool result = db.Conectar456VG();
@@ -110,11 +110,33 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@Telefono", obj.Teléfono456VG);
                     cmd.Parameters.AddWithValue("@NombreUsuario", obj.NombreUsuario456VG);
                     cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
-                    cmd.Parameters.AddWithValue("@Idioma", obj.Idioma456VG);
+                    cmd.Parameters.AddWithValue("@Rol", obj.Rol456VG);
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
                     int filasAfectadas = cmd.ExecuteNonQuery();
                     if (filasAfectadas > 0)
                     {
+                        if (!string.IsNullOrWhiteSpace(obj.Rol456VG))
+                        {
+                            string updatePermisos = @"
+                                DELETE FROM UsuarioPermiso_456VG
+                                WHERE dni_456VG = @DNI
+                                  AND id_permiso_456VG IN (
+                                      SELECT id_permiso_456VG FROM PermisosComp_456VG WHERE isPerfil_456VG = 1
+                                  );
+
+                                INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG)
+                                SELECT @DNI, id_permiso_456VG
+                                  FROM PermisosComp_456VG
+                                 WHERE nombre_456VG = @Rol
+                                   AND isPerfil_456VG = 1;
+                            ";
+                            using (SqlCommand cmdPermiso = new SqlCommand(updatePermisos, db.Connection))
+                            {
+                                cmdPermiso.Parameters.AddWithValue("@DNI", obj.DNI456VG);
+                                cmdPermiso.Parameters.AddWithValue("@Rol", obj.Rol456VG);
+                                cmdPermiso.ExecuteNonQuery();
+                            }
+                        }
                         resultado.resultado = true;
                         resultado.mensaje = "Usuario actualizado correctamente.";
                         resultado.entidad = obj;

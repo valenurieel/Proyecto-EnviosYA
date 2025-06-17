@@ -53,7 +53,7 @@ namespace _456VG_BE
             this.Activo456VG = Activo;
             this.Idioma456VG = idioma;
         }
-        public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio)
+        public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio, string rol)
         {
             this.DNI456VG = dni;
             this.Nombre456VG = nombre;
@@ -62,6 +62,7 @@ namespace _456VG_BE
             this.Teléfono456VG = telefono;
             this.NombreUsuario456VG = nombreUsuario;
             this.Domicilio456VG = domicilio;
+            this.Rol456VG = rol;
         }
     }
 }

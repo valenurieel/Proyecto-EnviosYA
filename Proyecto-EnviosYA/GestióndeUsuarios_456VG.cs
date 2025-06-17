@@ -134,6 +134,7 @@ namespace Proyecto_EnviosYA
             txtNameUser456VG.Text = "";
             txtdomicilio456VG.Text = "";
             cmbrol456VG.SelectedIndex = -1;
+            CargarPerfilesEnComboBox456VG();
         }
         private void btnDesbloq_Click(object sender, EventArgs e)
         {
@@ -203,7 +204,7 @@ namespace Proyecto_EnviosYA
             txttelef456VG.Enabled = true;
             txtNameUser456VG.Enabled = true;
             txtdomicilio456VG.Enabled = true;
-            cmbrol456VG.Enabled = false;
+            cmbrol456VG.Enabled = true;
             btnAñadir456VG.Enabled = false;
             btnModif456VG.Enabled = false;
             btnDesbloq456VG.Enabled = false;
@@ -408,6 +409,8 @@ namespace Proyecto_EnviosYA
                                             .Cells["DNI"]
                                             .Value
                                             .ToString();
+                var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
+                string nombreOriginal = ObtenerNombreOriginalDesdeTraducido456VG(perfilSeleccionado.nombre456VG);
                 BEUsuario_456VG usuarioAActualizar = new BEUsuario_456VG
                 (
                     dniSeleccionado,
@@ -416,7 +419,8 @@ namespace Proyecto_EnviosYA
                     txtemail456VG.Text.Trim(),
                     txttelef456VG.Text.Trim(),
                     txtNameUser456VG.Text.Trim(),
-                    txtdomicilio456VG.Text.Trim()
+                    txtdomicilio456VG.Text.Trim(),
+                    nombreOriginal
                 );
                 Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.actualizarEntidad456VG(usuarioAActualizar);
                 if (resultado.resultado)
@@ -493,6 +497,22 @@ namespace Proyecto_EnviosYA
                     );
                 }
             }
+        }
+        public string ObtenerNombreOriginalDesdeTraducido456VG(string nombreTraducido)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            var perfiles = bllPerfil.CargarCBPerfil456VG();
+
+            foreach (var perfil in perfiles)
+            {
+                string clave = $"GestióndeUsuarios_456VG.Combo.{perfil.nombre456VG.Replace(" ", "")}";
+                string traducido = lng.ObtenerTexto_456VG(clave);
+                if (traducido == nombreTraducido)
+                {
+                    return perfil.nombre456VG;
+                }
+            }
+            return nombreTraducido;
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
