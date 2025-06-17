@@ -24,10 +24,10 @@ namespace _456VG_DAL
                     throw new ArgumentException("Los datos de pago y el cliente con DNI no pueden ser nulos.");
                 string dni = obj.Cliente_456VG.DNI456VG.Trim();
                 if (string.IsNullOrWhiteSpace(obj.MedioPago456VG) ||
-                    string.IsNullOrWhiteSpace(obj.NumTarjeta) ||
-                    string.IsNullOrWhiteSpace(obj.Titular) ||
-                    obj.FechaVencimiento == default ||
-                    string.IsNullOrWhiteSpace(obj.CVC))
+                    string.IsNullOrWhiteSpace(obj.NumTarjeta456VG) ||
+                    string.IsNullOrWhiteSpace(obj.Titular456VG) ||
+                    obj.FechaVencimiento456VG == default ||
+                    string.IsNullOrWhiteSpace(obj.CVC456VG))
                 {
                     throw new ArgumentException("Todos los campos de DatosPago deben estar completos.");
                 }
@@ -53,10 +53,10 @@ namespace _456VG_DAL
                     {
                         cmd.Parameters.AddWithValue("@DniCli", dni);
                         cmd.Parameters.AddWithValue("@Medio", obj.MedioPago456VG.Trim());
-                        cmd.Parameters.AddWithValue("@NumTarj", obj.NumTarjeta.Trim());
-                        cmd.Parameters.AddWithValue("@Tit", obj.Titular.Trim());
-                        cmd.Parameters.AddWithValue("@FecVenc", obj.FechaVencimiento.Date);
-                        cmd.Parameters.AddWithValue("@CVC", obj.CVC.Trim());
+                        cmd.Parameters.AddWithValue("@NumTarj", obj.NumTarjeta456VG.Trim());
+                        cmd.Parameters.AddWithValue("@Tit", obj.Titular456VG.Trim());
+                        cmd.Parameters.AddWithValue("@FecVenc", obj.FechaVencimiento456VG.Date);
+                        cmd.Parameters.AddWithValue("@CVC", obj.CVC456VG.Trim());
 
                         cmd.ExecuteNonQuery();
                     }
@@ -86,10 +86,10 @@ namespace _456VG_DAL
                     throw new ArgumentException("Los datos de pago y el cliente con DNI no pueden ser nulos.");
                 string dni = obj.Cliente_456VG.DNI456VG.Trim();
                 if (string.IsNullOrWhiteSpace(obj.MedioPago456VG) ||
-                    string.IsNullOrWhiteSpace(obj.NumTarjeta) ||
-                    string.IsNullOrWhiteSpace(obj.Titular) ||
-                    obj.FechaVencimiento == default ||
-                    string.IsNullOrWhiteSpace(obj.CVC))
+                    string.IsNullOrWhiteSpace(obj.NumTarjeta456VG) ||
+                    string.IsNullOrWhiteSpace(obj.Titular456VG) ||
+                    obj.FechaVencimiento456VG == default ||
+                    string.IsNullOrWhiteSpace(obj.CVC456VG))
                 {
                     throw new ArgumentException("Todos los campos de DatosPago deben estar completos.");
                 }
@@ -109,10 +109,10 @@ namespace _456VG_DAL
                     {
                         cmd.Parameters.AddWithValue("@DniCli", dni);
                         cmd.Parameters.AddWithValue("@Medio", obj.MedioPago456VG.Trim());
-                        cmd.Parameters.AddWithValue("@NumTarj", obj.NumTarjeta.Trim());
-                        cmd.Parameters.AddWithValue("@Tit", obj.Titular.Trim());
-                        cmd.Parameters.AddWithValue("@FecVenc", obj.FechaVencimiento.Date);
-                        cmd.Parameters.AddWithValue("@CVC", obj.CVC.Trim());
+                        cmd.Parameters.AddWithValue("@NumTarj", obj.NumTarjeta456VG.Trim());
+                        cmd.Parameters.AddWithValue("@Tit", obj.Titular456VG.Trim());
+                        cmd.Parameters.AddWithValue("@FecVenc", obj.FechaVencimiento456VG.Date);
+                        cmd.Parameters.AddWithValue("@CVC", obj.CVC456VG.Trim());
                         int filasAfectadas = cmd.ExecuteNonQuery();
                         if (filasAfectadas == 0)
                             throw new Exception($"No se encontró ningún registro de datos de pago para el cliente {dni}.");

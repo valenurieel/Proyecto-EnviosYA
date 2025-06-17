@@ -10,18 +10,18 @@ namespace _456VG_BE
     {
         public BECliente_456VG Cliente_456VG { get; set; }
         public string MedioPago456VG { get; set; }
-        public string NumTarjeta { get; set; }
-        public string Titular { get; set; }
-        public DateTime FechaVencimiento { get; set; }
-        public string CVC { get; set; }
+        public string NumTarjeta456VG { get; set; }
+        public string Titular456VG { get; set; }
+        public DateTime FechaVencimiento456VG { get; set; }
+        public string CVC456VG { get; set; }
         public BEDatosPago_456VG(BECliente_456VG cliente, string mediopago, string numtarj, string titu, DateTime fvenc, string cvc)
         {
             this.Cliente_456VG = cliente;
             this.MedioPago456VG = mediopago;
-            this.NumTarjeta = numtarj;
-            this.Titular = titu;
-            this.FechaVencimiento = fvenc;
-            this.CVC = cvc;
+            this.NumTarjeta456VG = numtarj;
+            this.Titular456VG = titu;
+            this.FechaVencimiento456VG = fvenc;
+            this.CVC456VG = cvc;
         }
     }
 }

@@ -467,10 +467,10 @@ namespace Proyecto_EnviosYA
             if (datosPago != null)
             {
                 cmbMedPago456VG.SelectedItem = datosPago.MedioPago456VG;
-                txtNTarj456VG.Text = datosPago.NumTarjeta;
-                txtTitular456VG.Text = datosPago.Titular;
-                dateTimePicker1456VG.Value = datosPago.FechaVencimiento.Date;
-                txtCVC456VG.Text = datosPago.CVC;
+                txtNTarj456VG.Text = datosPago.NumTarjeta456VG;
+                txtTitular456VG.Text = datosPago.Titular456VG;
+                dateTimePicker1456VG.Value = datosPago.FechaVencimiento456VG.Date;
+                txtCVC456VG.Text = datosPago.CVC456VG;
             }
             else
             {
