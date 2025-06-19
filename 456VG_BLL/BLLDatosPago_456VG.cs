@@ -34,11 +34,11 @@ namespace _456VG_BLL
         {
             return dal.actualizarEntidad456VG(obj);
         }
-        public BEDatosPago_456VG LeerPorDni(string dni)
+        public BEDatosPago_456VG LeerPorDni456VG(string dni)
         {
             if (string.IsNullOrWhiteSpace(dni))
                 return null;
-            return dal.LeerPorDni(dni);
+            return dal.LeerPorDni456VG(dni);
         }
     }
 }

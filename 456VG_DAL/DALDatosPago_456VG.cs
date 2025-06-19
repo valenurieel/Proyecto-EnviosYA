@@ -142,7 +142,7 @@ namespace _456VG_DAL
         {
             throw new NotImplementedException();
         }
-        public BEDatosPago_456VG LeerPorDni(string dni)
+        public BEDatosPago_456VG LeerPorDni456VG(string dni)
         {
             BEDatosPago_456VG resultado = null;
             const string sql =

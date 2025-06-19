@@ -59,6 +59,7 @@
             this.txtDNI456VG.Name = "txtDNI456VG";
             this.txtDNI456VG.Size = new System.Drawing.Size(121, 22);
             this.txtDNI456VG.TabIndex = 0;
+            this.txtDNI456VG.TextChanged += new System.EventHandler(this.txtDNI456VG_TextChanged_1);
             this.txtDNI456VG.Leave += new System.EventHandler(this.txtDNI456VG_Leave_1);
             // 
             // txtNTarj456VG
@@ -222,6 +223,7 @@
             this.dgvPaquetesDetalle.Name = "dgvPaquetesDetalle";
             this.dgvPaquetesDetalle.Size = new System.Drawing.Size(893, 115);
             this.dgvPaquetesDetalle.TabIndex = 63;
+            this.dgvPaquetesDetalle.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPaquetesDetalle_CellContentClick);
             // 
             // label15
             // 

@@ -248,7 +248,6 @@ namespace Proyecto_EnviosYA
             clienteCargado = envioCargado.Cliente;
             dniRemitenteSeleccionado = clienteCargado.DNI456VG;
             clienteNombreCompleto = $"{clienteCargado.Nombre456VG} {clienteCargado.Apellido456VG}";
-
             if (envioCargado.Pagado456VG)
             {
                 lblImporte456VG.Text = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.LblImporteDefault");
@@ -374,7 +373,7 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-            var datosPagoExistente = BLLDatosPago.LeerPorDni(dniRemitenteSeleccionado);
+            var datosPagoExistente = BLLDatosPago.LeerPorDni456VG(dniRemitenteSeleccionado);
             if (datosPagoExistente == null)
             {
                 var nuevoPago = new BEDatosPago_456VG(
@@ -463,7 +462,7 @@ namespace Proyecto_EnviosYA
             string dniIngresado = txtDNI456VG.Text.Trim();
             if (string.IsNullOrEmpty(dniIngresado))
                 return;
-            var datosPago = BLLDatosPago.LeerPorDni(dniIngresado);
+            var datosPago = BLLDatosPago.LeerPorDni456VG(dniIngresado);
             if (datosPago != null)
             {
                 cmbMedPago456VG.SelectedItem = datosPago.MedioPago456VG;
@@ -486,6 +485,16 @@ namespace Proyecto_EnviosYA
                 dateTimePicker1456VG.Value = DateTime.Today;
                 txtCVC456VG.Clear();
             }
+        }
+
+        private void dgvPaquetesDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtDNI456VG_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
