@@ -318,7 +318,7 @@ namespace Proyecto_EnviosYA
                 string idioma = "ES";
                 var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
                 string perfil = perfilSeleccionado.nombre456VG;
-                int idPerfil = perfilSeleccionado.id_permiso456VG;
+                int idPerfil = perfilSeleccionado.CodPermiso456VG;
                 BEUsuario_456VG usernew = new BEUsuario_456VG(
                     dni, name, ape, email, telef,
                     nameuser, pass, domicilio, perfil,

@@ -63,6 +63,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,7 +180,7 @@
             // button8456VG
             // 
             this.button8456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8456VG.Location = new System.Drawing.Point(434, 412);
+            this.button8456VG.Location = new System.Drawing.Point(434, 439);
             this.button8456VG.Name = "button8456VG";
             this.button8456VG.Size = new System.Drawing.Size(61, 23);
             this.button8456VG.TabIndex = 34;
@@ -299,6 +301,7 @@
             this.BTNCrearFamilia456VG.TabIndex = 77;
             this.BTNCrearFamilia456VG.Text = "Crear familia";
             this.BTNCrearFamilia456VG.UseVisualStyleBackColor = true;
+            this.BTNCrearFamilia456VG.Click += new System.EventHandler(this.BTNCrearFamilia456VG_Click);
             // 
             // BTNEliminarFamilia456VG
             // 
@@ -309,6 +312,7 @@
             this.BTNEliminarFamilia456VG.TabIndex = 76;
             this.BTNEliminarFamilia456VG.Text = "Eliminar familia";
             this.BTNEliminarFamilia456VG.UseVisualStyleBackColor = true;
+            this.BTNEliminarFamilia456VG.Click += new System.EventHandler(this.BTNEliminarFamilia456VG_Click);
             // 
             // BTNAgregarPermiso456VG
             // 
@@ -319,6 +323,7 @@
             this.BTNAgregarPermiso456VG.TabIndex = 85;
             this.BTNAgregarPermiso456VG.Text = "Agregar Permiso";
             this.BTNAgregarPermiso456VG.UseVisualStyleBackColor = true;
+            this.BTNAgregarPermiso456VG.Click += new System.EventHandler(this.BTNAgregarPermiso456VG_Click);
             // 
             // label9
             // 
@@ -367,6 +372,7 @@
             this.BTNAplicar456VG.TabIndex = 80;
             this.BTNAplicar456VG.Text = "Agregar Familia";
             this.BTNAplicar456VG.UseVisualStyleBackColor = true;
+            this.BTNAplicar456VG.Click += new System.EventHandler(this.BTNAplicar456VG_Click);
             // 
             // button1
             // 
@@ -377,6 +383,7 @@
             this.button1.TabIndex = 86;
             this.button1.Text = "Quitar Permiso";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -387,6 +394,7 @@
             this.button2.TabIndex = 87;
             this.button2.Text = "Quitar Familia";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -397,6 +405,7 @@
             this.button3.TabIndex = 88;
             this.button3.Text = "Quitar Familia";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -407,13 +416,38 @@
             this.button4.TabIndex = 89;
             this.button4.Text = "Quitar Permiso";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(553, 441);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(99, 23);
+            this.button5.TabIndex = 90;
+            this.button5.Text = "Limpiar Familias";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(265, 439);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(95, 23);
+            this.button6.TabIndex = 91;
+            this.button6.Text = "Limpiar Perfiles";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Perfiles_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(927, 444);
+            this.ClientSize = new System.Drawing.Size(927, 474);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -492,5 +526,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }

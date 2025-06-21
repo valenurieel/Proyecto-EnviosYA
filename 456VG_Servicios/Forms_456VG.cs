@@ -9,7 +9,6 @@ namespace _456VG_Servicios
 {
     public class Forms_456VG
     {
-        //Habilita Menues y submenues según los permisos del Usuario.
         public void HabilitarMenusPorPermisos(ToolStripMenuItem menuItem, List<Permiso_456VG> permisos)
         {
             var permisoFormulario = permisos.FirstOrDefault(p => p.NombreFormulario456VG == menuItem.Name);
@@ -34,5 +33,17 @@ namespace _456VG_Servicios
                 }
             }
         }
+        public void DeshabilitarTodosLosMenus(ToolStripMenuItem item)
+        {
+            item.Enabled = false;
+            foreach (ToolStripItem subItem in item.DropDownItems)
+            {
+                if (subItem is ToolStripMenuItem subMenuItem)
+                {
+                    DeshabilitarTodosLosMenus(subMenuItem);
+                }
+            }
+        }
+
     }
 }

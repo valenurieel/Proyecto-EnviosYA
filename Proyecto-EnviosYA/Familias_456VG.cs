@@ -39,7 +39,7 @@ namespace Proyecto_EnviosYA
         private void CargarCombos456VG()
         {
             permisosDisponibles456VG = bllPerfil.CargarCBPermisos456VG()
-                                           .Where(p => !p.is_perfil456VG)
+                                           .Where(p => !p.IsPerfil456VG)
                                            .ToList();
             familiasDisponibles456VG = bllFamilia.leerEntidades456VG();
             CargarCombo456VG(CBPermisos456VG, permisosDisponibles456VG, p => p.nombre456VG);
@@ -156,8 +156,8 @@ namespace Proyecto_EnviosYA
                     f.nombre456VG.Equals(familiaSel.Nombre456VG, StringComparison.OrdinalIgnoreCase));
                 if (familiaExistente != null)
                 {
-                    int idPadre = familiaExistente.id_permiso456VG;
-                    int idHijo = permisoBE.id_permiso456VG;
+                    int idPadre = familiaExistente.CodPermiso456VG;
+                    int idHijo = permisoBE.CodPermiso456VG;
                     var res = bllFamilia.AgregarHijo456VG(idPadre, idHijo);
                     if (!res.resultado)
                     {
@@ -191,10 +191,10 @@ namespace Proyecto_EnviosYA
             if (!sel.HasValue) return;
             var famBE = sel.Value.Key;
             var subFamilia = new Familia_456VG(famBE.nombre456VG);
-            var hijos = bllFamilia.ObtenerRelacionesDeFamilia456VG(famBE.id_permiso456VG);
+            var hijos = bllFamilia.ObtenerRelacionesDeFamilia456VG(famBE.CodPermiso456VG);
             foreach (var rel in hijos)
             {
-                var permisoBE = permisosDisponibles456VG.FirstOrDefault(p => p.id_permiso456VG == rel.id_permisohijo456VG);
+                var permisoBE = permisosDisponibles456VG.FirstOrDefault(p => p.CodPermiso456VG == rel.CodPermisoHijo456VG);
                 if (permisoBE != null)
                     subFamilia.AgregarHijo456VG(new Permisos_456VG(permisoBE.nombre456VG));
             }
@@ -224,7 +224,7 @@ namespace Proyecto_EnviosYA
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            int idNueva = res.entidad.id_permiso456VG;
+            int idNueva = res.entidad.CodPermiso456VG;
             foreach (var hijo in nuevaFamilia456VG.ObtenerHijos456VG())
             {
                 int idHijo = BuscarID(hijo);
@@ -305,9 +305,9 @@ namespace Proyecto_EnviosYA
         private int BuscarID(Componente_456VG comp)
         {
             if (comp is Permisos_456VG p)
-                return permisosDisponibles456VG.FirstOrDefault(x => x.nombre456VG == p.Nombre456VG)?.id_permiso456VG ?? -1;
+                return permisosDisponibles456VG.FirstOrDefault(x => x.nombre456VG == p.Nombre456VG)?.CodPermiso456VG ?? -1;
             if (comp is Familia_456VG f)
-                return familiasDisponibles456VG.FirstOrDefault(x => x.nombre456VG == f.Nombre456VG)?.id_permiso456VG ?? -1;
+                return familiasDisponibles456VG.FirstOrDefault(x => x.nombre456VG == f.Nombre456VG)?.CodPermiso456VG ?? -1;
             return -1;
         }
         //Valida al crear Familia.

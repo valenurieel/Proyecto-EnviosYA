@@ -14,15 +14,13 @@ namespace _456VG_DAL
         {
             var resultado = new Resultado_456VG<int>();
             const string sql = @"
-        USE EnviosYA_456VG;
-        -- Primero eliminamos las relaciones padre→hijo
-        DELETE FROM PermisoPermiso_456VG
-         WHERE id_permisopadre_456VG = @idPerfil;
-        -- Luego eliminamos el perfil compuesto
-        DELETE FROM PermisosComp_456VG
-         WHERE id_permiso_456VG = @idPerfil
-           AND isPerfil_456VG = 1;
-    ";
+                USE EnviosYA_456VG;
+                DELETE FROM PermisoPermiso_456VG
+                 WHERE codpermisopadre_456VG = @idPerfil;
+                DELETE FROM PermisosComp_456VG
+                 WHERE codpermiso_456VG = @idPerfil
+                   AND isPerfil_456VG = 1;
+            ";
             try
             {
                 db.Conectar456VG();
@@ -66,7 +64,7 @@ namespace _456VG_DAL
                     IF @parentId IS NOT NULL
                     BEGIN
                         INSERT INTO PermisoPermiso_456VG
-                            (id_permisopadre_456VG, id_permisohijo_456VG)
+                            (codpermisopadre_456VG, codpermisohijo_456VG)
                         VALUES
                             (@parentId, @nuevoId);
                     END
@@ -80,7 +78,7 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@nombre", perfil.nombre456VG);
                     cmd.Parameters.AddWithValue("@formulario",
                         (object)perfil.permiso456VG ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@isPerfil", perfil.is_perfil456VG);
+                    cmd.Parameters.AddWithValue("@isPerfil", perfil.IsPerfil456VG);
                     cmd.Parameters.AddWithValue("@parentId",
                         parentId.HasValue ? (object)parentId.Value : DBNull.Value);
 
@@ -106,7 +104,7 @@ namespace _456VG_DAL
             var lista = new List<BEPerfil_456VG>();
             const string sql = @"
                 USE EnviosYA_456VG;
-                SELECT id_permiso_456VG, nombre_456VG
+                SELECT codpermiso_456VG, nombre_456VG
                   FROM PermisosComp_456VG
                  WHERE isPerfil_456VG = 1;";
             try
@@ -137,11 +135,11 @@ namespace _456VG_DAL
         {
             var lista = new List<BEPerfil_456VG>();
             const string sql = @"
-        USE EnviosYA_456VG;
-        SELECT id_permiso_456VG, nombre_456VG, nombre_formulario_456VG
-          FROM PermisosComp_456VG
-WHERE isPerfil_456VG = 0
-  AND nombre_formulario_456VG IS NOT NULL;";
+                        USE EnviosYA_456VG;
+                        SELECT codpermiso_456VG, nombre_456VG, nombre_formulario_456VG
+                          FROM PermisosComp_456VG
+                WHERE isPerfil_456VG = 0
+                  AND nombre_formulario_456VG IS NOT NULL;";
             try
             {
                 db.Conectar456VG();

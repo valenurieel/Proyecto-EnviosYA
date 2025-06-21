@@ -169,7 +169,7 @@ public class BasedeDatos_456VG
                 USE EnviosYA_456VG;
                 IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
                 CREATE TABLE PermisosComp_456VG (
-                    id_permiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
+                    codpermiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
                     nombre_456VG               NVARCHAR(100) NOT NULL,
                     nombre_formulario_456VG    NVARCHAR(100) NULL,
                     isPerfil_456VG             BIT NOT NULL DEFAULT 0
@@ -188,13 +188,13 @@ public class BasedeDatos_456VG
                 USE EnviosYA_456VG;
                 IF OBJECT_ID('dbo.PermisoPermiso_456VG','U') IS NULL
                 CREATE TABLE PermisoPermiso_456VG (
-                    id_permisopadre_456VG INT NOT NULL,
-                    id_permisohijo_456VG  INT NOT NULL,
-                    CONSTRAINT PK_PermisoPermiso_456VG PRIMARY KEY(id_permisopadre_456VG, id_permisohijo_456VG),
-                    CONSTRAINT FK_PP_Padre_456VG FOREIGN KEY(id_permisopadre_456VG)
-                        REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE CASCADE,
-                    CONSTRAINT FK_PP_Hijo_456VG FOREIGN KEY(id_permisohijo_456VG)
-                        REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE NO ACTION
+                    codpermisopadre_456VG INT NOT NULL,
+                    codpermisohijo_456VG  INT NOT NULL,
+                    CONSTRAINT PK_PermisoPermiso_456VG PRIMARY KEY(codpermisopadre_456VG, codpermisohijo_456VG),
+                    CONSTRAINT FK_PP_Padre_456VG FOREIGN KEY(codpermisopadre_456VG)
+                        REFERENCES PermisosComp_456VG(codpermiso_456VG) ON DELETE CASCADE,
+                    CONSTRAINT FK_PP_Hijo_456VG FOREIGN KEY(codpermisohijo_456VG)
+                        REFERENCES PermisosComp_456VG(codpermiso_456VG) ON DELETE NO ACTION
                 );
             ");
             //Tabla de Usuario Rol(Perfil)
@@ -203,12 +203,12 @@ public class BasedeDatos_456VG
                 IF OBJECT_ID('dbo.UsuarioPermiso_456VG', 'U') IS NULL
                 CREATE TABLE UsuarioPermiso_456VG (
                     dni_456VG            VARCHAR(20) NOT NULL,
-                    id_permiso_456VG     INT         NOT NULL,
-                    CONSTRAINT PK_UsuarioPermiso_456VG PRIMARY KEY(dni_456VG, id_permiso_456VG),
+                    codpermiso_456VG     INT         NOT NULL,
+                    CONSTRAINT PK_UsuarioPermiso_456VG PRIMARY KEY(dni_456VG, codpermiso_456VG),
                     CONSTRAINT FK_UP_Usuario_456VG FOREIGN KEY(dni_456VG)
                         REFERENCES Usuario_456VG(dni_456VG) ON DELETE CASCADE,
-                    CONSTRAINT FK_UP_Permiso_456VG FOREIGN KEY(id_permiso_456VG)
-                        REFERENCES PermisosComp_456VG(id_permiso_456VG) ON DELETE CASCADE
+                    CONSTRAINT FK_UP_Permiso_456VG FOREIGN KEY(codpermiso_456VG)
+                        REFERENCES PermisosComp_456VG(codpermiso_456VG) ON DELETE CASCADE
                 );
                 IF NOT EXISTS (
                     SELECT 1 FROM sys.indexes
@@ -216,7 +216,7 @@ public class BasedeDatos_456VG
                       AND object_id = OBJECT_ID('dbo.UsuarioPermiso_456VG')
                 )
                 CREATE INDEX IDX_UsuarioPermiso_Permiso_456VG
-                    ON UsuarioPermiso_456VG(id_permiso_456VG);
+                    ON UsuarioPermiso_456VG(codpermiso_456VG);
             ");
             dbReal.insertarDatosIniciales456VG();
         }
@@ -281,7 +281,7 @@ public class BasedeDatos_456VG
                     ('Crear Envío','crearenvíoToolStripMenuItem456VG'),
                     ('Maestro','maestroToolStripMenuItem456VG'),
                     ('Gestión de Clientes','clientesToolStripMenuItem456VG'),
-                    ('Administrador','administradorToolStripMenuItem456VG'),
+                    ('MenuAdministrador','administradorToolStripMenuItem456VG'),
                     ('Gestión de Usuarios','usuariosToolStripMenuItem456VG'),
                     ('Gestión de Perfiles','perfilesToolStripMenuItem456VG');
                 INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
@@ -299,20 +299,20 @@ public class BasedeDatos_456VG
                 INSERT INTO @rel VALUES
                     (1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),
                     (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,15),(2,16),(2,17),(2,18),
-                    (3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),
+                    (3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),
                     (3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21);
-                INSERT INTO PermisoPermiso_456VG(id_permisopadre_456VG,id_permisohijo_456VG)
+                INSERT INTO PermisoPermiso_456VG(codpermisopadre_456VG,codpermisohijo_456VG)
                 SELECT r.padre, r.hijo
                 FROM @rel r
                 WHERE NOT EXISTS(
                     SELECT 1 FROM PermisoPermiso_456VG pp
-                     WHERE pp.id_permisopadre_456VG = r.padre
-                       AND pp.id_permisohijo_456VG  = r.hijo
+                     WHERE pp.codpermisopadre_456VG = r.padre
+                       AND pp.codpermisohijo_456VG  = r.hijo
                 );"
         );
         dbReal.ejecutarQuery456VG(
               "USE EnviosYA_456VG; " +
-              "INSERT INTO UsuarioPermiso_456VG (dni_456VG, id_permiso_456VG) VALUES " +
+              "INSERT INTO UsuarioPermiso_456VG (dni_456VG, codpermiso_456VG) VALUES " +
                "('45984456', 3), " +
                "('12345678', 2), " +
                "('26202620', 1);"
@@ -326,12 +326,12 @@ public class BasedeDatos_456VG
                   ('Cobranza',     NULL, 0),
                   ('Recepciones',  NULL, 0);
                 SELECT 
-                  @idSeguridad   = MAX(CASE WHEN nombre_456VG = 'Seguridad'   THEN id_permiso_456VG END),
-                  @idCobranza    = MAX(CASE WHEN nombre_456VG = 'Cobranza'    THEN id_permiso_456VG END),
-                  @idRecepciones = MAX(CASE WHEN nombre_456VG = 'Recepciones' THEN id_permiso_456VG END)
+                  @idSeguridad   = MAX(CASE WHEN nombre_456VG = 'Seguridad'   THEN codpermiso_456VG END),
+                  @idCobranza    = MAX(CASE WHEN nombre_456VG = 'Cobranza'    THEN codpermiso_456VG END),
+                  @idRecepciones = MAX(CASE WHEN nombre_456VG = 'Recepciones' THEN codpermiso_456VG END)
                 FROM PermisosComp_456VG
                 WHERE isPerfil_456VG = 0;
-                INSERT INTO PermisoPermiso_456VG(id_permisopadre_456VG, id_permisohijo_456VG)
+                INSERT INTO PermisoPermiso_456VG(codpermisopadre_456VG, codpermisohijo_456VG)
                 VALUES
                   (@idSeguridad,  6),(@idSeguridad,  7),(@idSeguridad,  8),
                   (@idSeguridad,  9),(@idSeguridad, 10),(@idSeguridad, 11),

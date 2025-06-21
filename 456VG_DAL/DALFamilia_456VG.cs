@@ -18,15 +18,49 @@ namespace _456VG_DAL
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
+        //elimina relaciones de familias
+        public Resultado_456VG<int> EliminarRelacion456VG(int idPadre, int idHijo)
+        {
+            var resultado = new Resultado_456VG<int>();
+            const string sql = @"
+        USE EnviosYA_456VG;
+        DELETE FROM PermisoPermiso_456VG
+         WHERE codpermisopadre_456VG = @idPadre
+           AND codpermisohijo_456VG = @idHijo;";
+            try
+            {
+                db.Conectar456VG();
+                using (var cmd = new SqlCommand(sql, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@idPadre", idPadre);
+                    cmd.Parameters.AddWithValue("@idHijo", idHijo);
+                    int filas = cmd.ExecuteNonQuery();
+                    resultado.resultado = filas > 0;
+                    resultado.entidad = idHijo;
+                    if (!resultado.resultado)
+                        resultado.mensaje = "No se encontró la relación en BD.";
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = ex.Message;
+            }
+            finally
+            {
+                db.Desconectar456VG();
+            }
+            return resultado;
+        }
         //Lee todas las Familias.
         public List<BEFamilia_456VG> leerEntidades456VG()
         {
             var lista = new List<BEFamilia_456VG>();
             const string sql = @"
-        SELECT id_permiso_456VG, nombre_456VG
-          FROM PermisosComp_456VG
-         WHERE isPerfil_456VG = 0
-           AND nombre_formulario_456VG IS NULL;";
+                SELECT codpermiso_456VG, nombre_456VG
+                  FROM PermisosComp_456VG
+                 WHERE isPerfil_456VG = 0
+                   AND nombre_formulario_456VG IS NULL;";
             try
             {
                 db.Conectar456VG();
@@ -58,11 +92,11 @@ namespace _456VG_DAL
                 return resultado;
             }
             const string sql = @"
-        INSERT INTO PermisosComp_456VG
-            (nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
-        VALUES
-            (@nombre, NULL, 0);
-        SELECT SCOPE_IDENTITY();";
+                INSERT INTO PermisosComp_456VG
+                    (nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
+                VALUES
+                    (@nombre, NULL, 0);
+                SELECT SCOPE_IDENTITY();";
             try
             {
                 db.Conectar456VG();
@@ -72,7 +106,7 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@nombre", be.nombre456VG);
                     var id = Convert.ToInt32(cmd.ExecuteScalar());
                     tx.Commit();
-                    be.id_permiso456VG = id;
+                    be.CodPermiso456VG = id;
                     resultado.resultado = true;
                     resultado.entidad = be;
                 }
@@ -97,16 +131,15 @@ namespace _456VG_DAL
         {
             var resultado = new Resultado_456VG<BEFamilia_456VG>();
             const string verificarUsoSql = @"
-        SELECT COUNT(*) 
-          FROM PermisoPermiso_456VG 
-         WHERE id_permisohijo_456VG = @id;";
+                SELECT COUNT(*) 
+                  FROM PermisoPermiso_456VG 
+                 WHERE codpermisohijo_456VG = @id;";
             const string deleteSql = @"
-        DELETE FROM PermisoPermiso_456VG
-         WHERE id_permisopadre_456VG = @id;
-
-        DELETE FROM PermisosComp_456VG
-         WHERE id_permiso_456VG = @id AND isPerfil_456VG = 0;
-    ";
+                DELETE FROM PermisoPermiso_456VG
+                 WHERE codpermisopadre_456VG = @id;
+                DELETE FROM PermisosComp_456VG
+                 WHERE codpermiso_456VG = @id AND isPerfil_456VG = 0;
+            ";
             try
             {
                 db.Conectar456VG();
@@ -114,7 +147,7 @@ namespace _456VG_DAL
                 {
                     using (var verificarCmd = new SqlCommand(verificarUsoSql, db.Connection, tx))
                     {
-                        verificarCmd.Parameters.AddWithValue("@id", be.id_permiso456VG);
+                        verificarCmd.Parameters.AddWithValue("@id", be.CodPermiso456VG);
                         int usos = (int)verificarCmd.ExecuteScalar();
                         if (usos > 0)
                         {
@@ -125,11 +158,10 @@ namespace _456VG_DAL
                     }
                     using (var deleteCmd = new SqlCommand(deleteSql, db.Connection, tx))
                     {
-                        deleteCmd.Parameters.AddWithValue("@id", be.id_permiso456VG);
+                        deleteCmd.Parameters.AddWithValue("@id", be.CodPermiso456VG);
                         int filas = deleteCmd.ExecuteNonQuery();
                         resultado.resultado = filas > 0;
                         resultado.entidad = be;
-
                         if (!resultado.resultado)
                             resultado.mensaje = "No se encontró la familia o no pudo eliminarse.";
                     }
@@ -152,9 +184,9 @@ namespace _456VG_DAL
         {
             var lista = new List<BEPermisoComp_456VG>();
             const string sql = @"
-                SELECT id_permisopadre_456VG, id_permisohijo_456VG
+                SELECT codpermisopadre_456VG, codpermisohijo_456VG
                   FROM PermisoPermiso_456VG
-                 WHERE id_permisopadre_456VG = @padre;";
+                 WHERE codpermisopadre_456VG = @padre;";
             try
             {
                 db.Conectar456VG();
@@ -185,7 +217,7 @@ namespace _456VG_DAL
             var resultado = new Resultado_456VG<BEPermisoComp_456VG>();
             var existentes = new HashSet<int>();
             foreach (var rel in ObtenerRelacionesDeFamilia456VG(idPadre))
-                existentes.Add(rel.id_permisohijo456VG);
+                existentes.Add(rel.CodPermisoHijo456VG);
             if (existentes.Contains(idHijo))
             {
                 resultado.resultado = false;
@@ -193,7 +225,7 @@ namespace _456VG_DAL
                 return resultado;
             }
             const string sql = @"
-                INSERT INTO PermisoPermiso_456VG (id_permisopadre_456VG, id_permisohijo_456VG)
+                INSERT INTO PermisoPermiso_456VG (codpermisopadre_456VG, codpermisohijo_456VG)
                 VALUES (@padre, @hijo);";
             try
             {

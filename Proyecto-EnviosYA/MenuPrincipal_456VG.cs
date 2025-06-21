@@ -33,14 +33,17 @@ namespace Proyecto_EnviosYA
         }
         public void deshabilitados()
         {
-            recepcionToolStripMenuItem.Enabled = false;
-            administradorToolStripMenuItem456VG.Enabled = false;
-            maestroToolStripMenuItem456VG.Enabled = false;
-            cambiarIdiomaToolStripMenuItem456VG.Enabled = false;
-            envíosToolStripMenuItem456VG.Enabled = false;
-            reportesToolStripMenuItem456VG.Enabled = false;
-            cambiarClaveToolStripMenuItem456VG.Enabled = false;
+            foreach (ToolStripMenuItem item in menuStrip1456VG.Items)
+            {
+                formManager.DeshabilitarTodosLosMenus(item);
+            }
+            usuarioToolStripMenuItem456VG.Enabled = true;
+            cerrarSesiónToolStripMenuItem456VG.Enabled = true;
+            iniciarSesiónToolStripMenuItem456VG.Enabled = true;
+            ayudaToolStripMenuItem456VG.Enabled = true;
+            salirToolStripMenuItem456VG.Enabled = true;
         }
+
         public void chau()
         {
             lblBienvenido456VG.Visible = false;

@@ -20,5 +20,9 @@ namespace _456VG_Servicios
                     foreach (var n in hijo.ObtenerTodosNombresPermisos())
                         yield return n;
         }
+        public virtual bool IncluyePermiso(string nombrePermiso)
+        {
+            return ObtenerTodosNombresPermisos().Contains(nombrePermiso);
+        }
     }
 }

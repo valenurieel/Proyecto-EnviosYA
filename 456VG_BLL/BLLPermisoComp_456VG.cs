@@ -24,5 +24,9 @@ namespace _456VG_BLL
         {
             return dal.ListaPermisos456VG();
         }
+        public Resultado_456VG<int> eliminarRelacion456VG(int idPadre, int idHijo)
+        {
+            return dal.eliminarRelacion456VG(idPadre, idHijo);
+        }
     }
 }
