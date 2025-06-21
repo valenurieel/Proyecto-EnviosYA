@@ -59,6 +59,10 @@
             this.CBPermisos456VG = new System.Windows.Forms.ComboBox();
             this.CBFamilias456VG = new System.Windows.Forms.ComboBox();
             this.BTNAplicar456VG = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,7 +144,7 @@
             this.treeView1456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1456VG.Location = new System.Drawing.Point(213, 80);
             this.treeView1456VG.Name = "treeView1456VG";
-            this.treeView1456VG.Size = new System.Drawing.Size(214, 299);
+            this.treeView1456VG.Size = new System.Drawing.Size(214, 355);
             this.treeView1456VG.TabIndex = 21;
             // 
             // textBox1456VG
@@ -174,7 +178,7 @@
             // button8456VG
             // 
             this.button8456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8456VG.Location = new System.Drawing.Point(433, 383);
+            this.button8456VG.Location = new System.Drawing.Point(434, 412);
             this.button8456VG.Name = "button8456VG";
             this.button8456VG.Size = new System.Drawing.Size(61, 23);
             this.button8456VG.TabIndex = 34;
@@ -212,7 +216,7 @@
             // 
             this.cmboxflia456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboxflia456VG.FormattingEnabled = true;
-            this.cmboxflia456VG.Location = new System.Drawing.Point(56, 329);
+            this.cmboxflia456VG.Location = new System.Drawing.Point(56, 356);
             this.cmboxflia456VG.Name = "cmboxflia456VG";
             this.cmboxflia456VG.Size = new System.Drawing.Size(107, 23);
             this.cmboxflia456VG.TabIndex = 39;
@@ -221,7 +225,7 @@
             // aggflia456VG
             // 
             this.aggflia456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aggflia456VG.Location = new System.Drawing.Point(56, 356);
+            this.aggflia456VG.Location = new System.Drawing.Point(56, 383);
             this.aggflia456VG.Name = "aggflia456VG";
             this.aggflia456VG.Size = new System.Drawing.Size(107, 23);
             this.aggflia456VG.TabIndex = 38;
@@ -233,7 +237,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(53, 313);
+            this.label3.Location = new System.Drawing.Point(53, 340);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 15);
             this.label3.TabIndex = 37;
@@ -244,7 +248,7 @@
             this.treeView1.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.Location = new System.Drawing.Point(501, 80);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(213, 299);
+            this.treeView1.Size = new System.Drawing.Size(213, 355);
             this.treeView1.TabIndex = 71;
             // 
             // label6
@@ -309,7 +313,7 @@
             // BTNAgregarPermiso456VG
             // 
             this.BTNAgregarPermiso456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNAgregarPermiso456VG.Location = new System.Drawing.Point(760, 356);
+            this.BTNAgregarPermiso456VG.Location = new System.Drawing.Point(760, 383);
             this.BTNAgregarPermiso456VG.Name = "BTNAgregarPermiso456VG";
             this.BTNAgregarPermiso456VG.Size = new System.Drawing.Size(117, 23);
             this.BTNAgregarPermiso456VG.TabIndex = 85;
@@ -320,7 +324,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(757, 313);
+            this.label9.Location = new System.Drawing.Point(757, 340);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(54, 15);
             this.label9.TabIndex = 84;
@@ -340,7 +344,7 @@
             // 
             this.CBPermisos456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBPermisos456VG.FormattingEnabled = true;
-            this.CBPermisos456VG.Location = new System.Drawing.Point(760, 329);
+            this.CBPermisos456VG.Location = new System.Drawing.Point(760, 356);
             this.CBPermisos456VG.Name = "CBPermisos456VG";
             this.CBPermisos456VG.Size = new System.Drawing.Size(117, 23);
             this.CBPermisos456VG.TabIndex = 82;
@@ -364,12 +368,56 @@
             this.BTNAplicar456VG.Text = "Agregar Familia";
             this.BTNAplicar456VG.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(56, 309);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 23);
+            this.button1.TabIndex = 86;
+            this.button1.Text = "Quitar Permiso";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(56, 412);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 23);
+            this.button2.TabIndex = 87;
+            this.button2.Text = "Quitar Familia";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(760, 309);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(117, 23);
+            this.button3.TabIndex = 88;
+            this.button3.Text = "Quitar Familia";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(760, 412);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(117, 23);
+            this.button4.TabIndex = 89;
+            this.button4.Text = "Quitar Permiso";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // Perfiles_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(927, 418);
+            this.ClientSize = new System.Drawing.Size(927, 444);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.BTNAgregarPermiso456VG);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
@@ -440,5 +488,9 @@
         private System.Windows.Forms.ComboBox CBPermisos456VG;
         private System.Windows.Forms.ComboBox CBFamilias456VG;
         private System.Windows.Forms.Button BTNAplicar456VG;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }
