@@ -21,7 +21,7 @@ namespace _456VG_DAL
             db = new BasedeDatos_456VG();
             hasher = new HashSHA256_456VG();
         }
-        //Recupera el Idioma que tiene el Usuario y lo cambia.
+        //Recupera el Idioma que tiene el Usuario.
         public string RecuperarIdioma456VG(string dniUsuario)
         {
             const string sqlQuery = @"

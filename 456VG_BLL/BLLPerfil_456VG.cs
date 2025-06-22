@@ -29,6 +29,6 @@ namespace _456VG_BLL
             return dal.CargarCBPermisos456VG();
         }
         public Resultado_456VG<int> EliminarPerfil456VG(int idPerfil)
-    => dal.EliminarPerfil456VG(idPerfil);
+            => dal.EliminarPerfil456VG(idPerfil);
     }
 }

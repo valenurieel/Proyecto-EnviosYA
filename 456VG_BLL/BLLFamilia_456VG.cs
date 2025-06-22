@@ -18,19 +18,12 @@ namespace _456VG_BLL
         }
         public List<BEFamilia_456VG> leerEntidades456VG()
                     => dal.leerEntidades456VG();
-
         public Resultado_456VG<BEFamilia_456VG> crearEntidad456VG(BEFamilia_456VG obj)
             => dal.crearEntidad456VG(obj);
-
-        public Resultado_456VG<BEFamilia_456VG> actualizarEntidad456VG(BEFamilia_456VG obj)
-            => dal.actualizarEntidad456VG(obj);
-
         public Resultado_456VG<BEFamilia_456VG> eliminarEntidad456VG(BEFamilia_456VG obj)
             => dal.eliminarEntidad456VG(obj);
-
         public List<BEPermisoComp_456VG> ObtenerRelacionesDeFamilia456VG(int idFamiliaPadre)
             => dal.ObtenerRelacionesDeFamilia456VG(idFamiliaPadre);
-
         public Resultado_456VG<BEPermisoComp_456VG> AgregarHijo456VG(int idPadre, int idHijo)
             => dal.AgregarHijo456VG(idPadre, idHijo);
         public Resultado_456VG<int> EliminarRelacion456VG(int idPadre, int idHijo)

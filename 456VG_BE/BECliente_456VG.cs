@@ -15,7 +15,6 @@ namespace _456VG_BE
         public string Domicilio456VG { get; set; }
         public DateTime FechaNacimiento456VG { get; set; }
         public bool Activo456VG { get; set; }
-
         public BECliente_456VG(string dni, string name, string ape, string tel, string dom, DateTime fechanac, bool act)
         {
             this.DNI456VG = dni;
@@ -26,7 +25,6 @@ namespace _456VG_BE
             this.FechaNacimiento456VG = fechanac;
             this.Activo456VG = act;
         }
-
         public BECliente_456VG(string dni, string name, string ape, string tel, string dom, DateTime fechanac)
         {
             this.DNI456VG = dni;

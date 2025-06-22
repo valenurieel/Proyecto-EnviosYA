@@ -8,7 +8,7 @@ namespace _456VG_BE
 {
     public class BEDatosPago_456VG
     {
-        public BECliente_456VG Cliente_456VG { get; set; }
+        public BECliente_456VG Cliente_456VG { get; set; } //recupera cliente
         public string MedioPago456VG { get; set; }
         public string NumTarjeta456VG { get; set; }
         public string Titular456VG { get; set; }

@@ -9,7 +9,7 @@ namespace _456VG_DAL
     public class DALPermisoComp_456VG
     {
         BasedeDatos_456VG db = new BasedeDatos_456VG();
-        //elimina permiso de perfil
+        //elimina relacion de codPadre con codHijo
         public Resultado_456VG<int> eliminarRelacion456VG(int idPadre, int idHijo)
         {
             var resultado = new Resultado_456VG<int>();

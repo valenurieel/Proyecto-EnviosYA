@@ -6,8 +6,8 @@ namespace _456VG_BE
 {
     public class BEEnvío_456VG
     {
-        public BECliente_456VG Cliente { get; set; }
-        public List<BEPaquete_456VG> Paquetes { get; set; } = new List<BEPaquete_456VG>();
+        public BECliente_456VG Cliente { get; set; } //cliente
+        public List<BEPaquete_456VG> Paquetes { get; set; } = new List<BEPaquete_456VG>(); //paquetes del cliente en el envío
         public string DNIDest456VG { get; set; }
         public string NombreDest456VG { get; set; }
         public string ApellidoDest456VG { get; set; }
@@ -18,14 +18,9 @@ namespace _456VG_BE
         public string Provincia456VG { get; set; }
         public string tipoenvio456VG { get; set; }
         public decimal Importe456VG { get; private set; }
-        public bool Pagado456VG { get; set; }
+        public bool Pagado456VG { get; set; } //si está pagado el envío
         public string CodEnvio456VG { get; set; }
-        public BEEnvío_456VG(
-            BECliente_456VG cliente,
-            List<BEPaquete_456VG> paquetes,
-            string dniDest, string nomDest, string apeDest, string telDest,
-            float codPostal, string dom, string loc, string prov,
-            string tipoEnvio, bool pagado)
+        public BEEnvío_456VG(BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado)
         {
             this.Cliente = cliente;
             this.Paquetes = paquetes;

@@ -14,7 +14,7 @@ namespace _456VG_Servicios
         {
             Nombre456VG = nombre ?? throw new ArgumentNullException(nameof(nombre));
         }
-        //Verifica que no se repitan Permisos en la misma Familia.
+        //Agrega Permisos bajo la Familia y verifica que no se repitan Permisos.
         public override void AgregarHijo456VG(Componente_456VG nuevo)
         {
             var existentes = new HashSet<string>(ObtenerTodosNombresPermisos());

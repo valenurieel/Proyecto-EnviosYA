@@ -183,7 +183,7 @@ public class BasedeDatos_456VG
                     ON PermisosComp_456VG(nombre_456VG)
                     WHERE isPerfil_456VG = 0 AND nombre_formulario_456VG IS NULL;
             ");
-            //Tabla que relaciona permisos y perfiles, familias, etc
+            //Tabla que relaciona permisos, perfiles y familias
             dbReal.ejecutarQuery456VG(@"
                 USE EnviosYA_456VG;
                 IF OBJECT_ID('dbo.PermisoPermiso_456VG','U') IS NULL

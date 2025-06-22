@@ -11,7 +11,7 @@ namespace _456VG_BE
         public int CodPermiso456VG { get; set; }
         public string nombre456VG { get; set; }
         public string permiso456VG { get; set; }
-        public bool IsPerfil456VG { get; set; }
+        public bool IsPerfil456VG { get; set; } // si es perfil (1) o no (Familia o Permiso).
         public BEPerfil_456VG(int id_permiso, string nombre, string permiso, bool is_perfil)
         {
             this.CodPermiso456VG = id_permiso;

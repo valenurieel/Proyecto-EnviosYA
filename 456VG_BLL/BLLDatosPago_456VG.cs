@@ -14,22 +14,18 @@ namespace _456VG_BLL
         {
             dal = new DALDatosPago_456VG();
         }
-
         public List<BEDatosPago_456VG> leerEntidades456VG()
         {
             return dal.leerEntidades456VG();
         }
-
         public Resultado_456VG<BEDatosPago_456VG> crearEntidad456VG(BEDatosPago_456VG datosPago)
         {
             return dal.crearEntidad456VG(datosPago);
         }
-
         public Resultado_456VG<BEDatosPago_456VG> eliminarEntidad456VG(BEDatosPago_456VG obj)
         {
             return dal.eliminarEntidad456VG(obj);
         }
-
         public Resultado_456VG<BEDatosPago_456VG> actualizarEntidad456VG(BEDatosPago_456VG obj)
         {
             return dal.actualizarEntidad456VG(obj);

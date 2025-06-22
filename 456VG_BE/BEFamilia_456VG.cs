@@ -10,10 +10,7 @@ namespace _456VG_BE
     {
         public int CodPermiso456VG { get; set; }
         public string nombre456VG { get; set; }
-        //public bool IsPerfil456VG { get; set; } = false; // 1 = perfil, 0 = familias y permisos
-
         public BEFamilia_456VG() { }
-
         public BEFamilia_456VG(int id, string nombre)
         {
             CodPermiso456VG = id;

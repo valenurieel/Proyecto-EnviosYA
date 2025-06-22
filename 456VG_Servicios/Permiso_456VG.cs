@@ -20,21 +20,5 @@ namespace _456VG_Servicios
             IsPerfil456VG = isPerfil;
             PermisosHijos456VG = new List<Permiso_456VG>();
         }
-        //Ver si tiene Hijos
-        public bool IncluyePermiso(string permisoRequerido)
-        {
-            if (Nombre456VG == permisoRequerido)
-            {
-                return true;
-            }
-            foreach (var permisoHijo in PermisosHijos456VG)
-            {
-                if (permisoHijo.IncluyePermiso(permisoRequerido))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }

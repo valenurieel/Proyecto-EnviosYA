@@ -6,7 +6,7 @@ namespace _456VG_BE
     public class BEFactura_456VG
     {
         public string CodFactura456VG { get; private set; }
-        public BEEnvío_456VG Envio { get; set; }
+        public BEEnvío_456VG Envio { get; set; } //recupera envío con datos de Paquete y de Cliente
         public DateTime FechaEmision456VG { get; private set; }
         public TimeSpan HoraEmision456VG { get; private set; }
         public BEFactura_456VG(BEEnvío_456VG envio, DateTime fechaHoraEmision)

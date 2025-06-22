@@ -117,12 +117,6 @@
     <Compile Include="CrearEnvío_456VG.Designer.cs">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
     </Compile>
-    <Compile Include="Familias_456VG.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Familias_456VG.Designer.cs">
-      <DependentUpon>Familias_456VG.cs</DependentUpon>
-    </Compile>
     <Compile Include="GestiondeClientes_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,9 +169,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearEnvío_456VG.resx">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Familias_456VG.resx">
-      <DependentUpon>Familias_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestiondeClientes_456VG.resx">
       <DependentUpon>GestiondeClientes_456VG.cs</DependentUpon>

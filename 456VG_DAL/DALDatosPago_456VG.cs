@@ -9,11 +9,9 @@ namespace _456VG_DAL
     public class DALDatosPago_456VG : ICrud_456VG<BEDatosPago_456VG>
     {
         BasedeDatos_456VG db { get; }
-        HashSHA256_456VG hasher { get; set; }
         public DALDatosPago_456VG()
         {
             db = new BasedeDatos_456VG();
-            hasher = new HashSHA256_456VG();
         }
         public Resultado_456VG<BEDatosPago_456VG> crearEntidad456VG(BEDatosPago_456VG obj)
         {

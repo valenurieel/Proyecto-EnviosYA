@@ -5,14 +5,13 @@ namespace _456VG_BE
 {
     public class BEPaquete_456VG
     {
-        public BECliente_456VG Cliente { get; set; }
+        public BECliente_456VG Cliente { get; set; } //cliente
         public float Peso456VG { get; set; }
         public float Ancho456VG { get; set; }
         public float Largo456VG { get; set; }
         public float Alto456VG { get; set; }
         public bool Enviado456VG { get; set; }
         public string CodPaq456VG { get; set; }
-
         public BEPaquete_456VG(BECliente_456VG cliente, float peso, float ancho, float largo, float alto, bool enviado)
         {
             this.Cliente = cliente;

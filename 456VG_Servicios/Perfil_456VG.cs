@@ -14,10 +14,6 @@ namespace _456VG_Servicios
         {
             Nombre456VG = nombre;
         }
-        public bool IncluyePermiso(string nombrePermiso)
-        {
-            return ObtenerTodosNombresPermisos().Contains(nombrePermiso);
-        }
         //Agrega Perfil y Permisos dentro del Perfil
         public override void AgregarHijo456VG(Componente_456VG nuevo)
         {
