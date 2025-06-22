@@ -223,7 +223,6 @@ namespace Proyecto_EnviosYA
                 {
                     var permBE = todosPermisosBE
                         .FirstOrDefault(p => p.CodPermiso456VG == rel.CodPermisoHijo456VG);
-
                     if (permBE != null)
                         perfilComp.AgregarHijo456VG(new Permisos_456VG(permBE.nombre456VG));
                 }
@@ -243,6 +242,7 @@ namespace Proyecto_EnviosYA
             PintaChildren(nodoPerfil, perfilComp);
             root.Expand();
         }
+        //Agrega en el tree la cascada de permisos según el Padre.
         private void PintaChildren(TreeNode padre, Componente_456VG comp)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -529,15 +529,6 @@ namespace Proyecto_EnviosYA
             }
             var beFamilia = sel.Value.Key;
             var familiaObj = ReconstruirFamiliaRecursiva456VG(beFamilia.CodPermiso456VG);
-            if (familiaObj == null)
-            {
-                MessageBox.Show(
-                    "No se pudo reconstruir la familia seleccionada.",
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error
-                );
-                return;
-            }
             try
             {
                 padrePerfil.AgregarHijo456VG(familiaObj);
