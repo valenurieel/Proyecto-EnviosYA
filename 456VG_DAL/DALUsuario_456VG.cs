@@ -157,7 +157,7 @@ namespace _456VG_DAL
             }
             return resultado;
         }
-        //Recupera el Perfil del Usuario que se loguea con sus Permisos.
+        //Recupera a partir del Perfil de User, sus Permisos.
         public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dniUsuario)
         {
             var permisos = new List<Permiso_456VG>();

@@ -80,11 +80,7 @@ namespace Proyecto_EnviosYA
                 return;
             }
             HashSHA256_456VG hasheador = new HashSHA256_456VG();
-            bool contraseñaCorrecta = hasheador.VerificarPassword456VG(
-                contraseña,
-                usuario.Contraseña456VG,
-                usuario.Salt456VG
-            );
+            bool contraseñaCorrecta = hasheador.VerificarPassword456VG(contraseña, usuario.Contraseña456VG, usuario.Salt456VG);
             if (!contraseñaCorrecta)
             {
                 if (!intentosFallidosPorUsuario.ContainsKey(dni))
@@ -109,7 +105,6 @@ namespace Proyecto_EnviosYA
                 {
                     usuario.Bloqueado456VG = true;
                     BLLUsuario.bloquearUsuario456VG(usuario);
-
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.UsuarioBloqueadoIntentos"),
                         lng.ObtenerTexto_456VG("IniciarSesion_456VG.Text"),
@@ -120,8 +115,6 @@ namespace Proyecto_EnviosYA
                 }
                 return;
             }
-            SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuario);
-            intentosFallidosPorUsuario.Clear();
             string idiomaUsuario = BLLUsuario.RecuperarIdioma456VG(usuario.DNI456VG);
             Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = idiomaUsuario;
             MessageBox.Show(
@@ -131,6 +124,7 @@ namespace Proyecto_EnviosYA
                 MessageBoxIcon.Information
             );
             SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuario);
+            intentosFallidosPorUsuario.Clear();
             LoginExitoso?.Invoke(this, EventArgs.Empty);
             this.Hide();
         }

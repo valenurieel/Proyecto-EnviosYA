@@ -410,7 +410,7 @@ namespace Proyecto_EnviosYA
                                             .Value
                                             .ToString();
                 var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
-                string nombreOriginal = ObtenerNombreOriginalDesdeTraducido456VG(perfilSeleccionado.nombre456VG);
+                string perfil = ObtenerNombreOriginalDesdeTraducido456VG(perfilSeleccionado.nombre456VG);
                 BEUsuario_456VG usuarioAActualizar = new BEUsuario_456VG
                 (
                     dniSeleccionado,
@@ -420,7 +420,7 @@ namespace Proyecto_EnviosYA
                     txttelef456VG.Text.Trim(),
                     txtNameUser456VG.Text.Trim(),
                     txtdomicilio456VG.Text.Trim(),
-                    nombreOriginal
+                    perfil
                 );
                 Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.actualizarEntidad456VG(usuarioAActualizar);
                 if (resultado.resultado)
