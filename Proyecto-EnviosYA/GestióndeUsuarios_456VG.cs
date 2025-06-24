@@ -312,7 +312,6 @@ namespace Proyecto_EnviosYA
                 string nameuser = txtdni456VG.Text + txtapellido456VG.Text;
                 string domicilio = txtdomicilio456VG.Text;
                 string pass = txtdni456VG.Text + txtnombre456VG.Text;
-                string rol = cmbrol456VG.SelectedItem?.ToString();
                 bool bloqueado = false;
                 bool activo = true;
                 string idioma = "ES";
