@@ -37,19 +37,20 @@ namespace _456VG_BE
             this.CodEnvio456VG = GenerateCodEnvio456VG();
             this.Importe456VG = CalcularImporte456VG();
         }
-        //genero codigo de envio
+        //genero codigo de envio (cant paquete, 3 dig de DNI, 3 dig de Nombre y hora)
         private string GenerateCodEnvio456VG()
         {
             int cantidadPaquetes = Paquetes.Count;
             string dni = (Cliente.DNI456VG ?? "").Length >= 3
                 ? Cliente.DNI456VG.Substring(0, 3).ToUpper()
-                : Cliente.DNI456VG.ToUpper().PadRight(3, 'X');
+                : (Cliente.DNI456VG ?? "").ToUpper().PadRight(3, 'X');
             string nombre = (Cliente.Nombre456VG ?? "").Length >= 3
                 ? Cliente.Nombre456VG.Substring(0, 3).ToUpper()
-                : Cliente.Nombre456VG.ToUpper().PadRight(3, 'X');
-            return $"{cantidadPaquetes}{dni}{nombre}";
+                : (Cliente.Nombre456VG ?? "").ToUpper().PadRight(3, 'X');
+            string sufijoTime = DateTime.Now.ToString("HHmmssfff");
+            return $"{cantidadPaquetes}{dni}{nombre}{sufijoTime}";
         }
-        //calculo importe del envio
+        //calculo importe del envio (destino, tipo de envío, paquete(detalles), tarifa Base)
         public decimal CalcularImporte456VG()
         {
             decimal totalBruto = 0m;

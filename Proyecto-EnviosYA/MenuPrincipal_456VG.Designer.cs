@@ -51,6 +51,7 @@
             this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
             this.lblBienvenido456VG = new System.Windows.Forms.Label();
             this.lblBienvenidoDefault = new System.Windows.Forms.Label();
+            this.seguimientoEnvíosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1456VG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
@@ -190,7 +191,8 @@
             // reportesToolStripMenuItem456VG
             // 
             this.reportesToolStripMenuItem456VG.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.facturasIMPToolStripMenuItem456VG});
+            this.facturasIMPToolStripMenuItem456VG,
+            this.seguimientoEnvíosToolStripMenuItem});
             this.reportesToolStripMenuItem456VG.Name = "reportesToolStripMenuItem456VG";
             this.reportesToolStripMenuItem456VG.Size = new System.Drawing.Size(112, 22);
             this.reportesToolStripMenuItem456VG.Text = "Reportes";
@@ -199,8 +201,8 @@
             // facturasIMPToolStripMenuItem456VG
             // 
             this.facturasIMPToolStripMenuItem456VG.Name = "facturasIMPToolStripMenuItem456VG";
-            this.facturasIMPToolStripMenuItem456VG.Size = new System.Drawing.Size(161, 22);
-            this.facturasIMPToolStripMenuItem456VG.Text = "Facturas - IMP";
+            this.facturasIMPToolStripMenuItem456VG.Size = new System.Drawing.Size(193, 22);
+            this.facturasIMPToolStripMenuItem456VG.Text = "Facturas";
             // 
             // ayudaToolStripMenuItem456VG
             // 
@@ -254,6 +256,12 @@
             this.lblBienvenidoDefault.TabIndex = 4;
             this.lblBienvenidoDefault.Text = "¡Bienvenida/o!";
             // 
+            // seguimientoEnvíosToolStripMenuItem
+            // 
+            this.seguimientoEnvíosToolStripMenuItem.Name = "seguimientoEnvíosToolStripMenuItem";
+            this.seguimientoEnvíosToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.seguimientoEnvíosToolStripMenuItem.Text = "Seguimiento Envíos";
+            // 
             // MenuPrincipal_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -302,6 +310,7 @@
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem456VG;
         private System.Windows.Forms.ToolStripMenuItem cobrarEnvíoToolStripMenuItem;
         private System.Windows.Forms.Label lblBienvenidoDefault;
+        private System.Windows.Forms.ToolStripMenuItem seguimientoEnvíosToolStripMenuItem;
     }
 }
 

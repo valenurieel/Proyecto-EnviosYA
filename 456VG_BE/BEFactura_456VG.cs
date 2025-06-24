@@ -16,7 +16,7 @@ namespace _456VG_BE
             this.HoraEmision456VG = fechaHoraEmision.TimeOfDay;
             this.CodFactura456VG = GenerateCodFactura456VG();
         }
-        //genero codigo de factura
+        //genero codigo de factura (cant paquete, 3 dig de DNI, 3 dig de Nombre y hora)
         private string GenerateCodFactura456VG()
         {
             int cantidadPaquetes = Envio.Paquetes.Count;
@@ -26,10 +26,8 @@ namespace _456VG_BE
             string nombre = (Envio.Cliente.Nombre456VG ?? "").Length >= 3
                 ? Envio.Cliente.Nombre456VG.Substring(0, 3).ToUpper()
                 : (Envio.Cliente.Nombre456VG ?? "").ToUpper().PadRight(3, 'X');
-            string dia = FechaEmision456VG.Day.ToString("D2");
-            string mes = FechaEmision456VG.Month.ToString("D2");
-            string año = FechaEmision456VG.Year.ToString("D4");
-            return $"{cantidadPaquetes}{dni}{nombre}{dia}{mes}{año}";
+            string sufijoTime = DateTime.Now.ToString("HHmmssfff");
+            return $"{cantidadPaquetes}{dni}{nombre}{sufijoTime}";
         }
     }
 }

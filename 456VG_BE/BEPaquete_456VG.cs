@@ -22,7 +22,7 @@ namespace _456VG_BE
             this.Enviado456VG = enviado;
             this.CodPaq456VG = GenerateCodPaq456VG();
         }
-        //genera codigo del paquete
+        //genera codigo del paquete (3 dig de DNI, 3 dig de Nombre y hora)
         private string GenerateCodPaq456VG()
         {
             string dni = (Cliente.DNI456VG ?? "").Length >= 3
