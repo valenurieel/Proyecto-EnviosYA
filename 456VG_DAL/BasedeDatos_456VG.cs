@@ -276,14 +276,15 @@ public class BasedeDatos_456VG
                     ('Cambiar Idioma','cambiarIdiomaToolStripMenuItem456VG'),
                     ('Cambiar Contraseña','cambiarClaveToolStripMenuItem456VG'),
                     ('Reportes','reportesToolStripMenuItem456VG'),
-                    ('Facturas - IMP','facturasIMPToolStripMenuItem456VG'),
+                    ('Facturas','facturasIMPToolStripMenuItem456VG'),
                     ('Envíos','envíosToolStripMenuItem456VG'),
                     ('Crear Envío','crearenvíoToolStripMenuItem456VG'),
                     ('Maestro','maestroToolStripMenuItem456VG'),
                     ('Gestión de Clientes','clientesToolStripMenuItem456VG'),
                     ('MenuAdministrador','administradorToolStripMenuItem456VG'),
                     ('Gestión de Usuarios','usuariosToolStripMenuItem456VG'),
-                    ('Gestión de Perfiles','perfilesToolStripMenuItem456VG');
+                    ('Gestión de Perfiles','perfilesToolStripMenuItem456VG'),
+                    ('Seguimiento Envíos','seguimientoEnvíosToolStripMenuItem');
                 INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
                 SELECT l.nombre, l.formulario, 0
                 FROM @lista l
@@ -297,10 +298,10 @@ public class BasedeDatos_456VG
                 USE EnviosYA_456VG;
                 DECLARE @rel TABLE(padre INT, hijo INT);
                 INSERT INTO @rel VALUES
-                    (1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),
+                    (1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,22),
                     (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,15),(2,16),(2,17),(2,18),
                     (3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),
-                    (3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21);
+                    (3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21),(3,22);
                 INSERT INTO PermisoPermiso_456VG(codpermisopadre_456VG,codpermisohijo_456VG)
                 SELECT r.padre, r.hijo
                 FROM @rel r
@@ -338,7 +339,7 @@ public class BasedeDatos_456VG
                   (@idSeguridad, 12),
                   (@idCobranza,   4),(@idCobranza,   5),
                   (@idRecepciones, 4),(@idRecepciones,16),(@idRecepciones,17),
-                  (@idRecepciones,18),(@idRecepciones,15),(@idRecepciones,14),
+                  (@idRecepciones,18),(@idRecepciones,15),(@idRecepciones,14), (@idRecepciones,22),
                   (@idRecepciones,13);"
         );
     }
