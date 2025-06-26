@@ -95,18 +95,76 @@ namespace Proyecto_EnviosYA
         private void btnDesbloq456VG_Click(object sender, EventArgs e)
         {
         }
+        private bool DNIEstaRegistradoEnSistema(string dni)
+        {
+            return new BLLUsuario_456VG().leerEntidades456VG().Any(u => u.DNI456VG == dni)
+                || new BLLCliente_456VG().leerEntidades456VG().Any(c => c.DNI456VG == dni)
+                || new BLLEnvio_456VG().leerEntidades456VG().Any(e => e.DNIDest456VG == dni);
+        }
         private void btnAplicar456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             if (label13456VG.Text == lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Añadir"))
             {
-                string dni = txtdni456VG.Text;
-                string name = txtnombre456VG.Text;
-                string ape = txtapellido456VG.Text;
-                string telef = txttelef456VG.Text;
-                string domicilio = txtdomicilio456VG.Text;
-                DateTime fechaNacimiento = dateTimePicker1456VG.Value;
+                string dni = txtdni456VG.Text.Trim();
+                string name = txtnombre456VG.Text.Trim();
+                string ape = txtapellido456VG.Text.Trim();
+                string telef = txttelef456VG.Text.Trim();
+                string domicilio = txtdomicilio456VG.Text.Trim();
+                DateTime fechaNacimiento = dateTimePicker1456VG.Value.Date;
                 bool activo = true;
+                if (string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(name) ||
+                    string.IsNullOrWhiteSpace(ape) || string.IsNullOrWhiteSpace(telef) ||
+                    string.IsNullOrWhiteSpace(domicilio))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.CamposObligatorios"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                if (dni.Length != 8 || !dni.All(char.IsDigit))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.DNIInvalido"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                if (telef.Length != 10 || !telef.All(char.IsDigit))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.TelefonoInvalido"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                if (fechaNacimiento > DateTime.Today)
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.FechaNacimientoInvalida"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                if (DNIEstaRegistradoEnSistema(dni))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.DNIRepetido"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
                 BECliente_456VG clinew = new BECliente_456VG(
                     dni, name, ape, telef, domicilio, fechaNacimiento, activo
                 );

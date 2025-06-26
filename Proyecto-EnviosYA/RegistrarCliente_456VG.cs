@@ -2,6 +2,7 @@
 using _456VG_BLL;
 using _456VG_Servicios;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Proyecto_EnviosYA
@@ -41,6 +42,39 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
+            if (dniCli.Length != 8 || !dniCli.All(char.IsDigit))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.DNIInvalido"),
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.ErrorRegistroTitle"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtDNICli456VG.Focus();
+                return;
+            }
+            if (telCli.Length != 10 || !telCli.All(char.IsDigit))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.TelefonoInvalido"),
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.ErrorRegistroTitle"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtTelCli456VG.Focus();
+                return;
+            }
+            if (fechaNacCli.Date > DateTime.Today)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.FechaNacimientoInvalida"),
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.ErrorRegistroTitle"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                dateTimePicker1456VG.Focus();
+                return;
+            }
             var existe = BLLCliente.ObtenerClientePorDNI456VG(dniCli);
             if (existe.resultado && existe.entidad != null)
             {
@@ -49,6 +83,16 @@ namespace Proyecto_EnviosYA
                     lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.ErrorRegistroTitle"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
+                );
+                return;
+            }
+            if (DNIEstaRegistradoEnSistema(dniCli))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.DNIRepetido"),
+                    lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.ErrorRegistroTitle"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
                 );
                 return;
             }
@@ -84,6 +128,12 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Error
                 );
             }
+        }
+        private bool DNIEstaRegistradoEnSistema(string dni)
+        {
+            return new BLLUsuario_456VG().leerEntidades456VG().Any(u => u.DNI456VG == dni)
+                || new BLLCliente_456VG().leerEntidades456VG().Any(c => c.DNI456VG == dni)
+                || new BLLEnvio_456VG().leerEntidades456VG().Any(e => e.DNIDest456VG == dni);
         }
         private void RegistrarCliente_456VG_Load(object sender, EventArgs e)
         {

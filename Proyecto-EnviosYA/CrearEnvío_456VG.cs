@@ -259,6 +259,64 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
+            if (txtDNID456VG.Text.Length != 8 || !txtDNID456VG.Text.All(char.IsDigit))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.DNIDestinatarioInvalido"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDNID456VG.Focus();
+                return;
+            }
+            if (DNIEstaRegistradoEnSistema(txtDNID456VG.Text.Trim()))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.DNIDestinatarioRepetido"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtDNID456VG.Focus();
+                return;
+            }
+            if (txtCP456VG.Text.Length != 4 || !txtCP456VG.Text.All(char.IsDigit))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.CPInvalido"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCP456VG.Focus();
+                return;
+            }
+            if (txtTelD456VG.Text.Length != 10 || !txtTelD456VG.Text.All(char.IsDigit))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.TelefonoDestinatarioInvalido"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelD456VG.Focus();
+                return;
+            }
+            var provinciaIngresada = txtProv456VG.Text.Trim().ToLower();
+            var provinciasValidas = new HashSet<string>
+            {
+                "mendoza", "san luis", "cordoba", "córdoba", "tucuman", "tucumán", "san juan", "la rioja",
+                "santa fe", "entre rios", "entre ríos", "corrientes", "misiones", "jujuy", "salta", "formosa",
+                "chaco", "santiago del estero", "catamarca",
+                "buenos aires",
+                "tierra del fuego", "neuquen", "neuquén", "chubut", "santa cruz", "la pampa", "rio negro"
+            };
+            if (!provinciasValidas.Contains(provinciaIngresada))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.ProvinciaNoValida"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtProv456VG.Focus();
+                return;
+            }
             string tipoEnvio = cmbTipEnvio456VG.SelectedItem?.ToString()
                                 ?? lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal");
             var envio = new BEEnvío_456VG(
@@ -306,6 +364,15 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             string dni = txtDNICli456VG.Text.Trim();
+            if (dni.Length != 8 || !dni.All(char.IsDigit))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Msg.DNIClienteInvalido"),
+                    lng.ObtenerTexto_456VG("CrearEnvío_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDNICli456VG.Focus();
+                return;
+            }
             if (string.IsNullOrEmpty(dni)) return;
             var resCli = BLLCliente.ObtenerClientePorDNI456VG(dni);
             if (resCli.resultado && resCli.entidad != null)
@@ -343,9 +410,17 @@ namespace Proyecto_EnviosYA
                 regcli.ShowDialog();
             }
         }
+        private bool DNIEstaRegistradoEnSistema(string dni)
+        {
+            return new BLLUsuario_456VG().leerEntidades456VG().Any(u => u.DNI456VG == dni)
+                || new BLLCliente_456VG().leerEntidades456VG().Any(c => c.DNI456VG == dni);
+        }
         private void CrearEnvío_456VG_Load(object sender, EventArgs e)
         {
             ActualizarIdioma_456VG();
+            txtNomCli456VG.Enabled = false;
+            txtApeCli456VG.Enabled = false;
+            txtTelCli456VG.Enabled = false;
         }
         private void button1_Click(object sender, EventArgs e)
         {

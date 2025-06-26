@@ -54,17 +54,20 @@ namespace _456VG_BE
         public decimal CalcularImporte456VG()
         {
             decimal totalBruto = 0m;
-            float factorZona = 1.0f;
-            string prov = Provincia456VG?.ToLower() ?? "";
-            string loc = Localidad456VG?.ToLower() ?? "";
-            if (prov.Contains("tierra del fuego") || prov.Contains("neuquén"))
-                factorZona = 1.5f;
-            else if (prov.Contains("buenos aires") && !loc.Contains("capital"))
-                factorZona = 1.2f;
-            else if (loc.Contains("caba") || loc.Contains("capital federal"))
-                factorZona = 1.0f;
-            else
+            string prov = Provincia456VG?.Trim().ToLower() ?? "";
+            float factorZona;
+            var zonaAlta = new HashSet<string>
+            {
+                "mendoza", "san luis", "cordoba", "córdoba", "tucuman", "tucumán", "san juan", "la rioja",
+                "santa fe", "entre rios", "entre ríos", "corrientes", "misiones", "jujuy", "salta", "formosa",
+                "chaco", "santiago del estero", "catamarca"
+            };
+            if (prov == "buenos aires")
+                factorZona = 1.1f;
+            else if (zonaAlta.Contains(prov))
                 factorZona = 1.3f;
+            else
+                factorZona = 1.5f;
             float factorEnvio = tipoenvio456VG?.Equals("express", StringComparison.OrdinalIgnoreCase) == true
                                 ? 1.20f
                                 : 1.0f;

@@ -217,6 +217,12 @@ namespace Proyecto_EnviosYA
             radioButton2456VG.Checked = true;
             allusers456VG();
         }
+        private bool DNIEstaRegistradoEnSistema(string dni)
+        {
+            return new BLLUsuario_456VG().leerEntidades456VG().Any(u => u.DNI456VG == dni)
+                || new BLLCliente_456VG().leerEntidades456VG().Any(c => c.DNI456VG == dni)
+                || new BLLEnvio_456VG().leerEntidades456VG().Any(e => e.DNIDest456VG == dni);
+        }
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             string modoActual = label13456VG.Text;
@@ -318,6 +324,36 @@ namespace Proyecto_EnviosYA
                 var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
                 string perfil = perfilSeleccionado.nombre456VG;
                 int idPerfil = perfilSeleccionado.CodPermiso456VG;
+                if (dni.Length != 8 || !dni.All(char.IsDigit))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.DNIInvalido"),
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.ResultadoVacio"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                if (telef.Length != 10 || !telef.All(char.IsDigit))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.TelefonoInvalido"),
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.ResultadoVacio"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                if (DNIEstaRegistradoEnSistema(txtdni456VG.Text.Trim()))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.DNIRepetido"),
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.ResultadoVacio"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
                 BEUsuario_456VG usernew = new BEUsuario_456VG(
                     dni, name, ape, email, telef,
                     nameuser, pass, domicilio, perfil,
