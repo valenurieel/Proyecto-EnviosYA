@@ -507,5 +507,21 @@
   "Perfiles_456VG.Msg.ErrorPadreNoValido": "El nodo seleccionado no tiene un padre válido.",
   "Perfiles_456VG.Msg.ErrorQuitarSubfamilia": "Error al intentar quitar la subfamilia: {0}",
   "Perfiles_456VG.Msg.NoEncontrarIDsFamilias": "No se encontraron los IDs de las familias.",
-  "Perfiles_456VG.Msg.ErrorReconstruirFamilia": "No se pudo reconstruir la familia seleccionada."
+  "Perfiles_456VG.Msg.ErrorReconstruirFamilia": "No se pudo reconstruir la familia seleccionada.",
+
+  "FacturasIMP_456VG.Text": "Facturas",
+  "FacturasIMP_456VG.btnImprimir456VG": "Imprimir Facturas",
+  "FacturasIMP_456VG.button1": "Volver",
+  "FacturasIMP_456VG.label5": "Imprimir Facturas",
+  "FacturasIMP_456VG.Msg.NoFacturasImprimir": "No se encontraron facturas sin imprimir.",
+  "FacturasIMP_456VG.Msg.TituloInfo": "Información",
+  "FacturasIMP_456VG.Columna.CódigoFactura": "Código Factura",
+  "FacturasIMP_456VG.Columna.CódigoEnvío": "Código Envío",
+  "FacturasIMP_456VG.Columna.DNICLiente": "DNI Cliente",
+  "FacturasIMP_456VG.Columna.Cliente": "Cliente",
+  "FacturasIMP_456VG.Columna.CantidadPaquetes": "Paquetes",
+  "FacturasIMP_456VG.Columna.MedioPago": "Pago",
+  "FacturasIMP_456VG.Columna.Importe": "Importe$",
+  "FacturasIMP_456VG.Columna.Fecha": "Fecha",
+  "FacturasIMP_456VG.Columna.Hora": "Hora"
 }

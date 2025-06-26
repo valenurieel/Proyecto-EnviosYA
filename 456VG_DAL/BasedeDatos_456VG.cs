@@ -137,6 +137,7 @@ public class BasedeDatos_456VG
                     "dni_cli_456VG VARCHAR(20) NOT NULL, " +
                     "fechaemision_456VG DATE NOT NULL, " +
                     "horaemision_456VG TIME NOT NULL, " +
+                    "impreso_456VG BIT NOT NULL DEFAULT 0, " +
                     "CONSTRAINT fk_factura_envio FOREIGN KEY (codenvio_456VG) REFERENCES Envios_456VG(codenvio_456VG), " +
                     "CONSTRAINT fk_factura_cliente FOREIGN KEY (dni_cli_456VG) REFERENCES Clientes_456VG(dni_456VG)" +
                 ");");

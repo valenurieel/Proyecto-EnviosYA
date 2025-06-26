@@ -399,7 +399,7 @@ namespace Proyecto_EnviosYA
                     return;
                 }
             }
-            var fact = new BEFactura_456VG(envioCargado, DateTime.Now);
+            var fact = new BEFactura_456VG(envioCargado, datosPagoExistente, DateTime.Now, false);
             var resFact = BLLFac.crearEntidad456VG(fact);
             if (!resFact.resultado)
             {

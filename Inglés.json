@@ -505,5 +505,21 @@
   "Perfiles_456VG.Msg.ErrorReconstruirFamilia": "Could not rebuild the selected family.",
   "Perfiles_456VG.Msg.NoEncontrarIDsFamilias": "Family IDs could not be found.",
   "Perfiles_456VG.Msg.ErrorQuitarSubfamilia": "Error while trying to remove the subfamily: {0}",
-  "Perfiles_456VG.Msg.ErrorPadreNoValido": "The selected node has no valid parent."
+  "Perfiles_456VG.Msg.ErrorPadreNoValido": "The selected node has no valid parent.",
+
+  "FacturasIMP_456VG.Text": "Invoices",
+  "FacturasIMP_456VG.btnImprimir456VG": "Print Invoices",
+  "FacturasIMP_456VG.button1": "Back",
+  "FacturasIMP_456VG.label5": "Print Invoices",
+  "FacturasIMP_456VG.Msg.NoFacturasImprimir": "No invoices pending for printing were found.",
+  "FacturasIMP_456VG.Msg.TituloInfo": "Information",
+  "FacturasIMP_456VG.Columna.CódigoFactura": "Invoice Code",
+  "FacturasIMP_456VG.Columna.CódigoEnvío": "Shipment Code",
+  "FacturasIMP_456VG.Columna.DNICLiente": "Client DNI",
+  "FacturasIMP_456VG.Columna.Cliente": "Client",
+  "FacturasIMP_456VG.Columna.CantidadPaquetes": "Packages",
+  "FacturasIMP_456VG.Columna.MedioPago": "Payment",
+  "FacturasIMP_456VG.Columna.Importe": "Amount$",
+  "FacturasIMP_456VG.Columna.Fecha": "Date",
+  "FacturasIMP_456VG.Columna.Hora": "Time"
 }

@@ -142,5 +142,17 @@ namespace Proyecto_EnviosYA
             Perfiles_456VG perfiles_456VG = new Perfiles_456VG();
             perfiles_456VG.ShowDialog();
         }
+
+        private void facturasIMPToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+            FacturasIMP_456VG fact = new FacturasIMP_456VG();
+            fact.ShowDialog();
+        }
+
+        private void seguimientoEnvíosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DetEnvioIMP_456VG detEnvio = new DetEnvioIMP_456VG();
+            detEnvio.ShowDialog();
+        }
     }
 }
