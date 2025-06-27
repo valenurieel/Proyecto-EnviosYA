@@ -20,6 +20,23 @@ namespace _456VG_BE
         public decimal Importe456VG { get; private set; }
         public bool Pagado456VG { get; set; } //si está pagado el envío
         public string CodEnvio456VG { get; set; }
+        public BEEnvío_456VG(string codEnvio, BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado, decimal importe)
+        {
+            this.CodEnvio456VG = codEnvio;
+            this.Cliente = cliente;
+            this.Paquetes = paquetes;
+            this.DNIDest456VG = dniDest;
+            this.NombreDest456VG = nomDest;
+            this.ApellidoDest456VG = apeDest;
+            this.TeléfonoDest456VG = telDest;
+            this.CodPostal456VG = codPostal;
+            this.Domicilio456VG = dom;
+            this.Localidad456VG = loc;
+            this.Provincia456VG = prov;
+            this.tipoenvio456VG = tipoEnvio;
+            this.Pagado456VG = pagado;
+            this.Importe456VG = importe;
+        }
         public BEEnvío_456VG(BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado)
         {
             this.Cliente = cliente;

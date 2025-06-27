@@ -196,14 +196,14 @@ namespace _456VG_DAL
                                     float largo = (float)rP.GetDouble(rP.GetOrdinal("largo_456VG"));
                                     bool enviadoPaq = rP.GetBoolean(rP.GetOrdinal("enviado_456VG"));
                                     var paquete = new BEPaquete_456VG(
-                                        clienteEnvio, peso, ancho, largo, alto, enviadoPaq
+                                        codPaq, clienteEnvio, peso, ancho, largo, alto, enviadoPaq
                                     );
-                                    paquete.CodPaq456VG = codPaq;
                                     paquetesEnvio.Add(paquete);
                                 }
                             }
                         }
                         var envio = new BEEnvío_456VG(
+                            codEnvio,
                             clienteEnvio,
                             paquetesEnvio,
                             dniDest,
@@ -215,9 +215,9 @@ namespace _456VG_DAL
                             loc,
                             prov,
                             tipoEnv,
-                            pagado
+                            pagado,
+                            importe
                         );
-                        envio.CodEnvio456VG = codEnvio;
                         listaEnvios.Add(envio);
                     }
                 }

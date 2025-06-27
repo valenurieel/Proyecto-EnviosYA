@@ -12,13 +12,14 @@ namespace Proyecto_EnviosYA
     public partial class FacturasIMP_456VG : Form, IObserver_456VG
     {
         private readonly BLLFactura_456VG bllFactura = new BLLFactura_456VG();
+        ArchivoIMP_456VG archivo = new ArchivoIMP_456VG();
+        private List<BEFactura_456VG> facturasCargadas = new List<BEFactura_456VG>();
 
         public FacturasIMP_456VG()
         {
             InitializeComponent();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
         }
-
         private void FacturasIMP_456VG_Load(object sender, EventArgs e)
         {
             ConfigurarDataGrid456VG();
@@ -32,7 +33,10 @@ namespace Proyecto_EnviosYA
         }
         private void CargarFacturas456VG()
         {
-            var facturas = bllFactura.leerEntidades456VG();
+            var facturas = bllFactura.leerEntidades456VG()
+                                     .Where(f => !f.Impreso456VG)
+                                     .ToList();
+            facturasCargadas = facturas;
             var lista = facturas.Select(f => new
             {
                 CódigoFactura = f.CodFactura456VG,
@@ -45,18 +49,8 @@ namespace Proyecto_EnviosYA
                 Fecha = f.FechaEmision456VG.ToShortDateString(),
                 Hora = f.HoraEmision456VG.ToString(@"hh\:mm")
             }).ToList();
-            if (lista.Count == 0)
-            {
-                var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.NoFacturasImprimir"),
-                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloInfo"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-                return;
-            }
             dataGridView1.DataSource = lista;
+            dataGridView1.ClearSelection();
         }
         private void ConfigurarDataGrid456VG()
         {
@@ -142,13 +136,69 @@ namespace Proyecto_EnviosYA
         }
         private void btnImprimir456VG_Click(object sender, EventArgs e)
         {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            if (dataGridView1.SelectedRows.Count == 0 || dataGridView1.CurrentRow == null || !dataGridView1.CurrentRow.Selected)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.SeleccioneFactura"),
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloInfo"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            int filaSeleccionada = dataGridView1.CurrentRow.Index;
+            if (filaSeleccionada < 0 || filaSeleccionada >= facturasCargadas.Count)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.FacturaNoEncontrada"),
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloError"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            var facturaSeleccionada = facturasCargadas[filaSeleccionada];
+            try
+            {
+                bool generado = archivo.GenerarFacturasPDF_456VG(new List<BEFactura_456VG> { facturaSeleccionada });
+                if (generado)
+                {
+                    facturaSeleccionada.Impreso456VG = true;
+                    bllFactura.actualizarEntidad456VG(facturaSeleccionada);
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.ImpresionExitosa"),
+                        lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloInfo"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    CargarFacturas456VG();
+                }
+                var resultado = MessageBox.Show(
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.DeseaAbrirPDF"),
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloAbrirPDF"),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+                if (resultado == DialogResult.Yes)
+                {
+                    archivo.AbrirUltimoPDF_456VG();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.ErrorGenerarPDF") + "\n" + ex.Message,
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloError"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }

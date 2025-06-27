@@ -130,7 +130,6 @@ namespace _456VG_DAL
                 "  c.activo_456VG AS cliActivo " +
                 "FROM Paquetes_456VG p " +
                 "JOIN Clientes_456VG c ON p.dni_456VG = c.dni_456VG;";
-
             try
             {
                 if (!db.Conectar456VG())
@@ -148,7 +147,6 @@ namespace _456VG_DAL
                         string cliDomicilio = reader.GetString(reader.GetOrdinal("cliDomicilio"));
                         DateTime cliFN = reader.GetDateTime(reader.GetOrdinal("cliFN"));
                         bool cliActivo = reader.GetBoolean(reader.GetOrdinal("cliActivo"));
-
                         var cliente = new BECliente_456VG(
                             dniCliente,
                             cliNombre,
@@ -165,6 +163,7 @@ namespace _456VG_DAL
                         float largo = (float)reader.GetDouble(reader.GetOrdinal("largo_456VG"));
                         bool enviadoPaq = reader.GetBoolean(reader.GetOrdinal("enviado_456VG"));
                         var paquete = new BEPaquete_456VG(
+                            codPaq,
                             cliente,
                             peso,
                             ancho,
@@ -172,7 +171,6 @@ namespace _456VG_DAL
                             alto,
                             enviadoPaq
                         );
-                        paquete.CodPaq456VG = codPaq;
                         listaPaquetes.Add(paquete);
                     }
                 }

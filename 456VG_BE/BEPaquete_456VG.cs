@@ -12,6 +12,16 @@ namespace _456VG_BE
         public float Alto456VG { get; set; }
         public bool Enviado456VG { get; set; }
         public string CodPaq456VG { get; set; }
+        public BEPaquete_456VG(string codPaq, BECliente_456VG cliente, float peso, float ancho, float largo, float alto, bool enviado)
+        {
+            this.CodPaq456VG = codPaq;
+            this.Cliente = cliente;
+            this.Peso456VG = peso;
+            this.Ancho456VG = ancho;
+            this.Largo456VG = largo;
+            this.Alto456VG = alto;
+            this.Enviado456VG = enviado;
+        }
         public BEPaquete_456VG(BECliente_456VG cliente, float peso, float ancho, float largo, float alto, bool enviado)
         {
             this.Cliente = cliente;

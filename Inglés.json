@@ -511,7 +511,7 @@
   "FacturasIMP_456VG.btnImprimir456VG": "Print Invoices",
   "FacturasIMP_456VG.button1": "Back",
   "FacturasIMP_456VG.label5": "Print Invoices",
-  "FacturasIMP_456VG.Msg.NoFacturasImprimir": "No invoices pending for printing were found.",
+  "FacturasIMP_456VG.Msg.NoFacturasImprimir": "No unprinted invoices found.",
   "FacturasIMP_456VG.Msg.TituloInfo": "Information",
   "FacturasIMP_456VG.Columna.CódigoFactura": "Invoice Code",
   "FacturasIMP_456VG.Columna.CódigoEnvío": "Shipment Code",
@@ -519,7 +519,14 @@
   "FacturasIMP_456VG.Columna.Cliente": "Client",
   "FacturasIMP_456VG.Columna.CantidadPaquetes": "Packages",
   "FacturasIMP_456VG.Columna.MedioPago": "Payment",
-  "FacturasIMP_456VG.Columna.Importe": "Amount$",
+  "FacturasIMP_456VG.Columna.Importe": "Amount $",
   "FacturasIMP_456VG.Columna.Fecha": "Date",
-  "FacturasIMP_456VG.Columna.Hora": "Time"
+  "FacturasIMP_456VG.Columna.Hora": "Time",
+  "FacturasIMP_456VG.Msg.SeleccioneFactura": "Select an invoice to print.",
+  "FacturasIMP_456VG.Msg.FacturaNoEncontrada": "The selected invoice's full information was not found.",
+  "FacturasIMP_456VG.Msg.ImpresionExitosa": "The invoice was successfully printed.",
+  "FacturasIMP_456VG.Msg.ErrorGenerarPDF": "Error while generating the invoice PDF.",
+  "FacturasIMP_456VG.Msg.TituloError": "Error",
+  "FacturasIMP_456VG.Msg.DeseaAbrirPDF": "Do you want to open the generated invoice?",
+  "FacturasIMP_456VG.Msg.TituloAbrirPDF": "Invoice Generated"
 }

@@ -11,6 +11,15 @@ namespace _456VG_BE
         public DateTime FechaEmision456VG { get; private set; }
         public TimeSpan HoraEmision456VG { get; private set; }
         public bool Impreso456VG { get; set; }
+        public BEFactura_456VG(string codfact, BEEnvío_456VG envio, BEDatosPago_456VG datospago, DateTime fechaHoraEmision, bool imp)
+        {
+            this.CodFactura456VG = codfact;
+            this.Envio = envio;
+            this.DatosPago = datospago;
+            this.FechaEmision456VG = fechaHoraEmision.Date;
+            this.HoraEmision456VG = fechaHoraEmision.TimeOfDay;
+            this.Impreso456VG = imp;
+        }
         public BEFactura_456VG(BEEnvío_456VG envio, BEDatosPago_456VG datospago, DateTime fechaHoraEmision, bool imp)
         {
             this.Envio = envio;

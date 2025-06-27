@@ -24,13 +24,14 @@ namespace _456VG_DAL
             {
                 db.Connection.Open();
                 const string sql = @"
+                USE EnviosYA_456VG;
                 UPDATE Facturas_456VG
                 SET impreso_456VG = @Impreso
                 WHERE codfactura_456VG = @CodFactura;";
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@Impreso", factura.Impreso456VG);
-                    cmd.Parameters.AddWithValue("@CodFactura", factura.CodFactura456VG);
+                    cmd.Parameters.AddWithValue("@CodFactura", factura.CodFactura456VG.Trim());
                     cmd.ExecuteNonQuery();
                 }
                 resultado.resultado = true;
@@ -106,39 +107,38 @@ namespace _456VG_DAL
         {
             var listaFacturas = new List<BEFactura_456VG>();
             string sqlFacturas = @"
-                USE EnviosYA_456VG;
-                SELECT 
-                    f.codfactura_456VG,
-                    f.codenvio_456VG,
-                    f.dni_cli_456VG AS dniCliEnv,
-                    f.fechaemision_456VG,
-                    f.horaemision_456VG,
-                    f.impreso_456VG,
-                    e.dni_dest_456VG,
-                    e.nombre_dest_456VG,
-                    e.apellido_dest_456VG,
-                    e.telefono_dest_456VG,
-                    e.provincia_456VG,
-                    e.localidad_456VG,
-                    e.domicilio_456VG,
-                    e.codpostal_456VG,
-                    e.tipoenvio_456VG,
-                    e.importe_456VG,
-                    e.pagado_456VG,
-                    cEnv.nombre_456VG AS cliNombreEnv,
-                    cEnv.apellido_456VG AS cliApellidoEnv,
-                    cEnv.telefono_456VG AS cliTelefonoEnv,
-                    cEnv.domicilio_456VG AS cliDomicilioEnv,
-                    cEnv.fechanacimiento_456VG AS cliFNEnv,
-                    cEnv.activo_456VG AS cliActivoEnv
-                FROM Facturas_456VG f
-                JOIN Envios_456VG e ON f.codenvio_456VG = e.codenvio_456VG
-                JOIN Clientes_456VG cEnv ON f.dni_cli_456VG = cEnv.dni_456VG;";
+        USE EnviosYA_456VG;
+        SELECT 
+            f.codfactura_456VG,
+            f.codenvio_456VG,
+            f.dni_cli_456VG AS dniCliEnv,
+            f.fechaemision_456VG,
+            f.horaemision_456VG,
+            f.impreso_456VG,
+            e.dni_dest_456VG,
+            e.nombre_dest_456VG,
+            e.apellido_dest_456VG,
+            e.telefono_dest_456VG,
+            e.provincia_456VG,
+            e.localidad_456VG,
+            e.domicilio_456VG,
+            e.codpostal_456VG,
+            e.tipoenvio_456VG,
+            e.importe_456VG,
+            e.pagado_456VG,
+            cEnv.nombre_456VG AS cliNombreEnv,
+            cEnv.apellido_456VG AS cliApellidoEnv,
+            cEnv.telefono_456VG AS cliTelefonoEnv,
+            cEnv.domicilio_456VG AS cliDomicilioEnv,
+            cEnv.fechanacimiento_456VG AS cliFNEnv,
+            cEnv.activo_456VG AS cliActivoEnv
+        FROM Facturas_456VG f
+        JOIN Envios_456VG e ON f.codenvio_456VG = e.codenvio_456VG
+        JOIN Clientes_456VG cEnv ON f.dni_cli_456VG = cEnv.dni_456VG;";
             try
             {
                 if (!db.Conectar456VG())
                     throw new Exception("Error al conectar a la base de datos.");
-
                 using (var cmdF = new SqlCommand(sqlFacturas, db.Connection))
                 using (var readerF = cmdF.ExecuteReader())
                 {
@@ -150,7 +150,6 @@ namespace _456VG_DAL
                         DateTime fechaF = readerF.GetDateTime(readerF.GetOrdinal("fechaemision_456VG"));
                         TimeSpan horaF = readerF.GetTimeSpan(readerF.GetOrdinal("horaemision_456VG"));
                         bool impreso = readerF.GetBoolean(readerF.GetOrdinal("impreso_456VG"));
-
                         var clienteEnvio = new BECliente_456VG(
                             dniCliEnv,
                             readerF.GetString(readerF.GetOrdinal("cliNombreEnv")),
@@ -162,14 +161,14 @@ namespace _456VG_DAL
                         );
                         BEDatosPago_456VG datosPago = null;
                         string sqlPago = @"
-                            SELECT TOP 1 
-                                medio_pago_456VG, 
-                                numtarjeta_456VG, 
-                                titular_456VG, 
-                                fechavencimiento_456VG, 
-                                cvc_456VG 
-                            FROM DatosPago_456VG 
-                            WHERE dni_cliente_456VG = @DniCli;";
+                    SELECT TOP 1 
+                        medio_pago_456VG, 
+                        numtarjeta_456VG, 
+                        titular_456VG, 
+                        fechavencimiento_456VG, 
+                        cvc_456VG 
+                    FROM DatosPago_456VG 
+                    WHERE dni_cliente_456VG = @DniCli;";
                         using (var cmdPago = new SqlCommand(sqlPago, db.Connection))
                         {
                             cmdPago.Parameters.AddWithValue("@DniCli", dniCliEnv);
@@ -190,11 +189,11 @@ namespace _456VG_DAL
                         }
                         var paquetesEnvio = new List<BEPaquete_456VG>();
                         string sqlPaquetes = @"
-                            USE EnviosYA_456VG;
-                            SELECT p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG
-                            FROM Paquetes_456VG p
-                            JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG
-                            WHERE ep.codenvio_456VG = @CodEnvio;";
+                    USE EnviosYA_456VG;
+                    SELECT p.codpaq_456VG, p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG
+                    FROM Paquetes_456VG p
+                    JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG
+                    WHERE ep.codenvio_456VG = @CodEnvio;";
                         using (var cmdP = new SqlCommand(sqlPaquetes, db.Connection))
                         {
                             cmdP.Parameters.AddWithValue("@CodEnvio", codEnvio);
@@ -203,6 +202,7 @@ namespace _456VG_DAL
                                 while (readerP.Read())
                                 {
                                     paquetesEnvio.Add(new BEPaquete_456VG(
+                                        readerP.GetString(readerP.GetOrdinal("codpaq_456VG")),
                                         clienteEnvio,
                                         (float)readerP.GetDouble(readerP.GetOrdinal("peso_456VG")),
                                         (float)readerP.GetDouble(readerP.GetOrdinal("ancho_456VG")),
@@ -214,6 +214,7 @@ namespace _456VG_DAL
                             }
                         }
                         var envio = new BEEnvío_456VG(
+                            codEnvio,
                             clienteEnvio,
                             paquetesEnvio,
                             readerF.GetString(readerF.GetOrdinal("dni_dest_456VG")),
@@ -225,15 +226,18 @@ namespace _456VG_DAL
                             readerF.GetString(readerF.GetOrdinal("localidad_456VG")),
                             readerF.GetString(readerF.GetOrdinal("provincia_456VG")),
                             readerF.GetString(readerF.GetOrdinal("tipoenvio_456VG")),
-                            readerF.GetBoolean(readerF.GetOrdinal("pagado_456VG"))
+                            readerF.GetBoolean(readerF.GetOrdinal("pagado_456VG")),
+                            readerF.GetDecimal(readerF.GetOrdinal("importe_456VG"))
                         );
-                        var factura = new BEFactura_456VG(envio, datosPago, fechaF.Add(horaF), impreso);
+
+                        var factura = new BEFactura_456VG(codFactura, envio, datosPago, fechaF.Add(horaF), impreso);
                         listaFacturas.Add(factura);
                     }
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error al leer facturas: " + ex.Message);
             }
             finally
             {

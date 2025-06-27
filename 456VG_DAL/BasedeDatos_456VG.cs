@@ -32,7 +32,6 @@ public class BasedeDatos_456VG
         }
         return false;
     }
-
     public bool Desconectar456VG()
     {
         if (Connection.State == ConnectionState.Open)

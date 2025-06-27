@@ -523,5 +523,12 @@
   "FacturasIMP_456VG.Columna.MedioPago": "Pago",
   "FacturasIMP_456VG.Columna.Importe": "Importe$",
   "FacturasIMP_456VG.Columna.Fecha": "Fecha",
-  "FacturasIMP_456VG.Columna.Hora": "Hora"
+  "FacturasIMP_456VG.Columna.Hora": "Hora",
+  "FacturasIMP_456VG.Msg.SeleccioneFactura": "Seleccione una factura para imprimir.",
+  "FacturasIMP_456VG.Msg.FacturaNoEncontrada": "No se encontró la información completa de la factura seleccionada.",
+  "FacturasIMP_456VG.Msg.ImpresionExitosa": "La factura se imprimió correctamente.",
+  "FacturasIMP_456VG.Msg.ErrorGenerarPDF": "Error al generar el PDF de la factura.",
+  "FacturasIMP_456VG.Msg.TituloError": "Error",
+  "FacturasIMP_456VG.Msg.DeseaAbrirPDF": "¿Desea abrir la factura generada?",
+  "FacturasIMP_456VG.Msg.TituloAbrirPDF": "Factura Generada"
 }
