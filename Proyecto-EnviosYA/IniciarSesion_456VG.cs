@@ -12,7 +12,7 @@ namespace Proyecto_EnviosYA
     {
         BLLUsuario_456VG BLLUsuario = new BLLUsuario_456VG();
         private Dictionary<string, int> intentosFallidosPorUsuario = new Dictionary<string, int>();
-        public event EventHandler LoginExitoso;    
+        public event EventHandler LoginExitoso;
         public IniciarSesion_456VG()
         {
             InitializeComponent();
@@ -123,7 +123,8 @@ namespace Proyecto_EnviosYA
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-            SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuario);
+            BEUsuario_456VG usuarioConPermisos = BLLUsuario.recuperarUsuarioConPerfil456VG(usuario.DNI456VG);
+            SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioConPermisos);
             intentosFallidosPorUsuario.Clear();
             LoginExitoso?.Invoke(this, EventArgs.Empty);
             this.Hide();

@@ -68,6 +68,31 @@ public class BasedeDatos_456VG
             var dbReal = new BasedeDatos_456VG(apuntarAMaster: false);
             dbReal.ejecutarQuery456VG(
                 "USE EnviosYA_456VG; " +
+                "CREATE TABLE Rol_456VG (" +
+                    "CodRol_456VG INT PRIMARY KEY IDENTITY, " +
+                    "Nombre_456VG VARCHAR(50) NOT NULL UNIQUE" +
+                ");" +
+                "CREATE TABLE Permiso_456VG (" +
+                    "CodPermiso_456VG INT PRIMARY KEY IDENTITY, " +
+                    "Nombre_456VG VARCHAR(50) NOT NULL, " +
+                    "IsFamilia_456VG BIT NOT NULL" +
+                ");" +
+                "CREATE TABLE FamiliaPermiso_456VG (" +
+                    "CodFamilia_456VG INT NOT NULL, " +
+                    "CodPermiso_456VG INT NOT NULL, " +
+                    "PRIMARY KEY (CodFamilia_456VG, CodPermiso_456VG), " +
+                    "FOREIGN KEY (CodFamilia_456VG) REFERENCES Permiso_456VG(CodPermiso_456VG), " +
+                    "FOREIGN KEY (CodPermiso_456VG) REFERENCES Permiso_456VG(CodPermiso_456VG)" +
+                ");" +
+                "CREATE TABLE Rol_Permiso_456VG (" +
+                    "CodRol_456VG INT NOT NULL, " +
+                    "CodPermiso_456VG INT NOT NULL, " +
+                    "PRIMARY KEY (CodRol_456VG, CodPermiso_456VG), " +
+                    "FOREIGN KEY (CodRol_456VG) REFERENCES Rol_456VG(CodRol_456VG), " +
+                    "FOREIGN KEY (CodPermiso_456VG) REFERENCES Permiso_456VG(CodPermiso_456VG)" +
+                ");");
+            dbReal.ejecutarQuery456VG(
+                "USE EnviosYA_456VG; " +
                 "CREATE TABLE Usuario_456VG (" +
                     "dni_456VG VARCHAR(20) PRIMARY KEY," +
                     "nombre_456VG VARCHAR(50) NOT NULL," +
@@ -81,8 +106,11 @@ public class BasedeDatos_456VG
                     "rol_456VG VARCHAR(100) NOT NULL," +
                     "bloqueado_456VG BIT NOT NULL DEFAULT 0," +
                     "activo_456VG BIT NOT NULL DEFAULT 1," +
-                    "idioma_456VG VARCHAR(50) NOT NULL DEFAULT 'ES'" +
-                ");");
+                    "idioma_456VG VARCHAR(50) NOT NULL DEFAULT 'ES'," +
+                    "CodRol_456VG INT NOT NULL, " +
+                    "FOREIGN KEY (CodRol_456VG) REFERENCES Rol_456VG(CodRol_456VG)" +
+                ");"
+            );
             dbReal.ejecutarQuery456VG(
                 "USE EnviosYA_456VG; CREATE TABLE Clientes_456VG (" +
                     "dni_456VG VARCHAR(20) PRIMARY KEY," +
@@ -164,60 +192,7 @@ public class BasedeDatos_456VG
                 "ALTER TABLE HistorialContraseñas_456VG " +
                 "ADD CONSTRAINT FK_HistorialContraseñas_Usuario_456VG " +
                 "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
-            //Tabla Perfiles, Permisos y Familias.
-            dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                IF OBJECT_ID('dbo.PermisosComp_456VG', 'U') IS NULL
-                CREATE TABLE PermisosComp_456VG (
-                    codpermiso_456VG           INT IDENTITY(1,1) PRIMARY KEY,
-                    nombre_456VG               NVARCHAR(100) NOT NULL,
-                    nombre_formulario_456VG    NVARCHAR(100) NULL,
-                    isPerfil_456VG             BIT NOT NULL DEFAULT 0
-                );
-                IF NOT EXISTS (
-                    SELECT 1 FROM sys.indexes 
-                     WHERE name = 'UQ_Familias_nombre_456VG'
-                       AND object_id = OBJECT_ID('dbo.PermisosComp_456VG')
-                )
-                CREATE UNIQUE INDEX UQ_Familias_nombre_456VG
-                    ON PermisosComp_456VG(nombre_456VG)
-                    WHERE isPerfil_456VG = 0 AND nombre_formulario_456VG IS NULL;
-            ");
-            //Tabla que relaciona permisos, perfiles y familias
-            dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                IF OBJECT_ID('dbo.PermisoPermiso_456VG','U') IS NULL
-                CREATE TABLE PermisoPermiso_456VG (
-                    codpermisopadre_456VG INT NOT NULL,
-                    codpermisohijo_456VG  INT NOT NULL,
-                    CONSTRAINT PK_PermisoPermiso_456VG PRIMARY KEY(codpermisopadre_456VG, codpermisohijo_456VG),
-                    CONSTRAINT FK_PP_Padre_456VG FOREIGN KEY(codpermisopadre_456VG)
-                        REFERENCES PermisosComp_456VG(codpermiso_456VG) ON DELETE CASCADE,
-                    CONSTRAINT FK_PP_Hijo_456VG FOREIGN KEY(codpermisohijo_456VG)
-                        REFERENCES PermisosComp_456VG(codpermiso_456VG) ON DELETE NO ACTION
-                );
-            ");
-            //Tabla de Usuario Rol(Perfil)
-            dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                IF OBJECT_ID('dbo.UsuarioPermiso_456VG', 'U') IS NULL
-                CREATE TABLE UsuarioPermiso_456VG (
-                    dni_456VG            VARCHAR(20) NOT NULL,
-                    codpermiso_456VG     INT         NOT NULL,
-                    CONSTRAINT PK_UsuarioPermiso_456VG PRIMARY KEY(dni_456VG, codpermiso_456VG),
-                    CONSTRAINT FK_UP_Usuario_456VG FOREIGN KEY(dni_456VG)
-                        REFERENCES Usuario_456VG(dni_456VG) ON DELETE CASCADE,
-                    CONSTRAINT FK_UP_Permiso_456VG FOREIGN KEY(codpermiso_456VG)
-                        REFERENCES PermisosComp_456VG(codpermiso_456VG) ON DELETE CASCADE
-                );
-                IF NOT EXISTS (
-                    SELECT 1 FROM sys.indexes
-                    WHERE name = 'IDX_UsuarioPermiso_Permiso_456VG'
-                      AND object_id = OBJECT_ID('dbo.UsuarioPermiso_456VG')
-                )
-                CREATE INDEX IDX_UsuarioPermiso_Permiso_456VG
-                    ON UsuarioPermiso_456VG(codpermiso_456VG);
-            ");
+
             dbReal.insertarDatosIniciales456VG();
         }
         else
@@ -230,11 +205,34 @@ public class BasedeDatos_456VG
         var dbReal = new BasedeDatos_456VG(apuntarAMaster: false);
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
-            "INSERT INTO Usuario_456VG (dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, rol_456VG, bloqueado_456VG, activo_456VG, idioma_456VG) " +
-            "VALUES " +
-            "('45984456', 'Valentin', 'Giraldes', 'valentinGiraldes@gmail.com', '1127118942', 'Valenurieel', '3a11feef3ccc351c8c9cad5adebdc26aaada19e32ed68361ab0d4f5aec8ccff2', 'y1/gWmtSuqEGbku6dOjasQ==', 'Jose Martí 1130', 'Administrador', 0, 1, 'ES')," +
-            "('12345678', 'Rogelio', 'Martinez', 'rogemartinez@gmail.com', '1234567890', 'Rogelin123', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Martin 2346', 'Empleado Administrativo', 0, 1, 'EN')," +
-            "('26202620', 'Venus', 'Ginna', 'venusginna@gmail.com', '1127119824', 'Chinnelon', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', 'XwICLo018ug50ej8EVnZng==', 'Jose Martinez 1140', 'Cajero', 0, 1, 'ES');"
+            "IF NOT EXISTS(SELECT 1 FROM Rol_456VG WHERE Nombre_456VG = 'Cajero') " +
+            "INSERT INTO Rol_456VG (Nombre_456VG) VALUES ('Cajero');" +
+            "IF NOT EXISTS(SELECT 1 FROM Rol_456VG WHERE Nombre_456VG = 'Empleado Administrativo') " +
+            "INSERT INTO Rol_456VG (Nombre_456VG) VALUES ('Empleado Administrativo');" +
+            "IF NOT EXISTS(SELECT 1 FROM Rol_456VG WHERE Nombre_456VG = 'Administrador') " +
+            "INSERT INTO Rol_456VG (Nombre_456VG) VALUES ('Administrador');"
+        );
+        dbReal.ejecutarQuery456VG(
+            "USE EnviosYA_456VG; " +
+            "INSERT INTO Usuario_456VG (" +
+                "dni_456VG, nombre_456VG, apellido_456VG, email_456VG, telefono_456VG, " +
+                "nombreusuario_456VG, contraseña_456VG, salt_456VG, domicilio_456VG, " +
+                "rol_456VG, bloqueado_456VG, activo_456VG, idioma_456VG, CodRol_456VG" +
+            ") VALUES " +
+            "('45984456', 'Valentin', 'Giraldes', 'valentinGiraldes@gmail.com', '1127118942', " +
+            "'Valenurieel', '3a11feef3ccc351c8c9cad5adebdc26aaada19e32ed68361ab0d4f5aec8ccff2', " +
+            "'y1/gWmtSuqEGbku6dOjasQ==', 'Jose Martí 1130', 'Administrador', 0, 1, 'ES', " +
+            "(SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador'))," +
+
+            "('12345678', 'Rogelio', 'Martinez', 'rogemartinez@gmail.com', '1234567890', " +
+            "'Rogelin123', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', " +
+            "'XwICLo018ug50ej8EVnZng==', 'Martin 2346', 'Empleado Administrativo', 0, 1, 'EN', " +
+            "(SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Empleado Administrativo'))," +
+
+            "('26202620', 'Venus', 'Ginna', 'venusginna@gmail.com', '1127119824', " +
+            "'Chinnelon', '67784301a1409e30ef093a65c81332fd8590e4f60745a2d8c92c6c95cc60e5db', " +
+            "'XwICLo018ug50ej8EVnZng==', 'Jose Martinez 1140', 'Cajero', 0, 1, 'ES', " +
+            "(SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Cajero'));"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -253,94 +251,95 @@ public class BasedeDatos_456VG
             "('87654321', 'Lucía', 'Fernández', '1122334455', 'grnz2nXJeEXZzQxF+TQijC+Jpsif9hO8B64LimW7jOk=', '1990-05-15', 1)," +
             "('20262026', 'Marcos', 'Pereyra', '1166778899', 'GQFNqxUb+Ua8rCxDQxtcbOUo9dVwZk5UTn3gNS2X74g=', '1985-08-22', 1);"
         );
-        dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                IF NOT EXISTS(SELECT 1 FROM PermisosComp_456VG WHERE nombre_456VG='Cajero'                   AND isPerfil_456VG=1)
-                    INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
-                    VALUES('Cajero','usuarioToolStripMenuItem456VG',1);
-                IF NOT EXISTS(SELECT 1 FROM PermisosComp_456VG WHERE nombre_456VG='Empleado Administrativo' AND isPerfil_456VG=1)
-                    INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
-                    VALUES('Empleado Administrativo','usuarioToolStripMenuItem456VG',1);
-                IF NOT EXISTS(SELECT 1 FROM PermisosComp_456VG WHERE nombre_456VG='Administrador'                   AND isPerfil_456VG=1)
-                    INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
-                    VALUES('Administrador','usuarioToolStripMenuItem456VG',1);
-                DECLARE @lista TABLE(nombre NVARCHAR(100), formulario NVARCHAR(100));
-                INSERT INTO @lista VALUES
-                    ('Recepción','recepcionToolStripMenuItem'),
-                    ('Cobrar Envío','cobrarEnvíoToolStripMenuItem'),
-                    ('Ayuda','ayudaToolStripMenuItem456VG'),
-                    ('Salir','salirToolStripMenuItem456VG'),
-                    ('Usuarios','usuarioToolStripMenuItem456VG'),
-                    ('Iniciar Sesión','iniciarSesiónToolStripMenuItem456VG'),
-                    ('Cerrar Sesión','cerrarSesiónToolStripMenuItem456VG'),
-                    ('Cambiar Idioma','cambiarIdiomaToolStripMenuItem456VG'),
-                    ('Cambiar Contraseña','cambiarClaveToolStripMenuItem456VG'),
-                    ('Reportes','reportesToolStripMenuItem456VG'),
-                    ('Facturas','facturasIMPToolStripMenuItem456VG'),
-                    ('Envíos','envíosToolStripMenuItem456VG'),
-                    ('Crear Envío','crearenvíoToolStripMenuItem456VG'),
-                    ('Maestro','maestroToolStripMenuItem456VG'),
-                    ('Gestión de Clientes','clientesToolStripMenuItem456VG'),
-                    ('MenuAdministrador','administradorToolStripMenuItem456VG'),
-                    ('Gestión de Usuarios','usuariosToolStripMenuItem456VG'),
-                    ('Gestión de Perfiles','perfilesToolStripMenuItem456VG'),
-                    ('Seguimiento Envíos','seguimientoEnvíosToolStripMenuItem');
-                INSERT INTO PermisosComp_456VG(nombre_456VG,nombre_formulario_456VG,isPerfil_456VG)
-                SELECT l.nombre, l.formulario, 0
-                FROM @lista l
-                WHERE NOT EXISTS(
-                    SELECT 1 FROM PermisosComp_456VG pc
-                     WHERE pc.nombre_456VG = l.nombre
-                       AND pc.nombre_formulario_456VG = l.formulario
-                );"
-       );
-        dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                DECLARE @rel TABLE(padre INT, hijo INT);
-                INSERT INTO @rel VALUES
-                    (1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,22),
-                    (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,15),(2,16),(2,17),(2,18),
-                    (3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),
-                    (3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21),(3,22);
-                INSERT INTO PermisoPermiso_456VG(codpermisopadre_456VG,codpermisohijo_456VG)
-                SELECT r.padre, r.hijo
-                FROM @rel r
-                WHERE NOT EXISTS(
-                    SELECT 1 FROM PermisoPermiso_456VG pp
-                     WHERE pp.codpermisopadre_456VG = r.padre
-                       AND pp.codpermisohijo_456VG  = r.hijo
-                );"
+        dbReal.ejecutarQuery456VG(
+        "USE EnviosYA_456VG; " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuRecepción') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuRecepción', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CobrarEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CobrarEnvío', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuAyuda') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuAyuda', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuSalir') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuSalir', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuUsuarios') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuUsuarios', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'IniciarSesión') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('IniciarSesión', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CerrarSesión') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CerrarSesión', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CambiarIdioma') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CambiarIdioma', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CambiarContraseña') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CambiarContraseña', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuReportes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuReportes', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'FacturasIMP') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('FacturasIMP', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuEnvíos', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CrearEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CrearEnvío', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuMaestro') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuMaestro', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeClientes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeClientes', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuAdministrador') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuAdministrador', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeUsuarios') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeUsuarios', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndePerfiles') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndePerfiles', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'SeguimientoEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('SeguimientoEnvíos', 0);"
         );
         dbReal.ejecutarQuery456VG(
-              "USE EnviosYA_456VG; " +
-              "INSERT INTO UsuarioPermiso_456VG (dni_456VG, codpermiso_456VG) VALUES " +
-               "('45984456', 3), " +
-               "('12345678', 2), " +
-               "('26202620', 1);"
+            "USE EnviosYA_456VG; " +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Seguridad', 1); " +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Cobranza', 1); " +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Recepciones', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'FAdmin') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('FAdmin', 1);"
         );
-        dbReal.ejecutarQuery456VG(@"
-                USE EnviosYA_456VG;
-                DECLARE @idSeguridad   INT, @idCobranza INT, @idRecepciones INT;
-                INSERT INTO PermisosComp_456VG(nombre_456VG, nombre_formulario_456VG, isPerfil_456VG)
-                VALUES
-                  ('Seguridad',    NULL, 0),
-                  ('Cobranza',     NULL, 0),
-                  ('Recepciones',  NULL, 0);
-                SELECT 
-                  @idSeguridad   = MAX(CASE WHEN nombre_456VG = 'Seguridad'   THEN codpermiso_456VG END),
-                  @idCobranza    = MAX(CASE WHEN nombre_456VG = 'Cobranza'    THEN codpermiso_456VG END),
-                  @idRecepciones = MAX(CASE WHEN nombre_456VG = 'Recepciones' THEN codpermiso_456VG END)
-                FROM PermisosComp_456VG
-                WHERE isPerfil_456VG = 0;
-                INSERT INTO PermisoPermiso_456VG(codpermisopadre_456VG, codpermisohijo_456VG)
-                VALUES
-                  (@idSeguridad,  6),(@idSeguridad,  7),(@idSeguridad,  8),
-                  (@idSeguridad,  9),(@idSeguridad, 10),(@idSeguridad, 11),
-                  (@idSeguridad, 12),
-                  (@idCobranza,   4),(@idCobranza,   5),
-                  (@idRecepciones, 4),(@idRecepciones,16),(@idRecepciones,17),
-                  (@idRecepciones,18),(@idRecepciones,15),(@idRecepciones,14), (@idRecepciones,22),
-                  (@idRecepciones,13);"
+        dbReal.ejecutarQuery456VG(
+            "USE EnviosYA_456VG; " +
+            "DECLARE @seg INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad'); " +
+            "DECLARE @cob INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza'); " +
+            "DECLARE @rec INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones'); " +
+            "DECLARE @fadm INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Fadmin'); " +
+            // Seguridad
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @seg, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuUsuarios', " +
+            "'IniciarSesión', " +
+            "'CerrarSesión', " +
+            "'CambiarIdioma', " +
+            "'CambiarContraseña', " +
+            "'MenuAyuda', " +
+            "'MenuSalir'); " +
+            // Cobranza
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @cob, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'CobrarEnvío', " +
+            "'MenuReportes', " +
+            "'MenuEnvíos', " +
+            "'SeguimientoEnvíos', " +
+            "'FacturasIMP'); " +
+            // Recepciones
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @rec, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuRecepción', " +
+            "'CrearEnvío', " +
+            "'MenuMaestro', " +
+            "'GestióndeClientes');" +
+            //FAdmin
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @fadm, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuAdministrador', " +
+            "'GestióndeUsuarios', " +
+            "'GestióndePerfiles');"
+        );
+        dbReal.ejecutarQuery456VG(
+            "USE EnviosYA_456VG; " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Cajero') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Cajero'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Cajero') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Cajero'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Empleado Administrativo') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Empleado Administrativo'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Empleado Administrativo') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Empleado Administrativo'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Seguridad')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones')); " +
+            "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'FAdmin')) " +
+            "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'FAdmin'));"
         );
     }
 }

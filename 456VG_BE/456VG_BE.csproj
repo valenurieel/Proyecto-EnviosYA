@@ -93,10 +93,11 @@
     <Compile Include="BEDatosPago_456VG.cs" />
     <Compile Include="BEEnvío_456VG.cs" />
     <Compile Include="BEFactura_456VG.cs" />
-    <Compile Include="BEFamilia_456VG.cs" />
     <Compile Include="BEPaquete_456VG.cs" />
     <Compile Include="BEPerfil_456VG.cs" />
-    <Compile Include="BEPermisoComp_456VG.cs" />
+    <Compile Include="FamiliaPermiso_456VG.cs" />
+    <Compile Include="IPerfil_456VG.cs" />
+    <Compile Include="Permiso_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BEUsuario_456VG.cs" />
   </ItemGroup>

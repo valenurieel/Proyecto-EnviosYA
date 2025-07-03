@@ -148,6 +148,7 @@
             this.treeView1456VG.Name = "treeView1456VG";
             this.treeView1456VG.Size = new System.Drawing.Size(214, 355);
             this.treeView1456VG.TabIndex = 21;
+            this.treeView1456VG.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeView1456VG_BeforeExpand);
             // 
             // textBox1456VG
             // 

@@ -92,7 +92,6 @@ namespace _456VG_Servicios
                     {
                         string prefijo = frm.Name + ".Item.";
                         cb.Items.Clear();
-
                         foreach (var kvp in Diccionario_456VG)
                         {
                             if (kvp.Key.StartsWith(prefijo))

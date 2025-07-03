@@ -17,11 +17,11 @@ namespace _456VG_BE
         public string Contraseña456VG { get; set; }
         public string Salt456VG { get; set; }
         public string Domicilio456VG { get; set; }
-        public string Rol456VG { get; set; } //Perfil 
+        public BEPerfil_456VG Rol456VG { get; set; } //Perfil 
         public bool Bloqueado456VG { get; set; }
         public bool Activo456VG { get; set; }
         public string Idioma456VG { get; set; } //Idioma guardado
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Salt, string Domicilio, string Rol, bool Bloqueado, bool Activo, string idioma)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Salt, string Domicilio, BEPerfil_456VG Rol, bool Bloqueado, bool Activo, string idioma)
         {
             this.DNI456VG = DNI;
             this.Nombre456VG = Nombre;
@@ -37,7 +37,7 @@ namespace _456VG_BE
             this.Activo456VG = Activo;
             this.Idioma456VG = idioma;
         }
-        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Domicilio, string Rol, bool Bloqueado, bool Activo, string idioma)
+        public BEUsuario_456VG(string DNI, string Nombre, string Apellido, string Email, string Teléfono, string NombreUsuario, string Contraseña, string Domicilio, BEPerfil_456VG Rol, bool Bloqueado, bool Activo, string idioma)
         {
             this.DNI456VG = DNI;
             this.Nombre456VG = Nombre;
@@ -52,7 +52,7 @@ namespace _456VG_BE
             this.Activo456VG = Activo;
             this.Idioma456VG = idioma;
         }
-        public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio, string rol)
+        public BEUsuario_456VG(string dni, string nombre, string apellido, string email, string telefono, string nombreUsuario, string domicilio, BEPerfil_456VG rol)
         {
             this.DNI456VG = dni;
             this.Nombre456VG = nombre;

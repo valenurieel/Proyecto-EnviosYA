@@ -8,22 +8,28 @@ namespace _456VG_BE
 {
     public class BEPerfil_456VG
     {
-        public int CodPermiso456VG { get; set; }
-        public string nombre456VG { get; set; }
-        public string permiso456VG { get; set; }
-        public bool IsPerfil456VG { get; set; } // si es perfil (1) o no (Familia o Permiso).
-        public BEPerfil_456VG(int id_permiso, string nombre, string permiso, bool is_perfil)
+        public string Nombre456VG { get; set; }
+        public List<IPerfil_456VG> Permisos456VG { get; set; } = new List<IPerfil_456VG>();
+        public List<Permiso_456VG> obtenerPermisos456VG()
         {
-            this.CodPermiso456VG = id_permiso;
-            this.nombre456VG = nombre;
-            this.permiso456VG = permiso;
-            this.IsPerfil456VG = is_perfil;
-        }
-        public BEPerfil_456VG(string nombre, string permiso, bool is_perfil)
-        {
-            this.nombre456VG = nombre;
-            this.permiso456VG = permiso;
-            this.IsPerfil456VG = is_perfil;
+            List<Permiso_456VG> permisosFinales = new List<Permiso_456VG>();
+            foreach (var permiso in Permisos456VG)
+            {
+                if (permiso is Permiso_456VG simple)
+                {
+                    permisosFinales.Add(simple);
+                }
+                else if (permiso is FamiliaPermiso_456VG familia)
+                {
+                    var hijos = familia.ObtenerTodosLosPermisos_456VG()
+                                       .OfType<Permiso_456VG>()
+                                       .ToList();
+                    permisosFinales.AddRange(hijos);
+                }
+            }
+            return permisosFinales
+                .Distinct()
+                .ToList();
         }
     }
 }

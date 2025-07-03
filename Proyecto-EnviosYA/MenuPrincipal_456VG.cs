@@ -37,13 +37,12 @@ namespace Proyecto_EnviosYA
             {
                 formManager.DeshabilitarTodosLosMenus(item);
             }
-            usuarioToolStripMenuItem456VG.Enabled = true;
-            cerrarSesiónToolStripMenuItem456VG.Enabled = true;
-            iniciarSesiónToolStripMenuItem456VG.Enabled = true;
-            ayudaToolStripMenuItem456VG.Enabled = true;
-            salirToolStripMenuItem456VG.Enabled = true;
+            MenuUsuarios.Enabled = true;
+            CerrarSesión.Enabled = true;
+            IniciarSesión.Enabled = true;
+            MenuAyuda.Enabled = true;
+            MenuSalir.Enabled = true;
         }
-
         public void chau()
         {
             lblBienvenido456VG.Visible = false;
@@ -72,7 +71,9 @@ namespace Proyecto_EnviosYA
         Forms_456VG formManager = new Forms_456VG();
         private void AplicarPermisos(object sender, EventArgs e)
         {
-            List<Permiso_456VG> permisos = bllUsuario.obtenerPermisosUsuario456VG(SessionManager_456VG.Obtenerdatosuser456VG().DNI456VG);
+            List<Permiso_456VG> permisos = bllUsuario.obtenerPermisosUsuario456VG(
+                SessionManager_456VG.Obtenerdatosuser456VG().DNI456VG
+            );
             foreach (ToolStripMenuItem item in menuStrip1456VG.Items)
             {
                 formManager.HabilitarMenusPorPermisos(item, permisos);
@@ -142,17 +143,23 @@ namespace Proyecto_EnviosYA
             Perfiles_456VG perfiles_456VG = new Perfiles_456VG();
             perfiles_456VG.ShowDialog();
         }
-
         private void facturasIMPToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             FacturasIMP_456VG fact = new FacturasIMP_456VG();
             fact.ShowDialog();
         }
-
         private void seguimientoEnvíosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DetEnvioIMP_456VG detEnvio = new DetEnvioIMP_456VG();
             detEnvio.ShowDialog();
+        }
+        private void envíosToolStripMenuItem456VG_Click(object sender, EventArgs e)
+        {
+        }
+        private void cobrarEnvíoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
+            fr.ShowDialog();
         }
     }
 }

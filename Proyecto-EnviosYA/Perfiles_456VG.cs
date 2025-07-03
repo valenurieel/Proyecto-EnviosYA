@@ -10,138 +10,54 @@ namespace Proyecto_EnviosYA
 {
     public partial class Perfiles_456VG : Form, IObserver_456VG
     {
-        private Perfil_456VG INICIO;
         private readonly BLLPerfil_456VG bllp = new BLLPerfil_456VG();
-        private readonly BLLPermisoComp_456VG bllper = new BLLPermisoComp_456VG();
-        private readonly BLLFamilia_456VG bllf = new BLLFamilia_456VG();
-        private Familia_456VG familiaRaiz456VG;
+        private Dictionary<string, string> dictPermisosTraducidos;
+        private Dictionary<string, string> dictFamiliasTraducidas;
+        private Dictionary<string, string> dictPerfilesTraducidos;
+
         public Perfiles_456VG()
         {
             InitializeComponent();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
-            CargarTreeViewFamilias456VG();
-            cargarcb();
-            CargarTreeView();
         }
         public void ActualizarIdioma_456VG()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             lng.CambiarIdiomaControles_456VG(this);
-            cargarcb();
             ActualizarTextosTree(treeView1456VG.Nodes);
         }
-        private void CargarTreeViewFamilias456VG()
+        private void TreeView1456VG_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            treeView1.Nodes.Clear();
-            familiaRaiz456VG = new Familia_456VG("BASE");
-            string claveRoot = $"{Name}.Item.{CBFamilias456VG.Name}.BASE";
-            string textoTraducido = lng.ObtenerTexto_456VG(claveRoot);
-            if (textoTraducido == claveRoot) textoTraducido = "Base";
-            var root = new TreeNode(textoTraducido)
+            if (e.Node.Nodes.Count > 0 && e.Node.Nodes[0].Text != "...")
+                return;
+            e.Node.Nodes.Clear();
+            if (e.Node.Tag is FamiliaPermiso_456VG familia)
             {
-                Name = claveRoot,
-                Tag = familiaRaiz456VG
-            };
-            treeView1.Nodes.Add(root);
-            PintarNodosRecursivo456VG(familiaRaiz456VG, root);
-            treeView1.ExpandAll();
-        }
-        private void CargarTreeView()
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            treeView1456VG.Nodes.Clear();
-            string claveRoot = $"{Name}.Item.{comboBox3456VG.Name}.BASE";
-            string txtRoot = lng.ObtenerTexto_456VG(claveRoot);
-            INICIO = new Perfil_456VG("BASE");
-            var root = new TreeNode(txtRoot) { Name = claveRoot, Tag = INICIO };
-            treeView1456VG.Nodes.Add(root);
-            AgregarHijos(root);
-        }
-        private void cargarcb()
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            textBox1456VG.Clear();
-            TXTFamilia456VG.Clear();
-            comboBox3456VG.Items.Clear();
-            comboBox1456VG.Items.Clear();
-            cmboxflia456VG.Items.Clear();
-            CBFamilias456VG.Items.Clear();
-            CBPermisos456VG.Items.Clear();
-            var perfiles = bllp.CargarCBPerfil456VG()
-                               .Where(p => p.IsPerfil456VG)
-                               .ToList();
-            foreach (var be in perfiles)
-            {
-                string clave = $"{Name}.Item.{comboBox3456VG.Name}.{be.nombre456VG}";
-                string texto = lng.ObtenerTexto_456VG(clave);
-                if (texto == clave)
-                    texto = be.nombre456VG;
-                comboBox3456VG.Items.Add(
-                    new KeyValuePair<BEPerfil_456VG, string>(be, texto)
-                );
+                var familiaCompleta = bllp.ObtenerFamiliaCompleta456VG(familia.Nombre456VG);
+                if (familiaCompleta != null)
+                {
+                    foreach (var hijo in familiaCompleta.Permisos456VG)
+                    {
+                        TreeNode nodoHijo = CrearNodoPermisoRecursivo(hijo, true);
+                        e.Node.Nodes.Add(nodoHijo);
+                    }
+                }
             }
-            comboBox3456VG.DisplayMember = "Value";
-            comboBox3456VG.ValueMember = "Key";
-            CBPermisos456VG.DisplayMember = "Value";
-            CBPermisos456VG.ValueMember = "Key";
-            var permisos = bllp.CargarCBPermisos456VG()
-                              .Where(p => !p.IsPerfil456VG)
-                              .ToList();
-            foreach (var be in permisos)
-            {
-                string clave1456 = $"{Name}.Item.{comboBox1456VG.Name}.{be.nombre456VG}";
-                string claveFamilia = $"{Name}.Item.{CBPermisos456VG.Name}.{be.nombre456VG}";
+        }
+        private TreeNode CrearNodoPermisoRecursivo(IPerfil_456VG permiso, bool expandirFamilia = false)
+        {
+            TreeNode nodo = new TreeNode(permiso.Nombre456VG) { Tag = permiso };
 
-                string texto1456 = lng.ObtenerTexto_456VG(clave1456);
-                if (texto1456 == clave1456)
-                    texto1456 = be.nombre456VG;
-                string textoFamilia = lng.ObtenerTexto_456VG(claveFamilia);
-                if (textoFamilia == claveFamilia)
-                    textoFamilia = be.nombre456VG;
-                comboBox1456VG.Items.Add(new KeyValuePair<BEPerfil_456VG, string>(be, texto1456));
-                CBPermisos456VG.Items.Add(new KeyValuePair<BEPerfil_456VG, string>(be, textoFamilia));
-            }
-            comboBox1456VG.DisplayMember = "Value";
-            comboBox1456VG.ValueMember = "Key";
-            CBPermisos456VG.DisplayMember = "Value";
-            CBPermisos456VG.ValueMember = "Key";
-            var familias = bllf.leerEntidades456VG();
-            foreach (var be in familias)
+            if (permiso is FamiliaPermiso_456VG familia && expandirFamilia)
             {
-                string clave1 = $"{Name}.Item.{cmboxflia456VG.Name}.{be.nombre456VG}";
-                string clave2 = $"{Name}.Item.{CBFamilias456VG.Name}.{be.nombre456VG}";
-                string texto1 = lng.ObtenerTexto_456VG(clave1);
-                if (texto1 == clave1) texto1 = be.nombre456VG;
-                string texto2 = lng.ObtenerTexto_456VG(clave2);
-                if (texto2 == clave2) texto2 = be.nombre456VG;
-                cmboxflia456VG.Items.Add(new KeyValuePair<BEFamilia_456VG, string>(be, texto1));
-                CBFamilias456VG.Items.Add(new KeyValuePair<BEFamilia_456VG, string>(be, texto2));
+                foreach (var hijo in familia.Permisos456VG)
+                {
+                    nodo.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                }
             }
-            cmboxflia456VG.DisplayMember = "Value";
-            cmboxflia456VG.ValueMember = "Key";
-            CBFamilias456VG.DisplayMember = "Value";
-            CBFamilias456VG.ValueMember = "Key";
+            return nodo;
         }
-        private void AgregarHijos(TreeNode padre)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var comp = padre.Tag as Componente_456VG;
-            if (comp == null) return;
-            foreach (var hijo in comp.ObtenerHijos456VG() ?? Enumerable.Empty<Componente_456VG>())
-            {
-                bool esPerfil = hijo is Perfil_456VG;
-                string comboName = esPerfil ? comboBox3456VG.Name : comboBox1456VG.Name;
-                string nombre = esPerfil
-                                   ? ((Perfil_456VG)hijo).Nombre456VG
-                                   : hijo.ToString();
-                string clave = $"{Name}.Item.{comboName}.{nombre}";
-                string texto = lng.ObtenerTexto_456VG(clave);
-                var nodo = new TreeNode(texto) { Name = clave, Tag = hijo };
-                padre.Nodes.Add(nodo);
-                AgregarHijos(nodo);
-            }
-        }
+
         private void ActualizarTextosTree(TreeNodeCollection nodes)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -156,294 +72,160 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             string nombre = textBox1456VG.Text.Trim();
-            if (string.IsNullOrEmpty(nombre))
+            if (string.IsNullOrWhiteSpace(nombre))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.CompleteNombre"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NombrePerfilVacio"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var nuevo = new BEPerfil_456VG(nombre, "usuarioToolStripMenuItem456VG", true);
-            var res = bllp.aggPerfil456VG(nuevo);
-            if (res.resultado)
+            if (bllp.CrearPerfil456VG(nombre))
             {
-                cargarcb();
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilAgregadoOK"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilCreadoExito"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                comboBox3456VG.Items.Add(nombre);
+                textBox1456VG.Clear();
             }
             else
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorAgregarPerfil").Replace("{0}", res.mensaje),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilYaExiste"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void button4456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var sel = comboBox3456VG.SelectedItem as KeyValuePair<BEPerfil_456VG, string>?;
-            if (!sel.HasValue)
+            if (comboBox3456VG.SelectedItem == null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaPerfilCombo"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning
-                );
-                return;
-            }
-            var bePerfil = sel.Value.Key;
-            var perfilComp = new Perfil_456VG(bePerfil.nombre456VG);
-            var todasRel = bllper.ListaPermisos456VG()
-                                 .Where(r => r.CodPermisoPadre456VG == bePerfil.CodPermiso456VG)
-                                 .ToList();
-            var todasFamiliasBE = bllf.leerEntidades456VG();
-            var todosPermisosBE = bllp.CargarCBPermisos456VG();
-            foreach (var rel in todasRel)
-            {
-                var famBE = todasFamiliasBE
-                    .FirstOrDefault(f => f.CodPermiso456VG == rel.CodPermisoHijo456VG);
-
-                if (famBE != null)
-                {
-                    var famObj = ReconstruirFamiliaRecursiva456VG(famBE.CodPermiso456VG);
-                    if (famObj != null)
-                        perfilComp.AgregarHijo456VG(famObj);
-                }
-                else
-                {
-                    var permBE = todosPermisosBE
-                        .FirstOrDefault(p => p.CodPermiso456VG == rel.CodPermisoHijo456VG);
-                    if (permBE != null)
-                        perfilComp.AgregarHijo456VG(new Permisos_456VG(permBE.nombre456VG));
-                }
-            }
-            var root = treeView1456VG.Nodes[0];
-            root.Nodes.Clear();
-            string clave = $"{Name}.Item.{comboBox3456VG.Name}.{bePerfil.nombre456VG}";
-            string textoTraducido = lng.ObtenerTexto_456VG(clave);
-            if (textoTraducido == clave)
-                textoTraducido = bePerfil.nombre456VG;
-            var nodoPerfil = new TreeNode(textoTraducido)
-            {
-                Name = clave,
-                Tag = perfilComp
-            };
-            root.Nodes.Add(nodoPerfil);
-            PintaChildren(nodoPerfil, perfilComp);
-            root.Expand();
-        }
-        //Agrega en el tree la cascada de permisos según el Padre.
-        private void PintaChildren(TreeNode padre, Componente_456VG comp)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            foreach (var hijo in comp.ObtenerHijos456VG() ?? Enumerable.Empty<Componente_456VG>())
-            {
-                string texto;
-                string clave;
-                if (hijo is Perfil_456VG p)
-                {
-                    clave = $"{Name}.Item.{comboBox3456VG.Name}.{p.Nombre456VG}";
-                    texto = lng.ObtenerTexto_456VG(clave);
-                    if (texto == clave) texto = p.Nombre456VG;
-                }
-                else if (hijo is Familia_456VG f)
-                {
-                    clave = $"{Name}.Item.{cmboxflia456VG.Name}.{f.Nombre456VG}";
-                    texto = lng.ObtenerTexto_456VG(clave);
-                    if (texto == clave) texto = f.Nombre456VG;
-                }
-                else if (hijo is Permisos_456VG perm)
-                {
-                    clave = $"{Name}.Item.{comboBox1456VG.Name}.{perm.Nombre456VG}";
-                    texto = lng.ObtenerTexto_456VG(clave);
-                    if (texto == clave) texto = perm.Nombre456VG;
-                }
-                else
-                {
-                    texto = "???";
-                    clave = "???";
-                }
-                var nodo = new TreeNode(texto) { Name = clave, Tag = hijo };
-                padre.Nodes.Add(nodo);
-                PintaChildren(nodo, hijo);
-            }
-        }
-        private void button3456VG_Click(object sender, EventArgs e)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var nodoSel = treeView1456VG.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Perfil_456VG padre))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaPerfilArbol"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            if (nodoSel.Parent != treeView1456VG.Nodes[0])
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisoEnPerfilDirecto"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            if (padre.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorAgregarPermisoBase"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-                return;
-            }
-            var sel = comboBox1456VG.SelectedItem as KeyValuePair<BEPerfil_456VG, string>?;
-            if (!sel.HasValue)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaPermisoCombo"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            var permisoBE = sel.Value.Key;
-            if (padre.IncluyePermiso(permisoBE.nombre456VG))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoYaExiste"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            var permisoObj = new Permisos_456VG(permisoBE.nombre456VG);
-            try
-            {
-                padre.AgregarHijo456VG(permisoObj);
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            string clave = $"{Name}.Item.{comboBox1456VG.Name}.{permisoBE.nombre456VG}";
-            string texto = lng.ObtenerTexto_456VG(clave);
-            if (texto == clave) texto = permisoBE.nombre456VG;
-            var nodoPerm = new TreeNode(texto) { Name = clave, Tag = permisoObj };
-            nodoSel.Nodes.Add(nodoPerm);
-            nodoSel.Expand();
-            int idPadre = ObtenerIdPorNombre456VG(padre.Nombre456VG);
-            var resBD = bllper.aggPermisos456VG(
-                new BEPermisoComp_456VG(idPadre, permisoBE.CodPermiso456VG)
-            );
-            if (!resBD.resultado)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorAgregarPermiso")
-                       .Replace("{0}", resBD.mensaje),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            else
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregadoOK"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-            }
-        }
-        private void button2456VG_Click(object sender, EventArgs e)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var nodo = treeView1456VG.SelectedNode;
-            if (nodo == null || !(nodo.Tag is Perfil_456VG perfilComp))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaNodoEliminar"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPerfilPrimero"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (perfilComp.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
+            var nombrePerfil = ObtenerClaveOriginal(dictPerfilesTraducidos, comboBox3456VG.SelectedItem);
+            var perfil = bllp.ObtenerPerfilCompleto456VG(nombrePerfil);
+            if (perfil == null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEliminarBase"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorCargarPerfil"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            treeView1456VG.Nodes.Clear();
+            TreeNode nodoPerfil = new TreeNode(perfil.Nombre456VG)
+            {
+                Tag = perfil
+            };
+            foreach (var permiso in perfil.Permisos456VG)
+            {
+                TreeNode nodoPermiso = CrearNodoPermisoRecursivo(permiso, true);
+                nodoPerfil.Nodes.Add(nodoPermiso);
+            }
+            treeView1456VG.Nodes.Add(nodoPerfil);
+        }
+        private void button3456VG_Click(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            var nodoSel = treeView1456VG.Nodes.Count > 0 ? treeView1456VG.Nodes[0] : null;
+            if (nodoSel == null || !(nodoSel.Tag is BEPerfil_456VG perfil))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPerfilAgregarPermiso"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (comboBox1456VG.SelectedItem == null)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPermiso"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var nombrePermiso = ObtenerClaveOriginal(dictPermisosTraducidos, comboBox1456VG.SelectedItem);
+            int codPermiso = bllp.ObtenerCodPermisoPorNombre456VG(nombrePermiso);
+            if (codPermiso <= 0)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorPermisoInvalido"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var permiso = new Permiso_456VG
+            {
+                CodPermiso456VG = codPermiso,
+                Nombre456VG = nombrePermiso
+            };
+            if (!bllp.AgregarPermisoAPerfil456VG(perfil.Nombre456VG, permiso))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoYaAsignado"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregado"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            button4456VG_Click(null, null);
+        }
+        private void button2456VG_Click(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            var nodoSel = treeView1456VG.SelectedNode;
+            if (nodoSel == null || !(nodoSel.Tag is BEPerfil_456VG perfil))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPerfilEliminar"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var confirm = MessageBox.Show(
-                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarElim"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarEliminarPerfil"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirm != DialogResult.Yes) return;
-            int idPerfil = ObtenerIdPorNombre456VG(perfilComp.Nombre456VG);
-            if (idPerfil < 0)
+            if (confirm == DialogResult.Yes)
             {
-                MessageBox.Show(
-                    "No pude encontrar el ID del perfil en la base.",
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (bllp.EliminarPerfil456VG(perfil.Nombre456VG))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilEliminadoExito"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarCombos456VG();
+                    button6_Click(null,null);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarPerfil"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            var res = bllp.EliminarPerfil456VG(idPerfil);
-            if (!res.resultado)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarPerfil")
-                      .Replace("{0}", res.mensaje),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            nodo.Remove();
-            cargarcb();
-            MessageBox.Show(
-                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilEliminadoOK"),
-                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void button8456VG_Click(object sender, EventArgs e)
         {
             Close();
         }
-        private int ObtenerIdPorNombre456VG(string nombrePerfil)
-        {
-            var lista = bllp.CargarCBPerfil456VG();
-            var p = lista.FirstOrDefault(x =>
-                x.nombre456VG?.Trim().Equals(nombrePerfil.Trim(), StringComparison.OrdinalIgnoreCase) ?? false);
-            return p?.CodPermiso456VG ?? -1;
-        }
         private void Perfiles_456VG_Load(object sender, EventArgs e)
         {
+            dictPermisosTraducidos = new Dictionary<string, string>();
+            dictFamiliasTraducidas = new Dictionary<string, string>();
+            dictPerfilesTraducidos = new Dictionary<string, string>();
             ActualizarIdioma_456VG();
+            CargarCombos456VG();
         }
         private void comboBox3456VG_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -455,586 +237,484 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1456VG.SelectedNode;
-            if (nodoSel == null)
+            if (nodoSel == null || !(nodoSel.Tag is BEPerfil_456VG perfil))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarNodoAgregarFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPerfilAgregarFamilia"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Tag is Permisos_456VG)
+            if (cmboxflia456VG.SelectedItem == null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoAsignarFamiliaPermiso"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarFamilia"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Tag is Familia_456VG)
+            var nombreFamilia = ObtenerClaveOriginal(dictFamiliasTraducidas, cmboxflia456VG.SelectedItem);
+            var familia = bllp.ObtenerFamiliaCompleta456VG(nombreFamilia);
+            if (familia == null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoAsignarFamiliaAFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorObtenerFamilia"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (nodoSel.Parent != treeView1456VG.Nodes[0])
+            if (!bllp.AgregarFamiliaAPerfil456VG(perfil.Nombre456VG, familia))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloFamiliaEnPerfilDirecto"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaYaAsignada"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var padrePerfil = nodoSel.Tag as Perfil_456VG;
-            if (padrePerfil == null)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPerfilParaFamilia"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            if (padrePerfil.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoAsignarBase"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            var sel = cmboxflia456VG.SelectedItem as KeyValuePair<BEFamilia_456VG, string>?;
-            if (!sel.HasValue)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaFamiliaCombo"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            var beFamilia = sel.Value.Key;
-            var familiaObj = ReconstruirFamiliaRecursiva456VG(beFamilia.CodPermiso456VG);
-            try
-            {
-                padrePerfil.AgregarHijo456VG(familiaObj);
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            string claveFam = $"{Name}.Item.{cmboxflia456VG.Name}.{familiaObj.Nombre456VG}";
-            string textoFam = lng.ObtenerTexto_456VG(claveFam);
-            if (textoFam == claveFam) textoFam = familiaObj.Nombre456VG;
-            var nodoFam = new TreeNode(textoFam)
-            {
-                Name = claveFam,
-                Tag = familiaObj
-            };
-            nodoSel.Nodes.Add(nodoFam);
-            PintaChildren(nodoFam, familiaObj);
-            nodoSel.Expand();
-            int idPerfil = ObtenerIdPorNombre456VG(padrePerfil.Nombre456VG);
-            int idFamilia = beFamilia.CodPermiso456VG;
-            var resBD = bllper.aggPermisos456VG(new BEPermisoComp_456VG(idPerfil, idFamilia));
-            if (!resBD.resultado)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorAgregarFamilia")
-                       .Replace("{0}", resBD.mensaje),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            else
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaAgregadaOK"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-            }
+            MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaAgregada"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            button4456VG_Click(null, null);
         }
         private void label6_Click(object sender, EventArgs e)
         {
-
         }
         private void BTNCrearFamilia456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            string nombre = TXTFamilia456VG.Text.Trim(); // textbox del lado derecho
-
-            if (string.IsNullOrEmpty(nombre))
+            string nombreFamilia = TXTFamilia456VG.Text.Trim();
+            if (string.IsNullOrWhiteSpace(nombreFamilia))
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.CompletarNombre"),
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NombreFamiliaVacio"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var beNuevaFamilia = new BEFamilia_456VG() { nombre456VG = nombre };
-            var res = bllf.crearEntidad456VG(beNuevaFamilia);
-            if (!res.resultado)
+            if (bllp.CrearFamilia456VG(nombreFamilia))
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorCrear")
-                                       .Replace("{0}", res.mensaje),
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaCreadaOk"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CBFamilias456VG.Items.Add(nombreFamilia);
+                cmboxflia456VG.Items.Add(nombreFamilia);
+                TXTFamilia456VG.Clear();
             }
-            MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaCreadaOK"),
-                            lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-            cargarcb();
-            TXTFamilia456VG.Clear();
+            else
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorCrearFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void BTNEliminarFamilia456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var sel = CBFamilias456VG.SelectedItem as KeyValuePair<BEFamilia_456VG, string>?;
-            if (!sel.HasValue)
+            var nodoSel = treeView1.SelectedNode;
+            if (nodoSel == null)
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaFamiliaCombo"),
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarFamiliaEliminar"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var beFamilia = sel.Value.Key;
-            var confirm = MessageBox.Show(
-                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarElim")
-                   .Replace("{0}", beFamilia.nombre456VG),
+            if (nodoSel.Text == "BASE")
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEliminarBase"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (nodoSel.Parent == null || !(nodoSel.Tag is FamiliaPermiso_456VG familia))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.EliminarSoloDirectaBase"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var confirmar = MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarEliminarFamilia"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (confirm != DialogResult.Yes) return;
-            var res = bllf.eliminarEntidad456VG(beFamilia);
-            if (!res.resultado)
+            if (confirmar == DialogResult.Yes)
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminar")
-                                   .Replace("{0}", res.mensaje),
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.EliminadaOK"),
-                            lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-            cargarcb();
-        }
-        private void PintarNodosRecursivo456VG(Componente_456VG comp, TreeNode nodo)
-        {
-            nodo.Nodes.Clear();
-            foreach (var hijo in comp.ObtenerHijos456VG())
-            {
-                bool esPermiso = hijo is Permisos_456VG;
-                string controlName = esPermiso ? CBPermisos456VG.Name : CBFamilias456VG.Name;
-                string nombre = hijo is Permisos_456VG p ? p.Nombre456VG :
-                                hijo is Familia_456VG f ? f.Nombre456VG : "Componente";
-
-                string clave = $"{Name}.Item.{controlName}.{nombre}";
-                string texto = Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG(clave);
-                if (texto == clave) texto = nombre;
-
-                var subNodo = new TreeNode(texto)
+                if (bllp.EliminarFamilia456VG(familia.Nombre456VG))
                 {
-                    Name = clave,
-                    Tag = hijo
-                };
-                nodo.Nodes.Add(subNodo);
-                PintarNodosRecursivo456VG(hijo, subNodo);
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaEliminadaOk"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarCombos456VG();
+                    button5_Click(null,null);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarFamilia"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private void BTNAplicar456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var selFamilia = CBFamilias456VG.SelectedItem as KeyValuePair<BEFamilia_456VG, string>?;
-            var nodoSel = treeView1.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Familia_456VG familiaPadre))
+            var nombreFamilia = ObtenerClaveOriginal(dictFamiliasTraducidas, CBFamilias456VG.SelectedItem);
+            var familiaAInsertar = bllp.ObtenerFamiliaCompleta456VG(nombreFamilia);
+
+            // 🚨 Validación: debe elegir una familia a insertar
+            if (string.IsNullOrEmpty(nombreFamilia) || familiaAInsertar == null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccioneFamiliaNodo"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-            var famBE = selFamilia.Value.Key;
-            if (familiaPadre.Nombre456VG == famBE.nombre456VG)
-            {
-                MessageBox.Show(
-                    "No se puede agregar una familia dentro de sí misma.",
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarFamiliaAgregar"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var subFamilia = ReconstruirFamiliaRecursiva456VG(famBE.CodPermiso456VG);
-            try
+
+            // ✅ Si el tree está vacío, permitir agregar como raíz
+            if (treeView1.Nodes.Count == 0)
             {
-                familiaPadre.AgregarHijo456VG(subFamilia);
-                PintarNodosRecursivo456VG(familiaPadre, nodoSel);
-                nodoSel.Expand();
-                LimpiarTreeViewPerfiles456VG();
-                var padreBE = bllf.leerEntidades456VG()
-                                  .FirstOrDefault(f => f.nombre456VG == familiaPadre.Nombre456VG);
-                if (padreBE != null)
-                {
-                    var res = bllf.AgregarHijo456VG(padreBE.CodPermiso456VG, famBE.CodPermiso456VG);
-                    if (!res.resultado)
-                    {
-                        MessageBox.Show(
-                            $"Error en BD: {res.mensaje}",
-                            lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                    }
-                }
+                var nodoRaiz = CrearNodoPermisoRecursivo(familiaAInsertar, true);
+                treeView1.Nodes.Add(nodoRaiz);
+                treeView1.ExpandAll();
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaAgregadaOk"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            catch (InvalidOperationException ex)
+
+            // 🟡 Ya hay al menos una familia, debe seleccionar una
+            var nodoSel = treeView1.SelectedNode;
+            if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familiaDestino))
             {
                 MessageBox.Show(
-                    ex.Message,
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarFamiliaDestino"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-        }
-        private Familia_456VG ReconstruirFamiliaRecursiva456VG(int idFamilia)
-        {
-            var todasFamilias = bllf.leerEntidades456VG();
-            var todosPermisos = bllp.CargarCBPermisos456VG();
-            var familiaBE = todasFamilias.FirstOrDefault(f => f.CodPermiso456VG == idFamilia);
-            if (familiaBE == null) return null;
-            var familia = new Familia_456VG(familiaBE.nombre456VG);
-            var relaciones = bllf.ObtenerRelacionesDeFamilia456VG(idFamilia);
-            foreach (var rel in relaciones)
+
+            // 🚫 No permitir agregar a subfamilias (nivel 2 o más)
+            if (nodoSel.Parent != null)
             {
-                var permiso = todosPermisos.FirstOrDefault(p => p.CodPermiso456VG == rel.CodPermisoHijo456VG);
-                if (permiso != null)
-                {
-                    familia.AgregarHijo456VG(new Permisos_456VG(permiso.nombre456VG));
-                }
-                else
-                {
-                    var subfamilia = ReconstruirFamiliaRecursiva456VG(rel.CodPermisoHijo456VG);
-                    if (subfamilia != null)
-                        familia.AgregarHijo456VG(subfamilia);
-                }
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloAgregarAFamiliaRaiz"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            return familia;
+
+            // 🚫 Validación por si se quiere agregar a sí misma
+            if (familiaDestino.CodPermiso456VG == familiaAInsertar.CodPermiso456VG)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoAgregarFamiliaASiMisma"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 🧠 Validar duplicados
+            familiaDestino = bllp.ObtenerFamiliaCompleta456VG(familiaDestino.Nombre456VG);
+
+            // 🧠 Validar duplicados con datos actualizados
+            var permisosDestino = familiaDestino.ObtenerTodosLosPermisos_456VG();
+            var permisosInsertar = familiaAInsertar.ObtenerTodosLosPermisos_456VG();
+
+            if (permisosInsertar.Any(p => permisosDestino.Any(pd => pd.CodPermiso456VG == p.CodPermiso456VG)))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaYaContenida"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 🎯 Insertar como subfamilia
+            if (bllp.AgregarPermisoAFamilia456VG(familiaDestino.Nombre456VG, familiaAInsertar))
+            {
+                var nodoHijo = CrearNodoPermisoRecursivo(familiaAInsertar, true);
+                nodoSel.Nodes.Add(nodoHijo);
+                nodoSel.Expand();
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaAgregadaOk"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarCombos456VG();
+                RefrescarPerfilSiContieneFamilia(familiaDestino.Nombre456VG);
+            }
+            else
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorAgregarFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void BTNAgregarPermiso456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var selPermiso = CBPermisos456VG.SelectedItem as KeyValuePair<BEPerfil_456VG, string>?;
             var nodoSel = treeView1.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Familia_456VG familiaSel))
+
+            // Validar selección
+            if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familia))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccioneFamiliaNodo"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarFamiliaPermiso"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel == null || nodoSel.Parent == null || nodoSel.Parent.Parent != null)
+
+            // Solo raíz
+            if (nodoSel.Parent != null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisoEnFamiliaPadre"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisoAFamiliaRaiz"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var permisoBE = selPermiso.Value.Key;
-            var permisoObj = new Permisos_456VG(permisoBE.nombre456VG);
-            if (familiaSel.IncluyePermiso(permisoObj.Nombre456VG))
+
+            // Obtener permiso seleccionado
+            var nombrePermiso = ObtenerClaveOriginal(dictPermisosTraducidos, CBPermisos456VG.SelectedItem);
+            if (string.IsNullOrEmpty(nombrePermiso))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoYaExisteFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPermisoAgregar"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            try
+
+            var codPermiso = bllp.ObtenerCodPermisoPorNombre456VG(nombrePermiso);
+            if (codPermiso <= 0)
             {
-                familiaSel.AgregarHijo456VG(permisoObj);
-                PintarNodosRecursivo456VG(familiaSel, nodoSel);
-                nodoSel.Expand();
-                LimpiarTreeViewPerfiles456VG();
-                var familiaBE = bllf.leerEntidades456VG()
-                                    .FirstOrDefault(f => f.nombre456VG == familiaSel.Nombre456VG);
-                if (familiaBE != null)
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorPermisoInvalido"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var permiso = new Permiso_456VG
+            {
+                CodPermiso456VG = codPermiso,
+                Nombre456VG = nombrePermiso
+            };
+
+            // Evitar duplicados
+            var permisosActuales = familia.ObtenerTodosLosPermisos_456VG();
+            if (permisosActuales.Any(p => p.CodPermiso456VG == permiso.CodPermiso456VG))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoYaAsignadoFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Agregar permiso
+            if (bllp.AgregarPermisoAFamilia456VG(familia.Nombre456VG, permiso))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregadoFamiliaOK"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 🔄 REFRESCAR nodo visualmente
+                nodoSel.Nodes.Clear();
+                var familiaActualizada = bllp.ObtenerFamiliaCompleta456VG(familia.Nombre456VG);
+                if (familiaActualizada != null)
                 {
-                    var res = bllf.AgregarHijo456VG(familiaBE.CodPermiso456VG, permisoBE.CodPermiso456VG);
-                    if (!res.resultado)
+                    foreach (var hijo in familiaActualizada.Permisos456VG)
                     {
-                        MessageBox.Show(
-                            $"Error en BD: {res.mensaje}",
-                            lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        nodoSel.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
                     }
+                    nodoSel.Expand();
                 }
+                CargarCombos456VG();
+                RefrescarPerfilSiContieneFamilia(familia.Nombre456VG);
             }
-            catch (InvalidOperationException ex)
+            else
             {
                 MessageBox.Show(
-                    ex.Message,
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorAgregarPermisoFamilia"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void button1_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1456VG.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Permisos_456VG permiso))
+            if (nodoSel == null || nodoSel.Parent == null || !(nodoSel.Parent.Tag is BEPerfil_456VG perfil))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaPermisoNodo"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloQuitarDirectoDePerfil"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is Perfil_456VG perfil))
+            if (!(nodoSel.Tag is IPerfil_456VG permiso))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisosDesdePerfil"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionNoValida"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (perfil.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
+            var confirmar = MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarQuitarPermiso"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmar == DialogResult.Yes)
             {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEliminarBase"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (bllp.QuitarPermisoOFamiliaDePerfil456VG(perfil.Nombre456VG, permiso.CodPermiso456VG))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoQuitado"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    button4456VG_Click(null, null);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorQuitarPermiso"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            try
-            {
-                perfil.QuitarHijo456VG(permiso);
-                nodoSel.Remove();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            int idPerfil = ObtenerIdPorNombre456VG(perfil.Nombre456VG);
-            int idPermiso = ObtenerIdPermisoPorNombre456VG(permiso.Nombre456VG);
-            var res = bllper.eliminarRelacion456VG(idPerfil, idPermiso);
-            if (!res.resultado)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarRelacion")
-                       .Replace("{0}", res.mensaje),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoEliminadoOK"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-        private int ObtenerIdPermisoPorNombre456VG(string nombrePermiso)
-        {
-            var listaPermisos = bllp.CargarCBPermisos456VG();
-            var p = listaPermisos.FirstOrDefault(x =>
-                x.nombre456VG?.Trim().Equals(nombrePermiso.Trim(), StringComparison.OrdinalIgnoreCase) ?? false);
-            return p?.CodPermiso456VG ?? -1;
         }
         private void button2_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1456VG.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Familia_456VG familia))
+            if (nodoSel == null || nodoSel.Parent == null || !(nodoSel.Parent.Tag is BEPerfil_456VG perfil))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaFamiliaNodo"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloQuitarFamiliaDirecta"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is Perfil_456VG perfil))
+            if (!(nodoSel.Tag is FamiliaPermiso_456VG familia))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloFamiliasDesdePerfil"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionNoEsFamilia"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (perfil.Nombre456VG.Equals("BASE", StringComparison.OrdinalIgnoreCase))
+            var confirmar = MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarQuitarFamilia"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmar == DialogResult.Yes)
             {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEliminarBase"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (bllp.QuitarPermisoOFamiliaDePerfil456VG(perfil.Nombre456VG, familia.CodPermiso456VG))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaQuitada"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    button4456VG_Click(null, null);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorQuitarFamilia"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            try
-            {
-                perfil.QuitarHijo456VG(familia); 
-                nodoSel.Remove(); 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            int idPerfil = ObtenerIdPorNombre456VG(perfil.Nombre456VG);
-            int idFamilia = ObtenerIdFamiliaPorNombre456VG(familia.Nombre456VG);
-            if (idFamilia < 0)
-            {
-                MessageBox.Show("No se pudo obtener el ID de la familia.",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var res = bllper.eliminarRelacion456VG(idPerfil, idFamilia);
-            if (!res.resultado)
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarRelacion")
-                       .Replace("{0}", res.mensaje),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaEliminadaOK"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-        private int ObtenerIdFamiliaPorNombre456VG(string nombreFamilia)
-        {
-            var lista = bllf.leerEntidades456VG();
-            var f = lista.FirstOrDefault(x =>
-                x.nombre456VG?.Trim().Equals(nombreFamilia.Trim(), StringComparison.OrdinalIgnoreCase) ?? false);
-            return f?.CodPermiso456VG ?? -1;
         }
         private void button3_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Familia_456VG familiaHija))
+
+            // Validaciones
+            if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familiaAEliminar))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaSubfamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarSubfamiliaEliminar"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Parent != null || nodoSel.Parent.Tag != null)
+
+            if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is FamiliaPermiso_456VG familiaPadre))
             {
-                if (nodoSel.Parent?.Text == "Base")
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloSubfamiliaDirecta"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var confirmar = MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarQuitarSubfamilia"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmar == DialogResult.Yes)
+            {
+                if (bllp.QuitarPermisoDeFamilia456VG(familiaPadre.Nombre456VG, familiaAEliminar.CodPermiso456VG))
                 {
                     MessageBox.Show(
-                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEliminarFamiliaDeBase"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SubfamiliaQuitadaOk"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // 🔄 REFRESCAR la familia padre visualmente
+                    TreeNode nodoPadre = nodoSel.Parent;
+                    nodoPadre.Nodes.Clear();
+
+                    // Obtener la familia actualizada desde la BLL
+                    var familiaActualizada = bllp.ObtenerFamiliaCompleta456VG(familiaPadre.Nombre456VG);
+                    if (familiaActualizada != null)
+                    {
+                        foreach (var hijo in familiaActualizada.Permisos456VG)
+                        {
+                            nodoPadre.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                        }
+                        nodoPadre.Expand();
+                        CargarCombos456VG();
+                        RefrescarPerfilSiContieneFamilia(familiaPadre.Nombre456VG);
+                    }
                 }
-            }
-            if (!(nodoSel.Parent.Tag is Familia_456VG familiaPadre))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEsSubfamilia"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            try
-            {
-                familiaPadre.QuitarHijo456VG(familiaHija);
-                nodoSel.Remove();
-                LimpiarTreeViewPerfiles456VG();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var todasFamilias = bllf.leerEntidades456VG();
-            int idPadre = todasFamilias.FirstOrDefault(f => f.nombre456VG == familiaPadre.Nombre456VG)?.CodPermiso456VG ?? -1;
-            int idHija = todasFamilias.FirstOrDefault(f => f.nombre456VG == familiaHija.Nombre456VG)?.CodPermiso456VG ?? -1;
-            if (idPadre < 0 || idHija < 0)
-            {
-                MessageBox.Show("No se encontraron los IDs de las familias.",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var res = bllf.EliminarRelacion456VG(idPadre, idHija);
-            if (!res.resultado)
-            {
-                MessageBox.Show($"Error en base de datos: {res.mensaje}",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show(lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SubfamiliaQuitadaOK"),
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorQuitarSubfamilia"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private void button4_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is Permisos_456VG permiso))
+            if (nodoSel == null || !(nodoSel.Tag is Permiso_456VG permiso))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionaPermisoEnFamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPermisoEnFamilia"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            TreeNode nodoFamilia = nodoSel.Parent;
-            if (nodoFamilia == null || !(nodoFamilia.Tag is Familia_456VG familiaPadre))
+            if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is FamiliaPermiso_456VG familiaPadre))
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisoDirectoEnFamilia"),
@@ -1042,87 +722,165 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoFamilia.Parent != null && nodoFamilia.Parent.Parent != null)
+
+            // 🚫 Verificamos que la familia padre sea realmente un nodo raíz (no una subfamilia)
+            if (nodoSel.Parent.Parent != null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoPermisoDesdeSubfamilia"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisoDirectoEnFamiliaRaiz"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            try
+
+            var confirmar = MessageBox.Show(
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarQuitarPermisoFamilia"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmar == DialogResult.Yes)
             {
-                familiaPadre.QuitarHijo456VG(permiso);
-                nodoSel.Remove();
-                LimpiarTreeViewPerfiles456VG();
+                if (bllp.QuitarPermisoDeFamilia456VG(familiaPadre.Nombre456VG, permiso.CodPermiso456VG))
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoQuitadoOkFamilia"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // 🔄 REFRESCAR visualmente el nodo de la familia
+                    TreeNode nodoPadre = nodoSel.Parent;
+                    nodoPadre.Nodes.Clear();
+
+                    var familiaActualizada = bllp.ObtenerFamiliaCompleta456VG(familiaPadre.Nombre456VG);
+                    if (familiaActualizada != null)
+                    {
+                        foreach (var hijo in familiaActualizada.Permisos456VG)
+                        {
+                            nodoPadre.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                        }
+                        nodoPadre.Expand();
+                        RefrescarPerfilSiContieneFamilia(familiaPadre.Nombre456VG);
+                    }
+
+                    CargarCombos456VG(); // opcional, pero si querés refrescar también los combos
+                }
+                else
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorQuitarPermisoFamilia"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            int idFamilia = bllf.leerEntidades456VG()
-                                .FirstOrDefault(f => f.nombre456VG == familiaPadre.Nombre456VG)?.CodPermiso456VG ?? -1;
-            int idPermiso = bllp.CargarCBPermisos456VG()
-                                .FirstOrDefault(p => p.nombre456VG == permiso.Nombre456VG)?.CodPermiso456VG ?? -1;
-            if (idFamilia < 0 || idPermiso < 0)
-            {
-                MessageBox.Show("No se pudieron obtener los IDs para eliminar.",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            var res = bllf.EliminarRelacion456VG(idFamilia, idPermiso);
-            if (!res.resultado)
-            {
-                MessageBox.Show($"Error al eliminar relación: {res.mensaje}",
-                                lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoQuitadoOK"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+
         }
-        private void LimpiarTreeViewPerfiles456VG()
+        private void CargarCombos456VG()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            treeView1456VG.Nodes.Clear();
-            INICIO = new Perfil_456VG("BASE");
-            string claveRoot = $"{Name}.Item.{comboBox3456VG.Name}.BASE";
-            string textoTraducido = lng.ObtenerTexto_456VG(claveRoot);
-            if (textoTraducido == claveRoot) textoTraducido = "Base";
-            var root = new TreeNode(textoTraducido) { Name = claveRoot, Tag = INICIO };
-            treeView1456VG.Nodes.Add(root);
-        }
-        private void LimpiarTreeViewFamilias456VG()
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            treeView1.Nodes.Clear();
-            familiaRaiz456VG = new Familia_456VG("BASE");
-            string claveRoot = $"{Name}.Item.{CBFamilias456VG.Name}.BASE";
-            string textoTraducido = lng.ObtenerTexto_456VG(claveRoot);
-            if (textoTraducido == claveRoot) textoTraducido = "Base";
-            var root = new TreeNode(textoTraducido)
+            comboBox1456VG.Items.Clear();
+            cmboxflia456VG.Items.Clear();
+            CBFamilias456VG.Items.Clear();
+            CBPermisos456VG.Items.Clear();
+            comboBox3456VG.Items.Clear();
+            dictPermisosTraducidos.Clear();
+            dictFamiliasTraducidas.Clear();
+            dictPerfilesTraducidos.Clear();
+            var permisosSimples = bllp.ListarPermisosSimples456VG();
+            foreach (var permiso in permisosSimples)
             {
-                Name = claveRoot,
-                Tag = familiaRaiz456VG
-            };
-            treeView1.Nodes.Add(root);
+                string clave = permiso.Nombre456VG;
+                string traducido = lng.ObtenerTexto_456VG("Perfiles_456VG.Item.comboBox1456VG." + clave);
+                dictPermisosTraducidos[traducido] = clave;
+                comboBox1456VG.Items.Add(traducido);
+                CBPermisos456VG.Items.Add(traducido);
+            }
+            var familiasNombres = bllp.ObtenerTodasLasFamilias456VG();
+            foreach (var nombre in familiasNombres)
+            {
+                string traducido = lng.ObtenerTexto_456VG("Perfiles_456VG.Item.cmboxflia456VG." + nombre);
+                dictFamiliasTraducidas[traducido] = nombre;
+                cmboxflia456VG.Items.Add(traducido);
+                CBFamilias456VG.Items.Add(traducido);
+            }
+            var perfiles = bllp.CargarCBPerfil456VG();
+            foreach (var perfil in perfiles)
+            {
+                string clave = perfil.Nombre456VG;
+                string traducido = lng.ObtenerTexto_456VG("Perfiles_456VG.Item.comboBox3456VG." + clave);
+                dictPerfilesTraducidos[traducido] = clave;
+                comboBox3456VG.Items.Add(traducido);
+            }
+            comboBox3456VG.SelectedIndex = -1;
+            comboBox1456VG.SelectedIndex = -1;
+            cmboxflia456VG.SelectedIndex = -1;
+            CBFamilias456VG.SelectedIndex = -1;
+            CBPermisos456VG.SelectedIndex = -1;
+        }
+        private string ObtenerClaveOriginal(Dictionary<string, string> diccionario, object selectedItem)
+        {
+            if (selectedItem == null) return null;
+            string valorTraducido = selectedItem.ToString();
+            if (diccionario.TryGetValue(valorTraducido, out var claveOriginal))
+            {
+                return claveOriginal;
+            }
+            return valorTraducido;
         }
         private void button6_Click(object sender, EventArgs e)
         {
-            LimpiarTreeViewPerfiles456VG();
+            textBox1456VG.Clear();
+            treeView1456VG.Nodes.Clear();
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
-            LimpiarTreeViewFamilias456VG();
+            TXTFamilia456VG.Clear();
+            treeView1.Nodes.Clear();
         }
+        private void RefrescarPerfilSiContieneFamilia(string nombreFamilia)
+        {
+            if (treeView1456VG.Nodes.Count == 0) return;
+
+            var nodoPerfil = treeView1456VG.Nodes[0];
+            if (!(nodoPerfil.Tag is BEPerfil_456VG perfil)) return;
+
+            bool contiene = perfil.Permisos456VG.Any(p => ContieneFamilia(p, nombreFamilia));
+
+            if (contiene)
+                CargarPerfilPorNombre456VG(perfil.Nombre456VG);
+        }
+
+        private bool ContieneFamilia(IPerfil_456VG permiso, string nombreBuscado)
+        {
+            if (permiso is FamiliaPermiso_456VG familia)
+            {
+                if (familia.Nombre456VG == nombreBuscado)
+                    return true;
+
+                foreach (var hijo in familia.Permisos456VG)
+                {
+                    if (ContieneFamilia(hijo, nombreBuscado))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private void CargarPerfilPorNombre456VG(string nombrePerfil)
+        {
+            var perfil = bllp.ObtenerPerfilCompleto456VG(nombrePerfil);
+            if (perfil == null) return;
+
+            treeView1456VG.Nodes.Clear();
+            TreeNode nodoPerfil = new TreeNode(perfil.Nombre456VG) { Tag = perfil };
+
+            foreach (var permiso in perfil.Permisos456VG)
+            {
+                TreeNode nodoPermiso = CrearNodoPermisoRecursivo(permiso, true);
+                nodoPerfil.Nodes.Add(nodoPermiso);
+            }
+
+            treeView1456VG.Nodes.Add(nodoPerfil);
+            treeView1456VG.ExpandAll();
+        }
+
     }
 }

@@ -31,19 +31,19 @@ namespace Proyecto_EnviosYA
         }
         private void CargarPerfilesEnComboBox456VG()
         {
-            cmbrol456VG.Items.Clear();
-            cmbrol456VG.DisplayMember = "nombre456VG";
-            cmbrol456VG.ValueMember = "id_permiso456VG";
-            List<BEPerfil_456VG> perfiles = bllPerfil.CargarCBPerfil456VG();
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            foreach (var perfil in perfiles)
+            var perfilesOriginales = bllPerfil.CargarCBPerfil456VG();
+            var perfilesTraducidos = perfilesOriginales.Select(p => new
             {
-                string clave = $"GestióndeUsuarios_456VG.Combo.{perfil.nombre456VG.Replace(" ", "")}";
-                string textoTraducido = lng.ObtenerTexto_456VG(clave);
-                perfil.nombre456VG = textoTraducido;
-                cmbrol456VG.Items.Add(perfil);
-            }
+                PerfilOriginal = p,
+                NombreTraducido = Lenguaje_456VG.ObtenerInstancia_456VG()
+                    .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{p.Nombre456VG.Replace(" ", "")}")
+            }).ToList();
+            cmbrol456VG.DataSource = null;
+            cmbrol456VG.DisplayMember = "NombreTraducido";
+            cmbrol456VG.ValueMember = "PerfilOriginal";
+            cmbrol456VG.DataSource = perfilesTraducidos;
         }
+
         private void TraducirEncabezadosDataGrid()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -90,7 +90,7 @@ namespace Proyecto_EnviosYA
                 NombreUsuario = u.NombreUsuario456VG,
                 Domicilio = u.Domicilio456VG,
                 Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
-        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Nombre456VG.Replace(" ", "")}"),
                 Bloqueado = u.Bloqueado456VG,
                 Activo = u.Activo456VG,
             }).ToList();
@@ -99,8 +99,8 @@ namespace Proyecto_EnviosYA
         }
         private void GestióndeUsuarios_456VG_Load(object sender, EventArgs e)
         {
-            CargarPerfilesEnComboBox456VG();
             ActualizarIdioma_456VG();
+            CargarPerfilesEnComboBox456VG();
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                   .ObtenerTexto_456VG("GestióndeUsuarios_456VG.Modo.Consulta");
             txtdni456VG.Enabled = true;
@@ -133,8 +133,8 @@ namespace Proyecto_EnviosYA
             txttelef456VG.Text = "";
             txtNameUser456VG.Text = "";
             txtdomicilio456VG.Text = "";
-            cmbrol456VG.SelectedIndex = -1;
             CargarPerfilesEnComboBox456VG();
+            cmbrol456VG.SelectedIndex = -1;
         }
         private void btnDesbloq_Click(object sender, EventArgs e)
         {
@@ -185,7 +185,7 @@ namespace Proyecto_EnviosYA
                 NombreUsuario = u.NombreUsuario456VG,
                 Domicilio = u.Domicilio456VG,
                 Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
-        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Nombre456VG.Replace(" ", "")}"),
                 Bloqueado = u.Bloqueado456VG,
                 Activo = u.Activo456VG,
             }).ToList();
@@ -322,8 +322,16 @@ namespace Proyecto_EnviosYA
                 bool activo = true;
                 string idioma = "ES";
                 var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
-                string perfil = perfilSeleccionado.nombre456VG;
-                int idPerfil = perfilSeleccionado.CodPermiso456VG;
+                if (perfilSeleccionado == null)
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.SeleccionePerfil"),
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Text"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
                 if (dni.Length != 8 || !dni.All(char.IsDigit))
                 {
                     MessageBox.Show(
@@ -356,7 +364,7 @@ namespace Proyecto_EnviosYA
                 }
                 BEUsuario_456VG usernew = new BEUsuario_456VG(
                     dni, name, ape, email, telef,
-                    nameuser, pass, domicilio, perfil,
+                    nameuser, pass, domicilio, perfilSeleccionado,
                     bloqueado, activo, idioma
                 );
                 Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.crearEntidad456VG(usernew);
@@ -396,7 +404,7 @@ namespace Proyecto_EnviosYA
                     (string.IsNullOrWhiteSpace(txttelef456VG.Text) || u.Teléfono456VG.ToLower().Contains(txttelef456VG.Text.ToLower())) &&
                     (string.IsNullOrWhiteSpace(txtNameUser456VG.Text) || u.NombreUsuario456VG.ToLower().Contains(txtNameUser456VG.Text.ToLower())) &&
                     (string.IsNullOrWhiteSpace(txtdomicilio456VG.Text) || u.Domicilio456VG.ToLower().Contains(txtdomicilio456VG.Text.ToLower())) &&
-                    (cmbrol456VG.SelectedIndex == -1 || u.Rol456VG.ToLower().Contains(cmbrol456VG.SelectedItem.ToString().ToLower()))
+                    (cmbrol456VG.SelectedIndex == -1 || u.Rol456VG.Nombre456VG.ToLower().Contains(cmbrol456VG.SelectedItem.ToString().ToLower()))
                 ).Select(u => new
                 {
                     DNI = u.DNI456VG,
@@ -407,7 +415,7 @@ namespace Proyecto_EnviosYA
                     NombreUsuario = u.NombreUsuario456VG,
                     Domicilio = u.Domicilio456VG,
                     Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
-        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Nombre456VG.Replace(" ", "")}"),
                     Bloqueado = u.Bloqueado456VG,
                     Activo = u.Activo456VG,
                 }).ToList();
@@ -445,7 +453,16 @@ namespace Proyecto_EnviosYA
                                             .Value
                                             .ToString();
                 var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
-                string perfil = ObtenerNombreOriginalDesdeTraducido456VG(perfilSeleccionado.nombre456VG);
+                if (perfilSeleccionado == null)
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.SeleccionePerfil"),
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.ResultadoVacio"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
                 BEUsuario_456VG usuarioAActualizar = new BEUsuario_456VG
                 (
                     dniSeleccionado,
@@ -455,7 +472,7 @@ namespace Proyecto_EnviosYA
                     txttelef456VG.Text.Trim(),
                     txtNameUser456VG.Text.Trim(),
                     txtdomicilio456VG.Text.Trim(),
-                    perfil
+                    perfilSeleccionado
                 );
                 Resultado_456VG<BEUsuario_456VG> resultado = BLLUser.actualizarEntidad456VG(usuarioAActualizar);
                 if (resultado.resultado)
@@ -533,22 +550,6 @@ namespace Proyecto_EnviosYA
                 }
             }
         }
-        public string ObtenerNombreOriginalDesdeTraducido456VG(string nombreTraducido)
-        {
-            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var perfiles = bllPerfil.CargarCBPerfil456VG();
-
-            foreach (var perfil in perfiles)
-            {
-                string clave = $"GestióndeUsuarios_456VG.Combo.{perfil.nombre456VG.Replace(" ", "")}";
-                string traducido = lng.ObtenerTexto_456VG(clave);
-                if (traducido == nombreTraducido)
-                {
-                    return perfil.nombre456VG;
-                }
-            }
-            return nombreTraducido;
-        }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -581,7 +582,7 @@ namespace Proyecto_EnviosYA
                 NombreUsuario = u.NombreUsuario456VG,
                 Domicilio = u.Domicilio456VG,
                 Rol = Lenguaje_456VG.ObtenerInstancia_456VG()
-        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Replace(" ", "")}"),
+        .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{u.Rol456VG.Nombre456VG.Replace(" ", "")}"),
                 Bloqueado = u.Bloqueado456VG,
                 Activo = u.Activo456VG,
             }).ToList();
@@ -619,8 +620,7 @@ namespace Proyecto_EnviosYA
                     foreach (var item in cmbrol456VG.Items)
                     {
                         var perfil = item as BEPerfil_456VG;
-                        if (perfil != null && perfil.nombre456VG == Lenguaje_456VG.ObtenerInstancia_456VG()
-                                .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{usuarioSeleccionado.Rol456VG.Replace(" ", "")}"))
+                        if (perfil != null && perfil.Nombre456VG == usuarioSeleccionado.Rol456VG.Nombre456VG)
                         {
                             cmbrol456VG.SelectedItem = item;
                             break;
@@ -689,7 +689,6 @@ namespace Proyecto_EnviosYA
         private void dataGridView1456VG_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
-        //recarga ComboBox Perfiles
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);

@@ -9,24 +9,33 @@ using _456VG_Servicios;
 
 namespace _456VG_BLL
 {
-    public class BLLUsuario_456VG: IEntidades_456VG<BEUsuario_456VG>
+    public class BLLUsuario_456VG : IEntidades_456VG<BEUsuario_456VG>
     {
         DALUsuario_456VG dal;
         public BLLUsuario_456VG()
         {
             dal = new DALUsuario_456VG();
         }
+        public BEUsuario_456VG recuperarUsuarioConPerfil456VG(string dni)
+        {
+            return dal.recuperarUsuarioConPerfil456VG(dni);
+        }
         public string RecuperarIdioma456VG(string dniUsuario)
         {
             return dal.RecuperarIdioma456VG(dniUsuario);
         }
-        public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dni)
-        {
-            return dal.obtenerPermisosUsuario456VG(dni);
-        }
         public List<BEUsuario_456VG> leerEntidades456VG()
         {
             return dal.leerEntidades456VG();
+        }
+        public List<Permiso_456VG> obtenerPermisosUsuario456VG(string dni)
+        {
+            BEUsuario_456VG usuario = recuperarUsuarioConPerfil456VG(dni);
+            if (usuario != null && usuario.Rol456VG != null)
+            {
+                return usuario.Rol456VG.obtenerPermisos456VG();
+            }
+            return new List<Permiso_456VG>();
         }
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {

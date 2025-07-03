@@ -1,38 +1,12 @@
-﻿using System;
+﻿using _456VG_BE;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _456VG_Servicios
 {
     public class Forms_456VG
     {
-        public void HabilitarMenusPorPermisos(ToolStripMenuItem menuItem, List<Permiso_456VG> permisos)
-        {
-            var permisoFormulario = permisos.FirstOrDefault(p => p.NombreFormulario456VG == menuItem.Name);
-            if (permisoFormulario == null)
-            {
-                menuItem.Enabled = false;
-            }
-            else
-            {
-                menuItem.Enabled = true;
-            }
-            foreach (ToolStripMenuItem subMenuItem in menuItem.DropDownItems)
-            {
-                var permisoFormulario2 = permisos.FirstOrDefault(p => p.NombreFormulario456VG == subMenuItem.Name);
-                if (permisoFormulario2 != null)
-                {
-                    subMenuItem.Enabled = true;
-                }
-                else
-                {
-                    subMenuItem.Enabled = false;
-                }
-            }
-        }
         public void DeshabilitarTodosLosMenus(ToolStripMenuItem item)
         {
             item.Enabled = false;
@@ -44,6 +18,22 @@ namespace _456VG_Servicios
                 }
             }
         }
+        public void HabilitarMenusPorPermisos(ToolStripMenuItem menuItem, List<Permiso_456VG> permisos)
+        {
+            var nombres = permisos.Select(p => p.Nombre456VG).Distinct().ToList();
+            HabilitarMenusRecursivo(menuItem, nombres);
+        }
+        private void HabilitarMenusRecursivo(ToolStripMenuItem menuItem, List<string> nombresDePermisos)
+        {
+            menuItem.Enabled = nombresDePermisos.Contains(menuItem.Name);
 
+            foreach (ToolStripItem subItem in menuItem.DropDownItems)
+            {
+                if (subItem is ToolStripMenuItem subMenuItem)
+                {
+                    HabilitarMenusRecursivo(subMenuItem, nombresDePermisos);
+                }
+            }
+        }
     }
 }
