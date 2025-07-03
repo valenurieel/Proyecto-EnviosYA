@@ -37,14 +37,6 @@ namespace _456VG_BLL
         {
             return dal.ObtenerNombresDeFamilias456VG();
         }
-        public List<IPerfil_456VG> ObtenerPermisosPorRol456VG(string nombreRol)
-        {
-            return dal.ObtenerPermisosPorRol456VG(nombreRol);
-        }
-        public List<IPerfil_456VG> ObtenerHijosDeFamilia456VG(int codFamilia)
-        {
-            return dal.ObtenerHijosDeFamilia456VG(codFamilia);
-        }
         public bool AgregarPermisoAPerfil456VG(string nombrePerfil, IPerfil_456VG permiso)
         {
             var permisosExistentes = ObtenerTodosLosPermisosDePerfil456VG(nombrePerfil);
@@ -84,18 +76,16 @@ namespace _456VG_BLL
         {
             int cod = dal.ObtenerCodPermisoPorNombre456VG(nombreFamilia);
             if (cod <= 0) return null;
-
             try
             {
-                dal.db.Connection.Open(); // <- abrimos la conexión desde la BLL
+                dal.db.Connection.Open();
                 return dal.ConstruirFamiliaRecursiva456VG(cod, nombreFamilia, dal.db.Connection);
             }
             finally
             {
-                dal.db.Connection.Close(); // <- la cerramos después de la recursión
+                dal.db.Connection.Close();
             }
         }
-
         public bool AgregarPermisoAFamilia456VG(string nombreFamilia, IPerfil_456VG nuevoPermiso)
         {
             var familia = ObtenerFamiliaCompleta456VG(nombreFamilia);

@@ -32,51 +32,6 @@ namespace _456VG_DAL
             }
             return lista;
         }
-        // Obtiene todos los permisos (simples o familias) asociados a un rol
-        public List<IPerfil_456VG> ObtenerPermisosPorRol456VG(string nombreRol)
-        {
-            var permisos = new List<IPerfil_456VG>();
-            using (var conexion = db.Connection)
-            {
-                conexion.Open();
-                var cmd = new SqlCommand(@"
-                    USE EnviosYA_456VG;
-                    SELECT p.CodPermiso_456VG, p.Nombre_456VG, p.IsFamilia_456VG
-                    FROM Permiso_456VG p
-                    INNER JOIN Rol_456VG r ON r.Nombre_456VG = @nombreRol
-                    INNER JOIN Rol_Permiso_456VG rp ON rp.CodRol_456VG = r.CodRol_456VG AND rp.CodPermiso_456VG = p.CodPermiso_456VG
-                ", conexion);
-                cmd.Parameters.AddWithValue("@nombreRol", nombreRol);
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int cod = reader.GetInt32(0);
-                        string nombre = reader.GetString(1);
-                        bool esFamilia = reader.GetBoolean(2);
-                        if (esFamilia)
-                        {
-                            var familia = new FamiliaPermiso_456VG
-                            {
-                                CodFamilia456VG = cod,
-                                Nombre456VG = nombre
-                            };
-                            familia.Permisos456VG = ObtenerHijosDeFamilia456VG(cod);
-                            permisos.Add(familia);
-                        }
-                        else
-                        {
-                            permisos.Add(new Permiso_456VG
-                            {
-                                CodPermisos456VG = cod,
-                                Nombre456VG = nombre
-                            });
-                        }
-                    }
-                }
-            }
-            return permisos;
-        }
         // Obtiene los hijos directos de una familia
         public List<IPerfil_456VG> ObtenerHijosDeFamilia456VG(int codFamilia)
         {
@@ -333,42 +288,46 @@ namespace _456VG_DAL
                 db.Connection.Close();
             }
         }
-        public bool EliminarFamilia456VG(string nombreFamilia) //chequear
+        public bool EliminarFamilia456VG(string nombreFamilia)
         {
-            const string query = @"
-                USE EnviosYA_456VG;
-                DECLARE @CodPermiso INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = @Nombre AND IsFamilia_456VG = 1);
-                IF EXISTS (
-                    SELECT 1 FROM FamiliaPermiso_456VG WHERE CodFamilia_456VG = @CodPermiso
-                )
-                BEGIN
-                    RAISERROR('No se puede eliminar la familia porque contiene subpermisos o subfamilias.', 16, 1);
-                    RETURN;
-                END
-                DELETE FROM FamiliaPermiso_456VG WHERE CodPermiso_456VG = @CodPermiso OR CodFamilia_456VG = @CodPermiso;
-                DELETE FROM Rol_Permiso_456VG WHERE CodPermiso_456VG = @CodPermiso;
-                DELETE FROM Permiso_456VG WHERE CodPermiso_456VG = @CodPermiso;
-            ";
             try
             {
-                db.Connection.Open();
-                using (SqlCommand cmd = new SqlCommand(query, db.Connection))
+                if (!db.Conectar456VG()) return false;
+                int codFamilia = -1;
+                using (var cmd = new SqlCommand(@"
+                    USE EnviosYA_456VG;
+                    SELECT CodPermiso_456VG FROM Permiso_456VG 
+                    WHERE Nombre_456VG = @Nombre AND IsFamilia_456VG = 1;", db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@Nombre", nombreFamilia);
-                    cmd.ExecuteNonQuery();
-                    return true;
+                    var result = cmd.ExecuteScalar();
+                    if (result == null) return false;
+                    codFamilia = Convert.ToInt32(result);
                 }
+                using (var cmdDelete = new SqlCommand(@"
+                    USE EnviosYA_456VG;
+                    DELETE FROM FamiliaPermiso_456VG 
+                    WHERE CodFamilia_456VG = @codFamilia OR CodPermiso_456VG = @codFamilia;
+                    DELETE FROM Rol_Permiso_456VG 
+                    WHERE CodPermiso_456VG = @codFamilia;
+                    DELETE FROM Permiso_456VG 
+                    WHERE CodPermiso_456VG = @codFamilia;", db.Connection))
+                {
+                    cmdDelete.Parameters.AddWithValue("@codFamilia", codFamilia);
+                    cmdDelete.ExecuteNonQuery();
+                }
+                return true;
             }
-            catch (SqlException ex)
+            catch
             {
                 return false;
             }
             finally
             {
-                db.Connection.Close();
+                db.Desconectar456VG();
             }
         }
-        public bool InsertarPermisoAPerfil456VG(string nombrePerfil, int codPermiso) //chequear
+        public bool InsertarPermisoAPerfil456VG(string nombrePerfil, int codPermiso)
         {
             const string query = @"
                 USE EnviosYA_456VG;
@@ -499,13 +458,12 @@ namespace _456VG_DAL
                 Nombre456VG = nombreFamilia,
                 Permisos456VG = new List<IPerfil_456VG>()
             };
-
             using (var cmd = new SqlCommand(@"
-        USE EnviosYA_456VG;
-        SELECT p.CodPermiso_456VG, p.Nombre_456VG, p.IsFamilia_456VG
-        FROM FamiliaPermiso_456VG fp
-        JOIN Permiso_456VG p ON fp.CodPermiso_456VG = p.CodPermiso_456VG
-        WHERE fp.CodFamilia_456VG = @codFamilia", conn))
+                USE EnviosYA_456VG;
+                SELECT p.CodPermiso_456VG, p.Nombre_456VG, p.IsFamilia_456VG
+                FROM FamiliaPermiso_456VG fp
+                JOIN Permiso_456VG p ON fp.CodPermiso_456VG = p.CodPermiso_456VG
+                WHERE fp.CodFamilia_456VG = @codFamilia", conn))
             {
                 cmd.Parameters.AddWithValue("@codFamilia", codFamilia);
                 using (var reader = cmd.ExecuteReader())
@@ -530,6 +488,5 @@ namespace _456VG_DAL
 
             return familia;
         }
-
     }
 }

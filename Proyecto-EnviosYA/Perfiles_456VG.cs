@@ -14,7 +14,6 @@ namespace Proyecto_EnviosYA
         private Dictionary<string, string> dictPermisosTraducidos;
         private Dictionary<string, string> dictFamiliasTraducidas;
         private Dictionary<string, string> dictPerfilesTraducidos;
-
         public Perfiles_456VG()
         {
             InitializeComponent();
@@ -57,7 +56,6 @@ namespace Proyecto_EnviosYA
             }
             return nodo;
         }
-
         private void ActualizarTextosTree(TreeNodeCollection nodes)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -133,11 +131,11 @@ namespace Proyecto_EnviosYA
         private void button3456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var nodoSel = treeView1456VG.Nodes.Count > 0 ? treeView1456VG.Nodes[0] : null;
-            if (nodoSel == null || !(nodoSel.Tag is BEPerfil_456VG perfil))
+            var nodoSel = treeView1456VG.SelectedNode;
+            if (nodoSel == null || nodoSel.Parent != null || !(nodoSel.Tag is BEPerfil_456VG perfil))
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPerfilAgregarPermiso"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloPermisoPerfilRaiz"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -177,6 +175,7 @@ namespace Proyecto_EnviosYA
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregado"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             button4456VG_Click(null, null);
         }
         private void button2456VG_Click(object sender, EventArgs e)
@@ -314,7 +313,8 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1.SelectedNode;
-            if (nodoSel == null)
+
+            if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familia))
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarFamiliaEliminar"),
@@ -322,24 +322,16 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Text == "BASE")
+            if (nodoSel.Parent != null)
             {
                 MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.NoEliminarBase"),
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (nodoSel.Parent == null || !(nodoSel.Tag is FamiliaPermiso_456VG familia))
-            {
-                MessageBox.Show(
-                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.EliminarSoloDirectaBase"),
+                    lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloEliminarFamiliaRaiz"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var confirmar = MessageBox.Show(
-                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarEliminarFamilia"),
+                lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarEliminarFamiliaRaiz"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmar == DialogResult.Yes)
@@ -347,16 +339,16 @@ namespace Proyecto_EnviosYA
                 if (bllp.EliminarFamilia456VG(familia.Nombre456VG))
                 {
                     MessageBox.Show(
-                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaEliminadaOk"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaRaizEliminadaOk"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarCombos456VG();
-                    button5_Click(null,null);
+                    button5_Click(null, null);
                 }
                 else
                 {
                     MessageBox.Show(
-                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarFamilia"),
+                        lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ErrorEliminarFamiliaRaiz"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -367,8 +359,6 @@ namespace Proyecto_EnviosYA
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nombreFamilia = ObtenerClaveOriginal(dictFamiliasTraducidas, CBFamilias456VG.SelectedItem);
             var familiaAInsertar = bllp.ObtenerFamiliaCompleta456VG(nombreFamilia);
-
-            // 🚨 Validación: debe elegir una familia a insertar
             if (string.IsNullOrEmpty(nombreFamilia) || familiaAInsertar == null)
             {
                 MessageBox.Show(
@@ -377,8 +367,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // ✅ Si el tree está vacío, permitir agregar como raíz
             if (treeView1.Nodes.Count == 0)
             {
                 var nodoRaiz = CrearNodoPermisoRecursivo(familiaAInsertar, true);
@@ -390,8 +378,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            // 🟡 Ya hay al menos una familia, debe seleccionar una
             var nodoSel = treeView1.SelectedNode;
             if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familiaDestino))
             {
@@ -401,8 +387,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 🚫 No permitir agregar a subfamilias (nivel 2 o más)
             if (nodoSel.Parent != null)
             {
                 MessageBox.Show(
@@ -411,8 +395,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 🚫 Validación por si se quiere agregar a sí misma
             if (familiaDestino.CodPermiso456VG == familiaAInsertar.CodPermiso456VG)
             {
                 MessageBox.Show(
@@ -421,14 +403,9 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 🧠 Validar duplicados
             familiaDestino = bllp.ObtenerFamiliaCompleta456VG(familiaDestino.Nombre456VG);
-
-            // 🧠 Validar duplicados con datos actualizados
             var permisosDestino = familiaDestino.ObtenerTodosLosPermisos_456VG();
             var permisosInsertar = familiaAInsertar.ObtenerTodosLosPermisos_456VG();
-
             if (permisosInsertar.Any(p => permisosDestino.Any(pd => pd.CodPermiso456VG == p.CodPermiso456VG)))
             {
                 MessageBox.Show(
@@ -437,8 +414,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 🎯 Insertar como subfamilia
             if (bllp.AgregarPermisoAFamilia456VG(familiaDestino.Nombre456VG, familiaAInsertar))
             {
                 var nodoHijo = CrearNodoPermisoRecursivo(familiaAInsertar, true);
@@ -463,8 +438,6 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1.SelectedNode;
-
-            // Validar selección
             if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familia))
             {
                 MessageBox.Show(
@@ -473,8 +446,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // Solo raíz
             if (nodoSel.Parent != null)
             {
                 MessageBox.Show(
@@ -483,8 +454,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // Obtener permiso seleccionado
             var nombrePermiso = ObtenerClaveOriginal(dictPermisosTraducidos, CBPermisos456VG.SelectedItem);
             if (string.IsNullOrEmpty(nombrePermiso))
             {
@@ -494,7 +463,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             var codPermiso = bllp.ObtenerCodPermisoPorNombre456VG(nombrePermiso);
             if (codPermiso <= 0)
             {
@@ -504,14 +472,11 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             var permiso = new Permiso_456VG
             {
                 CodPermiso456VG = codPermiso,
                 Nombre456VG = nombrePermiso
             };
-
-            // Evitar duplicados
             var permisosActuales = familia.ObtenerTodosLosPermisos_456VG();
             if (permisosActuales.Any(p => p.CodPermiso456VG == permiso.CodPermiso456VG))
             {
@@ -521,16 +486,12 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // Agregar permiso
             if (bllp.AgregarPermisoAFamilia456VG(familia.Nombre456VG, permiso))
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregadoFamiliaOK"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // 🔄 REFRESCAR nodo visualmente
                 nodoSel.Nodes.Clear();
                 var familiaActualizada = bllp.ObtenerFamiliaCompleta456VG(familia.Nombre456VG);
                 if (familiaActualizada != null)
@@ -642,8 +603,6 @@ namespace Proyecto_EnviosYA
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             var nodoSel = treeView1.SelectedNode;
-
-            // Validaciones
             if (nodoSel == null || !(nodoSel.Tag is FamiliaPermiso_456VG familiaAEliminar))
             {
                 MessageBox.Show(
@@ -652,7 +611,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is FamiliaPermiso_456VG familiaPadre))
             {
                 MessageBox.Show(
@@ -661,12 +619,10 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             var confirmar = MessageBox.Show(
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarQuitarSubfamilia"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
             if (confirmar == DialogResult.Yes)
             {
                 if (bllp.QuitarPermisoDeFamilia456VG(familiaPadre.Nombre456VG, familiaAEliminar.CodPermiso456VG))
@@ -675,12 +631,8 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SubfamiliaQuitadaOk"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // 🔄 REFRESCAR la familia padre visualmente
                     TreeNode nodoPadre = nodoSel.Parent;
                     nodoPadre.Nodes.Clear();
-
-                    // Obtener la familia actualizada desde la BLL
                     var familiaActualizada = bllp.ObtenerFamiliaCompleta456VG(familiaPadre.Nombre456VG);
                     if (familiaActualizada != null)
                     {
@@ -722,8 +674,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // 🚫 Verificamos que la familia padre sea realmente un nodo raíz (no una subfamilia)
             if (nodoSel.Parent.Parent != null)
             {
                 MessageBox.Show(
@@ -732,7 +682,6 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             var confirmar = MessageBox.Show(
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.ConfirmarQuitarPermisoFamilia"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
@@ -745,11 +694,8 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoQuitadoOkFamilia"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // 🔄 REFRESCAR visualmente el nodo de la familia
                     TreeNode nodoPadre = nodoSel.Parent;
                     nodoPadre.Nodes.Clear();
-
                     var familiaActualizada = bllp.ObtenerFamiliaCompleta456VG(familiaPadre.Nombre456VG);
                     if (familiaActualizada != null)
                     {
@@ -760,8 +706,7 @@ namespace Proyecto_EnviosYA
                         nodoPadre.Expand();
                         RefrescarPerfilSiContieneFamilia(familiaPadre.Nombre456VG);
                     }
-
-                    CargarCombos456VG(); // opcional, pero si querés refrescar también los combos
+                    CargarCombos456VG();
                 }
                 else
                 {
@@ -771,7 +716,6 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
         private void CargarCombos456VG()
         {
@@ -847,7 +791,6 @@ namespace Proyecto_EnviosYA
             if (contiene)
                 CargarPerfilPorNombre456VG(perfil.Nombre456VG);
         }
-
         private bool ContieneFamilia(IPerfil_456VG permiso, string nombreBuscado)
         {
             if (permiso is FamiliaPermiso_456VG familia)
@@ -863,24 +806,19 @@ namespace Proyecto_EnviosYA
             }
             return false;
         }
-
         private void CargarPerfilPorNombre456VG(string nombrePerfil)
         {
             var perfil = bllp.ObtenerPerfilCompleto456VG(nombrePerfil);
             if (perfil == null) return;
-
             treeView1456VG.Nodes.Clear();
             TreeNode nodoPerfil = new TreeNode(perfil.Nombre456VG) { Tag = perfil };
-
             foreach (var permiso in perfil.Permisos456VG)
             {
                 TreeNode nodoPermiso = CrearNodoPermisoRecursivo(permiso, true);
                 nodoPerfil.Nodes.Add(nodoPermiso);
             }
-
             treeView1456VG.Nodes.Add(nodoPerfil);
             treeView1456VG.ExpandAll();
         }
-
     }
 }
