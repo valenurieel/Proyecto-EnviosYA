@@ -156,6 +156,7 @@
   "CobrarEnvío_456VG.Combo.Credito": "Credit",
   "CobrarEnvío_456VG.Columna.Envío": "Shipment Code",
   "CobrarEnvío_456VG.Msg.SinDatosPago": "Payment details do not exist, you must upload them manually.",
+  "GestióndeUsuarios_456VG.Msg.SeleccionePerfil": "You must select a profile.",
 
   "CrearEnvío_456VG.Text": "Create Shipment",
   "CrearEnvío_456VG.label1": "Create Shipment",

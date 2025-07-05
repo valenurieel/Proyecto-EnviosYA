@@ -16,6 +16,7 @@ namespace Proyecto_EnviosYA
     {
         BLLUsuario_456VG BLLUser = new BLLUsuario_456VG();
         BLLPerfil_456VG bllPerfil = new BLLPerfil_456VG();
+        private Dictionary<string, BEPerfil_456VG> dicPerfilesTraducidos_456VG;
         public GestióndeUsuarios_456VG()
         {
             InitializeComponent();
@@ -31,19 +32,19 @@ namespace Proyecto_EnviosYA
         }
         private void CargarPerfilesEnComboBox456VG()
         {
-            var perfilesOriginales = bllPerfil.CargarCBPerfil456VG();
-            var perfilesTraducidos = perfilesOriginales.Select(p => new
-            {
-                PerfilOriginal = p,
-                NombreTraducido = Lenguaje_456VG.ObtenerInstancia_456VG()
-                    .ObtenerTexto_456VG($"GestióndeUsuarios_456VG.Combo.{p.Nombre456VG.Replace(" ", "")}")
-            }).ToList();
+            var perfiles = bllPerfil.CargarCBPerfil456VG();
+            dicPerfilesTraducidos_456VG = new Dictionary<string, BEPerfil_456VG>();
             cmbrol456VG.DataSource = null;
-            cmbrol456VG.DisplayMember = "NombreTraducido";
-            cmbrol456VG.ValueMember = "PerfilOriginal";
-            cmbrol456VG.DataSource = perfilesTraducidos;
+            cmbrol456VG.Items.Clear();
+            foreach (var perfil in perfiles)
+            {
+                string claveTrad = $"GestióndeUsuarios_456VG.Combo.{perfil.Nombre456VG.Replace(" ", "")}";
+                string nombreTraducido = Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG(claveTrad);
+                cmbrol456VG.Items.Add(nombreTraducido);
+                dicPerfilesTraducidos_456VG[nombreTraducido] = perfil;
+            }
+            cmbrol456VG.SelectedIndex = -1;
         }
-
         private void TraducirEncabezadosDataGrid()
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -321,8 +322,8 @@ namespace Proyecto_EnviosYA
                 bool bloqueado = false;
                 bool activo = true;
                 string idioma = "ES";
-                var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
-                if (perfilSeleccionado == null)
+                var nombreTraducido = cmbrol456VG.SelectedItem as string;
+                if (nombreTraducido == null || !dicPerfilesTraducidos_456VG.ContainsKey(nombreTraducido))
                 {
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.SeleccionePerfil"),
@@ -332,6 +333,7 @@ namespace Proyecto_EnviosYA
                     );
                     return;
                 }
+                var perfilSeleccionado = dicPerfilesTraducidos_456VG[nombreTraducido];
                 if (dni.Length != 8 || !dni.All(char.IsDigit))
                 {
                     MessageBox.Show(
@@ -452,17 +454,18 @@ namespace Proyecto_EnviosYA
                                             .Cells["DNI"]
                                             .Value
                                             .ToString();
-                var perfilSeleccionado = cmbrol456VG.SelectedItem as BEPerfil_456VG;
-                if (perfilSeleccionado == null)
+                var nombreTraducido = cmbrol456VG.SelectedItem as string;
+                if (nombreTraducido == null || !dicPerfilesTraducidos_456VG.ContainsKey(nombreTraducido))
                 {
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.SeleccionePerfil"),
-                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.ResultadoVacio"),
+                        lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Text"),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
                     return;
                 }
+                var perfilSeleccionado = dicPerfilesTraducidos_456VG[nombreTraducido];
                 BEUsuario_456VG usuarioAActualizar = new BEUsuario_456VG
                 (
                     dniSeleccionado,
@@ -617,12 +620,11 @@ namespace Proyecto_EnviosYA
                     txttelef456VG.Text = usuarioSeleccionado.Teléfono456VG;
                     txtNameUser456VG.Text = usuarioSeleccionado.NombreUsuario456VG;
                     txtdomicilio456VG.Text = usuarioSeleccionado.Domicilio456VG;
-                    foreach (var item in cmbrol456VG.Items)
+                    foreach (var kvp in dicPerfilesTraducidos_456VG)
                     {
-                        var perfil = item as BEPerfil_456VG;
-                        if (perfil != null && perfil.Nombre456VG == usuarioSeleccionado.Rol456VG.Nombre456VG)
+                        if (kvp.Value.Nombre456VG == usuarioSeleccionado.Rol456VG.Nombre456VG)
                         {
-                            cmbrol456VG.SelectedItem = item;
+                            cmbrol456VG.SelectedItem = kvp.Key;
                             break;
                         }
                     }

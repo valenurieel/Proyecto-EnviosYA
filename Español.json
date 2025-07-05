@@ -264,6 +264,7 @@
   "GestióndeUsuarios_456VG.Msg.ErrorActDesac": "Error: {0}",
   "GestióndeUsuarios_456VG.Msg.ConfirmCancel": "¿Está seguro de Cancelar la Operación?",
   "GestióndeUsuarios_456VG.Msg.ErrorRecuperar": "Error al recuperar los datos del usuario: {0}",
+  "GestióndeUsuarios_456VG.Msg.SeleccionePerfil": "Debe seleccionar un perfil.",
 
   "IniciarSesion_456VG.Text": "Iniciar Sesión",
   "IniciarSesion_456VG.lbldni456VG": "DNI:",

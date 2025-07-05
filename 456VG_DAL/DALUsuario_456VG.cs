@@ -24,15 +24,13 @@ namespace _456VG_DAL
         public BEUsuario_456VG recuperarUsuarioConPerfil456VG(string dni)
         {
             BEUsuario_456VG usuario = null;
-
             string queryUsuario = @"
-    USE EnviosYA_456VG;
-    SELECT u.*, r.Nombre_456VG AS nombre_rol_456VG
-    FROM Usuario_456VG u
-    INNER JOIN Rol_456VG r ON u.CodRol_456VG = r.CodRol_456VG
-    WHERE u.dni_456VG = @dni;
-";
-
+                USE EnviosYA_456VG;
+                SELECT u.*, r.Nombre_456VG AS nombre_rol_456VG
+                FROM Usuario_456VG u
+                INNER JOIN Rol_456VG r ON u.CodRol_456VG = r.CodRol_456VG
+                WHERE u.dni_456VG = @dni;
+            ";
             using (SqlCommand cmd = new SqlCommand(queryUsuario, db.Connection))
             {
                 cmd.Parameters.AddWithValue("@dni", dni);
@@ -42,8 +40,6 @@ namespace _456VG_DAL
                     if (reader.Read())
                     {
                         string nombreRol = reader["nombre_rol_456VG"].ToString();
-
-                        // Instancia básica del usuario
                         usuario = new BEUsuario_456VG(
                             dni,
                             reader["nombre_456VG"].ToString(),
@@ -63,17 +59,13 @@ namespace _456VG_DAL
                 }
                 db.Connection.Close();
             }
-
             if (usuario != null)
             {
-                // 🧠 Aca cargamos el perfil completo desde DALPerfil_456VG
                 DALPerfil_456VG dalPerfil = new DALPerfil_456VG();
                 usuario.Rol456VG = dalPerfil.ObtenerPerfilCompleto456VG(usuario.Rol456VG.Nombre456VG);
             }
-
             return usuario;
         }
-        //Recupera el Idioma que tiene el Usuario.
         public string RecuperarIdioma456VG(string dniUsuario)
         {
             const string sqlQuery = @"
@@ -103,10 +95,9 @@ namespace _456VG_DAL
                 return "ES";
             }
         }
-        //Cambia el Idioma del Usuario en BD.
         public bool modificarIdioma456VG(BEUsuario_456VG user, string idiomaNuevo)
         {
-                    const string query = @"
+            const string query = @"
                 USE EnviosYA_456VG;
                 UPDATE Usuario_456VG
                 SET idioma_456VG = @Idioma
@@ -137,28 +128,24 @@ namespace _456VG_DAL
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
             string queryUpdateUser = @"
-        USE EnviosYA_456VG;
-        UPDATE Usuario_456VG 
-        SET 
-            nombre_456VG       = @Nombre,
-            apellido_456VG     = @Apellido,
-            email_456VG        = @Email,
-            telefono_456VG     = @Telefono,
-            nombreusuario_456VG= @NombreUsuario,
-            domicilio_456VG    = @Domicilio,
-            rol_456VG          = @Rol,
-            CodRol_456VG       = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = @Rol)
-        WHERE dni_456VG = @DNI;
-    ";
-
+                USE EnviosYA_456VG;
+                UPDATE Usuario_456VG 
+                SET 
+                    nombre_456VG       = @Nombre,
+                    apellido_456VG     = @Apellido,
+                    email_456VG        = @Email,
+                    telefono_456VG     = @Telefono,
+                    nombreusuario_456VG= @NombreUsuario,
+                    domicilio_456VG    = @Domicilio,
+                    rol_456VG          = @Rol,
+                    CodRol_456VG       = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = @Rol)
+                WHERE dni_456VG = @DNI;
+            ";
             try
             {
-                bool result = db.Conectar456VG();
-                if (!result)
+                if (!db.Conectar456VG())
                     throw new Exception("Error al conectarse a la base de datos");
-
                 var trans = db.Connection.BeginTransaction();
-
                 using (SqlCommand cmd = new SqlCommand(queryUpdateUser, db.Connection, trans))
                 {
                     cmd.Parameters.AddWithValue("@Nombre", obj.Nombre456VG);
@@ -169,36 +156,10 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@Domicilio", obj.Domicilio456VG);
                     cmd.Parameters.AddWithValue("@Rol", obj.Rol456VG.Nombre456VG);
                     cmd.Parameters.AddWithValue("@DNI", obj.DNI456VG);
-
                     int filasAfectadas = cmd.ExecuteNonQuery();
-
                     if (filasAfectadas > 0)
                     {
-                        string updatePermisos = @"
-                    DELETE FROM UsuarioPermiso_456VG
-                    WHERE dni_456VG = @DNI
-                      AND codpermiso_456VG IN (
-                          SELECT codpermiso_456VG 
-                          FROM PermisosComp_456VG 
-                          WHERE isPerfil_456VG = 1
-                      );
-
-                    INSERT INTO UsuarioPermiso_456VG (dni_456VG, codpermiso_456VG)
-                    SELECT @DNI, codpermiso_456VG
-                    FROM PermisosComp_456VG
-                    WHERE nombre_456VG = @Rol
-                      AND isPerfil_456VG = 1;
-                ";
-
-                        using (SqlCommand cmdPermiso = new SqlCommand(updatePermisos, db.Connection, trans))
-                        {
-                            cmdPermiso.Parameters.AddWithValue("@DNI", obj.DNI456VG);
-                            cmdPermiso.Parameters.AddWithValue("@Rol", obj.Rol456VG.Nombre456VG);
-                            cmdPermiso.ExecuteNonQuery();
-                        }
-
                         trans.Commit();
-
                         resultado.resultado = true;
                         resultado.mensaje = "Usuario actualizado correctamente.";
                         resultado.entidad = obj;
@@ -211,7 +172,6 @@ namespace _456VG_DAL
                         resultado.entidad = null;
                     }
                 }
-
                 db.Desconectar456VG();
             }
             catch (Exception ex)
@@ -222,10 +182,8 @@ namespace _456VG_DAL
                 resultado.mensaje = "Error al actualizar usuario: " + ex.Message;
                 resultado.entidad = null;
             }
-
             return resultado;
         }
-
         public Resultado_456VG<BEUsuario_456VG> crearEntidad456VG(BEUsuario_456VG obj)
         {
             Resultado_456VG<BEUsuario_456VG> resultado = new Resultado_456VG<BEUsuario_456VG>();
