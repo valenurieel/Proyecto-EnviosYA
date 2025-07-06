@@ -37,13 +37,13 @@ namespace Proyecto_EnviosYA
                 {
                     foreach (var hijo in familiaCompleta.Permisos456VG)
                     {
-                        TreeNode nodoHijo = CrearNodoPermisoRecursivo(hijo, true);
+                        TreeNode nodoHijo = CrearNodoPermisoRecursivo456VG(hijo, true);
                         e.Node.Nodes.Add(nodoHijo);
                     }
                 }
             }
         }
-        private TreeNode CrearNodoPermisoRecursivo(IPerfil_456VG permiso, bool expandirFamilia = false)
+        private TreeNode CrearNodoPermisoRecursivo456VG(IPerfil_456VG permiso, bool expandirFamilia = false)
         {
             TreeNode nodo = new TreeNode(permiso.Nombre456VG) { Tag = permiso };
 
@@ -51,7 +51,7 @@ namespace Proyecto_EnviosYA
             {
                 foreach (var hijo in familia.Permisos456VG)
                 {
-                    nodo.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                    nodo.Nodes.Add(CrearNodoPermisoRecursivo456VG(hijo, true));
                 }
             }
             return nodo;
@@ -123,7 +123,7 @@ namespace Proyecto_EnviosYA
             };
             foreach (var permiso in perfil.Permisos456VG)
             {
-                TreeNode nodoPermiso = CrearNodoPermisoRecursivo(permiso, true);
+                TreeNode nodoPermiso = CrearNodoPermisoRecursivo456VG(permiso, true);
                 nodoPerfil.Nodes.Add(nodoPermiso);
             }
             treeView1456VG.Nodes.Add(nodoPerfil);
@@ -175,7 +175,6 @@ namespace Proyecto_EnviosYA
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregado"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             button4456VG_Click(null, null);
         }
         private void button2456VG_Click(object sender, EventArgs e)
@@ -369,7 +368,7 @@ namespace Proyecto_EnviosYA
             }
             if (treeView1.Nodes.Count == 0)
             {
-                var nodoRaiz = CrearNodoPermisoRecursivo(familiaAInsertar, true);
+                var nodoRaiz = CrearNodoPermisoRecursivo456VG(familiaAInsertar, true);
                 treeView1.Nodes.Add(nodoRaiz);
                 treeView1.ExpandAll();
                 MessageBox.Show(
@@ -416,7 +415,7 @@ namespace Proyecto_EnviosYA
             }
             if (bllp.AgregarPermisoAFamilia456VG(familiaDestino.Nombre456VG, familiaAInsertar))
             {
-                var nodoHijo = CrearNodoPermisoRecursivo(familiaAInsertar, true);
+                var nodoHijo = CrearNodoPermisoRecursivo456VG(familiaAInsertar, true);
                 nodoSel.Nodes.Add(nodoHijo);
                 nodoSel.Expand();
                 MessageBox.Show(
@@ -498,7 +497,7 @@ namespace Proyecto_EnviosYA
                 {
                     foreach (var hijo in familiaActualizada.Permisos456VG)
                     {
-                        nodoSel.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                        nodoSel.Nodes.Add(CrearNodoPermisoRecursivo456VG(hijo, true));
                     }
                     nodoSel.Expand();
                 }
@@ -638,7 +637,7 @@ namespace Proyecto_EnviosYA
                     {
                         foreach (var hijo in familiaActualizada.Permisos456VG)
                         {
-                            nodoPadre.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                            nodoPadre.Nodes.Add(CrearNodoPermisoRecursivo456VG(hijo, true));
                         }
                         nodoPadre.Expand();
                         CargarCombos456VG();
@@ -701,7 +700,7 @@ namespace Proyecto_EnviosYA
                     {
                         foreach (var hijo in familiaActualizada.Permisos456VG)
                         {
-                            nodoPadre.Nodes.Add(CrearNodoPermisoRecursivo(hijo, true));
+                            nodoPadre.Nodes.Add(CrearNodoPermisoRecursivo456VG(hijo, true));
                         }
                         nodoPadre.Expand();
                         RefrescarPerfilSiContieneFamilia(familiaPadre.Nombre456VG);
@@ -814,7 +813,7 @@ namespace Proyecto_EnviosYA
             TreeNode nodoPerfil = new TreeNode(perfil.Nombre456VG) { Tag = perfil };
             foreach (var permiso in perfil.Permisos456VG)
             {
-                TreeNode nodoPermiso = CrearNodoPermisoRecursivo(permiso, true);
+                TreeNode nodoPermiso = CrearNodoPermisoRecursivo456VG(permiso, true);
                 nodoPerfil.Nodes.Add(nodoPermiso);
             }
             treeView1456VG.Nodes.Add(nodoPerfil);

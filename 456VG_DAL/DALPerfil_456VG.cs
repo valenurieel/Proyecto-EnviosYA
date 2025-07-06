@@ -106,7 +106,6 @@ namespace _456VG_DAL
                             int codPermiso = reader.GetInt32(0);
                             string nombre = reader.GetString(1);
                             bool esFamilia = reader.GetBoolean(2);
-
                             if (esFamilia)
                                 permisos.Add(ConstruirFamiliaRecursiva456VG(codPermiso, nombre, db.Connection));
                             else
@@ -360,7 +359,7 @@ namespace _456VG_DAL
                 db.Connection.Close();
             }
         }
-        public bool InsertarPerfil456VG(string nombrePerfil) //chequear
+        public bool InsertarPerfil456VG(string nombrePerfil)
         {
             string query = @"
             USE EnviosYA_456VG;
