@@ -45,8 +45,12 @@ namespace Proyecto_EnviosYA
         }
         private TreeNode CrearNodoPermisoRecursivo456VG(IPerfil_456VG permiso, bool expandirFamilia = false)
         {
-            TreeNode nodo = new TreeNode(permiso.Nombre456VG) { Tag = permiso };
-
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            string claveJSON = permiso is FamiliaPermiso_456VG
+                ? "Perfiles_456VG.Item.cmboxflia456VG." + permiso.Nombre456VG
+                : "Perfiles_456VG.Item.comboBox1456VG." + permiso.Nombre456VG;
+            string nombreTraducido = lng.ObtenerTexto_456VG(claveJSON);
+            TreeNode nodo = new TreeNode(nombreTraducido) { Tag = permiso };
             if (permiso is FamiliaPermiso_456VG familia && expandirFamilia)
             {
                 foreach (var hijo in familia.Permisos456VG)
@@ -342,6 +346,7 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarCombos456VG();
+                    RefrescarPerfilSiContieneFamilia(familia.Nombre456VG);
                     button5_Click(null, null);
                 }
                 else
@@ -587,6 +592,7 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaQuitada"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    RefrescarPerfilSiContieneFamilia(familia.Nombre456VG);
                     button4456VG_Click(null, null);
                 }
                 else

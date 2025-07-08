@@ -565,5 +565,9 @@
   "FacturasIMP_456VG.Msg.TituloError": "Error",
   "FacturasIMP_456VG.Msg.DeseaAbrirPDF": "¿Desea abrir la factura generada?",
   "FacturasIMP_456VG.Msg.TituloAbrirPDF": "Factura Generada",
-  "Perfiles_456VG.Msg.ErrorAgregarPermiso": "Error al intentar agregar permiso: {0}"
+  "Perfiles_456VG.Msg.ErrorAgregarPermiso": "Error al intentar agregar permiso: {0}",
+  "Perfiles_456VG.Msg.SoloEliminarFamiliaRaiz": "Solo puede eliminar familias raíz.",
+  "Perfiles_456VG.Msg.ConfirmarEliminarFamiliaRaiz": "¿Está seguro que desea eliminar esta familia raíz?",
+  "Perfiles_456VG.Msg.FamiliaRaizEliminadaOk": "Familia raíz eliminada correctamente.",
+  "Perfiles_456VG.Msg.ErrorEliminarFamiliaRaiz": "Error al eliminar la familia raíz."
 }

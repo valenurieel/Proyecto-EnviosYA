@@ -59,12 +59,14 @@
   "Perfiles_456VG.Msg.ConfirmarQuitarPermisoFamilia": "Are you sure you want to remove this permission from the family?",
   "Perfiles_456VG.Msg.PermisoQuitadoOkFamilia": "Permission successfully removed from the family.",
   "Perfiles_456VG.Msg.ErrorQuitarPermisoFamilia": "Could not remove the permission from the family.",
-
   "Perfiles_456VG.Msg.SoloPermisoDirectoEnFamiliaRaiz": "You can only remove permissions from root families.",
-
   "Perfiles_456VG.Msg.SoloAgregarAFamiliaRaiz": "You can only add subfamilies to root families.",
   "Perfiles_456VG.Msg.SoloPermisoAFamiliaRaiz": "You can only add permissions to root families.",
   "Perfiles_456VG.Msg.SoloPermisoPerfilRaiz": "You must select a root profile to add a permission. You cannot add permissions to families or subfamilies.",
+  "Perfiles_456VG.Msg.SoloEliminarFamiliaRaiz": "Only root families can be deleted.",
+  "Perfiles_456VG.Msg.ConfirmarEliminarFamiliaRaiz": "Are you sure you want to delete this root family?",
+  "Perfiles_456VG.Msg.FamiliaRaizEliminadaOk": "Root family deleted successfully.",
+  "Perfiles_456VG.Msg.ErrorEliminarFamiliaRaiz": "Error deleting the root family.",
 
   "CambiarContraseña_456VG.Text": "Change Password",
   "CambiarContraseña_456VG.label5456VG": "Change Password",
