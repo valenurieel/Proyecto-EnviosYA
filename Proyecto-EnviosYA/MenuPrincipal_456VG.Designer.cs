@@ -76,6 +76,7 @@
             this.menuStrip1456VG.Size = new System.Drawing.Size(127, 652);
             this.menuStrip1456VG.TabIndex = 0;
             this.menuStrip1456VG.Text = "menuStrip1";
+            this.menuStrip1456VG.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1456VG_ItemClicked);
             // 
             // MenuAdministrador
             // 
