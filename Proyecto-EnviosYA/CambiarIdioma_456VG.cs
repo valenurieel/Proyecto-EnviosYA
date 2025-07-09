@@ -48,9 +48,7 @@ namespace Proyecto_EnviosYA
             Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = nuevoIdioma;
             if (SessionManager_456VG.verificarInicioSesion456VG())
             {
-                BEUsuario_456VG usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
-                BLLUsuario_456VG bllUsuario = new BLLUsuario_456VG();
-                bllUsuario.modificarIdioma456VG(usuarioActual, nuevoIdioma);
+                SessionManager_456VG.IdiomaTemporal_456VG = nuevoIdioma;
             }
             MessageBox.Show(
                 string.Format(

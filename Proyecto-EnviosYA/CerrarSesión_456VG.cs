@@ -1,7 +1,8 @@
-﻿using System;
+﻿using _456VG_BLL;
+using _456VG_Servicios;
+using System;
 using System.Linq;
 using System.Windows.Forms;
-using _456VG_Servicios;
 
 namespace Proyecto_EnviosYA
 {
@@ -22,7 +23,13 @@ namespace Proyecto_EnviosYA
             string titulo = lng.ObtenerTexto_456VG("CerrarSesión_456VG.Text");
             if (SessionManager_456VG.ObtenerInstancia456VG().Usuario != null)
             {
+                var bllUsuario = new BLLUsuario_456VG();
+                var usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
+                var idiomaFinal = SessionManager_456VG.IdiomaTemporal_456VG;
+                bllUsuario.modificarIdioma456VG(usuarioActual, idiomaFinal);
                 SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
+                SessionManager_456VG.IdiomaTemporal_456VG = "ES";
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("CerrarSesión_456VG.Msg.SesionCerrada"),
                     titulo,

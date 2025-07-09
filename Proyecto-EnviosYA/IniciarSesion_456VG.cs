@@ -116,6 +116,7 @@ namespace Proyecto_EnviosYA
                 return;
             }
             string idiomaUsuario = BLLUsuario.RecuperarIdioma456VG(usuario.DNI456VG);
+            SessionManager_456VG.IdiomaTemporal_456VG = idiomaUsuario;
             Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = idiomaUsuario;
             MessageBox.Show(
                 lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.SesionIniciada"),

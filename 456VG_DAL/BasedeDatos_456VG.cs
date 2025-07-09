@@ -282,7 +282,23 @@ public class BasedeDatos_456VG
             "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones') " +
             "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Recepciones', 1);" +
             "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'FAdmin') " +
-            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('FAdmin', 1);"
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('FAdmin', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Usuario') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Usuario', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Salir') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Salir', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Ayuda') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Ayuda', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Admin') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Admin', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Recepcion') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Recepcion', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Maestros') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Maestros', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Envíos') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Envíos', 1);" +
+            "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Reportes') " +
+            "INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('Menu Reportes', 1);"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -290,37 +306,77 @@ public class BasedeDatos_456VG
             "DECLARE @cob INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Cobranza'); " +
             "DECLARE @rec INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Recepciones'); " +
             "DECLARE @fadm INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Fadmin'); " +
-            // Seguridad
+            "DECLARE @muser INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Usuario'); " +
+            "DECLARE @msalir INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Salir'); " +
+            "DECLARE @mayuda INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Ayuda'); " +
+            "DECLARE @madmin INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Admin'); " +
+            "DECLARE @mrecep INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Recepcion'); " +
+            "DECLARE @mmaest INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Maestros'); " +
+            "DECLARE @menv INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Envíos'); " +
+            "DECLARE @mrepor INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'Menu Reportes'); " +
+            //Menu Usuarios
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
-            "SELECT @seg, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "SELECT @muser, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
             "'MenuUsuarios', " +
             "'IniciarSesión', " +
             "'CerrarSesión', " +
             "'CambiarIdioma', " +
-            "'CambiarContraseña', " +
-            "'MenuAyuda', " +
-            "'MenuSalir'); " +
+            "'CambiarContraseña');" +
+            //Menu Salir
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @msalir, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuSalir');" +
+            //Menu Ayuda
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @mayuda, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuAyuda');" +
+            //Menu Admin
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @madmin, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuAdministrador', " +
+            "'GestióndeUsuarios', " +
+            "'GestióndePerfiles');" +
+            //Menu Recepcion
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @mrecep, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuRecepción', " +
+            "'CrearEnvío');" +
+            //Menu Maestros
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @mmaest, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuMaestro', " +
+            "'GestióndeClientes');" +
+            //Menu Envíos
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @menv, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuEnvíos', " +
+            "'CobrarEnvío');" +
+            //Menu Reportes
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @mrepor, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'MenuReportes', " +
+            "'FacturasIMP', " +
+            "'SeguimientoEnvíos');" +
+            // Seguridad
+            "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
+            "SELECT @seg, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
+            "'Menu Usuario', " +
+            "'Menu Ayuda', " +
+            "'Menu Salir'); " +
             // Cobranza
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @cob, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
-            "'CobrarEnvío', " +
-            "'MenuReportes', " +
-            "'MenuEnvíos', " +
-            "'SeguimientoEnvíos', " +
-            "'FacturasIMP'); " +
+            "'Menu Envíos', " +
+            "'Menu Reportes'); " +
             // Recepciones
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @rec, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
-            "'MenuRecepción', " +
-            "'CrearEnvío', " +
-            "'MenuMaestro', " +
-            "'GestióndeClientes');" +
+            "'Menu Recepcion', " +
+            "'Menu Maestros');" +
             //FAdmin
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @fadm, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
-            "'MenuAdministrador', " +
-            "'GestióndeUsuarios', " +
-            "'GestióndePerfiles');"
+            "'Menu Admin');"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +

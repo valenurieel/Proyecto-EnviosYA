@@ -12,6 +12,7 @@ namespace _456VG_Servicios
         private static SessionManager_456VG Instancia = null;
         private static BEUsuario_456VG _user = null;
         private static bool inicióSesion = false;
+        private static string _idiomaTemporal_456VG = "ES";
         private SessionManager_456VG() { }
         public static SessionManager_456VG ObtenerInstancia456VG()
         {
@@ -21,14 +22,15 @@ namespace _456VG_Servicios
             }
             return Instancia;
         }
+        public static string IdiomaTemporal_456VG
+        {
+            get => _idiomaTemporal_456VG;
+            set => _idiomaTemporal_456VG = value;
+        }
         public void IniciarSesion456VG(BEUsuario_456VG userNuevo)
         {
-            if (Instancia != null)
-            {
-                _user = userNuevo;
-                inicióSesion = true;
-                return;
-            }
+            _user = userNuevo;
+            inicióSesion = true;
         }
         public static bool verificarInicioSesion456VG()
         {
