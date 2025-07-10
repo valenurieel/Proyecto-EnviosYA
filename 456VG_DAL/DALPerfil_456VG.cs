@@ -127,6 +127,10 @@ namespace _456VG_DAL
                 USE EnviosYA_456VG;
                 DECLARE @CodRol INT = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = @Nombre);
                 DECLARE @CodPermiso INT = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = @Nombre AND IsFamilia_456VG = 0);
+                UPDATE Usuario_456VG
+                SET CodRol_456VG = NULL,
+                    rol_456VG = NULL
+                WHERE CodRol_456VG = @CodRol;
                 DELETE FROM Rol_Permiso_456VG WHERE CodRol_456VG = @CodRol;
                 DELETE FROM Permiso_456VG WHERE CodPermiso_456VG = @CodPermiso;
                 DELETE FROM Rol_456VG WHERE CodRol_456VG = @CodRol;

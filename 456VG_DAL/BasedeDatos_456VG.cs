@@ -103,12 +103,12 @@ public class BasedeDatos_456VG
                     "contraseña_456VG VARCHAR(100) NOT NULL," +
                     "salt_456VG VARCHAR(24) NOT NULL," +
                     "domicilio_456VG VARCHAR(100) NOT NULL," +
-                    "rol_456VG VARCHAR(100) NOT NULL," +
+                    "rol_456VG VARCHAR(100) NULL," +
                     "bloqueado_456VG BIT NOT NULL DEFAULT 0," +
                     "activo_456VG BIT NOT NULL DEFAULT 1," +
                     "idioma_456VG VARCHAR(50) NOT NULL DEFAULT 'ES'," +
-                    "CodRol_456VG INT NOT NULL, " +
-                    "FOREIGN KEY (CodRol_456VG) REFERENCES Rol_456VG(CodRol_456VG)" +
+                    "CodRol_456VG INT NULL, " +
+                    "FOREIGN KEY (CodRol_456VG) REFERENCES Rol_456VG(CodRol_456VG) ON DELETE SET NULL" +
                 ");"
             );
             dbReal.ejecutarQuery456VG(

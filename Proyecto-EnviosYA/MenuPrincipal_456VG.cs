@@ -78,6 +78,7 @@ namespace Proyecto_EnviosYA
             {
                 formManager.HabilitarMenusPorPermisos(item, permisos);
             }
+            bienvenido456VG();
         }
         private void MenuPrincipal_456VG_Load(object sender, EventArgs e)
         {

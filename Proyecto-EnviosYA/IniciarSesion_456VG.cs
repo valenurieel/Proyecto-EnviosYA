@@ -118,13 +118,33 @@ namespace Proyecto_EnviosYA
             string idiomaUsuario = BLLUsuario.RecuperarIdioma456VG(usuario.DNI456VG);
             SessionManager_456VG.IdiomaTemporal_456VG = idiomaUsuario;
             Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = idiomaUsuario;
+            BEUsuario_456VG usuarioConPermisos = BLLUsuario.recuperarUsuarioConPerfil456VG(usuario.DNI456VG);
+            if (usuarioConPermisos == null || usuarioConPermisos.Rol456VG == null || usuarioConPermisos.Rol456VG.Permisos456VG == null || !usuarioConPermisos.Rol456VG.Permisos456VG.Any())
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.PerfilInexistente"),
+                    lng.ObtenerTexto_456VG("IniciarSesion_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
+                SessionManager_456VG.IdiomaTemporal_456VG = "ES";
+                var menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+                if (menu != null)
+                {
+                    menu.deshabilitados();
+                    menu.chau();
+                }
+                this.Close();
+                return;
+            }
             MessageBox.Show(
                 lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.SesionIniciada"),
                 lng.ObtenerTexto_456VG("IniciarSesion_456VG.Text"),
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-            BEUsuario_456VG usuarioConPermisos = BLLUsuario.recuperarUsuarioConPerfil456VG(usuario.DNI456VG);
             SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioConPermisos);
             intentosFallidosPorUsuario.Clear();
             LoginExitoso?.Invoke(this, EventArgs.Empty);
