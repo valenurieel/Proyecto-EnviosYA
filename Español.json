@@ -37,7 +37,7 @@
 
   "GestióndeUsuarios_456VG.Msg.CambioRolSesion": "Se modificó el rol del usuario actual. Se cerrará la sesión para aplicar los cambios.",
   "IniciarSesion_456VG.Msg.PerfilInexistente": "Su perfil ya no es existente en el Sistema, contáctese con un Administrador.",
-
+  "Perfiles_456VG.Msg.PerfilActualEliminado": "Su perfil ha sido eliminado. Se cerrará la sesión y deberá volver a iniciar sesión.",
 
   "CobrarEnvío_456VG.Text": "Cobrar Envío",
   "CobrarEnvío_456VG.label8": "Cobrar Envío",

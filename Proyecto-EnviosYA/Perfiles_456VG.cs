@@ -184,8 +184,7 @@ namespace Proyecto_EnviosYA
         private void button2456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-            var nodoSel = treeView1456VG.SelectedNode;
-            if (nodoSel == null || !(nodoSel.Tag is BEPerfil_456VG perfil))
+            if (treeView1456VG.SelectedNode == null || !(treeView1456VG.SelectedNode.Tag is BEPerfil_456VG perfil))
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SeleccionarPerfilEliminar"),
@@ -199,14 +198,37 @@ namespace Proyecto_EnviosYA
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
-                if (bllp.EliminarPerfil456VG(perfil.Nombre456VG))
+                string perfilAEliminar = perfil.Nombre456VG;
+                string perfilLogueado = SessionManager_456VG.Obtenerdatosuser456VG().Rol456VG.Nombre456VG;
+                bool eliminado = bllp.EliminarPerfil456VG(perfilAEliminar);
+                if (eliminado)
                 {
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilEliminadoExito"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarCombos456VG();
-                    button6_Click(null,null);
+                    button6_Click(null, null);
+                    if (perfilAEliminar == perfilLogueado)
+                    {
+                        MessageBox.Show(
+                            lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilActualEliminado"),
+                            lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        var usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
+                        var idiomaFinal = SessionManager_456VG.IdiomaTemporal_456VG;
+                        new BLLUsuario_456VG().modificarIdioma456VG(usuarioActual, idiomaFinal);
+                        SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                        Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
+                        SessionManager_456VG.IdiomaTemporal_456VG = "ES";
+                        var menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+                        if (menu != null)
+                        {
+                            menu.deshabilitados();
+                            menu.chau();
+                        }
+                        this.Close();
+                    }
                 }
                 else
                 {
