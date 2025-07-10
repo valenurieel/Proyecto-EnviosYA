@@ -28,6 +28,8 @@
   "Perfiles_456VG.Item.CBFamilias456VG.Menu Envíos": "Shipments Menu",
   "Perfiles_456VG.Item.CBFamilias456VG.Menu Reportes": "Reports Menu",
 
+  "GestióndeUsuarios_456VG.Msg.CambioRolSesion": "The current user's role was changed. The session will be closed to apply the changes.",
+
   "Perfiles_456VG.Text": "Profile Management",
   "Perfiles_456VG.Msg.NombrePerfilVacio": "You must enter a profile name.",
   "Perfiles_456VG.Msg.PerfilCreadoExito": "Profile created successfully.",

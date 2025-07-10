@@ -486,6 +486,29 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    if (dniSeleccionado == SessionManager_456VG.Obtenerdatosuser456VG().DNI456VG)
+                    {
+                        MessageBox.Show(
+                            lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.CambioRolSesion"),
+                            lng.ObtenerTexto_456VG("GestióndeUsuarios_456VG.Msg.ResultadoVacio"),
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                        var idiomaFinal = SessionManager_456VG.IdiomaTemporal_456VG;
+                        var usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
+                        new BLLUsuario_456VG().modificarIdioma456VG(usuarioActual, idiomaFinal);
+                        SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                        Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
+                        SessionManager_456VG.IdiomaTemporal_456VG = "ES";
+                        var menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
+                        if (menu != null)
+                        {
+                            menu.deshabilitados();
+                            menu.chau();
+                        }
+                        this.Close();
+                        return;
+                    }
                     GestióndeUsuarios_456VG_Load(null, null);
                 }
                 else

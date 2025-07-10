@@ -35,6 +35,9 @@
   "CerrarSesión_456VG.Msg.SesionCerrada": "Se ha cerrado la sesión exitosamente.",
   "CerrarSesión_456VG.Msg.NoSesion": "No se ha iniciado sesión aún.",
 
+  "GestióndeUsuarios_456VG.Msg.CambioRolSesion": "Se modificó el rol del usuario actual. Se cerrará la sesión para aplicar los cambios.",
+
+
   "CobrarEnvío_456VG.Text": "Cobrar Envío",
   "CobrarEnvío_456VG.label8": "Cobrar Envío",
   "CobrarEnvío_456VG.label6": "Medio de Pago:",
