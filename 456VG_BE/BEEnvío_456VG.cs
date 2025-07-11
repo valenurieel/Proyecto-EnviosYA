@@ -70,7 +70,7 @@ namespace _456VG_BE
         //calculo importe del envio (destino, tipo de envío, paquete(detalles), tarifa Base)
         public decimal CalcularImporte456VG()
         {
-            decimal totalBruto = 0m;
+            decimal subtotalPaquetes = 0m;
             string prov = Provincia456VG?.Trim().ToLower() ?? "";
             float factorZona;
             var zonaAlta = new HashSet<string>
@@ -94,10 +94,12 @@ namespace _456VG_BE
                 float volumen = (paquete.Alto456VG * paquete.Ancho456VG * paquete.Largo456VG) / 1000f;
                 float basePeso = paquete.Peso456VG * 10f;
                 float baseVolumen = volumen * 0.5f;
-                float brutoPaquete = (tarifaBase + basePeso + baseVolumen) * factorZona * factorEnvio;
-                totalBruto += (decimal)Math.Round(brutoPaquete, 2);
+                float precioPaquete = tarifaBase + basePeso + baseVolumen;
+                subtotalPaquetes += Math.Round((decimal)precioPaquete, 2);
             }
-            return totalBruto;
+            decimal totalConZona = subtotalPaquetes * (decimal)factorZona;
+            decimal totalFinal = totalConZona * (decimal)factorEnvio;
+            return Math.Round(totalFinal, 2);
         }
     }
 }

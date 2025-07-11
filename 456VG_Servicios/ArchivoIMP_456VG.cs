@@ -25,52 +25,115 @@ namespace _456VG_Servicios
                 Directory.CreateDirectory(DestinoFactura_456VG);
             }
         }
-        public bool GenerarFacturasPDF_456VG(List<BEFactura_456VG> facturas)
+        public void GenerarFacturaDetalladaPDF_456VG(BEFactura_456VG factura)
         {
             try
             {
-                string nombreArchivo = GenerarNombreArchivo_456VG();
+                string nombreArchivo = $"Factura_{factura.CodFactura456VG}.pdf";
                 string rutaCompleta = Path.Combine(DestinoFactura_456VG, nombreArchivo);
                 ultimaRutaGenerada_456VG = rutaCompleta;
-                Document doc = new Document();
+                Document doc = new Document(PageSize.A4, 40, 40, 40, 40);
                 PdfWriter.GetInstance(doc, new FileStream(rutaCompleta, FileMode.Create));
                 doc.Open();
-                string titulo = facturas.Count == 1 ?
-                    $"Factura: {facturas[0].CodFactura456VG}" :
-                    "Listado de Facturas";
-                doc.Add(new iTextSharp.text.Paragraph(titulo));
-                doc.Add(new iTextSharp.text.Paragraph($"Fecha de generación: {DateTime.Now}"));
-                doc.Add(new iTextSharp.text.Paragraph(" "));
-                PdfPTable tabla = new PdfPTable(9);
+                var fontTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20);
+                var fontSeccion = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+                var fontTexto = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                string rutaImagen = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "enviosya_mini.jpg");
+                if (File.Exists(rutaImagen))
+                {
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaImagen);
+                    logo.ScaleToFit(150f, 75f);
+                    logo.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(logo);
+                    doc.Add(Chunk.NEWLINE);
+                }
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(new iTextSharp.text.Paragraph($"Factura N°: {factura.CodFactura456VG}", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph($"Fecha de Emisión: {factura.FechaEmision456VG:dd/MM/yyyy}", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph($"Hora de Emisión: {factura.HoraEmision456VG}", fontTexto));
+                doc.Add(Chunk.NEWLINE);
+                var cliente = factura.Envio.Cliente;
+                doc.Add(new iTextSharp.text.Paragraph("Datos del Cliente", fontSeccion));
+                doc.Add(new iTextSharp.text.Paragraph($"DNI: {cliente.DNI456VG}", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph($"Nombre y Apellido: {cliente.Nombre456VG} {cliente.Apellido456VG}", fontTexto));
+                doc.Add(Chunk.NEWLINE);
+                string provincia = factura.Envio.Provincia456VG?.Trim().ToLower() ?? "";
+                float factorZona;
+                var zonaAlta = new HashSet<string>
+                {
+                    "mendoza", "san luis", "cordoba", "córdoba", "tucuman", "tucumán", "san juan", "la rioja",
+                    "santa fe", "entre rios", "entre ríos", "corrientes", "misiones", "jujuy", "salta", "formosa",
+                    "chaco", "santiago del estero", "catamarca"
+                };
+                if (provincia == "buenos aires")
+                    factorZona = 1.1f;
+                else if (zonaAlta.Contains(provincia))
+                    factorZona = 1.3f;
+                else
+                    factorZona = 1.5f;
+                float factorEnvio = factura.Envio.tipoenvio456VG?.Equals("express", StringComparison.OrdinalIgnoreCase) == true ? 1.2f : 1.0f;
+                const float tarifaBase = 500f;
+                doc.Add(new iTextSharp.text.Paragraph("Datos del Envío", fontSeccion));
+                doc.Add(new iTextSharp.text.Paragraph($"Código de Envío: {factura.Envio.CodEnvio456VG}", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph($"Tipo de Envío: '{factura.Envio.tipoenvio456VG}'", fontTexto));
+                decimal totalBase = 0;
+                foreach (var p in factura.Envio.Paquetes)
+                {
+                    float volumen = (p.Alto456VG * p.Ancho456VG * p.Largo456VG) / 1000f;
+                    float basePeso = p.Peso456VG * 10f;
+                    float baseVol = volumen * 0.5f;
+                    float subtotal = tarifaBase + basePeso + baseVol;
+                    totalBase += (decimal)Math.Round(subtotal, 2);
+                }
+                decimal recargoZona = totalBase * (decimal)(factorZona - 1);
+                decimal recargoTipo = (totalBase + recargoZona) * (decimal)(factorEnvio - 1);
+                doc.Add(new iTextSharp.text.Paragraph($"Recargo por Zona: ...........................................................................................................${recargoZona:F2}", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph($"Recargo por Tipo de Envío: .............................................................................................${recargoTipo:F2}", fontTexto));
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(new iTextSharp.text.Paragraph("Datos del Pago", fontSeccion));
+                doc.Add(new iTextSharp.text.Paragraph($"Medio de Pago: {factura.DatosPago.MedioPago456VG}", fontTexto));
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(new iTextSharp.text.Paragraph("Detalle de Paquetes", fontSeccion));
+                PdfPTable tabla = new PdfPTable(6);
                 tabla.WidthPercentage = 100;
-                float[] anchosColumnas = new float[] { 15f, 15f, 15f, 15f, 10f, 10f, 15f, 15f, 10f };
-                tabla.SetWidths(anchosColumnas);
-                string[] headers = { "Factura", "Envío", "DNI", "Cliente", "Paquetes", "Medio de Pago", "Importe", "Fecha", "Hora" };
-                foreach (var h in headers)
+                tabla.SetWidths(new float[] { 2.5f, 1.3f, 1.3f, 1.3f, 1.3f, 1.5f });
+                tabla.AddCell("Código");
+                tabla.AddCell("Peso");
+                tabla.AddCell("Alto");
+                tabla.AddCell("Ancho");
+                tabla.AddCell("Largo");
+                tabla.AddCell("Precio");
+                foreach (var p in factura.Envio.Paquetes)
                 {
-                    PdfPCell cell = new PdfPCell(new Phrase(h));
-                    cell.BackgroundColor = BaseColor.LIGHT_GRAY;
-                    tabla.AddCell(cell);
+                    float volumen = (p.Alto456VG * p.Ancho456VG * p.Largo456VG) / 1000f;
+                    float basePeso = p.Peso456VG * 10f;
+                    float baseVol = volumen * 0.5f;
+                    float subtotal = tarifaBase + basePeso + baseVol;
+                    tabla.AddCell(p.CodPaq456VG);
+                    tabla.AddCell(p.Peso456VG.ToString("F2"));
+                    tabla.AddCell(p.Alto456VG.ToString("F2"));
+                    tabla.AddCell(p.Ancho456VG.ToString("F2"));
+                    tabla.AddCell(p.Largo456VG.ToString("F2"));
+                    tabla.AddCell($"${Math.Round(subtotal, 2):F2}");
                 }
-                foreach (var f in facturas)
-                {
-                    tabla.AddCell(f.CodFactura456VG);
-                    tabla.AddCell(f.Envio.CodEnvio456VG);
-                    tabla.AddCell(f.Envio.Cliente.DNI456VG);
-                    tabla.AddCell($"{f.Envio.Cliente.Nombre456VG} {f.Envio.Cliente.Apellido456VG}");
-                    tabla.AddCell(f.Envio.Paquetes?.Count.ToString() ?? "0");
-                    tabla.AddCell(f.DatosPago?.MedioPago456VG ?? "Sin datos");
-                    tabla.AddCell(f.Envio.Importe456VG.ToString("C"));
-                    tabla.AddCell(f.FechaEmision456VG.ToShortDateString());
-                    tabla.AddCell(f.HoraEmision456VG.ToString(@"hh\:mm"));
-                }
+                decimal totalFinal = totalBase + recargoZona + recargoTipo;
                 doc.Add(tabla);
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(new iTextSharp.text.Paragraph($"TOTAL FINAL: ........................................................................${totalFinal:F2}", fontSeccion));
+                doc.Add(Chunk.NEWLINE);
+                var agradecimiento = new iTextSharp.text.Paragraph("¡Gracias por confiar en nosotros!", fontSeccion);
+                agradecimiento.Alignment = Element.ALIGN_CENTER;
+                doc.Add(agradecimiento);
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(new iTextSharp.text.Paragraph("Nuestros contactos:", fontSeccion));
+                doc.Add(new iTextSharp.text.Paragraph("Teléfono: +54 11-2711-8942.", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph("Email: consultas@enviosya.com", fontTexto));
+                doc.Add(new iTextSharp.text.Paragraph("Dirección: Asturiano 2345 Temperley, Buenos Aires.", fontTexto));
                 doc.Close();
-                return true;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al generar el PDF de facturas: " + ex.Message);
+                throw new Exception("Error al generar la factura detallada: " + ex.Message);
             }
         }
         public void AbrirUltimoPDF_456VG()
@@ -79,19 +142,6 @@ namespace _456VG_Servicios
             {
                 Process.Start(new ProcessStartInfo(ultimaRutaGenerada_456VG) { UseShellExecute = true });
             }
-        }
-        private string GenerarNombreArchivo_456VG()
-        {
-            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string baseName = $"Facturas_{timestamp}";
-            string filePath = Path.Combine(DestinoFactura_456VG, baseName + ".pdf");
-            int contador = 1;
-            while (File.Exists(filePath))
-            {
-                filePath = Path.Combine(DestinoFactura_456VG, $"{baseName}_{contador}.pdf");
-                contador++;
-            }
-            return Path.GetFileName(filePath);
         }
     }
 }

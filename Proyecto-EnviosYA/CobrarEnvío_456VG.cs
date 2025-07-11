@@ -81,6 +81,11 @@ namespace Proyecto_EnviosYA
             dataGridView1456VG.Columns["Localidad"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Localidad");
             dataGridView1456VG.Columns["Domicilio"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Domicilio");
             dataGridView1456VG.Columns["TipoEnvio"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.TipoEnvio");
+            dgvPaquetesDetalle.Columns["CodPaq"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.CodPaq");
+            dgvPaquetesDetalle.Columns["Peso"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Peso");
+            dgvPaquetesDetalle.Columns["Ancho"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Ancho");
+            dgvPaquetesDetalle.Columns["Largo"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Largo");
+            dgvPaquetesDetalle.Columns["Alto"].HeaderText = lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Columna.Alto");
             dataGridView1456VG.Columns["IdEnvio"].Visible = false;
         }
         private void ConfigurarDataGridView()

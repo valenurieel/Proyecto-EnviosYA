@@ -39,6 +39,11 @@
   "IniciarSesion_456VG.Msg.PerfilInexistente": "Su perfil ya no es existente en el Sistema, contáctese con un Administrador.",
   "Perfiles_456VG.Msg.PerfilActualEliminado": "Su perfil ha sido eliminado. Se cerrará la sesión y deberá volver a iniciar sesión.",
 
+  "CobrarEnvío_456VG.Columna.CodPaq": "Código Paquete",
+  "CobrarEnvío_456VG.Columna.Peso": "Peso (kg)",
+  "CobrarEnvío_456VG.Columna.Ancho": "Ancho (cm)",
+  "CobrarEnvío_456VG.Columna.Largo": "Largo (cm)",
+  "CobrarEnvío_456VG.Columna.Alto": "Alto (cm)",
   "CobrarEnvío_456VG.Text": "Cobrar Envío",
   "CobrarEnvío_456VG.label8": "Cobrar Envío",
   "CobrarEnvío_456VG.label6": "Medio de Pago:",

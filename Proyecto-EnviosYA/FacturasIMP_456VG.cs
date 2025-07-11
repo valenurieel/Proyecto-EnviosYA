@@ -137,6 +137,7 @@ namespace Proyecto_EnviosYA
         private void btnImprimir456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+
             if (dataGridView1.SelectedRows.Count == 0 || dataGridView1.CurrentRow == null || !dataGridView1.CurrentRow.Selected)
             {
                 MessageBox.Show(
@@ -147,6 +148,7 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
+
             int filaSeleccionada = dataGridView1.CurrentRow.Index;
             if (filaSeleccionada < 0 || filaSeleccionada >= facturasCargadas.Count)
             {
@@ -158,22 +160,21 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
+
             var facturaSeleccionada = facturasCargadas[filaSeleccionada];
+
             try
             {
-                bool generado = archivo.GenerarFacturasPDF_456VG(new List<BEFactura_456VG> { facturaSeleccionada });
-                if (generado)
-                {
-                    facturaSeleccionada.Impreso456VG = true;
-                    bllFactura.actualizarEntidad456VG(facturaSeleccionada);
-                    MessageBox.Show(
-                        lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.ImpresionExitosa"),
-                        lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloInfo"),
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                    CargarFacturas456VG();
-                }
+                archivo.GenerarFacturaDetalladaPDF_456VG(facturaSeleccionada);
+                facturaSeleccionada.Impreso456VG = true;
+                bllFactura.actualizarEntidad456VG(facturaSeleccionada);
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.ImpresionExitosa"),
+                    lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloInfo"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                CargarFacturas456VG();
                 var resultado = MessageBox.Show(
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.DeseaAbrirPDF"),
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloAbrirPDF"),
