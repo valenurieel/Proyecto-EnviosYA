@@ -14,6 +14,7 @@ namespace Proyecto_EnviosYA
         private Dictionary<string, string> dictPermisosTraducidos;
         private Dictionary<string, string> dictFamiliasTraducidas;
         private Dictionary<string, string> dictPerfilesTraducidos;
+        private FamiliaPermiso_456VG familiaRaizSeleccionada;
         public Perfiles_456VG()
         {
             InitializeComponent();
@@ -398,6 +399,7 @@ namespace Proyecto_EnviosYA
                 var nodoRaiz = CrearNodoPermisoRecursivo456VG(familiaAInsertar, true);
                 treeView1.Nodes.Add(nodoRaiz);
                 treeView1.ExpandAll();
+                familiaRaizSeleccionada = familiaAInsertar;
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaAgregadaOk"),
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
@@ -638,7 +640,8 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is FamiliaPermiso_456VG familiaPadre))
+            if (nodoSel.Parent == null || !(nodoSel.Parent.Tag is FamiliaPermiso_456VG familiaPadre) ||
+                familiaPadre.Nombre456VG != familiaRaizSeleccionada.Nombre456VG)
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.SoloSubfamiliaDirecta"),
@@ -805,6 +808,7 @@ namespace Proyecto_EnviosYA
         {
             TXTFamilia456VG.Clear();
             treeView1.Nodes.Clear();
+            familiaRaizSeleccionada = null;
         }
         private void RefrescarPerfilSiContieneFamilia(string nombreFamilia)
         {
