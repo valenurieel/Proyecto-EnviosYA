@@ -281,6 +281,9 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Desbloquear Usuario", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     GestióndeUsuarios_456VG_Load(null, null);
                     return;
                 }
@@ -378,6 +381,9 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Añadir Usuario", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     GestióndeUsuarios_456VG_Load(null, null);
                 }
                 else
@@ -486,6 +492,9 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Modificar Usuario", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     if (dniSeleccionado == SessionManager_456VG.Obtenerdatosuser456VG().DNI456VG)
                     {
                         MessageBox.Show(
@@ -498,6 +507,7 @@ namespace Proyecto_EnviosYA
                         var usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
                         new BLLUsuario_456VG().modificarIdioma456VG(usuarioActual, idiomaFinal);
                         SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                        blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Cerrar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                         Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
                         SessionManager_456VG.IdiomaTemporal_456VG = "ES";
                         var menu = Application.OpenForms.OfType<MenuPrincipal_456VG>().FirstOrDefault();
@@ -560,6 +570,10 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string accionLog = nuevoEstadoActivo ? "Activar Cliente" : "Desactivar Cliente";
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accionLog, crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     GestióndeUsuarios_456VG_Load(null, null);
                 }
                 else

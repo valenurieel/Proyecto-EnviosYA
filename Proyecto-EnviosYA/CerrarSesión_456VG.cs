@@ -1,7 +1,9 @@
-﻿using _456VG_BLL;
+﻿using _456VG_BE;
+using _456VG_BLL;
 using _456VG_Servicios;
 using System;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Proyecto_EnviosYA
@@ -27,6 +29,9 @@ namespace Proyecto_EnviosYA
                 var usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
                 var idiomaFinal = SessionManager_456VG.IdiomaTemporal_456VG;
                 bllUsuario.modificarIdioma456VG(usuarioActual, idiomaFinal);
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Cerrar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                 SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
                 Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
                 SessionManager_456VG.IdiomaTemporal_456VG = "ES";

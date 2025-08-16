@@ -33,6 +33,7 @@
             this.MenuAdministrador = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndeUsuarios = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndePerfiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.BitacoraEventos = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuMaestro = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndeClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuUsuarios = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +83,8 @@
             // 
             this.MenuAdministrador.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GestióndeUsuarios,
-            this.GestióndePerfiles});
+            this.GestióndePerfiles,
+            this.BitacoraEventos});
             this.MenuAdministrador.Name = "MenuAdministrador";
             this.MenuAdministrador.Size = new System.Drawing.Size(112, 22);
             this.MenuAdministrador.Text = "Administrador";
@@ -101,6 +103,13 @@
             this.GestióndePerfiles.Size = new System.Drawing.Size(195, 22);
             this.GestióndePerfiles.Text = "Gestión de Perfiles";
             this.GestióndePerfiles.Click += new System.EventHandler(this.perfilesToolStripMenuItem456VG_Click);
+            // 
+            // BitacoraEventos
+            // 
+            this.BitacoraEventos.Name = "BitacoraEventos";
+            this.BitacoraEventos.Size = new System.Drawing.Size(195, 22);
+            this.BitacoraEventos.Text = "Bitácora de Eventos";
+            this.BitacoraEventos.Click += new System.EventHandler(this.bitácoraDeEventosToolStripMenuItem_Click);
             // 
             // MenuMaestro
             // 
@@ -316,6 +325,7 @@
         private System.Windows.Forms.Label lblBienvenidoDefault;
         private System.Windows.Forms.ToolStripMenuItem SeguimientoEnvíos;
         private System.Windows.Forms.ToolStripMenuItem CobrarEnvío;
+        private System.Windows.Forms.ToolStripMenuItem BitacoraEventos;
     }
 }
 

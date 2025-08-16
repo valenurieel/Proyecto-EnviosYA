@@ -403,6 +403,9 @@ namespace Proyecto_EnviosYA
                     );
                     return;
                 }
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Envíos", accion: "Cobrar Envío", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
             }
             var fact = new BEFactura_456VG(envioCargado, datosPagoExistente, DateTime.Now, false);
             var resFact = BLLFac.crearEntidad456VG(fact);

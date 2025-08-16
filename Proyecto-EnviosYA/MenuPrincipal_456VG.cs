@@ -167,5 +167,11 @@ namespace Proyecto_EnviosYA
         {
 
         }
+
+        private void bitácoraDeEventosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BitácoraEventos_456VG fr = new BitácoraEventos_456VG();
+            fr.ShowDialog();
+        }
     }
 }

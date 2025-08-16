@@ -177,6 +177,9 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Añadir Cliente", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                     GestiondeClientes_456VG_Load(null, null);
                 }
                 else
@@ -261,6 +264,9 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Modificar Cliente", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                     GestiondeClientes_456VG_Load(null, null);
                 }
                 else
@@ -293,7 +299,6 @@ namespace Proyecto_EnviosYA
                     dataGridView1456VG.SelectedRows[0].Cells["Activo"].Value
                 );
                 bool nuevoEstadoActivo = !estadoActivo;
-
                 var resultado = BLLCli.ActDesacCli456(dniSeleccionado, nuevoEstadoActivo);
                 if (resultado.resultado)
                 {
@@ -307,6 +312,10 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    string accionLog = nuevoEstadoActivo ? "Activar Cliente" : "Desactivar Cliente";
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accionLog, crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     GestiondeClientes_456VG_Load(null, null);
                 }
                 else

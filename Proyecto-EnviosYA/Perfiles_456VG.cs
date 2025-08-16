@@ -90,6 +90,9 @@ namespace Proyecto_EnviosYA
                     lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 comboBox3456VG.Items.Add(nombre);
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Crear Perfil", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                 textBox1456VG.Clear();
             }
             else
@@ -180,6 +183,9 @@ namespace Proyecto_EnviosYA
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoAgregado"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+            BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+            blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Agregar Permiso - Perfil", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
             button4456VG_Click(null, null);
         }
         private void button2456VG_Click(object sender, EventArgs e)
@@ -208,6 +214,9 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PerfilEliminadoExito"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Eliminar Perfil", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                     CargarCombos456VG();
                     button6_Click(null, null);
                     if (perfilAEliminar == perfilLogueado)
@@ -219,6 +228,7 @@ namespace Proyecto_EnviosYA
                         var usuarioActual = SessionManager_456VG.Obtenerdatosuser456VG();
                         var idiomaFinal = SessionManager_456VG.IdiomaTemporal_456VG;
                         new BLLUsuario_456VG().modificarIdioma456VG(usuarioActual, idiomaFinal);
+                        blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Cerrar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                         SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
                         Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
                         SessionManager_456VG.IdiomaTemporal_456VG = "ES";
@@ -300,6 +310,9 @@ namespace Proyecto_EnviosYA
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.FamiliaAgregada"),
                 lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+            BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+            blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Agregar Familia - Perfil", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
             button4456VG_Click(null, null);
         }
         private void label6_Click(object sender, EventArgs e)
@@ -325,6 +338,9 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CBFamilias456VG.Items.Add(nombreFamilia);
                 cmboxflia456VG.Items.Add(nombreFamilia);
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Crear Familia", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                 TXTFamilia456VG.Clear();
             }
             else
@@ -370,6 +386,9 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarCombos456VG();
                     RefrescarPerfilSiContieneFamilia(familia.Nombre456VG);
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Eliminar Familia", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                     button5_Click(null, null);
                 }
                 else
@@ -453,6 +472,9 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarCombos456VG();
                 RefrescarPerfilSiContieneFamilia(familiaDestino.Nombre456VG);
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Agregar Familia - Familia", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
             }
             else
             {
@@ -532,6 +554,9 @@ namespace Proyecto_EnviosYA
                 }
                 CargarCombos456VG();
                 RefrescarPerfilSiContieneFamilia(familia.Nombre456VG);
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Agregar Permiso - Familia", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
             }
             else
             {
@@ -573,6 +598,9 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Msg.PermisoQuitado"),
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Quitar Permiso - Perfil", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
                     button4456VG_Click(null, null);
                 }
                 else
@@ -617,6 +645,9 @@ namespace Proyecto_EnviosYA
                         lng.ObtenerTexto_456VG("Perfiles_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RefrescarPerfilSiContieneFamilia(familia.Nombre456VG);
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Quitar Familia - Perfil", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
                     button4456VG_Click(null, null);
                 }
                 else
@@ -674,6 +705,9 @@ namespace Proyecto_EnviosYA
                         CargarCombos456VG();
                         RefrescarPerfilSiContieneFamilia(familiaPadre.Nombre456VG);
                     }
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Quitar Familia - Familia", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
                 }
                 else
                 {
@@ -737,6 +771,9 @@ namespace Proyecto_EnviosYA
                         RefrescarPerfilSiContieneFamilia(familiaPadre.Nombre456VG);
                     }
                     CargarCombos456VG();
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Quitar Permiso - Familia", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Atención);
                 }
                 else
                 {

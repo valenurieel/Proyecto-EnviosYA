@@ -192,6 +192,22 @@ public class BasedeDatos_456VG
                 "ALTER TABLE HistorialContraseñas_456VG " +
                 "ADD CONSTRAINT FK_HistorialContraseñas_Usuario_456VG " +
                 "FOREIGN KEY (dni_456VG) REFERENCES Usuario_456VG(dni_456VG)");
+            dbReal.ejecutarQuery456VG(
+                "USE EnviosYA_456VG; " +
+                "IF OBJECT_ID('dbo.BitacoraEvento_456VG','U') IS NULL " +
+                "BEGIN " +
+                "    CREATE TABLE dbo.BitacoraEvento_456VG ( " +
+                "        CodBitacora_456VG INT IDENTITY(1,1) NOT NULL PRIMARY KEY, " +
+                "        dni_456VG        VARCHAR(20) NOT NULL, " +
+                "        Fecha_456VG      DATETIME    NOT NULL DEFAULT (GETDATE()), " +
+                "        Modulo_456VG     VARCHAR(50) NOT NULL, " +
+                "        Evento_456VG     VARCHAR(50) NOT NULL, " +
+                "        Criticidad_456VG INT         NOT NULL, " +
+                "        CONSTRAINT FK_Bitacora_Usuario_456VG " +
+                "            FOREIGN KEY (dni_456VG) REFERENCES dbo.Usuario_456VG(dni_456VG) " +
+                "    ); " +
+                "END;"
+            );
 
             dbReal.insertarDatosIniciales456VG();
         }
@@ -271,7 +287,8 @@ public class BasedeDatos_456VG
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuAdministrador') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuAdministrador', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeUsuarios') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeUsuarios', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndePerfiles') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndePerfiles', 0); " +
-        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'SeguimientoEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('SeguimientoEnvíos', 0);"
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'SeguimientoEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('SeguimientoEnvíos', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraEventos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraEventos', 0);"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -335,6 +352,7 @@ public class BasedeDatos_456VG
             "SELECT @madmin, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
             "'MenuAdministrador', " +
             "'GestióndeUsuarios', " +
+            "'BitacoraEventos', " +
             "'GestióndePerfiles');" +
             //Menu Recepcion
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +

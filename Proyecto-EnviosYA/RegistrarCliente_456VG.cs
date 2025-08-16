@@ -114,6 +114,9 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Añadir Cliente", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                 this.Close();
             }
             else

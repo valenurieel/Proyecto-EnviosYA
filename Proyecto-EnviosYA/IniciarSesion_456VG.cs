@@ -148,6 +148,9 @@ namespace Proyecto_EnviosYA
             SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioConPermisos);
             intentosFallidosPorUsuario.Clear();
             LoginExitoso?.Invoke(this, EventArgs.Empty);
+            BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+            blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Iniciar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
             this.Hide();
         }
         private void checkVer_CheckedChanged(object sender, EventArgs e)

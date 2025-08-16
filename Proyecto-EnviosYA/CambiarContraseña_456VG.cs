@@ -92,7 +92,11 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Cambiar Contraseña", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Cerrar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     MenuPrincipal_456VG menu = Application.OpenForms
                                                   .OfType<MenuPrincipal_456VG>()
                                                   .FirstOrDefault();

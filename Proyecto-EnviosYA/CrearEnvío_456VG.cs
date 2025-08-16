@@ -210,6 +210,9 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Information
                 );
             }
+            BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+            blleven.AddBitacora456VG(dni: dniLog, modulo: "Recepción", accion: "Cargar Paquete", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
             _paquetesPendientes.Add(nuevoPaquete);
             ((BindingSource)dgvPaquetes.DataSource).ResetBindings(false);
             txtPeso456VG.Clear();
@@ -358,6 +361,9 @@ namespace Proyecto_EnviosYA
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+            BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+            blleven.AddBitacora456VG(dni: dniLog, modulo: "Recepción", accion: "Crear Envío", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
             limpiar();
         }
         private void txtDNICli456VG_Leave(object sender, EventArgs e)
