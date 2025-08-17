@@ -1,5 +1,6 @@
 ﻿using _456VG_BE;
 using _456VG_BLL;
+using _456VG_Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,59 +13,122 @@ using System.Windows.Forms;
 
 namespace Proyecto_EnviosYA
 {
-    public partial class BitácoraEventos_456VG : Form
+    public partial class BitácoraEventos_456VG : Form, IObserver_456VG
     {
         BLLEventoBitacora_456VG bll = new BLLEventoBitacora_456VG();
         BLLUsuario_456VG blluser = new BLLUsuario_456VG();
         private bool _muteSelectionChanged = false;
+        private string T(string key) => Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG(key);
         public BitácoraEventos_456VG()
         {
             InitializeComponent();
             ConfigurarGrilla();
             CargarCombos();
             CargarTodo();
+            Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
         }
-        private static readonly string[] MODULOS_456VG = new[]
+        private static readonly Dictionary<string, string> MOD_KEY = new Dictionary<string, string>
         {
-            "Administrador",
-            "Maestro",
-            "Usuario",
-            "Recepción",
-            "Envíos",
-            "Reportes",
-            "Ayuda",
-            "Salir"
+            ["Administrador"] = "BitácoraEventos_456VG.Combo.Administrador",
+            ["Maestro"] = "BitácoraEventos_456VG.Combo.Maestro",
+            ["Usuario"] = "BitácoraEventos_456VG.Combo.Usuario",
+            ["Recepción"] = "BitácoraEventos_456VG.Combo.Recepción",
+            ["Envíos"] = "BitácoraEventos_456VG.Combo.Envíos",
+            ["Reportes"] = "BitácoraEventos_456VG.Combo.Reportes",
+            ["Ayuda"] = "BitácoraEventos_456VG.Combo.Ayuda",
+            ["Salir"] = "BitácoraEventos_456VG.Combo.Salir",
         };
-        private static readonly string[] ACCIONES_456VG = new[]
+        private static readonly Dictionary<string, string> ACC_KEY = new Dictionary<string, string>
         {
-            "Iniciar Sesión",
-            "Cerrar Sesión",
-            "Cambiar Contraseña",
-            "Crear Envío",
-            "Cargar Paquete",
-            "Modificar Cliente",
-            "Añadir Cliente",
-            "Activar Cliente",
-            "Desactivar Cliente",
-            "Cobrar Envío",
-            "Modificar Usuario",
-            "Añadir Usuario",
-            "Activar Usuario",
-            "Desactivar Usuario",
-            "Desbloquear Usuario",
-            "Eliminar Perfil",
-            "Crear Perfil",
-            "Agregar Permiso - Perfil",
-            "Quitar Permiso - Perfil",
-            "Agregar Familia - Perfil",
-            "Quitar Familia - Perfil",
-            "Eliminar Familia",
-            "Crear Familia",
-            "Agregar Familia - Familia",
-            "Quitar Familia - Familia",
-            "Agregar Permiso - Familia",
-            "Quitar Permiso - Familia",
+            ["Iniciar Sesión"] = "BitácoraEventos_456VG.Combo.IniciarSesión",
+            ["Cerrar Sesión"] = "BitácoraEventos_456VG.Combo.CerrarSesión",
+            ["Cambiar Contraseña"] = "BitácoraEventos_456VG.Combo.CambiarContraseña",
+            ["Crear Envío"] = "BitácoraEventos_456VG.Combo.CrearEnvío",
+            ["Cargar Paquete"] = "BitácoraEventos_456VG.Combo.CargarPaquete",
+            ["Modificar Cliente"] = "BitácoraEventos_456VG.Combo.ModificarCliente",
+            ["Añadir Cliente"] = "BitácoraEventos_456VG.Combo.AñadirCliente",
+            ["Activar Cliente"] = "BitácoraEventos_456VG.Combo.ActivarCliente",
+            ["Desactivar Cliente"] = "BitácoraEventos_456VG.Combo.DesactivarCliente",
+            ["Cobrar Envío"] = "BitácoraEventos_456VG.Combo.CobrarEnvío",
+            ["Modificar Usuario"] = "BitácoraEventos_456VG.Combo.ModificarUsuario",
+            ["Añadir Usuario"] = "BitácoraEventos_456VG.Combo.AñadirUsuario",
+            ["Activar Usuario"] = "BitácoraEventos_456VG.Combo.ActivarUsuario",
+            ["Desactivar Usuario"] = "BitácoraEventos_456VG.Combo.DesactivarUsuario",
+            ["Desbloquear Usuario"] = "BitácoraEventos_456VG.Combo.DesbloquearUsuario",
+            ["Eliminar Perfil"] = "BitácoraEventos_456VG.Combo.EliminarPerfil",
+            ["Crear Perfil"] = "BitácoraEventos_456VG.Combo.CrearPerfil",
+            ["Agregar Permiso - Perfil"] = "BitácoraEventos_456VG.Combo.AgregarPermisoPerfil",
+            ["Quitar Permiso - Perfil"] = "BitácoraEventos_456VG.Combo.QuitarPermisoPerfil",
+            ["Agregar Familia - Perfil"] = "BitácoraEventos_456VG.Combo.AgregarFamiliaPerfil",
+            ["Quitar Familia - Perfil"] = "BitácoraEventos_456VG.Combo.QuitarFamiliaPerfil",
+            ["Eliminar Familia"] = "BitácoraEventos_456VG.Combo.EliminarFamilia",
+            ["Crear Familia"] = "BitácoraEventos_456VG.Combo.CrearFamilia",
+            ["Agregar Familia - Familia"] = "BitácoraEventos_456VG.Combo.AgregarFamiliaFamilia",
+            ["Quitar Familia - Familia"] = "BitácoraEventos_456VG.Combo.QuitarFamiliaFamilia",
+            ["Agregar Permiso - Familia"] = "BitácoraEventos_456VG.Combo.AgregarPermisoFamilia",
+            ["Quitar Permiso - Familia"] = "BitácoraEventos_456VG.Combo.QuitarPermisoFamilia",
+            ["Backup"] = "BitácoraEventos_456VG.Combo.Backup",
+            ["Restaurar"] = "BitácoraEventos_456VG.Combo.Restaurar",
         };
+        private string TradModulo(string orig) => MOD_KEY.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
+        private string TradAccion(string orig) => ACC_KEY.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
+        private string ReverseModulo(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto)) return null;
+            foreach (var kv in MOD_KEY)
+                if (string.Equals(TradModulo(kv.Key), texto, StringComparison.OrdinalIgnoreCase))
+                    return kv.Key;
+            return texto;
+        }
+        private string ReverseAccion(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto)) return null;
+            foreach (var kv in ACC_KEY)
+                if (string.Equals(TradAccion(kv.Key), texto, StringComparison.OrdinalIgnoreCase))
+                    return kv.Key;
+            return texto;
+        }
+        private void TraducirHeadersGrilla()
+        {
+            if (dgvBitacora.Columns.Contains("DNI"))
+                dgvBitacora.Columns["DNI"].HeaderText = T("BitácoraEventos_456VG.Columna.DNI");
+            if (dgvBitacora.Columns.Contains("Fecha"))
+                dgvBitacora.Columns["Fecha"].HeaderText = T("BitácoraEventos_456VG.Columna.Fecha");
+            if (dgvBitacora.Columns.Contains("Módulo"))
+                dgvBitacora.Columns["Módulo"].HeaderText = T("BitácoraEventos_456VG.Columna.Módulo");
+            if (dgvBitacora.Columns.Contains("Acción"))
+                dgvBitacora.Columns["Acción"].HeaderText = T("BitácoraEventos_456VG.Columna.Acción");
+            if (dgvBitacora.Columns.Contains("Criticidad"))
+                dgvBitacora.Columns["Criticidad"].HeaderText = T("BitácoraEventos_456VG.Columna.Criticidad");
+        }
+        private void SetComboByText(ComboBox cmb, string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                cmb.SelectedIndex = -1;
+                return;
+            }
+            for (int i = 0; i < cmb.Items.Count; i++)
+            {
+                if (cmb.Items[i] is string orig)
+                {
+                    string display = orig;
+                    if (cmb == cmbModulo) display = TradModulo(orig);
+                    else if (cmb == cmbAccion) display = TradAccion(orig);
+
+                    if (string.Equals(orig, text, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(display, text, StringComparison.OrdinalIgnoreCase))
+                    {
+                        cmb.SelectedIndex = i;
+                        return;
+                    }
+                }
+            }
+            if (cmb.DropDownStyle != ComboBoxStyle.DropDownList)
+                cmb.Text = text;
+            else
+                cmb.SelectedIndex = -1;
+        }
         private void SetPersonaDeRegistro(string dni)
         {
             if (string.IsNullOrWhiteSpace(dni))
@@ -85,8 +149,31 @@ namespace Proyecto_EnviosYA
                 ape.Text = "";
             }
         }
+        public void ActualizarIdioma_456VG()
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            lng.CambiarIdiomaControles_456VG(this);
+            cmbModulo.Refresh();
+            cmbAccion.Refresh();
+            if (dgvBitacora.DataSource != null)
+            {
+                var crit = (cmbCriticidad.SelectedIndex >= 0) ? (int?)cmbCriticidad.SelectedValue : null;
+                DateTime? desde = dtpDesde.Checked ? (DateTime?)dtpDesde.Value.Date : null;
+                DateTime? hasta = dtpHasta.Checked ? (DateTime?)dtpHasta.Value.Date.AddDays(1).AddTicks(-1) : null;
+                string modulo = (cmbModulo.SelectedItem as string) ?? ReverseModulo(cmbModulo.Text?.Trim());
+                string accion = (cmbAccion.SelectedItem as string) ?? ReverseAccion(cmbAccion.Text?.Trim());
+                string dni = string.IsNullOrWhiteSpace(cmbLogin.Text) ? null : cmbLogin.Text.Trim();
+                var datos = bll.GetBitacora456VG(crit, desde, hasta, modulo, dni, accion);
+                BindGrid(datos);
+            }
+            else
+            {
+                TraducirHeadersGrilla();
+            }
+        }
         private void BitácoraEventos_456VG_Load(object sender, EventArgs e)
         {
+            ActualizarIdioma_456VG();
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -114,18 +201,24 @@ namespace Proyecto_EnviosYA
             cmbLogin.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbModulo.BeginUpdate();
             cmbModulo.Items.Clear();
-            cmbModulo.Items.AddRange(MODULOS_456VG.Cast<object>().ToArray());
+            cmbModulo.Items.AddRange(MOD_KEY.Keys.Cast<object>().ToArray());
             cmbModulo.SelectedIndex = -1;
             cmbModulo.EndUpdate();
             cmbModulo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbModulo.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbModulo.FormattingEnabled = true;
+            cmbModulo.Format -= cmbModulo_Format;
+            cmbModulo.Format += cmbModulo_Format;
             cmbAccion.BeginUpdate();
             cmbAccion.Items.Clear();
-            cmbAccion.Items.AddRange(ACCIONES_456VG.Cast<object>().ToArray());
+            cmbAccion.Items.AddRange(ACC_KEY.Keys.Cast<object>().ToArray());
             cmbAccion.SelectedIndex = -1;
             cmbAccion.EndUpdate();
             cmbAccion.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbAccion.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbAccion.FormattingEnabled = true;
+            cmbAccion.Format -= cmbAccion_Format;
+            cmbAccion.Format += cmbAccion_Format;
             var critSource = Enum.GetValues(typeof(BEEventoBitacora_456VG.NVCriticidad456VG))
                                  .Cast<BEEventoBitacora_456VG.NVCriticidad456VG>()
                                  .Select(v => new { Numero = (int)v, Texto = ((int)v).ToString() })
@@ -136,21 +229,13 @@ namespace Proyecto_EnviosYA
             cmbCriticidad.ValueMember = "Numero";
             cmbCriticidad.SelectedIndex = -1;
         }
-        private void btnCargPaq456VG_Click(object sender, EventArgs e)
+        private void cmbModulo_Format(object sender, ListControlConvertEventArgs e)
         {
-            _muteSelectionChanged = true;
-            cmbLogin.SelectedIndex = -1;
-            cmbModulo.SelectedIndex = -1;
-            cmbAccion.SelectedIndex = -1;
-            cmbCriticidad.SelectedIndex = -1;
-            dtpDesde.Checked = false;
-            dtpHasta.Checked = false;
-            name.Text = "";
-            ape.Text = "";
-            CargarTodo();
-            dgvBitacora.ClearSelection();
-            dgvBitacora.CurrentCell = null;
-            _muteSelectionChanged = false;
+            if (e.ListItem is string orig) e.Value = TradModulo(orig);
+        }
+        private void cmbAccion_Format(object sender, ListControlConvertEventArgs e)
+        {
+            if (e.ListItem is string orig) e.Value = TradAccion(orig);
         }
         private void CargarTodo()
         {
@@ -164,8 +249,8 @@ namespace Proyecto_EnviosYA
             {
                 DNI = x.Usuario456VG,
                 Fecha = x.Fecha456VG,
-                Módulo = x.Modulo456VG,
-                Acción = x.Accion456VG,
+                Módulo = TradModulo(x.Modulo456VG ?? string.Empty),
+                Acción = TradAccion(x.Accion456VG ?? string.Empty),
                 Criticidad = x.Criticidad456VG
             }).ToList();
             dgvBitacora.DataSource = vista;
@@ -176,38 +261,10 @@ namespace Proyecto_EnviosYA
                 colFecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 colFecha.MinimumWidth = 120;
             }
+            TraducirHeadersGrilla();
             dgvBitacora.ClearSelection();
             dgvBitacora.CurrentCell = null;
             _muteSelectionChanged = false;
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int? crit = null;
-            if (cmbCriticidad.SelectedIndex >= 0)
-                crit = (int)cmbCriticidad.SelectedValue;
-            if (dtpDesde.Checked && dtpHasta.Checked)
-            {
-                var d = dtpDesde.Value.Date;
-                var h = dtpHasta.Value.Date;
-                if (d > h)
-                {
-                    MessageBox.Show(
-                        "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
-                        "Filtros de bitácora",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    dtpDesde.Focus();
-                    return;
-                }
-            }
-            DateTime? desde = dtpDesde.Checked ? (DateTime?)dtpDesde.Value.Date : null;
-            DateTime? hasta = dtpHasta.Checked ? (DateTime?)dtpHasta.Value.Date.AddDays(1).AddTicks(-1) : null;
-            string modulo = string.IsNullOrWhiteSpace(cmbModulo.Text) ? null : cmbModulo.Text.Trim();
-            string accion = string.IsNullOrWhiteSpace(cmbAccion.Text) ? null : cmbAccion.Text.Trim();
-            string dni = string.IsNullOrWhiteSpace(cmbLogin.Text) ? null : cmbLogin.Text.Trim();
-            var datos = bll.GetBitacora456VG(crit, desde, hasta, modulo, dni, accion);
-            BindGrid(datos);
         }
         private void dgvBitacora_SelectionChanged(object sender, EventArgs e)
         {
@@ -235,39 +292,60 @@ namespace Proyecto_EnviosYA
             }
             SetPersonaDeRegistro(dni);
         }
-        private void SetComboByText(ComboBox cmb, string text)
+
+        private void titulo_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(text))
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _muteSelectionChanged = true;
+            cmbLogin.SelectedIndex = -1;
+            cmbModulo.SelectedIndex = -1;
+            cmbAccion.SelectedIndex = -1;
+            cmbCriticidad.SelectedIndex = -1;
+            dtpDesde.Checked = false;
+            dtpHasta.Checked = false;
+            name.Text = "";
+            ape.Text = "";
+            CargarTodo();
+            dgvBitacora.ClearSelection();
+            dgvBitacora.CurrentCell = null;
+            _muteSelectionChanged = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int? crit = null;
+            if (cmbCriticidad.SelectedIndex >= 0)
+                crit = (int)cmbCriticidad.SelectedValue;
+            if (dtpDesde.Checked && dtpHasta.Checked)
             {
-                cmb.SelectedIndex = -1;
-                return;
-            }
-            int index = -1;
-            for (int i = 0; i < cmb.Items.Count; i++)
-            {
-                var itemText = cmb.GetItemText(cmb.Items[i]);
-                if (string.Equals(itemText, text, StringComparison.OrdinalIgnoreCase))
+                var d = dtpDesde.Value.Date;
+                var h = dtpHasta.Value.Date;
+                if (d > h)
                 {
-                    index = i;
-                    break;
+                    var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.FechaInvalida"),
+                        lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.FechaInvalidaTitle"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    dtpDesde.Focus();
+                    return;
                 }
             }
-            if (index >= 0)
-            {
-                cmb.SelectedIndex = index;
-            }
-            else
-            {
-                if (cmb.DropDownStyle == ComboBoxStyle.DropDownList)
-                {
-                    cmb.Items.Add(text);
-                    cmb.SelectedIndex = cmb.Items.Count - 1;
-                }
-                else
-                {
-                    cmb.Text = text;
-                }
-            }
+            DateTime? desde = dtpDesde.Checked ? (DateTime?)dtpDesde.Value.Date : null;
+            DateTime? hasta = dtpHasta.Checked ? (DateTime?)dtpHasta.Value.Date.AddDays(1).AddTicks(-1) : null;
+            string modulo = (cmbModulo.SelectedItem as string) ?? ReverseModulo(cmbModulo.Text?.Trim());
+            if (string.IsNullOrWhiteSpace(cmbModulo.Text)) modulo = null;
+            string accion = (cmbAccion.SelectedItem as string) ?? ReverseAccion(cmbAccion.Text?.Trim());
+            if (string.IsNullOrWhiteSpace(cmbAccion.Text)) accion = null;
+            string dni = string.IsNullOrWhiteSpace(cmbLogin.Text) ? null : cmbLogin.Text.Trim();
+            var datos = bll.GetBitacora456VG(crit, desde, hasta, modulo, dni, accion);
+            BindGrid(datos);
         }
     }
 }

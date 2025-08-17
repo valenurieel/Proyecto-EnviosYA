@@ -89,6 +89,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLBackupRestore_456VG.cs" />
     <Compile Include="BLLCliente_456VG.cs" />
     <Compile Include="BLLDatosPago_456VG.cs" />
     <Compile Include="BLLEnvio_456VG.cs" />

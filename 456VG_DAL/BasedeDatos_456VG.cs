@@ -288,7 +288,8 @@ public class BasedeDatos_456VG
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeUsuarios') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeUsuarios', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndePerfiles') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndePerfiles', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'SeguimientoEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('SeguimientoEnvíos', 0); " +
-        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraEventos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraEventos', 0);"
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraEventos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraEventos', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BackupRestore') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BackupRestore', 0);"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -353,6 +354,7 @@ public class BasedeDatos_456VG
             "'MenuAdministrador', " +
             "'GestióndeUsuarios', " +
             "'BitacoraEventos', " +
+            "'BackupRestore', " +
             "'GestióndePerfiles');" +
             //Menu Recepcion
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +

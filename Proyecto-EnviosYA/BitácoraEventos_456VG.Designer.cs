@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvBitacora = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnCargPaq456VG = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.cmbLogin = new System.Windows.Forms.ComboBox();
             this.cmbModulo = new System.Windows.Forms.ComboBox();
             this.cmbAccion = new System.Windows.Forms.ComboBox();
@@ -50,6 +46,10 @@
             this.name = new System.Windows.Forms.Label();
             this.ape = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBitacora)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,45 +61,6 @@
             this.dgvBitacora.Size = new System.Drawing.Size(585, 173);
             this.dgvBitacora.TabIndex = 0;
             this.dgvBitacora.SelectionChanged += new System.EventHandler(this.dgvBitacora_SelectionChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(246, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 33);
-            this.label1.TabIndex = 30;
-            this.label1.Text = "Bitácora de Eventos";
-            // 
-            // btnCargPaq456VG
-            // 
-            this.btnCargPaq456VG.Location = new System.Drawing.Point(164, 455);
-            this.btnCargPaq456VG.Name = "btnCargPaq456VG";
-            this.btnCargPaq456VG.Size = new System.Drawing.Size(68, 34);
-            this.btnCargPaq456VG.TabIndex = 34;
-            this.btnCargPaq456VG.Text = "Limpiar";
-            this.btnCargPaq456VG.UseVisualStyleBackColor = true;
-            this.btnCargPaq456VG.Click += new System.EventHandler(this.btnCargPaq456VG_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(324, 455);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 34);
-            this.button1.TabIndex = 35;
-            this.button1.Text = "Aplicar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(483, 455);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 34);
-            this.button2.TabIndex = 36;
-            this.button2.Text = "Imprimir";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // cmbLogin
             // 
@@ -257,12 +218,55 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(485, 463);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 29);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Imprimir";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(326, 463);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 29);
+            this.button2.TabIndex = 67;
+            this.button2.Text = "Aplicar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(171, 463);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(68, 29);
+            this.button4.TabIndex = 68;
+            this.button4.Text = "Limpiar";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Open Sans", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(253, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(249, 33);
+            this.label1.TabIndex = 69;
+            this.label1.Text = "Bitácora de Eventos";
+            // 
             // BitácoraEventos_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(772, 525);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.ape);
             this.Controls.Add(this.name);
@@ -280,10 +284,6 @@
             this.Controls.Add(this.cmbAccion);
             this.Controls.Add(this.cmbModulo);
             this.Controls.Add(this.cmbLogin);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnCargPaq456VG);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvBitacora);
             this.Name = "BitácoraEventos_456VG";
             this.Text = "Bitácora de Eventos";
@@ -297,10 +297,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvBitacora;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnCargPaq456VG;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox cmbLogin;
         private System.Windows.Forms.ComboBox cmbModulo;
         private System.Windows.Forms.ComboBox cmbAccion;
@@ -318,5 +314,9 @@
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label ape;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label1;
     }
 }

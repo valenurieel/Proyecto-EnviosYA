@@ -93,6 +93,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupRestore_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackupRestore_456VG.Designer.cs">
+      <DependentUpon>BackupRestore_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="BitácoraEventos_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,12 +134,6 @@
     </Compile>
     <Compile Include="CrearEnvío_456VG.Designer.cs">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DetEnvioIMP_456VG.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DetEnvioIMP_456VG.Designer.cs">
-      <DependentUpon>DetEnvioIMP_456VG.cs</DependentUpon>
     </Compile>
     <Compile Include="FacturasIMP_456VG.cs">
       <SubType>Form</SubType>
@@ -179,6 +179,9 @@
     <Compile Include="RegistrarCliente_456VG.Designer.cs">
       <DependentUpon>RegistrarCliente_456VG.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BackupRestore_456VG.resx">
+      <DependentUpon>BackupRestore_456VG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BitácoraEventos_456VG.resx">
       <DependentUpon>BitácoraEventos_456VG.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,9 +199,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearEnvío_456VG.resx">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DetEnvioIMP_456VG.resx">
-      <DependentUpon>DetEnvioIMP_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FacturasIMP_456VG.resx">
       <DependentUpon>FacturasIMP_456VG.cs</DependentUpon>

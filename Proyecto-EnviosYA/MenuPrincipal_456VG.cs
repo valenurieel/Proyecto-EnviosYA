@@ -151,8 +151,6 @@ namespace Proyecto_EnviosYA
         }
         private void seguimientoEnvíosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DetEnvioIMP_456VG detEnvio = new DetEnvioIMP_456VG();
-            detEnvio.ShowDialog();
         }
         private void envíosToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
@@ -171,6 +169,12 @@ namespace Proyecto_EnviosYA
         private void bitácoraDeEventosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BitácoraEventos_456VG fr = new BitácoraEventos_456VG();
+            fr.ShowDialog();
+        }
+
+        private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BackupRestore_456VG fr = new BackupRestore_456VG();
             fr.ShowDialog();
         }
     }

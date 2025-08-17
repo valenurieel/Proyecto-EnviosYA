@@ -34,6 +34,7 @@
             this.GestióndeUsuarios = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndePerfiles = new System.Windows.Forms.ToolStripMenuItem();
             this.BitacoraEventos = new System.Windows.Forms.ToolStripMenuItem();
+            this.BackupRestore = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuMaestro = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndeClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuUsuarios = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +75,7 @@
             this.menuStrip1456VG.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1456VG.Name = "menuStrip1456VG";
             this.menuStrip1456VG.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1456VG.Size = new System.Drawing.Size(127, 652);
+            this.menuStrip1456VG.Size = new System.Drawing.Size(113, 652);
             this.menuStrip1456VG.TabIndex = 0;
             this.menuStrip1456VG.Text = "menuStrip1";
             this.menuStrip1456VG.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1456VG_ItemClicked);
@@ -84,9 +85,10 @@
             this.MenuAdministrador.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GestióndeUsuarios,
             this.GestióndePerfiles,
-            this.BitacoraEventos});
+            this.BitacoraEventos,
+            this.BackupRestore});
             this.MenuAdministrador.Name = "MenuAdministrador";
-            this.MenuAdministrador.Size = new System.Drawing.Size(112, 22);
+            this.MenuAdministrador.Size = new System.Drawing.Size(98, 22);
             this.MenuAdministrador.Text = "Administrador";
             this.MenuAdministrador.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -111,12 +113,19 @@
             this.BitacoraEventos.Text = "Bitácora de Eventos";
             this.BitacoraEventos.Click += new System.EventHandler(this.bitácoraDeEventosToolStripMenuItem_Click);
             // 
+            // BackupRestore
+            // 
+            this.BackupRestore.Name = "BackupRestore";
+            this.BackupRestore.Size = new System.Drawing.Size(195, 22);
+            this.BackupRestore.Text = "Backup / Restaurar";
+            this.BackupRestore.Click += new System.EventHandler(this.backupRestoreToolStripMenuItem_Click);
+            // 
             // MenuMaestro
             // 
             this.MenuMaestro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GestióndeClientes});
             this.MenuMaestro.Name = "MenuMaestro";
-            this.MenuMaestro.Size = new System.Drawing.Size(112, 22);
+            this.MenuMaestro.Size = new System.Drawing.Size(98, 22);
             this.MenuMaestro.Text = "Maestro";
             this.MenuMaestro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -135,7 +144,7 @@
             this.CerrarSesión,
             this.CambiarIdioma});
             this.MenuUsuarios.Name = "MenuUsuarios";
-            this.MenuUsuarios.Size = new System.Drawing.Size(112, 22);
+            this.MenuUsuarios.Size = new System.Drawing.Size(98, 22);
             this.MenuUsuarios.Text = "Usuario";
             this.MenuUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -172,7 +181,7 @@
             this.MenuRecepción.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CrearEnvío});
             this.MenuRecepción.Name = "MenuRecepción";
-            this.MenuRecepción.Size = new System.Drawing.Size(112, 22);
+            this.MenuRecepción.Size = new System.Drawing.Size(98, 22);
             this.MenuRecepción.Text = "Recepción";
             this.MenuRecepción.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -188,7 +197,7 @@
             this.MenuEnvíos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CobrarEnvío});
             this.MenuEnvíos.Name = "MenuEnvíos";
-            this.MenuEnvíos.Size = new System.Drawing.Size(112, 22);
+            this.MenuEnvíos.Size = new System.Drawing.Size(98, 22);
             this.MenuEnvíos.Text = "Envíos";
             this.MenuEnvíos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MenuEnvíos.Click += new System.EventHandler(this.envíosToolStripMenuItem456VG_Click);
@@ -206,7 +215,7 @@
             this.FacturasIMP,
             this.SeguimientoEnvíos});
             this.MenuReportes.Name = "MenuReportes";
-            this.MenuReportes.Size = new System.Drawing.Size(112, 22);
+            this.MenuReportes.Size = new System.Drawing.Size(98, 22);
             this.MenuReportes.Text = "Reportes";
             this.MenuReportes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -227,14 +236,14 @@
             // MenuAyuda
             // 
             this.MenuAyuda.Name = "MenuAyuda";
-            this.MenuAyuda.Size = new System.Drawing.Size(112, 22);
+            this.MenuAyuda.Size = new System.Drawing.Size(98, 22);
             this.MenuAyuda.Text = "Ayuda";
             this.MenuAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MenuSalir
             // 
             this.MenuSalir.Name = "MenuSalir";
-            this.MenuSalir.Size = new System.Drawing.Size(112, 22);
+            this.MenuSalir.Size = new System.Drawing.Size(98, 22);
             this.MenuSalir.Text = "Salir";
             this.MenuSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MenuSalir.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
@@ -326,6 +335,7 @@
         private System.Windows.Forms.ToolStripMenuItem SeguimientoEnvíos;
         private System.Windows.Forms.ToolStripMenuItem CobrarEnvío;
         private System.Windows.Forms.ToolStripMenuItem BitacoraEventos;
+        private System.Windows.Forms.ToolStripMenuItem BackupRestore;
     }
 }
 

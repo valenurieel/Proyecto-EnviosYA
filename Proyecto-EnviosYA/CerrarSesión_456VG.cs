@@ -33,8 +33,6 @@ namespace Proyecto_EnviosYA
                 string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                 blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Cerrar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                 SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
-                Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
-                SessionManager_456VG.IdiomaTemporal_456VG = "ES";
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("CerrarSesión_456VG.Msg.SesionCerrada"),
                     titulo,
@@ -48,6 +46,8 @@ namespace Proyecto_EnviosYA
                 {
                     menu.deshabilitados();
                 }
+                Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";
+                SessionManager_456VG.IdiomaTemporal_456VG = "ES";
             }
             else
             {

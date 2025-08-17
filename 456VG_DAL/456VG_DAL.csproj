@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasedeDatos_456VG.cs" />
+    <Compile Include="DALBackupRestore_456VG.cs" />
     <Compile Include="DALCliente_456VG.cs" />
     <Compile Include="DALDatosPago_456VG.cs" />
     <Compile Include="DALEnvio_456VG.cs" />
