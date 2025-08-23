@@ -34,7 +34,7 @@
   "BitácoraEventos_456VG.label4": "Action:",
   "BitácoraEventos_456VG.label5": "End Date:",
   "BitácoraEventos_456VG.label6": "Criticality:",
-  "BitácoraEventos_456VG.Columna.DNI": "ID",
+  "BitácoraEventos_456VG.Columna.Login": "Login",
   "BitácoraEventos_456VG.Columna.Fecha": "Date",
   "BitácoraEventos_456VG.Columna.Módulo": "Module",
   "BitácoraEventos_456VG.Columna.Acción": "Action",
@@ -76,6 +76,7 @@
   "BitácoraEventos_456VG.Combo.QuitarPermisoFamilia": "Remove Permission - Family",
   "BitácoraEventos_456VG.Combo.Backup": "Backup",
   "BitácoraEventos_456VG.Combo.Restaurar": "Restore",
+  "BitácoraEventos_456VG.Combo.ImprimirFactura": "Print Report",
   "BitácoraEventos_456VG.Msg.FechaInvalida": "The 'From' date cannot be greater than the 'To' date.",
   "BitácoraEventos_456VG.Msg.FechaInvalidaTitle": "Event Log",
 

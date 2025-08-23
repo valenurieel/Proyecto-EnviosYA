@@ -137,7 +137,6 @@ namespace Proyecto_EnviosYA
         private void btnImprimir456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             if (dataGridView1.SelectedRows.Count == 0 || dataGridView1.CurrentRow == null || !dataGridView1.CurrentRow.Selected)
             {
                 MessageBox.Show(
@@ -148,7 +147,6 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             int filaSeleccionada = dataGridView1.CurrentRow.Index;
             if (filaSeleccionada < 0 || filaSeleccionada >= facturasCargadas.Count)
             {
@@ -160,9 +158,7 @@ namespace Proyecto_EnviosYA
                 );
                 return;
             }
-
             var facturaSeleccionada = facturasCargadas[filaSeleccionada];
-
             try
             {
                 archivo.GenerarFacturaDetalladaPDF_456VG(facturaSeleccionada);
@@ -174,6 +170,9 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Reportes", accion: "Imprimir Factura", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
                 CargarFacturas456VG();
                 var resultado = MessageBox.Show(
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.DeseaAbrirPDF"),

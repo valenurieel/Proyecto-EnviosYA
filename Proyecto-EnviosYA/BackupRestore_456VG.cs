@@ -36,12 +36,18 @@ namespace Proyecto_EnviosYA
         }
         private void iconBack_Click(object sender, EventArgs e)
         {
-            string mustDir = BackupDirectorio456VG();
-            using (var fbd = new FolderBrowserDialog() { SelectedPath = mustDir })
+            string defaultDir = BackupDirectorio456VG();
+            string startDir = Directory.Exists(txtBack.Text) ? txtBack.Text : defaultDir;
+            using (var fbd = new FolderBrowserDialog
             {
-                fbd.ShowDialog();
-                txtBack.Text = mustDir;
-                txtBack.ReadOnly = true;
+                SelectedPath = startDir,
+                ShowNewFolderButton = true,
+            })
+            {
+                if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    txtBack.Text = fbd.SelectedPath;
+                }
             }
         }
         private void iconRest_Click(object sender, EventArgs e)

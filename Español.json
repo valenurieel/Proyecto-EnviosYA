@@ -13,7 +13,7 @@
   "BitácoraEventos_456VG.label4": "Acción:",
   "BitácoraEventos_456VG.label5": "Fecha Fin:",
   "BitácoraEventos_456VG.label6": "Criticidad:",
-  "BitácoraEventos_456VG.Columna.DNI": "DNI",
+  "BitácoraEventos_456VG.Columna.Login": "Login",
   "BitácoraEventos_456VG.Columna.Fecha": "Fecha",
   "BitácoraEventos_456VG.Columna.Módulo": "Módulo",
   "BitácoraEventos_456VG.Columna.Acción": "Acción",
@@ -55,6 +55,7 @@
   "BitácoraEventos_456VG.Combo.QuitarPermisoFamilia": "Quitar Permiso - Familia",
   "BitácoraEventos_456VG.Combo.Backup": "Backup",
   "BitácoraEventos_456VG.Combo.Restaurar": "Restaurar",
+  "BitácoraEventos_456VG.Combo.ImprimirFactura": "Imprimir Factura",
   "BitácoraEventos_456VG.Msg.FechaInvalida": "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
   "BitácoraEventos_456VG.Msg.FechaInvalidaTitle": "Bitácora de Eventos",
 

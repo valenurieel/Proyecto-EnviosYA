@@ -151,6 +151,8 @@ namespace Proyecto_EnviosYA
         }
         private void seguimientoEnvíosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SeguimientoEnvíos_456VG fr = new SeguimientoEnvíos_456VG();
+            fr.ShowDialog();
         }
         private void envíosToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
@@ -176,6 +178,11 @@ namespace Proyecto_EnviosYA
         {
             BackupRestore_456VG fr = new BackupRestore_456VG();
             fr.ShowDialog();
+        }
+
+        private void AsignacióndeEnvío_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

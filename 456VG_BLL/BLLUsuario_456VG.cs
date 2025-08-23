@@ -12,9 +12,11 @@ namespace _456VG_BLL
     public class BLLUsuario_456VG : IEntidades_456VG<BEUsuario_456VG>
     {
         DALUsuario_456VG dal;
+        BLLEventoBitacora_456VG bitacora;
         public BLLUsuario_456VG()
         {
             dal = new DALUsuario_456VG();
+            bitacora = new BLLEventoBitacora_456VG();
         }
         public BEUsuario_456VG recuperarUsuarioConPerfil456VG(string dni)
         {

@@ -135,6 +135,12 @@
     <Compile Include="CrearEnvío_456VG.Designer.cs">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeguimientoEnvíos_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeguimientoEnvíos_456VG.Designer.cs">
+      <DependentUpon>SeguimientoEnvíos_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="FacturasIMP_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearEnvío_456VG.resx">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeguimientoEnvíos_456VG.resx">
+      <DependentUpon>SeguimientoEnvíos_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FacturasIMP_456VG.resx">
       <DependentUpon>FacturasIMP_456VG.cs</DependentUpon>
