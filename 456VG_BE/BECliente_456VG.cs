@@ -15,6 +15,10 @@ namespace _456VG_BE
         public string Domicilio456VG { get; set; }
         public DateTime FechaNacimiento456VG { get; set; }
         public bool Activo456VG { get; set; }
+        //unicamente para serializador XML
+        public BECliente_456VG()
+        {
+        }
         public BECliente_456VG(string dni, string name, string ape, string tel, string dom, DateTime fechanac, bool act)
         {
             this.DNI456VG = dni;

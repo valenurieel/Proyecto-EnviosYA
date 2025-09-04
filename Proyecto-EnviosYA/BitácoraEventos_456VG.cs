@@ -71,6 +71,9 @@ namespace Proyecto_EnviosYA
             ["Backup"] = "BitácoraEventos_456VG.Combo.Backup",
             ["Restaurar"] = "BitácoraEventos_456VG.Combo.Restaurar",
             ["Imprimir Factura"] = "BitácoraEventos_456VG.Combo.ImprimirFactura",
+            ["Archivo Serializado"] = "BitácoraEventos_456VG.Combo.ArchivoSerializado",
+            ["Archivo Deserializado"] = "BitácoraEventos_456VG.Combo.ArchivoDeserializado",
+            //faltan Acciones RF2
         };
         private string TradModulo456VG(string orig) => MOD_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
         private string TradAccion456VG(string orig) => ACC_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
@@ -79,7 +82,6 @@ namespace Proyecto_EnviosYA
         //destraduce para poder usar el valor original en base
         private string AccionOriginal456VG(string texto) => ACC_KEY456VG.FirstOrDefault(kv => string.Equals(TradAccion456VG(kv.Key), texto, StringComparison.OrdinalIgnoreCase)).Key ?? texto;
         //traduce grilla de DGV
-
         private void TraducirGrilla456VG()
         {
             if (dgvBitacora.Columns.Contains("Login"))

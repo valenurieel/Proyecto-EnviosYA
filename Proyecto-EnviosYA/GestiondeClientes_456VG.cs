@@ -3,19 +3,33 @@ using _456VG_BLL;
 using _456VG_Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Proyecto_EnviosYA
 {
     public partial class GestiondeClientes_456VG : Form, IObserver_456VG
     {
         BLLCliente_456VG BLLCli = new BLLCliente_456VG();
+        private const string XML_DIR_NAME = "SerializacionXML";
+        BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
         public GestiondeClientes_456VG()
         {
             InitializeComponent();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
+        }
+        private string DirectorioXml456VG()
+        {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string dir = Path.Combine(baseDir, XML_DIR_NAME);
+            Directory.CreateDirectory(dir);
+            return dir;
         }
         public void ActualizarIdioma_456VG()
         {
@@ -177,7 +191,6 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
                     string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                     blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Añadir Cliente", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                     GestiondeClientes_456VG_Load(null, null);
@@ -264,7 +277,6 @@ namespace Proyecto_EnviosYA
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
                     string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                     blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Modificar Cliente", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
                     GestiondeClientes_456VG_Load(null, null);
@@ -313,7 +325,6 @@ namespace Proyecto_EnviosYA
                         MessageBoxIcon.Information
                     );
                     string accionLog = nuevoEstadoActivo ? "Activar Cliente" : "Desactivar Cliente";
-                    BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
                     string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                     blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accionLog, crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                     GestiondeClientes_456VG_Load(null, null);
@@ -415,6 +426,11 @@ namespace Proyecto_EnviosYA
             radioButton1456VG.Enabled = true;
             radioButton2456VG.Enabled = true;
         }
+        private void limpiarLST456VG()
+        {
+            lstSerializado456VG.Items.Clear();
+            lstDeserializado456VG.Items.Clear();
+        }
         private void limpiar456VG()
         {
             txtdni456VG.Text = "";
@@ -488,6 +504,138 @@ namespace Proyecto_EnviosYA
                     }
                 }
             }
+        }
+        private static string GuardarNombresXML456VG(string s)
+        {
+            var noSpaces = Regex.Replace(s ?? "", @"\s+", "_").Trim();
+            return string.IsNullOrWhiteSpace(noSpaces) ? "Columna" : noSpaces;
+        }
+        private static DataTable ObtenerDataTableDesdeGrid456VG(DataGridView grid, string tableName)
+        {
+            var dt = new DataTable(tableName);
+            foreach (DataGridViewColumn col in grid.Columns)
+            {
+                string visibleHeader = col.HeaderText;
+                dt.Columns.Add(GuardarNombresXML456VG(visibleHeader), typeof(string));
+            }
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                if (row.IsNewRow) continue;
+                var dr = dt.NewRow();
+                for (int i = 0; i < grid.Columns.Count; i++)
+                {
+                    var cell = row.Cells[i]?.Value;
+                    dr[i] = cell?.ToString() ?? "";
+                }
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
+        private void btnSerializar_Click(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            try
+            {
+                bool hayFilas = dataGridView1456VG.Rows
+                         .Cast<DataGridViewRow>()
+                         .Any(r => !r.IsNewRow);
+                if (!hayFilas)
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.SinDatosGrid"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ValidacionTitle"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                DataTable dt = ObtenerDataTableDesdeGrid456VG(dataGridView1456VG, "Clientes");
+                string lang = Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG ?? "ES";
+                string nombreSugerido = $"Clientes_{lang}_{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+                string filePath;
+                using (var sfd = new SaveFileDialog
+                {
+                    Filter = lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.FiltroXML"),
+                    InitialDirectory = DirectorioXml456VG(),
+                    FileName = nombreSugerido,
+                    Title = lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.TitleGuardarXML")
+                })
+                {
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+                    filePath = sfd.FileName;
+                }
+                var ds = new DataSet("ClientesData");
+                ds.Tables.Add(dt);
+                ds.WriteXml(filePath, XmlWriteMode.WriteSchema);
+                lstSerializado456VG.Items.Clear();
+                foreach (var line in File.ReadAllLines(filePath, Encoding.UTF8))
+                    lstSerializado456VG.Items.Add(line);
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Archivo Serializado", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
+                MessageBox.Show(
+                    string.Format(lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.SerializadoOK"), filePath),
+                    lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.SerializadoTitle"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                            string.Format(Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ErrorExportarXML"), ex.Message),
+                            Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ErrorTitle"),
+                            MessageBoxButtons.OK, MessageBoxIcon.Error
+                        );
+            }
+        }
+        private void btnDeserializar_Click(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            try
+            {
+                using (var ofd = new OpenFileDialog
+                {
+                    Filter = lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.FiltroXML"),
+                    InitialDirectory = DirectorioXml456VG(),
+                    Title = lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.TitleAbrirXML")
+                })
+                {
+                    if (ofd.ShowDialog() != DialogResult.OK) return;
+                    var ds = new DataSet();
+                    ds.ReadXml(ofd.FileName);
+                    var dt = ds.Tables.Count > 0 ? ds.Tables[0] : null;
+                    if (dt == null)
+                        {
+                        MessageBox.Show(
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.XMLSinDatos"),
+                        lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.InformacionTitle"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information
+                        );
+                        return;
+                    }
+                    lstDeserializado456VG.Items.Clear();
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        var partes = dt.Columns
+                            .Cast<DataColumn>()
+                            .Select(c => $"{c.ColumnName}: {r[c]}");
+                        lstDeserializado456VG.Items.Add(string.Join(" | ", partes));
+                    }
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Archivo Deserializado", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    string.Format(Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ErrorImportarXML"), ex.Message),
+                    Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ErrorTitle"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            limpiarLST456VG();
         }
     }
 }

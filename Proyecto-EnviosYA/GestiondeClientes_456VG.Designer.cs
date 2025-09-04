@@ -55,6 +55,13 @@ namespace Proyecto_EnviosYA
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1456VG = new System.Windows.Forms.DateTimePicker();
             this.checkVer456VG = new System.Windows.Forms.CheckBox();
+            this.lstSerializado456VG = new System.Windows.Forms.ListBox();
+            this.lstDeserializado456VG = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnSerializar456VG = new System.Windows.Forms.Button();
+            this.btnDeserializar456VG = new System.Windows.Forms.Button();
+            this.btnlimp456VG = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -314,12 +321,91 @@ namespace Proyecto_EnviosYA
             this.checkVer456VG.UseVisualStyleBackColor = true;
             this.checkVer456VG.CheckedChanged += new System.EventHandler(this.checkVer456VG_CheckedChanged);
             // 
+            // lstSerializado456VG
+            // 
+            this.lstSerializado456VG.FormattingEnabled = true;
+            this.lstSerializado456VG.Location = new System.Drawing.Point(790, 99);
+            this.lstSerializado456VG.Name = "lstSerializado456VG";
+            this.lstSerializado456VG.Size = new System.Drawing.Size(593, 160);
+            this.lstSerializado456VG.TabIndex = 70;
+            // 
+            // lstDeserializado456VG
+            // 
+            this.lstDeserializado456VG.FormattingEnabled = true;
+            this.lstDeserializado456VG.Location = new System.Drawing.Point(790, 301);
+            this.lstDeserializado456VG.Name = "lstDeserializado456VG";
+            this.lstDeserializado456VG.Size = new System.Drawing.Size(593, 160);
+            this.lstDeserializado456VG.TabIndex = 71;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Open Sans SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(786, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(157, 20);
+            this.label6.TabIndex = 72;
+            this.label6.Text = "Clientes Serializados";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Open Sans SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(786, 278);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(176, 20);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "Clientes Deserializados";
+            // 
+            // btnSerializar456VG
+            // 
+            this.btnSerializar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSerializar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSerializar456VG.Location = new System.Drawing.Point(908, 492);
+            this.btnSerializar456VG.Name = "btnSerializar456VG";
+            this.btnSerializar456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnSerializar456VG.TabIndex = 74;
+            this.btnSerializar456VG.Text = "Serializar";
+            this.btnSerializar456VG.UseVisualStyleBackColor = false;
+            this.btnSerializar456VG.Click += new System.EventHandler(this.btnSerializar_Click);
+            // 
+            // btnDeserializar456VG
+            // 
+            this.btnDeserializar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnDeserializar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeserializar456VG.Location = new System.Drawing.Point(1132, 492);
+            this.btnDeserializar456VG.Name = "btnDeserializar456VG";
+            this.btnDeserializar456VG.Size = new System.Drawing.Size(120, 56);
+            this.btnDeserializar456VG.TabIndex = 75;
+            this.btnDeserializar456VG.Text = "Deserializar";
+            this.btnDeserializar456VG.UseVisualStyleBackColor = false;
+            this.btnDeserializar456VG.Click += new System.EventHandler(this.btnDeserializar_Click);
+            // 
+            // btnlimp456VG
+            // 
+            this.btnlimp456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnlimp456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlimp456VG.Location = new System.Drawing.Point(1292, 516);
+            this.btnlimp456VG.Name = "btnlimp456VG";
+            this.btnlimp456VG.Size = new System.Drawing.Size(91, 29);
+            this.btnlimp456VG.TabIndex = 76;
+            this.btnlimp456VG.Text = "Limpiar LSTs";
+            this.btnlimp456VG.UseVisualStyleBackColor = false;
+            this.btnlimp456VG.Click += new System.EventHandler(this.button1_Click);
+            // 
             // GestiondeClientes_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(768, 556);
+            this.ClientSize = new System.Drawing.Size(1418, 557);
+            this.Controls.Add(this.btnlimp456VG);
+            this.Controls.Add(this.btnDeserializar456VG);
+            this.Controls.Add(this.btnSerializar456VG);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lstDeserializado456VG);
+            this.Controls.Add(this.lstSerializado456VG);
             this.Controls.Add(this.checkVer456VG);
             this.Controls.Add(this.dateTimePicker1456VG);
             this.Controls.Add(this.label2);
@@ -381,5 +467,12 @@ namespace Proyecto_EnviosYA
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1456VG;
         private CheckBox checkVer456VG;
+        private ListBox lstSerializado456VG;
+        private ListBox lstDeserializado456VG;
+        private Label label6;
+        private Label label9;
+        private Button btnSerializar456VG;
+        private Button btnDeserializar456VG;
+        private Button btnlimp456VG;
     }
 }
