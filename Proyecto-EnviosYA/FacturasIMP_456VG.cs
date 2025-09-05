@@ -11,10 +11,10 @@ namespace Proyecto_EnviosYA
 {
     public partial class FacturasIMP_456VG : Form, IObserver_456VG
     {
-        private readonly BLLFactura_456VG bllFactura = new BLLFactura_456VG();
+        BLLFactura_456VG bllFactura = new BLLFactura_456VG();
         ArchivoIMP_456VG archivo = new ArchivoIMP_456VG();
         private List<BEFactura_456VG> facturasCargadas = new List<BEFactura_456VG>();
-
+        BLLSeguimientoEnvío_456VG bllSeg_456VG = new BLLSeguimientoEnvío_456VG();
         public FacturasIMP_456VG()
         {
             InitializeComponent();
@@ -174,6 +174,7 @@ namespace Proyecto_EnviosYA
                 string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                 blleven.AddBitacora456VG(dni: dniLog, modulo: "Reportes", accion: "Imprimir Factura", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
                 CargarFacturas456VG();
+                bllSeg_456VG.CrearParaEnvio(facturaSeleccionada.Envio.CodEnvio456VG);
                 var resultado = MessageBox.Show(
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.DeseaAbrirPDF"),
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloAbrirPDF"),

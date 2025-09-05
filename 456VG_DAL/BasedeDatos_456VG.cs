@@ -208,7 +208,20 @@ public class BasedeDatos_456VG
                 "    ); " +
                 "END;"
             );
-
+            dbReal.ejecutarQuery456VG(
+                "USE EnviosYA_456VG; " +
+                "IF OBJECT_ID('dbo.Seguimientos_456VG','U') IS NULL " +
+                "BEGIN " +
+                "  CREATE TABLE dbo.Seguimientos_456VG ( " +
+                "    codseguimiento_456VG VARCHAR(30) NOT NULL PRIMARY KEY, " +
+                "    codenvio_456VG       VARCHAR(20) NOT NULL UNIQUE, " +
+                "    fechaemitido_456VG   DATETIME    NOT NULL DEFAULT (GETDATE()), " +
+                "    impreso_456VG        BIT         NOT NULL DEFAULT (0), " +
+                "    CONSTRAINT FK_Seguimientos_Envio_456VG FOREIGN KEY (codenvio_456VG) " +
+                "        REFERENCES dbo.Envios_456VG(codenvio_456VG) " +
+                "  ); " +
+                "END;"
+            );
             dbReal.insertarDatosIniciales456VG();
         }
         else

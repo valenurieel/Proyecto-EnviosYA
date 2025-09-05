@@ -18,6 +18,7 @@ namespace Proyecto_EnviosYA
     {
         BLLEventoBitacora_456VG bll = new BLLEventoBitacora_456VG();
         BLLUsuario_456VG blluser = new BLLUsuario_456VG();
+        ArchivoIMP_456VG archivoIMP = new ArchivoIMP_456VG();
         private bool _muteSelectionChanged = false;
         private string T(string key) => Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG(key);
         public BitácoraEventos_456VG()
@@ -73,6 +74,7 @@ namespace Proyecto_EnviosYA
             ["Imprimir Factura"] = "BitácoraEventos_456VG.Combo.ImprimirFactura",
             ["Archivo Serializado"] = "BitácoraEventos_456VG.Combo.ArchivoSerializado",
             ["Archivo Deserializado"] = "BitácoraEventos_456VG.Combo.ArchivoDeserializado",
+            ["Imprimir Seguimiento"] = "BitácoraEventos_456VG.Combo.ImprimirSeguimiento",
             //faltan Acciones RF2
         };
         private string TradModulo456VG(string orig) => MOD_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
@@ -302,6 +304,97 @@ namespace Proyecto_EnviosYA
             string dni = (cmbLogin.SelectedIndex >= 0) ? (string)cmbLogin.SelectedValue : null;
             var datos = bll.GetBitacora456VG(crit, desde, hasta, modulo, dni, accion);
             ArmadoDGV456VG(datos);
+        }
+        private List<BEEventoBitacora_456VG> CapturarFilasParaPDF456VG()
+        {
+            var lista = new List<BEEventoBitacora_456VG>();
+            if (dgvBitacora.Rows.Count == 0) return lista;
+            bool tieneModulo = dgvBitacora.Columns.Contains("Módulo") || dgvBitacora.Columns.Contains("Modulo");
+            bool tieneAccion = dgvBitacora.Columns.Contains("Acción") || dgvBitacora.Columns.Contains("Accion");
+            foreach (DataGridViewRow r in dgvBitacora.Rows)
+            {
+                if (r.IsNewRow) continue;
+                string dni = r.Cells["DNI"]?.Value?.ToString() ?? "";
+                DateTime fecha = DateTime.Now;
+                DateTime.TryParse(r.Cells["Fecha"]?.Value?.ToString(), out fecha);
+                string moduloTrad = "";
+                if (tieneModulo)
+                    moduloTrad = (dgvBitacora.Columns.Contains("Módulo")
+                                    ? r.Cells["Módulo"]?.Value?.ToString()
+                                    : r.Cells["Modulo"]?.Value?.ToString()) ?? "";
+                string accionTrad = "";
+                if (tieneAccion)
+                    accionTrad = (dgvBitacora.Columns.Contains("Acción")
+                                    ? r.Cells["Acción"]?.Value?.ToString()
+                                    : r.Cells["Accion"]?.Value?.ToString()) ?? "";
+                string moduloOriginal = ModuloOriginal456VG(moduloTrad);
+                string accionOriginal = AccionOriginal456VG(accionTrad);
+                int critInt = 0;
+                int.TryParse(r.Cells["Criticidad"]?.Value?.ToString(), out critInt);
+                var critEnum = (BEEventoBitacora_456VG.NVCriticidad456VG)(critInt == 0 ? 4 : critInt);
+                lista.Add(new BEEventoBitacora_456VG(dni, moduloOriginal, accionOriginal, critEnum, fecha));
+            }
+            return lista;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
+            try
+            {
+                if (dgvBitacora.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.SinDatosParaImprimir"),
+                        lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.TituloAviso"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                var eventos = CapturarFilasParaPDF456VG();
+                string filtroLogin = (cmbLogin.SelectedIndex >= 0) ? (cmbLogin.Text ?? "") : "";
+                string filtroModulo = string.IsNullOrWhiteSpace(cmbModulo.Text) ? "" : cmbModulo.Text;
+                string filtroAccion = string.IsNullOrWhiteSpace(cmbAccion.Text) ? "" : cmbAccion.Text;
+                string filtroCrit = (cmbCriticidad.SelectedIndex >= 0) ? cmbCriticidad.Text : "";
+                string filtroFecha = "";
+                if (dtpDesde.Checked || dtpHasta.Checked)
+                {
+                    string d = dtpDesde.Checked ? dtpDesde.Value.ToString("dd/MM/yyyy") : "__/__/____";
+                    string h = dtpHasta.Checked ? dtpHasta.Value.ToString("dd/MM/yyyy") : "__/__/____";
+                    filtroFecha = $"[{d} - {h}]";
+                }
+                string filtros = $"Login={filtroLogin}  Módulo={filtroModulo}  Acción={filtroAccion}  Criticidad={filtroCrit}  Rango={filtroFecha}".Trim();
+                var mapa = blluser.leerEntidades456VG().ToDictionary(u => u.DNI456VG, u => u.NombreUsuario456VG);
+                string ruta = archivoIMP.GenerarBitacoraPDF_456VG(
+                    eventos,
+                    dniToLogin: d => mapa.TryGetValue(d, out var nom) ? nom : d,
+                    tradModulo: TradModulo456VG,
+                    tradAccion: TradAccion456VG,
+                    titulo: "BITÁCORA DE EVENTOS",
+                    filtrosAplicados: filtros
+                );
+                MessageBox.Show(
+                    string.Format(lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.PDFGenerado"), ruta),
+                    lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.TituloOK"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                var abrir = MessageBox.Show(
+                    lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.ConfirmAbrirPDF"),
+                    lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.ConfirmAbrirPDFTitle"),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+                if (abrir == DialogResult.Yes)
+                {
+                    archivoIMP.AbrirUltimoPDF_456VG();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.ErrorImprimir") + Environment.NewLine + ex.Message,
+                    lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.TituloError"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
