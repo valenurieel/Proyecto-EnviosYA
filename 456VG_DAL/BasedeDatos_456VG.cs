@@ -326,8 +326,8 @@ public class BasedeDatos_456VG
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BackupRestore') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BackupRestore', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeTransportes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeTransportes', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeChoferes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeChoferes', 0); " +
-        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'AsignacióndeEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('AsignacióndeEnvío', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'ListaCarga') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('ListaCarga', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CargaEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CargaEnvíos', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'EntregadeEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('EntregadeEnvío', 0);"
         );
         dbReal.ejecutarQuery456VG(
@@ -452,13 +452,13 @@ public class BasedeDatos_456VG
             //FOperadorDeposito   ---------- Asignar FLIA a USUARIO.
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @opd, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
-            "'AsignacióndeEnvío', " +
+            "'ListaCarga', " +
             "'MenuRecepción');" +
             //FCargador   ---------- Asignar FLIA a USUARIO.
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @carenv, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
-            "'ListaCarga', " +
-            "'MenuReportes');" +
+            "'CargaEnvíos', " +
+            "'Menu Recepcion');" +
             //FAdmin
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @fadm, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +

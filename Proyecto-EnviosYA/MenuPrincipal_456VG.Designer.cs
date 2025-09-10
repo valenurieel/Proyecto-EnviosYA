@@ -46,7 +46,8 @@
             this.CambiarIdioma = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuRecepción = new System.Windows.Forms.ToolStripMenuItem();
             this.CrearEnvío = new System.Windows.Forms.ToolStripMenuItem();
-            this.AsignacióndeEnvío = new System.Windows.Forms.ToolStripMenuItem();
+            this.ListaCarga = new System.Windows.Forms.ToolStripMenuItem();
+            this.CargaEnvíos = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuEnvíos = new System.Windows.Forms.ToolStripMenuItem();
             this.CobrarEnvío = new System.Windows.Forms.ToolStripMenuItem();
             this.EntregadeEnvío = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,6 @@
             this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
             this.lblBienvenido456VG = new System.Windows.Forms.Label();
             this.lblBienvenidoDefault = new System.Windows.Forms.Label();
-            this.ListaCarga = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1456VG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
@@ -199,7 +199,8 @@
             // 
             this.MenuRecepción.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CrearEnvío,
-            this.AsignacióndeEnvío});
+            this.ListaCarga,
+            this.CargaEnvíos});
             this.MenuRecepción.Name = "MenuRecepción";
             this.MenuRecepción.Size = new System.Drawing.Size(112, 22);
             this.MenuRecepción.Text = "Recepción";
@@ -208,16 +209,23 @@
             // CrearEnvío
             // 
             this.CrearEnvío.Name = "CrearEnvío";
-            this.CrearEnvío.Size = new System.Drawing.Size(194, 22);
+            this.CrearEnvío.Size = new System.Drawing.Size(180, 22);
             this.CrearEnvío.Text = "Crear Envío";
             this.CrearEnvío.Click += new System.EventHandler(this.paquetesToolStripMenuItem456VG_Click);
             // 
-            // AsignacióndeEnvío
+            // ListaCarga
             // 
-            this.AsignacióndeEnvío.Name = "AsignacióndeEnvío";
-            this.AsignacióndeEnvío.Size = new System.Drawing.Size(200, 22);
-            this.AsignacióndeEnvío.Text = "Asignación de Envíos";
-            this.AsignacióndeEnvío.Click += new System.EventHandler(this.AsignacióndeEnvío_Click);
+            this.ListaCarga.Name = "ListaCarga";
+            this.ListaCarga.Size = new System.Drawing.Size(180, 22);
+            this.ListaCarga.Text = "Lista de Carga";
+            this.ListaCarga.Click += new System.EventHandler(this.AsignacióndeEnvío_Click);
+            // 
+            // CargaEnvíos
+            // 
+            this.CargaEnvíos.Name = "CargaEnvíos";
+            this.CargaEnvíos.Size = new System.Drawing.Size(180, 22);
+            this.CargaEnvíos.Text = "Carga de Envíos";
+            this.CargaEnvíos.Click += new System.EventHandler(this.CargaEnvíos_Click);
             // 
             // MenuEnvíos
             // 
@@ -233,22 +241,22 @@
             // CobrarEnvío
             // 
             this.CobrarEnvío.Name = "CobrarEnvío";
-            this.CobrarEnvío.Size = new System.Drawing.Size(180, 22);
+            this.CobrarEnvío.Size = new System.Drawing.Size(176, 22);
             this.CobrarEnvío.Text = "Cobrar Envío";
             this.CobrarEnvío.Click += new System.EventHandler(this.cobrarEnvíoToolStripMenuItem_Click);
             // 
             // EntregadeEnvío
             // 
             this.EntregadeEnvío.Name = "EntregadeEnvío";
-            this.EntregadeEnvío.Size = new System.Drawing.Size(180, 22);
+            this.EntregadeEnvío.Size = new System.Drawing.Size(176, 22);
             this.EntregadeEnvío.Text = "Entrega de Envío";
+            this.EntregadeEnvío.Click += new System.EventHandler(this.EntregadeEnvío_Click);
             // 
             // MenuReportes
             // 
             this.MenuReportes.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FacturasIMP,
-            this.SeguimientoEnvío,
-            this.ListaCarga});
+            this.SeguimientoEnvío});
             this.MenuReportes.Name = "MenuReportes";
             this.MenuReportes.Size = new System.Drawing.Size(112, 22);
             this.MenuReportes.Text = "Reportes";
@@ -320,12 +328,6 @@
             this.lblBienvenidoDefault.TabIndex = 4;
             this.lblBienvenidoDefault.Text = "¡Bienvenida/o!";
             // 
-            // ListaCarga
-            // 
-            this.ListaCarga.Name = "ListaCarga";
-            this.ListaCarga.Size = new System.Drawing.Size(187, 22);
-            this.ListaCarga.Text = "Listas de Carga";
-            // 
             // MenuPrincipal_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -379,9 +381,9 @@
         private System.Windows.Forms.ToolStripMenuItem BackupRestore;
         private System.Windows.Forms.ToolStripMenuItem GestióndeTransportes;
         private System.Windows.Forms.ToolStripMenuItem GestióndeChoferes;
-        private System.Windows.Forms.ToolStripMenuItem AsignacióndeEnvío;
-        private System.Windows.Forms.ToolStripMenuItem EntregadeEnvío;
         private System.Windows.Forms.ToolStripMenuItem ListaCarga;
+        private System.Windows.Forms.ToolStripMenuItem EntregadeEnvío;
+        private System.Windows.Forms.ToolStripMenuItem CargaEnvíos;
     }
 }
 

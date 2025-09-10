@@ -76,7 +76,7 @@ namespace _456VG_BE
             var zonaAlta = new HashSet<string>
             {
                 "mendoza", "san luis", "cordoba", "córdoba", "tucuman", "tucumán", "san juan", "la rioja",
-                "santa fe", "entre rios", "entre ríos", "corrientes", "misiones", "jujuy", "salta", "formosa",
+                "santa fe", "santa fé", "entre rios", "entre ríos", "corrientes", "misiones", "jujuy", "salta", "formosa",
                 "chaco", "santiago del estero", "catamarca"
             };
             if (prov == "buenos aires")

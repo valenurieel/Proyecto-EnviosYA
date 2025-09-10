@@ -55,13 +55,9 @@ namespace Proyecto_EnviosYA
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1456VG = new System.Windows.Forms.DateTimePicker();
             this.checkVer456VG = new System.Windows.Forms.CheckBox();
-            this.lstSerializado456VG = new System.Windows.Forms.ListBox();
-            this.lstDeserializado456VG = new System.Windows.Forms.ListBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.btnSerializar456VG = new System.Windows.Forms.Button();
             this.btnDeserializar456VG = new System.Windows.Forms.Button();
-            this.btnlimp456VG = new System.Windows.Forms.Button();
+            this.buttonActu = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,7 +109,7 @@ namespace Proyecto_EnviosYA
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(222, 441);
+            this.label10.Location = new System.Drawing.Point(218, 470);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(66, 18);
             this.label10.TabIndex = 61;
@@ -123,7 +119,7 @@ namespace Proyecto_EnviosYA
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(221, 391);
+            this.label7.Location = new System.Drawing.Point(217, 420);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 18);
             this.label7.TabIndex = 59;
@@ -133,7 +129,7 @@ namespace Proyecto_EnviosYA
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(30, 490);
+            this.label5.Location = new System.Drawing.Point(26, 519);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 18);
             this.label5.TabIndex = 57;
@@ -143,7 +139,7 @@ namespace Proyecto_EnviosYA
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(30, 443);
+            this.label4.Location = new System.Drawing.Point(26, 472);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 18);
             this.label4.TabIndex = 56;
@@ -153,7 +149,7 @@ namespace Proyecto_EnviosYA
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(30, 391);
+            this.label3.Location = new System.Drawing.Point(26, 420);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 18);
             this.label3.TabIndex = 55;
@@ -162,7 +158,7 @@ namespace Proyecto_EnviosYA
             // txtdomicilio456VG
             // 
             this.txtdomicilio456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtdomicilio456VG.Location = new System.Drawing.Point(225, 462);
+            this.txtdomicilio456VG.Location = new System.Drawing.Point(221, 491);
             this.txtdomicilio456VG.Name = "txtdomicilio456VG";
             this.txtdomicilio456VG.Size = new System.Drawing.Size(121, 25);
             this.txtdomicilio456VG.TabIndex = 48;
@@ -170,7 +166,7 @@ namespace Proyecto_EnviosYA
             // txttelef456VG
             // 
             this.txttelef456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttelef456VG.Location = new System.Drawing.Point(225, 412);
+            this.txttelef456VG.Location = new System.Drawing.Point(221, 441);
             this.txttelef456VG.Name = "txttelef456VG";
             this.txttelef456VG.Size = new System.Drawing.Size(121, 25);
             this.txttelef456VG.TabIndex = 46;
@@ -178,7 +174,7 @@ namespace Proyecto_EnviosYA
             // txtapellido456VG
             // 
             this.txtapellido456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtapellido456VG.Location = new System.Drawing.Point(33, 511);
+            this.txtapellido456VG.Location = new System.Drawing.Point(29, 540);
             this.txtapellido456VG.Name = "txtapellido456VG";
             this.txtapellido456VG.Size = new System.Drawing.Size(121, 25);
             this.txtapellido456VG.TabIndex = 43;
@@ -186,7 +182,7 @@ namespace Proyecto_EnviosYA
             // txtnombre456VG
             // 
             this.txtnombre456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtnombre456VG.Location = new System.Drawing.Point(33, 462);
+            this.txtnombre456VG.Location = new System.Drawing.Point(29, 491);
             this.txtnombre456VG.Name = "txtnombre456VG";
             this.txtnombre456VG.Size = new System.Drawing.Size(121, 25);
             this.txtnombre456VG.TabIndex = 40;
@@ -194,7 +190,7 @@ namespace Proyecto_EnviosYA
             // txtdni456VG
             // 
             this.txtdni456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtdni456VG.Location = new System.Drawing.Point(33, 412);
+            this.txtdni456VG.Location = new System.Drawing.Point(29, 441);
             this.txtdni456VG.Name = "txtdni456VG";
             this.txtdni456VG.Size = new System.Drawing.Size(121, 25);
             this.txtdni456VG.TabIndex = 39;
@@ -296,7 +292,7 @@ namespace Proyecto_EnviosYA
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(222, 490);
+            this.label2.Location = new System.Drawing.Point(218, 519);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 18);
             this.label2.TabIndex = 67;
@@ -304,7 +300,7 @@ namespace Proyecto_EnviosYA
             // 
             // dateTimePicker1456VG
             // 
-            this.dateTimePicker1456VG.Location = new System.Drawing.Point(224, 516);
+            this.dateTimePicker1456VG.Location = new System.Drawing.Point(220, 545);
             this.dateTimePicker1456VG.Name = "dateTimePicker1456VG";
             this.dateTimePicker1456VG.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1456VG.TabIndex = 68;
@@ -312,7 +308,7 @@ namespace Proyecto_EnviosYA
             // checkVer456VG
             // 
             this.checkVer456VG.AutoSize = true;
-            this.checkVer456VG.Location = new System.Drawing.Point(364, 470);
+            this.checkVer456VG.Location = new System.Drawing.Point(360, 499);
             this.checkVer456VG.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkVer456VG.Name = "checkVer456VG";
             this.checkVer456VG.Size = new System.Drawing.Size(87, 17);
@@ -321,47 +317,11 @@ namespace Proyecto_EnviosYA
             this.checkVer456VG.UseVisualStyleBackColor = true;
             this.checkVer456VG.CheckedChanged += new System.EventHandler(this.checkVer456VG_CheckedChanged);
             // 
-            // lstSerializado456VG
-            // 
-            this.lstSerializado456VG.FormattingEnabled = true;
-            this.lstSerializado456VG.Location = new System.Drawing.Point(790, 99);
-            this.lstSerializado456VG.Name = "lstSerializado456VG";
-            this.lstSerializado456VG.Size = new System.Drawing.Size(593, 160);
-            this.lstSerializado456VG.TabIndex = 70;
-            // 
-            // lstDeserializado456VG
-            // 
-            this.lstDeserializado456VG.FormattingEnabled = true;
-            this.lstDeserializado456VG.Location = new System.Drawing.Point(790, 301);
-            this.lstDeserializado456VG.Name = "lstDeserializado456VG";
-            this.lstDeserializado456VG.Size = new System.Drawing.Size(593, 160);
-            this.lstDeserializado456VG.TabIndex = 71;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Open Sans SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(786, 76);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(157, 20);
-            this.label6.TabIndex = 72;
-            this.label6.Text = "Clientes Serializados";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Open Sans SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(786, 278);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(176, 20);
-            this.label9.TabIndex = 73;
-            this.label9.Text = "Clientes Deserializados";
-            // 
             // btnSerializar456VG
             // 
             this.btnSerializar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnSerializar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerializar456VG.Location = new System.Drawing.Point(908, 492);
+            this.btnSerializar456VG.Location = new System.Drawing.Point(459, 577);
             this.btnSerializar456VG.Name = "btnSerializar456VG";
             this.btnSerializar456VG.Size = new System.Drawing.Size(120, 56);
             this.btnSerializar456VG.TabIndex = 74;
@@ -373,7 +333,7 @@ namespace Proyecto_EnviosYA
             // 
             this.btnDeserializar456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDeserializar456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeserializar456VG.Location = new System.Drawing.Point(1132, 492);
+            this.btnDeserializar456VG.Location = new System.Drawing.Point(629, 577);
             this.btnDeserializar456VG.Name = "btnDeserializar456VG";
             this.btnDeserializar456VG.Size = new System.Drawing.Size(120, 56);
             this.btnDeserializar456VG.TabIndex = 75;
@@ -381,31 +341,27 @@ namespace Proyecto_EnviosYA
             this.btnDeserializar456VG.UseVisualStyleBackColor = false;
             this.btnDeserializar456VG.Click += new System.EventHandler(this.btnDeserializar_Click);
             // 
-            // btnlimp456VG
+            // buttonActu
             // 
-            this.btnlimp456VG.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnlimp456VG.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnlimp456VG.Location = new System.Drawing.Point(1292, 516);
-            this.btnlimp456VG.Name = "btnlimp456VG";
-            this.btnlimp456VG.Size = new System.Drawing.Size(91, 29);
-            this.btnlimp456VG.TabIndex = 76;
-            this.btnlimp456VG.Text = "Limpiar LSTs";
-            this.btnlimp456VG.UseVisualStyleBackColor = false;
-            this.btnlimp456VG.Click += new System.EventHandler(this.button1_Click);
+            this.buttonActu.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonActu.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonActu.Location = new System.Drawing.Point(657, 3);
+            this.buttonActu.Name = "buttonActu";
+            this.buttonActu.Size = new System.Drawing.Size(92, 34);
+            this.buttonActu.TabIndex = 77;
+            this.buttonActu.Text = "Actualizar";
+            this.buttonActu.UseVisualStyleBackColor = false;
+            this.buttonActu.Click += new System.EventHandler(this.buttonActu_Click);
             // 
             // GestiondeClientes_456VG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1418, 557);
-            this.Controls.Add(this.btnlimp456VG);
+            this.ClientSize = new System.Drawing.Size(770, 645);
+            this.Controls.Add(this.buttonActu);
             this.Controls.Add(this.btnDeserializar456VG);
             this.Controls.Add(this.btnSerializar456VG);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.lstDeserializado456VG);
-            this.Controls.Add(this.lstSerializado456VG);
             this.Controls.Add(this.checkVer456VG);
             this.Controls.Add(this.dateTimePicker1456VG);
             this.Controls.Add(this.label2);
@@ -467,12 +423,8 @@ namespace Proyecto_EnviosYA
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1456VG;
         private CheckBox checkVer456VG;
-        private ListBox lstSerializado456VG;
-        private ListBox lstDeserializado456VG;
-        private Label label6;
-        private Label label9;
         private Button btnSerializar456VG;
         private Button btnDeserializar456VG;
-        private Button btnlimp456VG;
+        private Button buttonActu;
     }
 }

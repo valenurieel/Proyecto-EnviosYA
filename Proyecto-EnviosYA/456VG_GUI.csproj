@@ -117,6 +117,12 @@
     <Compile Include="CambiarIdioma_456VG.Designer.cs">
       <DependentUpon>CambiarIdioma_456VG.cs</DependentUpon>
     </Compile>
+    <Compile Include="CargaEnvíos_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargaEnvíos_456VG.Designer.cs">
+      <DependentUpon>CargaEnvíos_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="CerrarSesión_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,24 @@
     </Compile>
     <Compile Include="CrearEnvío_456VG.Designer.cs">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntregaEnvíos_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntregaEnvíos_456VG.Designer.cs">
+      <DependentUpon>EntregaEnvíos_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaCarga_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaCarga_456VG.Designer.cs">
+      <DependentUpon>ListaCarga_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReasignarEntrega_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReasignarEntrega_456VG.Designer.cs">
+      <DependentUpon>ReasignarEntrega_456VG.cs</DependentUpon>
     </Compile>
     <Compile Include="SeguimientoEnvíos_456VG.cs">
       <SubType>Form</SubType>
@@ -197,6 +221,9 @@
     <EmbeddedResource Include="CambiarIdioma_456VG.resx">
       <DependentUpon>CambiarIdioma_456VG.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CargaEnvíos_456VG.resx">
+      <DependentUpon>CargaEnvíos_456VG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CerrarSesión_456VG.resx">
       <DependentUpon>CerrarSesión_456VG.cs</DependentUpon>
     </EmbeddedResource>
@@ -205,6 +232,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearEnvío_456VG.resx">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntregaEnvíos_456VG.resx">
+      <DependentUpon>EntregaEnvíos_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaCarga_456VG.resx">
+      <DependentUpon>ListaCarga_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReasignarEntrega_456VG.resx">
+      <DependentUpon>ReasignarEntrega_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SeguimientoEnvíos_456VG.resx">
       <DependentUpon>SeguimientoEnvíos_456VG.cs</DependentUpon>

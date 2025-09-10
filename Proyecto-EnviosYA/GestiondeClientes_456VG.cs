@@ -20,6 +20,7 @@ namespace Proyecto_EnviosYA
         BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
         BLLSerializar_456VG _ser = new BLLSerializar_456VG();
         BLLDeserializar_456VG _des = new BLLDeserializar_456VG();
+        private bool _vistaDeserializada = false;
         public GestiondeClientes_456VG()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace Proyecto_EnviosYA
         }
         private void dataGridView1456VG_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (dataGridView1456VG.Rows[e.RowIndex].IsNewRow) return;
             if (dataGridView1456VG.Columns[e.ColumnIndex].Name == "Activo")
             {
                 bool isActive = Convert.ToBoolean(e.Value);
@@ -399,6 +401,9 @@ namespace Proyecto_EnviosYA
         }
         private void GestiondeClientes_456VG_Load(object sender, EventArgs e)
         {
+            _vistaDeserializada = false;
+            dataGridView1456VG.ReadOnly = false;
+            dataGridView1456VG.AllowUserToAddRows = true;
             ActualizarIdioma_456VG();
             label13456VG.Text = Lenguaje_456VG.ObtenerInstancia_456VG()
                                    .ObtenerTexto_456VG("GestiondeClientes_456VG.Modo.Consulta");
@@ -419,11 +424,6 @@ namespace Proyecto_EnviosYA
             radioButton1456VG.Checked = true;
             radioButton1456VG.Enabled = true;
             radioButton2456VG.Enabled = true;
-        }
-        private void limpiarLST456VG()
-        {
-            lstSerializado456VG.Items.Clear();
-            lstDeserializado456VG.Items.Clear();
         }
         private void limpiar456VG()
         {
@@ -504,9 +504,7 @@ namespace Proyecto_EnviosYA
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             try
             {
-                bool hayFilas = dataGridView1456VG.Rows
-                         .Cast<DataGridViewRow>()
-                         .Any(r => !r.IsNewRow);
+                bool hayFilas = dataGridView1456VG.Rows.Cast<DataGridViewRow>().Any(r => !r.IsNewRow);
                 if (!hayFilas)
                 {
                     MessageBox.Show(
@@ -541,9 +539,6 @@ namespace Proyecto_EnviosYA
                     );
                     return;
                 }
-                lstSerializado456VG.Items.Clear();
-                var lineas = _ser.LeerLineasArchivo456VG(filePath);
-                foreach (var line in lineas) lstSerializado456VG.Items.Add(line);
                 string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                 blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Archivo Serializado", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
                 MessageBox.Show(
@@ -588,14 +583,19 @@ namespace Proyecto_EnviosYA
                             ? lng.ObtenerTexto_456VG(key)
                             : string.Format(lng.ObtenerTexto_456VG(key), resultado.mensaje),
                         lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.InformacionTitle"),
-                        MessageBoxButtons.OK, key == "GestiondeClientes_456VG.Msg.XMLSinDatos" ? MessageBoxIcon.Information : MessageBoxIcon.Error
+                        MessageBoxButtons.OK,
+                        key == "GestiondeClientes_456VG.Msg.XMLSinDatos" ? MessageBoxIcon.Information : MessageBoxIcon.Error
                     );
                     return;
                 }
                 var dt = resultado.entidad;
-                lstDeserializado456VG.Items.Clear();
-                foreach (var linea in _des.FormatearFilasParaLista456VG(dt))
-                    lstDeserializado456VG.Items.Add(linea);
+                dataGridView1456VG.DataSource = null;
+                dataGridView1456VG.AutoGenerateColumns = true;
+                dataGridView1456VG.DataSource = dt;
+                TraducirEncabezadosDataGrid();
+                _vistaDeserializada = true;
+                dataGridView1456VG.AllowUserToAddRows = false;
+                dataGridView1456VG.ReadOnly = true;
                 string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                 blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestro", accion: "Archivo Deserializado", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
             }
@@ -608,10 +608,14 @@ namespace Proyecto_EnviosYA
                 );
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonActu_Click(object sender, EventArgs e)
         {
-            limpiarLST456VG();
+            _vistaDeserializada = false;
+            dataGridView1456VG.ReadOnly = false;
+            dataGridView1456VG.AllowUserToAddRows = true;
+            dataGridView1456VG.DataSource = null;
+            limpiar456VG();
+            GestiondeClientes_456VG_Load(null, null);
         }
     }
 }

@@ -182,7 +182,25 @@ namespace Proyecto_EnviosYA
 
         private void AsignacióndeEnvío_Click(object sender, EventArgs e)
         {
+            ListaCarga_456VG fr = new ListaCarga_456VG();
+            fr.ShowDialog();
+        }
 
+        private void ListaCarga_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CargaEnvíos_Click(object sender, EventArgs e)
+        {
+            CargaEnvíos_456VG rf = new CargaEnvíos_456VG();
+            rf.ShowDialog();
+        }
+
+        private void EntregadeEnvío_Click(object sender, EventArgs e)
+        {
+            EntregaEnvíos_456VG fr = new EntregaEnvíos_456VG();
+            fr.ShowDialog();
         }
     }
 }
