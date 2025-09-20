@@ -39,7 +39,8 @@ namespace _456VG_DAL
                 db.Desconectar456VG();
             }
         }
-        public string ObtenerCodSeguimientoNoImpresoPorEnvio(string codEnvio)
+
+        public string ObtenerCodSeguimientoNoImpresoPorEnvio456VG(string codEnvio)
         {
             var db = new BasedeDatos_456VG();
             try
@@ -55,7 +56,7 @@ namespace _456VG_DAL
             }
             finally { db.Desconectar456VG(); }
         }
-        public Resultado_456VG<BESeguimientoEnvío_456VG> CrearParaEnvio(string codEnvio)
+        public Resultado_456VG<BESeguimientoEnvío_456VG> CrearParaEnvio456VG(string codEnvio)
         {
             var r = new Resultado_456VG<BESeguimientoEnvío_456VG>();
             if (string.IsNullOrWhiteSpace(codEnvio))
@@ -66,8 +67,9 @@ namespace _456VG_DAL
             bool pagado = false;
             string dniCli = null, dniDest = null, nomDest = null, apeDest = null, telDest = null;
             float codPostal = 0f;
-            string dom = null, loc = null, prov = null, tipoEnvio = null;
+            string dom = null, loc = null, prov = null, tipoEnvio = null, estadoEnvio = "Pendiente de Entrega";
             decimal importe = 0m;
+            DateTime fechaEntrega = DateTime.MinValue;
             try
             {
                 db.Connection.Open();
@@ -84,7 +86,9 @@ namespace _456VG_DAL
                        e.localidad_456VG,
                        e.provincia_456VG,
                        e.tipoenvio_456VG,
-                       e.importe_456VG
+                       e.importe_456VG,
+                       e.estadoenvio_456VG,
+                       e.fechaentrega_456VG
                 FROM Envios_456VG e
                 WHERE e.codenvio_456VG = @CodEnvio;";
                 using (var cmd = new SqlCommand(sqlEnvio, db.Connection))
@@ -109,6 +113,8 @@ namespace _456VG_DAL
                         prov = dr.GetString(9);
                         tipoEnvio = dr.GetString(10);
                         importe = dr.GetDecimal(11);
+                        estadoEnvio = dr.GetString(12);
+                        fechaEntrega = dr.IsDBNull(13) ? DateTime.MinValue : dr.GetDateTime(13);
                     }
                 }
                 if (!pagado)
@@ -138,7 +144,7 @@ namespace _456VG_DAL
                 WHERE codenvio_456VG = @CodEnvio
                 ORDER BY fechaemitido_456VG DESC;";
                 string codSegExistente = null;
-                DateTime fechaSegExistente = default;
+                DateTime fechaSegExistente = default(DateTime);
                 bool impreso = false;
                 using (var cmd = new SqlCommand(sqlSeg, db.Connection))
                 {
@@ -160,7 +166,9 @@ namespace _456VG_DAL
                     new List<BEPaquete_456VG>(),
                     dniDest, nomDest, apeDest, telDest,
                     codPostal, dom, loc, prov, tipoEnvio,
-                    pagado, importe
+                    pagado, importe,
+                    estadoEnvio,
+                    fechaEntrega
                 );
                 if (codSegExistente != null && impreso)
                 {
@@ -193,7 +201,7 @@ namespace _456VG_DAL
             {
                 if (ex.Number == 2601 || ex.Number == 2627)
                 {
-                    var ya = LeerPorEnvio(codEnvio);
+                    var ya = LeerPorEnvio456VG(codEnvio);
                     if (ya != null && !ya.Impreso456VG)
                     {
                         return new Resultado_456VG<BESeguimientoEnvío_456VG>
@@ -215,7 +223,7 @@ namespace _456VG_DAL
                 db.Connection.Close();
             }
         }
-        public List<string> LeerCodEnviosElegibles()
+        public List<string> LeerCodEnviosElegibles456VG()
         {
             var lista = new List<string>();
             try
@@ -236,7 +244,7 @@ namespace _456VG_DAL
             finally { db.Connection.Close(); }
             return lista;
         }
-        public bool MarcarImpresoPorEnvio(string codEnvio)
+        public bool MarcarImpresoPorEnvio456VG(string codEnvio)
         {
             if (string.IsNullOrWhiteSpace(codEnvio)) return false;
             try
@@ -258,7 +266,7 @@ namespace _456VG_DAL
             catch { return false; }
             finally { db.Connection.Close(); }
         }
-        private BESeguimientoEnvío_456VG LeerPorEnvio(string codEnvio)
+        private BESeguimientoEnvío_456VG LeerPorEnvio456VG(string codEnvio)
         {
             try
             {
@@ -270,7 +278,7 @@ namespace _456VG_DAL
                 FROM Seguimientos_456VG
                 WHERE codenvio_456VG = @CodEnvio
                 ORDER BY fechaemitido_456VG DESC;";
-                string codSeg = null; DateTime fecha = default; bool impreso = false;
+                string codSeg = null; DateTime fecha = default(DateTime); bool impreso = false;
                 using (var cmd = new SqlCommand(sqlSeg, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@CodEnvio", codEnvio.Trim());
@@ -295,11 +303,14 @@ namespace _456VG_DAL
                        e.localidad_456VG,
                        e.provincia_456VG,
                        e.tipoenvio_456VG,
-                       e.importe_456VG
+                       e.importe_456VG,
+                       e.estadoenvio_456VG,
+                       e.fechaentrega_456VG
                 FROM Envios_456VG e
                 WHERE e.codenvio_456VG = @CodEnvio;";
                 bool pagado; string dniCli, dniDest, nomDest, apeDest, telDest;
-                float codPostal; string dom, loc, prov, tipoEnvio; decimal importe;
+                float codPostal; string dom, loc, prov, tipoEnvio, estadoEnvio;
+                decimal importe; DateTime fechaEntrega;
                 using (var cmd = new SqlCommand(sqlEnvio, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@CodEnvio", codEnvio.Trim());
@@ -318,6 +329,8 @@ namespace _456VG_DAL
                         prov = dr.GetString(9);
                         tipoEnvio = dr.GetString(10);
                         importe = dr.GetDecimal(11);
+                        estadoEnvio = dr.GetString(12);
+                        fechaEntrega = dr.IsDBNull(13) ? DateTime.MinValue : dr.GetDateTime(13);
                     }
                 }
                 var clienteBE = new BECliente_456VG { DNI456VG = dniCli };
@@ -327,7 +340,9 @@ namespace _456VG_DAL
                     new List<BEPaquete_456VG>(),
                     dniDest, nomDest, apeDest, telDest,
                     codPostal, dom, loc, prov, tipoEnvio,
-                    pagado, importe
+                    pagado, importe,
+                    estadoEnvio,
+                    fechaEntrega
                 );
                 return new BESeguimientoEnvío_456VG(envioBE, codSeg, fecha, impreso);
             }

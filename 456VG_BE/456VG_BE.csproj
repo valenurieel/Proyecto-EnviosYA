@@ -89,14 +89,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BEChofer_456VG.cs" />
     <Compile Include="BECliente_456VG.cs" />
     <Compile Include="BEDatosPago_456VG.cs" />
+    <Compile Include="BEDetalleListaCarga_456VG.cs" />
     <Compile Include="BEEnvío_456VG.cs" />
     <Compile Include="BEEventoBitacora_456VG.cs" />
     <Compile Include="BEFactura_456VG.cs" />
+    <Compile Include="BEListaCarga_456VG.cs" />
     <Compile Include="BEPaquete_456VG.cs" />
     <Compile Include="BEPerfil_456VG.cs" />
     <Compile Include="BESeguimientoEnvío_456VG.cs" />
+    <Compile Include="BETransporte_456VG.cs" />
     <Compile Include="FamiliaPermiso_456VG.cs" />
     <Compile Include="IPerfil_456VG.cs" />
     <Compile Include="Permiso_456VG.cs" />

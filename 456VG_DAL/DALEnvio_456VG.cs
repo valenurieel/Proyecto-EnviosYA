@@ -1,5 +1,6 @@
 ﻿using _456VG_BE;
 using _456VG_Servicios;
+using iTextSharp.text.pdf.codec.wmf;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -73,10 +74,10 @@ namespace _456VG_DAL
                 using (var tx = db.Connection.BeginTransaction())
                 {
                     const string sqlEnvio =
-                        "USE EnviosYA_456VG; " +
-                        "INSERT INTO Envios_456VG " +
-                        "  (codenvio_456VG, dni_cli_456VG, dni_dest_456VG, nombre_dest_456VG, apellido_dest_456VG, telefono_dest_456VG, provincia_456VG, localidad_456VG, domicilio_456VG, codpostal_456VG, tipoenvio_456VG, importe_456VG, pagado_456VG) " +
-                        "VALUES (@CodEnvio, @DniCli, @DniDest, @NomDest, @ApeDest, @TelDest, @Prov, @Loc, @Dom, @CP, @Tipo, @Imp, @Pag);";
+                    "USE EnviosYA_456VG; " +
+                    "INSERT INTO Envios_456VG " +
+                    " (codenvio_456VG, dni_cli_456VG, dni_dest_456VG, nombre_dest_456VG, apellido_dest_456VG, telefono_dest_456VG, provincia_456VG, localidad_456VG, domicilio_456VG, codpostal_456VG, tipoenvio_456VG, importe_456VG, pagado_456VG, estadoenvio_456VG, fechaentrega_456VG) " +
+                    "VALUES (@CodEnvio, @DniCli, @DniDest, @NomDest, @ApeDest, @TelDest, @Prov, @Loc, @Dom, @CP, @Tipo, @Imp, @Pag, @Estado, @FechaEntrega);";
                     using (var cmdEnvio = new SqlCommand(sqlEnvio, db.Connection, tx))
                     {
                         cmdEnvio.Parameters.AddWithValue("@CodEnvio", obj.CodEnvio456VG);
@@ -92,12 +93,15 @@ namespace _456VG_DAL
                         cmdEnvio.Parameters.AddWithValue("@Tipo", obj.tipoenvio456VG);
                         cmdEnvio.Parameters.AddWithValue("@Imp", obj.Importe456VG);
                         cmdEnvio.Parameters.AddWithValue("@Pag", obj.Pagado456VG);
+                        cmdEnvio.Parameters.AddWithValue("@Estado", obj.EstadoEnvio456VG);
+                        cmdEnvio.Parameters.AddWithValue("@FechaEntrega",
+    obj.FechaEntregaProgramada456VG == default(DateTime) ? DBNull.Value : (object)obj.FechaEntregaProgramada456VG);
                         cmdEnvio.ExecuteNonQuery();
                     }
                     const string sqlEnvioPaq =
-                        "USE EnviosYA_456VG; " +
-                        "INSERT INTO EnviosPaquetes_456VG (codenvio_456VG, codpaq_456VG) " +
-                        "VALUES (@CodEnvio, @CodPaq);";
+                    "USE EnviosYA_456VG; " +
+                    "INSERT INTO EnviosPaquetes_456VG (codenvio_456VG, codpaq_456VG) " +
+                    "VALUES (@CodEnvio, @CodPaq);";
                     foreach (var paquete in obj.Paquetes)
                     {
                         if (string.IsNullOrWhiteSpace(paquete.CodPaq456VG))
@@ -134,17 +138,18 @@ namespace _456VG_DAL
         {
             var listaEnvios = new List<BEEnvío_456VG>();
             string sqlEnvios =
-                "USE EnviosYA_456VG; " +
-                "SELECT " +
-                "  e.codenvio_456VG, e.dni_cli_456VG, e.dni_dest_456VG, " +
-                "  e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, " +
-                "  e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG, " +
-                "  e.codpostal_456VG, e.tipoenvio_456VG, e.importe_456VG, e.pagado_456VG, " +
-                "  c.nombre_456VG AS cliNombre, c.apellido_456VG AS cliApellido, " +
-                "  c.telefono_456VG AS cliTelefono, c.domicilio_456VG AS cliDomicilio, " +
-                "  c.fechanacimiento_456VG AS cliFN, c.activo_456VG AS cliActivo " +
-                "FROM Envios_456VG e " +
-                "JOIN Clientes_456VG c ON e.dni_cli_456VG = c.dni_456VG;";
+            "USE EnviosYA_456VG; " +
+            "SELECT " +
+            " e.codenvio_456VG, e.dni_cli_456VG, e.dni_dest_456VG, " +
+            " e.nombre_dest_456VG, e.apellido_dest_456VG, e.telefono_dest_456VG, " +
+            " e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG, " +
+            " e.codpostal_456VG, e.tipoenvio_456VG, e.importe_456VG, e.pagado_456VG, " +
+            " e.estadoenvio_456VG, e.fechaentrega_456VG, " +
+            " c.nombre_456VG AS cliNombre, c.apellido_456VG AS cliApellido, " +
+            " c.telefono_456VG AS cliTelefono, c.domicilio_456VG AS cliDomicilio, " +
+            " c.fechanacimiento_456VG AS cliFN, c.activo_456VG AS cliActivo " +
+            "FROM Envios_456VG e " +
+            "JOIN Clientes_456VG c ON e.dni_cli_456VG = c.dni_456VG;";
             try
             {
                 db.Conectar456VG();
@@ -166,6 +171,10 @@ namespace _456VG_DAL
                         string tipoEnv = reader.GetString(reader.GetOrdinal("tipoenvio_456VG"));
                         decimal importe = reader.GetDecimal(reader.GetOrdinal("importe_456VG"));
                         bool pagado = reader.GetBoolean(reader.GetOrdinal("pagado_456VG"));
+                        string estado = reader.GetString(reader.GetOrdinal("estadoenvio_456VG"));
+                        DateTime fechaEntrega = reader.IsDBNull(reader.GetOrdinal("fechaentrega_456VG"))
+                            ? DateTime.MinValue
+                            : reader.GetDateTime(reader.GetOrdinal("fechaentrega_456VG"));
                         string cliNom = reader.GetString(reader.GetOrdinal("cliNombre"));
                         string cliApe = reader.GetString(reader.GetOrdinal("cliApellido"));
                         string cliTel = reader.GetString(reader.GetOrdinal("cliTelefono"));
@@ -202,23 +211,7 @@ namespace _456VG_DAL
                                 }
                             }
                         }
-                        var envio = new BEEnvío_456VG(
-                            codEnvio,
-                            clienteEnvio,
-                            paquetesEnvio,
-                            dniDest,
-                            nomDest,
-                            apeDest,
-                            telDest,
-                            cp,
-                            domEnv,
-                            loc,
-                            prov,
-                            tipoEnv,
-                            pagado,
-                            importe
-                        );
-                        listaEnvios.Add(envio);
+                        var envio = new BEEnvío_456VG(codEnvio, clienteEnvio, paquetesEnvio, dniDest, nomDest, apeDest, telDest, cp, domEnv, loc, prov, tipoEnv, pagado, importe, estado, fechaEntrega); listaEnvios.Add(envio);
                     }
                 }
             }
@@ -230,6 +223,42 @@ namespace _456VG_DAL
                 db.Desconectar456VG();
             }
             return listaEnvios;
+        }
+        public Resultado_456VG<BEEnvío_456VG> actualizarEstadoEnvio_456VG(string codEnvio, string nuevoEstado)
+        {
+            var resultado = new Resultado_456VG<BEEnvío_456VG>();
+            try
+            {
+                db.Connection.Open();
+                using (var tx = db.Connection.BeginTransaction())
+                {
+                    const string sql =
+                    "USE EnviosYA_456VG; " +
+                    "UPDATE Envios_456VG SET estadoenvio_456VG = @Estado " +
+                    "WHERE codenvio_456VG = @CodEnvio;";
+                    using (var cmd = new SqlCommand(sql, db.Connection, tx))
+                    {
+                        cmd.Parameters.AddWithValue("@Estado", nuevoEstado);
+                        cmd.Parameters.AddWithValue("@CodEnvio", codEnvio);
+                        int rows = cmd.ExecuteNonQuery();
+                        if (rows == 0)
+                            throw new Exception("No se encontró el envío.");
+                    }
+                    tx.Commit();
+                }
+                resultado.resultado = true;
+                resultado.mensaje = "Estado actualizado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                resultado.resultado = false;
+                resultado.mensaje = ex.Message;
+            }
+            finally
+            {
+                db.Connection.Close();
+            }
+            return resultado;
         }
     }
 }

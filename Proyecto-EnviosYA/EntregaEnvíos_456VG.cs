@@ -27,5 +27,10 @@ namespace Proyecto_EnviosYA
             ReasignarEntrega_456VG fr = new ReasignarEntrega_456VG();
             fr.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

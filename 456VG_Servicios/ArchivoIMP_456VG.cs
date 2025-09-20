@@ -181,7 +181,8 @@ namespace _456VG_Servicios
                 ? string.Join(", ", envio.Paquetes.Select(p => p.CodPaq456VG))
                 : "—";
             doc.Add(new iTextSharp.text.Paragraph($"Códigos de Paquete: {codigosPaquetes}", fontTexto));
-            doc.Add(new iTextSharp.text.Paragraph($"Fecha: {seguimiento.FechaEmitido456VG:dd/MM/yyyy HH:mm}", fontTexto));
+            doc.Add(new iTextSharp.text.Paragraph($"Fecha de Recepción: {seguimiento.FechaEmitido456VG:dd/MM/yyyy HH:mm}", fontTexto));
+            doc.Add(new iTextSharp.text.Paragraph($"Fecha de Entrega Programada: {envio.FechaEntregaProgramada456VG:dd/MM/yyyy HH:mm}", fontTexto));
             doc.Add(Chunk.NEWLINE);
             PdfPTable tablaCodes = new PdfPTable(2) { WidthPercentage = 100 };
             tablaCodes.SetWidths(new float[] { 2f, 1f });

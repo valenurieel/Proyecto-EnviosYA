@@ -320,8 +320,15 @@ namespace Proyecto_EnviosYA
                 txtProv456VG.Focus();
                 return;
             }
-            string tipoEnvio = cmbTipEnvio456VG.SelectedItem?.ToString()
-                                ?? lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal");
+            string normalTxt = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.normal");
+            string expressTxt = lng.ObtenerTexto_456VG("CrearEnvío_456VG.Combo.express");
+            string tipoEnvio = cmbTipEnvio456VG.SelectedItem != null
+                                ? cmbTipEnvio456VG.SelectedItem.ToString()
+                                : normalTxt;
+            DateTime fechaEntrega = DateTime.Now.AddDays(
+                string.Equals(tipoEnvio, expressTxt, StringComparison.OrdinalIgnoreCase) ? 1 : 3
+            );
+            string estado = "Pendiente de Entrega";
             var envio = new BEEnvío_456VG(
                 clienteCargado,
                 new List<BEPaquete_456VG>(_paquetesPendientes),
@@ -334,7 +341,9 @@ namespace Proyecto_EnviosYA
                 txtLoc456VG.Text.Trim(),
                 txtProv456VG.Text.Trim(),
                 tipoEnvio,
-                false
+                false,
+                estado,
+                fechaEntrega
             );
             var resEnv = BLLEnv.crearEntidad456VG(envio);
             if (!resEnv.resultado)

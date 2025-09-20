@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iTextSharp.text.pdf.codec.wmf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,9 @@ namespace _456VG_BE
         public decimal Importe456VG { get; private set; }
         public bool Pagado456VG { get; set; } //si está pagado el envío
         public string CodEnvio456VG { get; set; }
-        public BEEnvío_456VG(string codEnvio, BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado, decimal importe)
+        public DateTime FechaEntregaProgramada456VG { get; set; }
+        public string EstadoEnvio456VG { get; set; } = "Pendiente de Entrega";
+        public BEEnvío_456VG(string codEnvio, BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado, decimal importe, string estado, DateTime fechaentrega)
         {
             this.CodEnvio456VG = codEnvio;
             this.Cliente = cliente;
@@ -36,8 +39,10 @@ namespace _456VG_BE
             this.tipoenvio456VG = tipoEnvio;
             this.Pagado456VG = pagado;
             this.Importe456VG = importe;
+            this.EstadoEnvio456VG = estado;
+            this.FechaEntregaProgramada456VG = fechaentrega;
         }
-        public BEEnvío_456VG(BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado)
+        public BEEnvío_456VG(BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado, string estado, DateTime fechaentrega)
         {
             this.Cliente = cliente;
             this.Paquetes = paquetes;
@@ -53,6 +58,8 @@ namespace _456VG_BE
             this.Pagado456VG = pagado;
             this.CodEnvio456VG = GenerateCodEnvio456VG();
             this.Importe456VG = CalcularImporte456VG();
+            this.EstadoEnvio456VG = estado;
+            this.FechaEntregaProgramada456VG = fechaentrega;
         }
         //genero codigo de envio (cant paquete, 3 dig de DNI, 3 dig de Nombre y hora)
         private string GenerateCodEnvio456VG()

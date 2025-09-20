@@ -126,6 +126,8 @@ namespace _456VG_DAL
             e.tipoenvio_456VG,
             e.importe_456VG,
             e.pagado_456VG,
+            e.estadoenvio_456VG,
+            e.fechaentrega_456VG,
             cEnv.nombre_456VG AS cliNombreEnv,
             cEnv.apellido_456VG AS cliApellidoEnv,
             cEnv.telefono_456VG AS cliTelefonoEnv,
@@ -161,14 +163,14 @@ namespace _456VG_DAL
                         );
                         BEDatosPago_456VG datosPago = null;
                         string sqlPago = @"
-                    SELECT TOP 1 
-                        medio_pago_456VG, 
-                        numtarjeta_456VG, 
-                        titular_456VG, 
-                        fechavencimiento_456VG, 
-                        cvc_456VG 
-                    FROM DatosPago_456VG 
-                    WHERE dni_cliente_456VG = @DniCli;";
+                            SELECT TOP 1 
+                                medio_pago_456VG, 
+                                numtarjeta_456VG, 
+                                titular_456VG, 
+                                fechavencimiento_456VG, 
+                                cvc_456VG 
+                            FROM DatosPago_456VG 
+                            WHERE dni_cliente_456VG = @DniCli;";
                         using (var cmdPago = new SqlCommand(sqlPago, db.Connection))
                         {
                             cmdPago.Parameters.AddWithValue("@DniCli", dniCliEnv);
@@ -189,11 +191,11 @@ namespace _456VG_DAL
                         }
                         var paquetesEnvio = new List<BEPaquete_456VG>();
                         string sqlPaquetes = @"
-                    USE EnviosYA_456VG;
-                    SELECT p.codpaq_456VG, p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG
-                    FROM Paquetes_456VG p
-                    JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG
-                    WHERE ep.codenvio_456VG = @CodEnvio;";
+                            USE EnviosYA_456VG;
+                            SELECT p.codpaq_456VG, p.peso_456VG, p.ancho_456VG, p.alto_456VG, p.largo_456VG, p.enviado_456VG
+                            FROM Paquetes_456VG p
+                            JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG
+                            WHERE ep.codenvio_456VG = @CodEnvio;";
                         using (var cmdP = new SqlCommand(sqlPaquetes, db.Connection))
                         {
                             cmdP.Parameters.AddWithValue("@CodEnvio", codEnvio);
@@ -213,6 +215,8 @@ namespace _456VG_DAL
                                 }
                             }
                         }
+                        string estado = readerF.IsDBNull(readerF.GetOrdinal("estadoenvio_456VG")) ? "Pendiente de Entrega" : readerF.GetString(readerF.GetOrdinal("estadoenvio_456VG"));
+                        DateTime fechaEntrega = readerF.IsDBNull(readerF.GetOrdinal("fechaentrega_456VG")) ? DateTime.MinValue : readerF.GetDateTime(readerF.GetOrdinal("fechaentrega_456VG"));
                         var envio = new BEEnvío_456VG(
                             codEnvio,
                             clienteEnvio,
@@ -227,9 +231,10 @@ namespace _456VG_DAL
                             readerF.GetString(readerF.GetOrdinal("provincia_456VG")),
                             readerF.GetString(readerF.GetOrdinal("tipoenvio_456VG")),
                             readerF.GetBoolean(readerF.GetOrdinal("pagado_456VG")),
-                            readerF.GetDecimal(readerF.GetOrdinal("importe_456VG"))
+                            readerF.GetDecimal(readerF.GetOrdinal("importe_456VG")),
+                            estado,
+                            fechaEntrega
                         );
-
                         var factura = new BEFactura_456VG(codFactura, envio, datosPago, fechaF.Add(horaF), impreso);
                         listaFacturas.Add(factura);
                     }
@@ -243,6 +248,7 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
+
             return listaFacturas;
         }
     }

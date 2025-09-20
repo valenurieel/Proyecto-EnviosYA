@@ -91,14 +91,18 @@
   <ItemGroup>
     <Compile Include="BasedeDatos_456VG.cs" />
     <Compile Include="DALBackupRestore_456VG.cs" />
+    <Compile Include="DALChofer_456VG.cs" />
     <Compile Include="DALCliente_456VG.cs" />
     <Compile Include="DALDatosPago_456VG.cs" />
+    <Compile Include="DALDetalleListaCarga_456VG.cs" />
     <Compile Include="DALEnvio_456VG.cs" />
     <Compile Include="DALEventoBitacora_456VG.cs" />
     <Compile Include="DALFactura_456VG.cs" />
+    <Compile Include="DALListaCarga_456VG.cs" />
     <Compile Include="DALPaquete_456VG.cs" />
     <Compile Include="DALPerfil_456VG.cs" />
     <Compile Include="DALSeguimientoEnvío_456VG.cs" />
+    <Compile Include="DALTransporte_456VG.cs" />
     <Compile Include="DALUsuario_456VG.cs" />
     <Compile Include="ICrud_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

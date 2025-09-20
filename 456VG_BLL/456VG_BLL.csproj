@@ -90,16 +90,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLBackupRestore_456VG.cs" />
+    <Compile Include="BLLChofer_456VG.cs" />
     <Compile Include="BLLCliente_456VG.cs" />
     <Compile Include="BLLDatosPago_456VG.cs" />
     <Compile Include="BLLDeserializar_456VG.cs" />
+    <Compile Include="BLLDetalleListaCarga_456VG.cs" />
     <Compile Include="BLLEnvio_456VG.cs" />
     <Compile Include="BLLEventoBitacora_456VG.cs" />
     <Compile Include="BLLFactura_456VG.cs" />
+    <Compile Include="BLLListaCarga_456VG.cs" />
     <Compile Include="BLLPaquete_456VG.cs" />
     <Compile Include="BLLPerfil_456VG.cs" />
     <Compile Include="BLLSeguimientoEnvío_456VG.cs" />
     <Compile Include="BLLSerializar_456VG.cs" />
+    <Compile Include="BLLTransporte_456VG.cs" />
     <Compile Include="BLLUsuario_456VG.cs" />
     <Compile Include="IEntidades_456VG.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -54,7 +54,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(979, 528);
+            this.button3.Location = new System.Drawing.Point(981, 487);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(63, 29);
             this.button3.TabIndex = 66;
@@ -102,6 +102,7 @@
             this.button4.TabIndex = 78;
             this.button4.Text = "Verificar";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // LCP456VG
             // 
@@ -171,7 +172,7 @@
             // 
             // btnImprimir456VG
             // 
-            this.btnImprimir456VG.Location = new System.Drawing.Point(435, 514);
+            this.btnImprimir456VG.Location = new System.Drawing.Point(437, 473);
             this.btnImprimir456VG.Name = "btnImprimir456VG";
             this.btnImprimir456VG.Size = new System.Drawing.Size(174, 43);
             this.btnImprimir456VG.TabIndex = 85;
@@ -182,7 +183,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(24, 193);
+            this.label9.Location = new System.Drawing.Point(26, 192);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 26);
             this.label9.TabIndex = 89;
@@ -192,7 +193,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(24, 348);
+            this.label15.Location = new System.Drawing.Point(26, 313);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(169, 26);
             this.label15.TabIndex = 88;
@@ -201,22 +202,22 @@
             // dgvPaquetesDetalle
             // 
             this.dgvPaquetesDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPaquetesDetalle.Location = new System.Drawing.Point(29, 377);
+            this.dgvPaquetesDetalle.Location = new System.Drawing.Point(31, 342);
             this.dgvPaquetesDetalle.Name = "dgvPaquetesDetalle";
-            this.dgvPaquetesDetalle.Size = new System.Drawing.Size(893, 115);
+            this.dgvPaquetesDetalle.Size = new System.Drawing.Size(1013, 115);
             this.dgvPaquetesDetalle.TabIndex = 87;
             // 
             // dataGridView1456VG
             // 
             this.dataGridView1456VG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1456VG.Location = new System.Drawing.Point(29, 222);
+            this.dataGridView1456VG.Location = new System.Drawing.Point(31, 221);
             this.dataGridView1456VG.Name = "dataGridView1456VG";
-            this.dataGridView1456VG.Size = new System.Drawing.Size(893, 115);
+            this.dataGridView1456VG.Size = new System.Drawing.Size(1013, 90);
             this.dataGridView1456VG.TabIndex = 86;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(778, 514);
+            this.button1.Location = new System.Drawing.Point(780, 473);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(174, 43);
             this.button1.TabIndex = 90;
@@ -229,7 +230,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1065, 567);
+            this.ClientSize = new System.Drawing.Size(1065, 528);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label15);

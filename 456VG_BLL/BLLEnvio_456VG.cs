@@ -32,5 +32,18 @@ namespace _456VG_BLL
         {
             return dal.actualizarEntidad456VG(obj);
         }
+        public void actualizarEstadoEnvio456VG(string codigoEnvio, string nuevoEstado)
+        {
+            var envio = obtenerPorCodigo456VG(codigoEnvio);
+            if (envio != null)
+            {
+                envio.EstadoEnvio456VG = nuevoEstado;
+                dal.actualizarEstadoEnvio_456VG(envio.CodEnvio456VG, nuevoEstado);
+            }
+        }
+        public BEEnvío_456VG obtenerPorCodigo456VG(string codigo)
+        {
+            return dal.leerEntidades456VG().FirstOrDefault(e => e.CodEnvio456VG == codigo);
+        }
     }
 }

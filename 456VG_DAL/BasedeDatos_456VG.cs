@@ -147,6 +147,8 @@ public class BasedeDatos_456VG
                     "tipoenvio_456VG VARCHAR(20) NOT NULL," +
                     "importe_456VG DECIMAL(10,2) NOT NULL," +
                     "pagado_456VG BIT NOT NULL DEFAULT 0," +
+                    "fechaentrega_456VG DATE NULL," +
+                    "estadoenvio_456VG VARCHAR(30) NOT NULL DEFAULT 'Pendiente de Entrega'," +
                     "CONSTRAINT fk_envio_cliente FOREIGN KEY (dni_cli_456VG) REFERENCES Clientes_456VG(dni_456VG)" +
                 ");");
             dbReal.ejecutarQuery456VG(
@@ -219,6 +221,38 @@ public class BasedeDatos_456VG
                 "    impreso_456VG        BIT         NOT NULL DEFAULT (0), " +
                 "    CONSTRAINT FK_Seguimientos_Envio_456VG FOREIGN KEY (codenvio_456VG) " +
                 "        REFERENCES dbo.Envios_456VG(codenvio_456VG) " +
+                "  ); " +
+                "END;"
+            );
+            dbReal.ejecutarQuery456VG(
+                "USE EnviosYA_456VG; " +
+                "IF OBJECT_ID('dbo.Transportes_456VG','U') IS NULL " +
+                "BEGIN " +
+                "  CREATE TABLE dbo.Transportes_456VG ( " +
+                "    patente_456VG            VARCHAR(20)  NOT NULL PRIMARY KEY, " +
+                "    marca_456VG              VARCHAR(50)  NOT NULL, " +
+                "    año_456VG                INT          NOT NULL, " +
+                "    capacidad_peso_456VG     FLOAT        NOT NULL, " +
+                "    capacidad_volumen_456VG  FLOAT        NOT NULL, " +
+                "    disponible_456VG         BIT          NOT NULL DEFAULT(1), " +
+                "    activo_456VG             BIT          NOT NULL DEFAULT(1) " +
+                "  ); " +
+                "END;"
+            );
+            dbReal.ejecutarQuery456VG(
+                "USE EnviosYA_456VG; " +
+                "IF OBJECT_ID('dbo.Choferes_456VG','U') IS NULL " +
+                "BEGIN " +
+                "  CREATE TABLE dbo.Choferes_456VG ( " +
+                "    dni_chofer_456VG           VARCHAR(20)  NOT NULL PRIMARY KEY, " +
+                "    nombre_456VG               VARCHAR(100) NOT NULL, " +
+                "    apellido_456VG             VARCHAR(100) NOT NULL, " +
+                "    telefono_456VG             VARCHAR(20)  NOT NULL, " +
+                "    registro_456VG             BIT          NOT NULL, " +
+                "    vencimiento_registro_456VG DATE         NOT NULL, " +
+                "    fechanacimiento_456VG      DATE         NOT NULL, " +
+                "    disponible_456VG           BIT          NOT NULL DEFAULT(1), " +
+                "    activo_456VG               BIT          NOT NULL DEFAULT(1) " +
                 "  ); " +
                 "END;"
             );
@@ -300,6 +334,50 @@ public class BasedeDatos_456VG
             "INSERT INTO Clientes_456VG (dni_456VG, nombre_456VG, apellido_456VG, telefono_456VG, domicilio_456VG, fechanacimiento_456VG, activo_456VG) VALUES " +
             "('87654321', 'Lucía', 'Fernández', '1122334455', 'grnz2nXJeEXZzQxF+TQijC+Jpsif9hO8B64LimW7jOk=', '1990-05-15', 1)," +
             "('20262026', 'Marcos', 'Pereyra', '1166778899', 'GQFNqxUb+Ua8rCxDQxtcbOUo9dVwZk5UTn3gNS2X74g=', '1985-08-22', 1);"
+        );
+        dbReal.ejecutarQuery456VG(
+            "USE EnviosYA_456VG; " +
+            "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AA123AA') " +
+            "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('AA123AA','Mercedes-Benz Sprinter',2021,1500,13.0,1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AB456CD') " +
+            "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('AB456CD','Iveco Daily',2019,1800,15.5,1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AC789EF') " +
+            "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('AC789EF','Ford Transit',2020,1400,12.0,1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AD321GH') " +
+            "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('AD321GH','Peugeot Boxer',2018,1300,11.5,1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AE654IJ') " +
+            "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('AE654IJ','Renault Master',2022,1600,14.0,1,1);"
+        );
+        dbReal.ejecutarQuery456VG(
+            "USE EnviosYA_456VG; " +
+            "IF NOT EXISTS (SELECT 1 FROM Choferes_456VG WHERE dni_chofer_456VG='20111222') " +
+            "INSERT INTO Choferes_456VG (dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('20111222','Julio','Pérez','1122334455',1,'2027-12-31','1985-03-14',1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Choferes_456VG WHERE dni_chofer_456VG='23333444') " +
+            "INSERT INTO Choferes_456VG (dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('23333444','Sofía','Gómez','1199887766',1,'2026-08-15','1990-07-02',1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Choferes_456VG WHERE dni_chofer_456VG='24555666') " +
+            "INSERT INTO Choferes_456VG (dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('24555666','Martín','López','1144556677',1,'2025-05-10','1988-11-23',1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Choferes_456VG WHERE dni_chofer_456VG='27777888') " +
+            "INSERT INTO Choferes_456VG (dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('27777888','Carolina','Rodríguez','1177001122',1,'2026-01-20','1992-02-10',1,1);" +
+
+            "IF NOT EXISTS (SELECT 1 FROM Choferes_456VG WHERE dni_chofer_456VG='29999000') " +
+            "INSERT INTO Choferes_456VG (dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
+            "VALUES ('29999000','Diego','Fernández','1188112233',1,'2027-03-05','1986-06-30',1,1);"
         );
         dbReal.ejecutarQuery456VG(
         "USE EnviosYA_456VG; " +
