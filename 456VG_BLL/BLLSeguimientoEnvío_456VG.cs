@@ -16,15 +16,11 @@ namespace _456VG_BLL
         {
             dal = new DALSeguimientoEnvío_456VG();
         }
-        public Resultado_456VG<BESeguimientoEnvío_456VG> CrearParaEnvio(string codEnvio)
+        public Resultado_456VG<BESeguimientoEnvío_456VG> CrearParaEnvio456VG(string codEnvio)
             => dal.CrearParaEnvio456VG(codEnvio);
-
-        public List<string> LeerCodEnviosElegibles()
-            => dal.LeerCodEnviosElegibles456VG();
-
-        public bool MarcarImpresoPorEnvio(string codEnvio)
+        public bool MarcarImpresoPorEnvio456VG(string codEnvio)
             => dal.MarcarImpresoPorEnvio456VG(codEnvio);
-        public string ObtenerCodSeguimientoNoImpresoPorEnvio(string codEnvio)
+        public string ObtenerCodSeguimientoNoImpresoPorEnvio456VG(string codEnvio)
             => dal.ObtenerCodSeguimientoNoImpresoPorEnvio456VG(codEnvio);
         public bool ExistePorEnvioImpreso456VG(string codEnvio)
         {

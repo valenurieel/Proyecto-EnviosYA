@@ -38,7 +38,7 @@ namespace Proyecto_EnviosYA
             }
             try
             {
-                var resSeg = bllSeg_456VG.CrearParaEnvio(codEnvio);
+                var resSeg = bllSeg_456VG.CrearParaEnvio456VG(codEnvio);
                 if (!resSeg.resultado || resSeg.entidad == null)
                 {
                     MessageBox.Show(lng.ObtenerTexto_456VG("SeguimientoEnvíos_456VG.Msg.NoSePudoPreparar") + " " + resSeg.mensaje,
@@ -55,7 +55,7 @@ namespace Proyecto_EnviosYA
                     return;
                 }
                 archivo_456VG.GenerarSeguimientoEnvioPDF_456VG(resSeg.entidad, envioCompleto);
-                bool marcado = bllSeg_456VG.MarcarImpresoPorEnvio(codEnvio);
+                bool marcado = bllSeg_456VG.MarcarImpresoPorEnvio456VG(codEnvio);
                 if (!marcado)
                 {
                     MessageBox.Show(lng.ObtenerTexto_456VG("SeguimientoEnvíos_456VG.Msg.NoSePudoMarcarImpreso"),
@@ -102,7 +102,7 @@ namespace Proyecto_EnviosYA
             {
                 CodigoEnvio = e.CodEnvio456VG,
                 CodigosPaquetes = (e.Paquetes != null && e.Paquetes.Count > 0) ? string.Join(", ", e.Paquetes.Select(p => p.CodPaq456VG)) : "(sin paquetes)",
-                CodigoSeguimiento = bllSeg_456VG.ObtenerCodSeguimientoNoImpresoPorEnvio(e.CodEnvio456VG) ?? "—",
+                CodigoSeguimiento = bllSeg_456VG.ObtenerCodSeguimientoNoImpresoPorEnvio456VG(e.CodEnvio456VG) ?? "—",
                 DireccionEntrega = $"{e.Domicilio456VG}, {e.Localidad456VG}, {e.Provincia456VG}",
                 DniDest = e.DNIDest456VG,
                 Destinatario = $"{e.NombreDest456VG} {e.ApellidoDest456VG}"

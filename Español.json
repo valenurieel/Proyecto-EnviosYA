@@ -547,6 +547,27 @@
   "Perfiles_456VG.Item.comboBox3456VG.Prueba": "Prueba",
   "Perfiles_456VG.Item.comboBox3456VG.Nuevo": "Nuevo",
 
+  "Perfiles_456VG.Item.cmboxflia456VG.EntregaEnvíos": "Encargado de Envíos",
+  "Perfiles_456VG.Item.cmboxflia456VG.Cargador": "Cargador",
+  "Perfiles_456VG.Item.cmboxflia456VG.OperadorDeposito": "Operador de Depósito",
+
+  "Perfiles_456VG.Item.comboBox3456VG.Cargador": "Cargador",
+  "Perfiles_456VG.Item.comboBox3456VG.Entregador Envíos": "Encargado de Envíos",
+  "Perfiles_456VG.Item.comboBox3456VG.Operador Deposito": "Operador de Deposito",
+
+  "Perfiles_456VG.Item.comboBox1456VG.SeguimientoEnvío": "Seguimiento de Envío",
+  "Perfiles_456VG.Item.comboBox1456VG.BitacoraEventos": "Bitacora de Eventos",
+  "Perfiles_456VG.Item.comboBox1456VG.BackupRestore": "Respaldos",
+  "Perfiles_456VG.Item.comboBox1456VG.GestióndeTransportes": "Gestión de Transportes",
+  "Perfiles_456VG.Item.comboBox1456VG.GestióndeChoferes": "Gestión de Choferes",
+  "Perfiles_456VG.Item.comboBox1456VG.ListaCarga": "Lista de Carga",
+  "Perfiles_456VG.Item.comboBox1456VG.CargaEnvíos": "Carga de Envíos",
+  "Perfiles_456VG.Item.comboBox1456VG.EntregadeEnvío": "Entrega de Envíos",
+
+  "GestióndeUsuarios_456VG.Combo.Cargador": "Cargador",
+  "GestióndeUsuarios_456VG.Combo.EntregadorEnvíos": "Encargado de Envíos",
+  "GestióndeUsuarios_456VG.Combo.OperadorDeposito": "Operador de Deposito",
+
   "Perfiles_456VG.Item.cmboxflia456VG.FAdmin": "FAdmin",
   "Perfiles_456VG.Item.cmboxflia456VG.Seguridad": "Seguridad",
   "Perfiles_456VG.Item.cmboxflia456VG.Cobranza": "Cobranza",

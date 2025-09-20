@@ -174,7 +174,7 @@ namespace Proyecto_EnviosYA
                 string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                 blleven.AddBitacora456VG(dni: dniLog, modulo: "Reportes", accion: "Imprimir Factura", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Información);
                 CargarFacturas456VG();
-                bllSeg_456VG.CrearParaEnvio(facturaSeleccionada.Envio.CodEnvio456VG);
+                bllSeg_456VG.CrearParaEnvio456VG(facturaSeleccionada.Envio.CodEnvio456VG);
                 var resultado = MessageBox.Show(
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.DeseaAbrirPDF"),
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloAbrirPDF"),

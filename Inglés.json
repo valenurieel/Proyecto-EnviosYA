@@ -184,6 +184,27 @@
   "GestióndeUsuarios_456VG.Combo.": "None",
   "Perfiles_456VG.Msg.PerfilActualEliminado": "Your profile has been deleted. The session will be closed and you must log in again.",
 
+  "Perfiles_456VG.Item.cmboxflia456VG.EntregaEnvíos": "Shipping Manager",
+  "Perfiles_456VG.Item.cmboxflia456VG.Cargador": "Loader",
+  "Perfiles_456VG.Item.cmboxflia456VG.OperadorDeposito": "Warehouse Operator",
+
+  "Perfiles_456VG.Item.comboBox3456VG.Cargador": "Loader",
+  "Perfiles_456VG.Item.comboBox3456VG.Entregador Envíos": "Shipping Manager",
+  "Perfiles_456VG.Item.comboBox3456VG.Operador Deposito": "Warehouse Operator",
+
+  "Perfiles_456VG.Item.comboBox1456VG.SeguimientoEnvío": "Shipment Tracking",
+  "Perfiles_456VG.Item.comboBox1456VG.BitacoraEventos": "Event Log",
+  "Perfiles_456VG.Item.comboBox1456VG.BackupRestore": "Backups",
+  "Perfiles_456VG.Item.comboBox1456VG.GestióndeTransportes": "Transport Management",
+  "Perfiles_456VG.Item.comboBox1456VG.GestióndeChoferes": "Driver Management",
+  "Perfiles_456VG.Item.comboBox1456VG.ListaCarga": "Load List",
+  "Perfiles_456VG.Item.comboBox1456VG.CargaEnvíos": "Shipment Loading",
+  "Perfiles_456VG.Item.comboBox1456VG.EntregadeEnvío": "Shipment Delivery",
+
+  "GestióndeUsuarios_456VG.Combo.Cargador": "Loader",
+  "GestióndeUsuarios_456VG.Combo.EntregadorEnvíos": "Shipping Manager",
+  "GestióndeUsuarios_456VG.Combo.OperadorDeposito": "Warehouse Operator",
+
   "Perfiles_456VG.Text": "Profile Management",
   "Perfiles_456VG.Msg.NombrePerfilVacio": "You must enter a profile name.",
   "Perfiles_456VG.Msg.PerfilCreadoExito": "Profile created successfully.",
