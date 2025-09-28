@@ -22,7 +22,7 @@ namespace _456VG_BE
         public bool Pagado456VG { get; set; } //si está pagado el envío
         public string CodEnvio456VG { get; set; }
         public DateTime FechaEntregaProgramada456VG { get; set; }
-        public string EstadoEnvio456VG { get; set; } = "Pendiente de Entrega";
+        public string EstadoEnvio456VG { get; set; } = "Pendiente de Entrega"; //estado
         public BEEnvío_456VG(string codEnvio, BECliente_456VG cliente, List<BEPaquete_456VG> paquetes, string dniDest, string nomDest, string apeDest, string telDest, float codPostal, string dom, string loc, string prov, string tipoEnvio, bool pagado, decimal importe, string estado, DateTime fechaentrega)
         {
             this.CodEnvio456VG = codEnvio;

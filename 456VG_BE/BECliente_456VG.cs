@@ -15,7 +15,7 @@ namespace _456VG_BE
         public string Domicilio456VG { get; set; }
         public DateTime FechaNacimiento456VG { get; set; }
         public bool Activo456VG { get; set; }
-        //unicamente para serializador XML
+        //para serializar XML
         public BECliente_456VG()
         {
         }

@@ -19,7 +19,7 @@ namespace _456VG_BE
         public BEChofer_456VG Chofer { get; set; }
         public BETransporte_456VG Transporte { get; set; }
         public DateTime FechaSalida456VG { get; set; }
-        public string EstadoLista456VG { get; set; } = "Abierta";
+        public string EstadoLista456VG { get; set; } = "Abierta"; //estado
 
         public BEListaCarga_456VG(string cod, DateTime fechacre, string tzona, string tenv, int canenv, int cantpaq, float peso, float vol, BEChofer_456VG chof, BETransporte_456VG trans, DateTime fsalida, string estado)
         {

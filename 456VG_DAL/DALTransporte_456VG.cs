@@ -9,12 +9,10 @@ namespace _456VG_DAL
     public class DALTransporte_456VG : ICrud_456VG<BETransporte_456VG>
     {
         BasedeDatos_456VG db { get; }
-
         public DALTransporte_456VG()
         {
             db = new BasedeDatos_456VG();
         }
-
         public Resultado_456VG<BETransporte_456VG> crearEntidad456VG(BETransporte_456VG obj)
         {
             var r = new Resultado_456VG<BETransporte_456VG>();
@@ -50,7 +48,6 @@ namespace _456VG_DAL
             finally { db.Connection.Close(); }
             return r;
         }
-
         public Resultado_456VG<BETransporte_456VG> actualizarEntidad456VG(BETransporte_456VG obj)
         {
             var r = new Resultado_456VG<BETransporte_456VG>();
@@ -86,12 +83,10 @@ namespace _456VG_DAL
             finally { db.Desconectar456VG(); }
             return r;
         }
-
         public Resultado_456VG<BETransporte_456VG> eliminarEntidad456VG(BETransporte_456VG obj)
         {
             throw new NotImplementedException();
         }
-
         public List<BETransporte_456VG> leerEntidades456VG()
         {
             var lista = new List<BETransporte_456VG>();
@@ -127,7 +122,6 @@ namespace _456VG_DAL
             finally { db.Desconectar456VG(); }
             return lista;
         }
-
         public Resultado_456VG<BETransporte_456VG> ActDesacTrans456(string patente, bool nuevoEstadoActivo)
         {
             var r = new Resultado_456VG<BETransporte_456VG>();
@@ -151,7 +145,6 @@ namespace _456VG_DAL
             finally { db.Desconectar456VG(); }
             return r;
         }
-
         public Resultado_456VG<BETransporte_456VG> ObtenerTransportePorPatente456VG(string patente)
         {
             var r = new Resultado_456VG<BETransporte_456VG>();

@@ -5,7 +5,7 @@ namespace _456VG_BE
 {
     public class BEPaquete_456VG
     {
-        public BECliente_456VG Cliente { get; set; } //cliente
+        public BECliente_456VG Cliente { get; set; }
         public float Peso456VG { get; set; }
         public float Ancho456VG { get; set; }
         public float Largo456VG { get; set; }

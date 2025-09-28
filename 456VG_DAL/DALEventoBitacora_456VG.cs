@@ -12,11 +12,6 @@ namespace _456VG_DAL
 {
     public class DALEventoBitacora_456VG
     {
-        BasedeDatos_456VG db { get; }
-        public DALEventoBitacora_456VG()
-        {
-            db = new BasedeDatos_456VG();
-        }
         public void Insertar456VG(BEEventoBitacora_456VG e)
         {
             const string sql = @"
@@ -71,19 +66,6 @@ namespace _456VG_DAL
                         ));
             }
             return list;
-        }
-        public List<string> SelectCmbUsers456VG()
-        {
-            var r = new List<string>();
-            const string sql = "SELECT NombreUsuario_456VG FROM dbo.Usuario_456VG ORDER BY NombreUsuario_456VG;";
-            using (var conn = new SqlConnection(BasedeDatos_456VG.conexionDB))
-            {
-                conn.Open();
-                using (var cmd = new SqlCommand(sql, conn))
-                using (var rd = cmd.ExecuteReader())
-                    while (rd.Read()) r.Add(rd.GetString(0));
-            }
-            return r;
         }
     }
 }

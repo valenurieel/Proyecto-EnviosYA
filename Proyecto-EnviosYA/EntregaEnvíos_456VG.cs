@@ -32,5 +32,10 @@ namespace Proyecto_EnviosYA
         {
 
         }
+
+        private void EntregaEnvíos_456VG_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

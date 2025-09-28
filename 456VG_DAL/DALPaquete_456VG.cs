@@ -12,11 +12,9 @@ namespace _456VG_DAL
     public class DALPaquete_456VG : ICrud_456VG<BEPaquete_456VG>
     {
         BasedeDatos_456VG db { get; }
-        HashSHA256_456VG hasher { get; set; }
         public DALPaquete_456VG()
         {
             db = new BasedeDatos_456VG();
-            hasher = new HashSHA256_456VG();
         }
         public Resultado_456VG<BEPaquete_456VG> actualizarEntidad456VG(BEPaquete_456VG obj)
         {

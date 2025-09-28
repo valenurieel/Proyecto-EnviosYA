@@ -33,7 +33,6 @@ namespace _456VG_BLL
             dal.BackupBD456VG(fullPath, onInfo);
             return fullPath;
         }
-
         public void Restore456VG(string bakPath, Action<string> onInfo = null)
         {
             dal.RestoreBD456VG(bakPath, onInfo);

@@ -11,11 +11,9 @@ namespace _456VG_DAL
     public class DALFactura_456VG : ICrud_456VG<BEFactura_456VG>
     {
         BasedeDatos_456VG db { get; }
-        HashSHA256_456VG hasher { get; set; }
         public DALFactura_456VG()
         {
             db = new BasedeDatos_456VG();
-            hasher = new HashSHA256_456VG();
         }
         public Resultado_456VG<BEFactura_456VG> actualizarEntidad456VG(BEFactura_456VG factura)
         {
@@ -107,36 +105,36 @@ namespace _456VG_DAL
         {
             var listaFacturas = new List<BEFactura_456VG>();
             string sqlFacturas = @"
-        USE EnviosYA_456VG;
-        SELECT 
-            f.codfactura_456VG,
-            f.codenvio_456VG,
-            f.dni_cli_456VG AS dniCliEnv,
-            f.fechaemision_456VG,
-            f.horaemision_456VG,
-            f.impreso_456VG,
-            e.dni_dest_456VG,
-            e.nombre_dest_456VG,
-            e.apellido_dest_456VG,
-            e.telefono_dest_456VG,
-            e.provincia_456VG,
-            e.localidad_456VG,
-            e.domicilio_456VG,
-            e.codpostal_456VG,
-            e.tipoenvio_456VG,
-            e.importe_456VG,
-            e.pagado_456VG,
-            e.estadoenvio_456VG,
-            e.fechaentrega_456VG,
-            cEnv.nombre_456VG AS cliNombreEnv,
-            cEnv.apellido_456VG AS cliApellidoEnv,
-            cEnv.telefono_456VG AS cliTelefonoEnv,
-            cEnv.domicilio_456VG AS cliDomicilioEnv,
-            cEnv.fechanacimiento_456VG AS cliFNEnv,
-            cEnv.activo_456VG AS cliActivoEnv
-        FROM Facturas_456VG f
-        JOIN Envios_456VG e ON f.codenvio_456VG = e.codenvio_456VG
-        JOIN Clientes_456VG cEnv ON f.dni_cli_456VG = cEnv.dni_456VG;";
+                USE EnviosYA_456VG;
+                SELECT 
+                    f.codfactura_456VG,
+                    f.codenvio_456VG,
+                    f.dni_cli_456VG AS dniCliEnv,
+                    f.fechaemision_456VG,
+                    f.horaemision_456VG,
+                    f.impreso_456VG,
+                    e.dni_dest_456VG,
+                    e.nombre_dest_456VG,
+                    e.apellido_dest_456VG,
+                    e.telefono_dest_456VG,
+                    e.provincia_456VG,
+                    e.localidad_456VG,
+                    e.domicilio_456VG,
+                    e.codpostal_456VG,
+                    e.tipoenvio_456VG,
+                    e.importe_456VG,
+                    e.pagado_456VG,
+                    e.estadoenvio_456VG,
+                    e.fechaentrega_456VG,
+                    cEnv.nombre_456VG AS cliNombreEnv,
+                    cEnv.apellido_456VG AS cliApellidoEnv,
+                    cEnv.telefono_456VG AS cliTelefonoEnv,
+                    cEnv.domicilio_456VG AS cliDomicilioEnv,
+                    cEnv.fechanacimiento_456VG AS cliFNEnv,
+                    cEnv.activo_456VG AS cliActivoEnv
+                FROM Facturas_456VG f
+                JOIN Envios_456VG e ON f.codenvio_456VG = e.codenvio_456VG
+                JOIN Clientes_456VG cEnv ON f.dni_cli_456VG = cEnv.dni_456VG;";
             try
             {
                 if (!db.Conectar456VG())
@@ -248,7 +246,6 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
-
             return listaFacturas;
         }
     }

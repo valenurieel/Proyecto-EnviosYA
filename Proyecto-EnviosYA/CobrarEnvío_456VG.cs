@@ -461,9 +461,6 @@ namespace Proyecto_EnviosYA
         {
             this.Close();
         }
-        private void txtDNI456VG_TextChanged(object sender, EventArgs e)
-        {
-        }
         private void txtDNI456VG_Leave_1(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
@@ -494,15 +491,11 @@ namespace Proyecto_EnviosYA
                 txtCVC456VG.Clear();
             }
         }
-
         private void dgvPaquetesDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
-
         private void txtDNI456VG_TextChanged_1(object sender, EventArgs e)
         {
-
         }
     }
 }

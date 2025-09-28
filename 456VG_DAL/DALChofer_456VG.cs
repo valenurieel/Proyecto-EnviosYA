@@ -9,12 +9,10 @@ namespace _456VG_DAL
     public class DALChofer_456VG : ICrud_456VG<BEChofer_456VG>
     {
         BasedeDatos_456VG db { get; }
-
         public DALChofer_456VG()
         {
             db = new BasedeDatos_456VG();
         }
-
         public Resultado_456VG<BEChofer_456VG> crearEntidad456VG(BEChofer_456VG obj)
         {
             var r = new Resultado_456VG<BEChofer_456VG>();
@@ -52,7 +50,6 @@ namespace _456VG_DAL
             finally { db.Connection.Close(); }
             return r;
         }
-
         public Resultado_456VG<BEChofer_456VG> actualizarEntidad456VG(BEChofer_456VG obj)
         {
             var r = new Resultado_456VG<BEChofer_456VG>();
@@ -90,12 +87,10 @@ namespace _456VG_DAL
             finally { db.Desconectar456VG(); }
             return r;
         }
-
         public Resultado_456VG<BEChofer_456VG> eliminarEntidad456VG(BEChofer_456VG obj)
         {
             throw new NotImplementedException();
         }
-
         public List<BEChofer_456VG> leerEntidades456VG()
         {
             var lista = new List<BEChofer_456VG>();
@@ -133,7 +128,6 @@ namespace _456VG_DAL
             finally { db.Desconectar456VG(); }
             return lista;
         }
-
         public Resultado_456VG<BEChofer_456VG> ActDesacChof456(string dni, bool nuevoEstadoActivo)
         {
             var r = new Resultado_456VG<BEChofer_456VG>();
@@ -157,7 +151,6 @@ namespace _456VG_DAL
             finally { db.Desconectar456VG(); }
             return r;
         }
-
         public Resultado_456VG<BEChofer_456VG> ObtenerChoferPorDNI456VG(string dni)
         {
             var r = new Resultado_456VG<BEChofer_456VG>();

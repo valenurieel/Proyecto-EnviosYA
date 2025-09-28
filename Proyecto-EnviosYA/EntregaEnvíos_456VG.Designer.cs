@@ -251,6 +251,7 @@
             this.Controls.Add(this.button3);
             this.Name = "EntregaEnvíos_456VG";
             this.Text = "Entrega de Envíos";
+            this.Load += new System.EventHandler(this.EntregaEnvíos_456VG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPaquetesDetalle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1456VG)).EndInit();

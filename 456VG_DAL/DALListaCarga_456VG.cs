@@ -30,7 +30,6 @@ namespace _456VG_DAL
         }
         public List<BEListaCarga_456VG> ObtenerListas456VG()
         {
-            // Dejarlo preparado si querés implementar lectura después
             return new List<BEListaCarga_456VG>();
         }
     }

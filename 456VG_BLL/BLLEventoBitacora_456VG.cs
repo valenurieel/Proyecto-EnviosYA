@@ -23,9 +23,5 @@ namespace _456VG_BLL
         {
             return dal.Seleccionar456VG(criticidad, desde, hasta, modulo, dni, accion);
         }
-        public List<string> TraerUsers456VG()
-        {
-            return dal.SelectCmbUsers456VG();
-        }
     }
 }

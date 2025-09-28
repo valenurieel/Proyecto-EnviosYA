@@ -13,7 +13,6 @@ namespace _456VG_DAL
     {
         BasedeDatos_456VG db { get; }
         public DALSeguimientoEnvío_456VG() { db = new BasedeDatos_456VG(); }
-
         public bool ExistePorEnvioImpreso456VG(string codEnvio)
         {
             if (string.IsNullOrWhiteSpace(codEnvio)) return false;
@@ -39,7 +38,6 @@ namespace _456VG_DAL
                 db.Desconectar456VG();
             }
         }
-
         public string ObtenerCodSeguimientoNoImpresoPorEnvio456VG(string codEnvio)
         {
             var db = new BasedeDatos_456VG();
