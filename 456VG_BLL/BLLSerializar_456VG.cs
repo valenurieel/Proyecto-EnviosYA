@@ -76,8 +76,6 @@ namespace _456VG_BLL
                 return res;
             }
         }
-        public string[] LeerLineasArchivo456VG(string filePath)
-            => File.Exists(filePath) ? File.ReadAllLines(filePath, Encoding.UTF8) : Array.Empty<string>();
         private static string GuardarNombresXML456VG(string s)
         {
             var noSpaces = Regex.Replace(s ?? "", @"\s+", "_").Trim();

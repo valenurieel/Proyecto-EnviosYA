@@ -43,18 +43,5 @@ namespace _456VG_BLL
                 return res;
             }
         }
-        public List<string> FormatearFilasParaLista456VG(DataTable dt)
-        {
-            var lista = new List<string>();
-            if (dt == null) return lista;
-            foreach (DataRow r in dt.Rows)
-            {
-                var partes = dt.Columns
-                    .Cast<DataColumn>()
-                    .Select(c => $"{c.ColumnName}: {r[c]}");
-                lista.Add(string.Join(" | ", partes));
-            }
-            return lista;
-        }
     }
 }
