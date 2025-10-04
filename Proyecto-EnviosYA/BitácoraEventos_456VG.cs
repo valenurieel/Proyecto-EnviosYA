@@ -27,6 +27,12 @@ namespace Proyecto_EnviosYA
             ConfigurarGrilla456VG();
             CargarCombos456VG();
             CargarTodo456VG();
+            cmbModulo.SelectedIndexChanged += (s, e) =>
+            {
+                if (_muteSelectionChanged) return;
+                string moduloSel = cmbModulo.SelectedItem as string;
+                FiltrarAccionesPorModulo456VG(moduloSel);
+            };
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
         }
         private static readonly Dictionary<string, string> MOD_KEY456VG = new Dictionary<string, string>
@@ -209,6 +215,47 @@ namespace Proyecto_EnviosYA
             cmbCriticidad.ValueMember = "Numero";
             cmbCriticidad.SelectedIndex = -1;
         }
+        //a partir de filtro de Módulo, filtra acciones x Módulo
+        private void FiltrarAccionesPorModulo456VG(string moduloSeleccionado)
+        {
+            if (string.IsNullOrWhiteSpace(moduloSeleccionado))
+            {
+                cmbAccion.BeginUpdate();
+                cmbAccion.Items.Clear();
+                cmbAccion.Items.AddRange(ACC_KEY456VG.Keys.Cast<object>().ToArray());
+                cmbAccion.SelectedIndex = -1;
+                cmbAccion.EndUpdate();
+                return;
+            }
+            var accionesPorModulo = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["Usuario"] = new List<string> { "Iniciar Sesión", "Cerrar Sesión", "Cambiar Contraseña" },
+                ["Recepción"] = new List<string> { "Crear Envío", "Cargar Paquete", "Genera Lista Carga", "Carga de Envío" },
+                ["Maestro"] = new List<string> {
+                "Modificar Cliente", "Añadir Cliente", "Activar Cliente", "Desactivar Cliente",
+                "Añadir Chofer", "Modificar Chofer", "Activar Chofer", "Desactivar Chofer",
+                "Añadir Transporte", "Modificar Transporte", "Activar Transporte", "Desactivar Transporte",
+                "Archivo Serializado", "Archivo Deserializado"
+            },
+                ["Envíos"] = new List<string> { "Cobrar Envío", "Entrega de Envío", "Reasignación de Entrega" },
+                ["Administrador"] = new List<string> {
+                "Modificar Usuario", "Añadir Usuario", "Activar Usuario", "Desactivar Usuario", "Desbloquear Usuario",
+                "Eliminar Perfil", "Crear Perfil", "Agregar Permiso - Perfil", "Quitar Permiso - Perfil",
+                "Agregar Familia - Perfil", "Quitar Familia - Perfil", "Eliminar Familia", "Crear Familia",
+                "Agregar Familia - Familia", "Quitar Familia - Familia", "Agregar Permiso - Familia",
+                "Quitar Permiso - Familia", "Backup", "Restaurar"
+            },
+                ["Reportes"] = new List<string> { "Imprimir Factura", "Imprimir Seguimiento" }
+            };
+            cmbAccion.BeginUpdate();
+            cmbAccion.Items.Clear();
+            if (accionesPorModulo.ContainsKey(moduloSeleccionado))
+                cmbAccion.Items.AddRange(accionesPorModulo[moduloSeleccionado].Cast<object>().ToArray());
+            else
+                cmbAccion.Items.AddRange(ACC_KEY456VG.Keys.Cast<object>().ToArray());
+            cmbAccion.SelectedIndex = -1;
+            cmbAccion.EndUpdate();
+        }
         //muestra los texts de los cmb traducidos
         private void FormatoCMBModulo456VG(object sender, ListControlConvertEventArgs e)
         {
@@ -272,7 +319,10 @@ namespace Proyecto_EnviosYA
             _muteSelectionChanged = true;
             cmbLogin.SelectedIndex = -1;
             cmbModulo.SelectedIndex = -1;
+            cmbModulo.Text = string.Empty;
             cmbAccion.SelectedIndex = -1;
+            cmbAccion.Text = string.Empty;
+            FiltrarAccionesPorModulo456VG(null);
             cmbCriticidad.SelectedIndex = -1;
             dtpDesde.Checked = false;
             dtpHasta.Checked = false;
@@ -286,12 +336,14 @@ namespace Proyecto_EnviosYA
         private void button2_Click(object sender, EventArgs e)
         {
             int? crit = (cmbCriticidad.SelectedIndex >= 0) ? (int?)cmbCriticidad.SelectedValue : null;
-            if (dtpDesde.Checked && dtpHasta.Checked && dtpDesde.Value.Date > dtpHasta.Value.Date)
+            if (dtpDesde.Checked && dtpDesde.Value.Date > dtpHasta.Value.Date)
             {
                 var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
                 MessageBox.Show(lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.FechaInvalida"),
                                 lng.ObtenerTexto_456VG("BitácoraEventos_456VG.Msg.FechaInvalidaTitle"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpDesde.Value = DateTime.Now;
+                dtpDesde.Checked = true;
                 dtpDesde.Focus();
                 return;
             }
