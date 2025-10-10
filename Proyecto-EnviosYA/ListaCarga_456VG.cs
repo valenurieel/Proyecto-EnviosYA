@@ -55,16 +55,17 @@ namespace Proyecto_EnviosYA
             dataEnv.Columns.Add(new DataGridViewTextBoxColumn { Name = "PesoTotal", DataPropertyName = "PesoTotal", Width = 80 });
             dataEnv.Columns.Add(new DataGridViewTextBoxColumn { Name = "VolTotal", DataPropertyName = "VolTotal", Width = 80 });
             dataEnv.Columns.Add(new DataGridViewTextBoxColumn { Name = "FechaProg", DataPropertyName = "FechaProg", Width = 100 });
-            dataEnv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Width = 125 });
+            dataEnv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Estado", DataPropertyName = "Estado", Width = 100 });
             dataTrans.AutoGenerateColumns = false;
             dataTrans.Columns.Clear();
             dataTrans.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataTrans.MultiSelect = false;
             dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Patente", DataPropertyName = "Patente", Width = 120 });
-            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Marca", DataPropertyName = "Marca", Width = 120 });
+            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Marca", DataPropertyName = "Marca", Width = 140 });
             dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Anio", DataPropertyName = "Anio", Width = 90 });
-            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Capacidad Peso", DataPropertyName = "CapPeso", Width = 135 });
-            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Capacidad Vol", DataPropertyName = "CapVol", Width = 135 });
+            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Capacidad Peso", DataPropertyName = "CapPeso", Width = 100 });
+            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Capacidad Vol", DataPropertyName = "CapVol", Width = 100 });
+            dataTrans.Columns.Add(new DataGridViewTextBoxColumn { Name = "Disponible", DataPropertyName = "Disponible", Width = 80 });
             dataChof.AutoGenerateColumns = false;
             dataChof.Columns.Clear();
             dataChof.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -75,6 +76,7 @@ namespace Proyecto_EnviosYA
             dataChof.Columns.Add(new DataGridViewTextBoxColumn { Name = "Telefono", DataPropertyName = "Telefono", Width = 100 });
             dataChof.Columns.Add(new DataGridViewTextBoxColumn { Name = "Registro", DataPropertyName = "Registro", Width = 80 });
             dataChof.Columns.Add(new DataGridViewTextBoxColumn { Name = "VencimientoRegistro", DataPropertyName = "VencimientoRegistro", Width = 115 });
+            dataChof.Columns.Add(new DataGridViewTextBoxColumn { Name = "Disponible", DataPropertyName = "Disponible", Width = 80 });
         }
         public void ActualizarIdioma_456VG()
         {
@@ -90,6 +92,7 @@ namespace Proyecto_EnviosYA
             ActualizarIdioma_456VG();
             CargarTransporteChofer456VG();
             CargarCombos456VG();
+            RefrescarFiltrosYGrilla456VG();
         }
         private void CargarCombos456VG()
         {
@@ -100,7 +103,7 @@ namespace Proyecto_EnviosYA
             cmbEstadoEnv.Items.Add("En Espera");
             cmbEstadoEnv.Items.Add("En Tránsito");
             cmbEstadoEnv.Items.Add("Entregado");
-            cmbEstadoEnv.SelectedIndex = -1;
+            cmbEstadoEnv.SelectedIndex = 0;
             cmbZonaEnv.Items.Clear();
             cmbZonaEnv.Items.Add("Alta");
             cmbZonaEnv.Items.Add("Media");
@@ -133,6 +136,7 @@ namespace Proyecto_EnviosYA
                 Anio = t.Año456VG,
                 CapPeso = t.CapacidadPeso456VG,
                 CapVol = t.CapacidadVolumen456VG,
+                Disponible = t.Disponible456VG ? "Sí" : "No",
                 Ref = t
             }).ToList();
             dataTrans.DataSource = gridT;
@@ -148,6 +152,7 @@ namespace Proyecto_EnviosYA
                 Telefono = c.Teléfono456VG,
                 Registro = c.Registro456VG ? "Sí" : "No",
                 VencimientoRegistro = c.VencimientoRegistro456VG.ToString("dd/MM/yyyy"),
+                Disponible = c.Disponible456VG ? "Sí" : "No",
                 Ref = c
             }).ToList();
             dataChof.DataSource = gridC;
@@ -193,69 +198,96 @@ namespace Proyecto_EnviosYA
             item.EstadoEnvio456VG = "En Espera";
             _bllEnv.actualizarEstadoEnvio456VG(item.CodEnvio456VG, "En Espera");
             MessageBox.Show(Traducir("ListaCarga_456VG.Msg.EnvioAgregado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RefrescarFiltrosYGrilla456VG();
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            if (_enviosSeleccionados.Count == 0)
+            try
             {
-                MessageBox.Show(Traducir("ListaCarga_456VG.Msg.NoHayEnvios"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (_transporteSel == null)
-            {
-                MessageBox.Show(Traducir("ListaCarga_456VG.Msg.AsignarTransporte"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (_choferSel == null)
-            {
-                MessageBox.Show(Traducir("ListaCarga_456VG.Msg.AsignarChofer"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            int cantEnv = _enviosSeleccionados.Count;
-            int cantPaq = _enviosSeleccionados.Sum(r => r.Paquetes != null ? r.Paquetes.Count : 0);
-            float pesoTot = _enviosSeleccionados.Sum(r => r.Paquetes != null ? r.Paquetes.Sum(p => p.Peso456VG) : 0f);
-            float volTot = _enviosSeleccionados.Sum(r => r.Paquetes != null ? r.Paquetes.Sum(p => (p.Alto456VG * p.Ancho456VG * p.Largo456VG) / 1000f) : 0f);
-            DateTime fechaCre = DateTime.Now;
-            DateTime fechaSalida = dateTimePicker1.Value.Date;
-            string estadoLista = "Abierta";
-            var lista = new BEListaCarga_456VG(
-            fechacre: fechaCre,
-            tzona: _listaZona,
-            tenv: _listaTipoEnvio,
-            canenv: cantEnv,
-            cantpaq: cantPaq,
-            peso: pesoTot,
-            vol: volTot,
-            chof: _choferSel,
-            trans: _transporteSel,
-            fsalida: fechaSalida,
-            estado: estadoLista
-            );
-            var detalles = new List<BEDetalleListaCarga_456VG>();
-            foreach (var env in _enviosSeleccionados)
-            {
-                var det = new BEDetalleListaCarga_456VG(
-                lista,
-                env,
-                env.Paquetes ?? new List<BEPaquete_456VG>(),
-                env.Paquetes != null ? env.Paquetes.Count : 0,
-                "Pendiente"
+                if (_enviosSeleccionados.Count == 0)
+                {
+                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.NoHayEnvios"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (_transporteSel == null)
+                {
+                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.AsignarTransporte"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (_choferSel == null)
+                {
+                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.AsignarChofer"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                int cantEnv = _enviosSeleccionados.Count;
+                int cantPaq = _enviosSeleccionados.Sum(r => r.Paquetes?.Count ?? 0);
+                float pesoTot = _enviosSeleccionados.Sum(r => r.Paquetes?.Sum(p => p.Peso456VG) ?? 0f);
+                float volTot = _enviosSeleccionados.Sum(r => r.Paquetes?.Sum(p => (p.Alto456VG * p.Ancho456VG * p.Largo456VG) / 1000f) ?? 0f);
+                DateTime fechaCre = DateTime.Now;
+                DateTime fechaSalida = dateTimePicker1.Value.Date;
+                string estadoLista = "Abierta";
+                var lista = new BEListaCarga_456VG(
+                    fechacre: fechaCre,
+                    tzona: _listaZona,
+                    tenv: _listaTipoEnvio,
+                    canenv: cantEnv,
+                    cantpaq: cantPaq,
+                    peso: pesoTot,
+                    vol: volTot,
+                    chof: _choferSel,
+                    trans: _transporteSel,
+                    fsalida: fechaSalida,
+                    estado: estadoLista
                 );
-                detalles.Add(det);
+                var detalles = new List<BEDetalleListaCarga_456VG>();
+                foreach (var env in _enviosSeleccionados)
+                {
+                    var det = new BEDetalleListaCarga_456VG(
+                        lista,
+                        env,
+                        env.Paquetes ?? new List<BEPaquete_456VG>(),
+                        env.Paquetes?.Count ?? 0,
+                        "Pendiente"
+                    );
+                    detalles.Add(det);
+                }
+                var resLista = _bllLista.crearEntidad456VG(lista);
+                bool detallesOk = true;
+                foreach (var d in detalles)
+                {
+                    var resDet = _bllDet.crearEntidad456VG(d);
+                }
+                if (!detallesOk)
+                {
+                    MessageBox.Show("La lista fue creada, pero algunos detalles no se pudieron registrar correctamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                _bllEvent.AddBitacora456VG(
+                    dni: dniLog,
+                    modulo: "Recepción",
+                    accion: "Generar Lista Carga",
+                    crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico
+                );
+                MessageBox.Show(
+                    string.Format(Traducir("ListaCarga_456VG.Msg.ListaGenerada"), lista.CodLista456VG),
+                    "OK",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                _enviosSeleccionados.Clear();
+                _transporteSel = null;
+                _choferSel = null;
+                _listaTipoEnvio = null;
+                _listaZona = null;
+                btnAsigTrans.Enabled = true;
+                btnAsigChof.Enabled = true;
+
+                ListaCarga_456VG_Load(null, null);
             }
-            var resLista = _bllLista.crearEntidad456VG(lista);
-            foreach (var d in detalles) _bllDet.crearEntidad456VG(d);
-            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
-            _bllEvent.AddBitacora456VG(dni: dniLog, modulo: "Recepción", accion: "Generar Lista Carga", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
-            MessageBox.Show(string.Format(Traducir("ListaCarga_456VG.Msg.ListaGenerada"), lista.CodLista456VG), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            _enviosSeleccionados.Clear();
-            _transporteSel = null;
-            _choferSel = null;
-            _listaTipoEnvio = null;
-            _listaZona = null;
-            btnAsigTrans.Enabled = true;
-            btnAsigChof.Enabled = true;
-            ListaCarga_456VG_Load(null,null);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void btnAsigTrans_Click(object sender, EventArgs e)
         {
@@ -265,6 +297,9 @@ namespace Proyecto_EnviosYA
             _transporteSel = todosT.FirstOrDefault(t => t.Patente456VG == patente);
             if (_transporteSel != null)
             {
+                _transporteSel.Disponible456VG = false;
+                _bllTrans.actualizarEntidad456VG(_transporteSel);
+                CargarTransporteChofer456VG();
                 btnAsigTrans.Enabled = false;
                 MessageBox.Show(Traducir("ListaCarga_456VG.Msg.TransporteAsignado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -277,6 +312,9 @@ namespace Proyecto_EnviosYA
             _choferSel = todosC.FirstOrDefault(c => c.DNIChofer456VG == dni);
             if (_choferSel != null)
             {
+                _choferSel.Disponible456VG = false;
+                _bllChof.actualizarEntidad456VG(_choferSel);
+                CargarTransporteChofer456VG();
                 btnAsigChof.Enabled = false;
                 MessageBox.Show(Traducir("ListaCarga_456VG.Msg.ChoferAsignado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -363,12 +401,14 @@ namespace Proyecto_EnviosYA
             if (dataTrans.Columns.Contains("Anio")) dataTrans.Columns["Anio"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.ano");
             if (dataTrans.Columns.Contains("Capacidad Peso")) dataTrans.Columns["Capacidad Peso"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.CapPeso");
             if (dataTrans.Columns.Contains("Capacidad Vol")) dataTrans.Columns["Capacidad Vol"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.CapVol");
+            if (dataTrans.Columns.Contains("Disponible")) dataTrans.Columns["Disponible"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.Disponible");
             if (dataChof.Columns.Contains("DNI")) dataChof.Columns["DNI"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.DNI");
             if (dataChof.Columns.Contains("Nombre")) dataChof.Columns["Nombre"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.Nombre");
             if (dataChof.Columns.Contains("Apellido")) dataChof.Columns["Apellido"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.Apellido");
             if (dataChof.Columns.Contains("Telefono")) dataChof.Columns["Telefono"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.Teléfono");
             if (dataChof.Columns.Contains("Registro")) dataChof.Columns["Registro"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.Registro");
             if (dataChof.Columns.Contains("VencimientoRegistro")) dataChof.Columns["VencimientoRegistro"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.VencimientoRegistro");
+            if (dataChof.Columns.Contains("Disponible")) dataChof.Columns["Disponible"].HeaderText = lng.ObtenerTexto_456VG("ListaCarga_456VG.Columna.Disponible");
         }
         private string Traducir(string clave)
         {
@@ -384,6 +424,12 @@ namespace Proyecto_EnviosYA
             cmbZonaEnv.SelectedIndex = -1;
             cmbTipEnv.SelectedIndex = -1;
             dateTimePicker1.Checked = false;
+        }
+        private void dataTrans_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+        }
+        private void dataChof_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
         }
     }
 }

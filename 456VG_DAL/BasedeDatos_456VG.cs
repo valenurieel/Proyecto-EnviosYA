@@ -256,6 +256,37 @@ public class BasedeDatos_456VG
                 "  ); " +
                 "END;"
             );
+            dbReal.ejecutarQuery456VG(@"
+            IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ListaCarga_456VG' AND xtype='U')
+            CREATE TABLE ListaCarga_456VG(
+                codlista_456VG VARCHAR(50) NOT NULL PRIMARY KEY,
+                fechacreacion_456VG DATETIME NOT NULL,
+                tipozona_456VG VARCHAR(30) NOT NULL,
+                tipoenvio_456VG VARCHAR(30) NOT NULL,
+                cantenvios_456VG INT NOT NULL,
+                cantpaquetes_456VG INT NOT NULL,
+                pesototal_456VG FLOAT NOT NULL,
+                volumentotal_456VG FLOAT NOT NULL,
+                dni_chofer_456VG VARCHAR(20) NOT NULL,
+                patente_transporte_456VG VARCHAR(20) NOT NULL,
+                fechasalida_456VG DATETIME NOT NULL,
+                estadolista_456VG VARCHAR(20) NOT NULL DEFAULT 'Abierta',
+                FOREIGN KEY (dni_chofer_456VG) REFERENCES Choferes_456VG(dni_chofer_456VG),
+                FOREIGN KEY (patente_transporte_456VG) REFERENCES Transportes_456VG(patente_456VG)
+            );
+            ");
+            dbReal.ejecutarQuery456VG(@"
+            IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DetalleListaCarga_456VG' AND xtype='U')
+            CREATE TABLE DetalleListaCarga_456VG(
+                coddetallelista_456VG VARCHAR(50) NOT NULL PRIMARY KEY,
+                codlista_456VG VARCHAR(50) NOT NULL,
+                codenvio_456VG VARCHAR(20) NOT NULL,
+                cantpaquetes_456VG INT NOT NULL,
+                estadocargado_456VG VARCHAR(20) NOT NULL DEFAULT 'Pendiente',
+                FOREIGN KEY (codlista_456VG) REFERENCES ListaCarga_456VG(codlista_456VG),
+                FOREIGN KEY (codenvio_456VG) REFERENCES Envios_456VG(codenvio_456VG)
+            );
+            ");
             dbReal.insertarDatosIniciales456VG();
         }
         else
@@ -339,23 +370,23 @@ public class BasedeDatos_456VG
             "USE EnviosYA_456VG; " +
             "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AA123AA') " +
             "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
-            "VALUES ('AA123AA','Mercedes-Benz Sprinter',2021,1500,13.0,1,1);" +
+            "VALUES ('AA123AA','Mercedes-Benz Sprinter',2021,1500,400.5,1,1);" +
 
             "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AB456CD') " +
             "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
-            "VALUES ('AB456CD','Iveco Daily',2019,1800,15.5,1,1);" +
+            "VALUES ('AB456CD','Iveco Daily',2019,1800,230.3,1,1);" +
 
             "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AC789EF') " +
             "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
-            "VALUES ('AC789EF','Ford Transit',2020,1400,12.0,1,1);" +
+            "VALUES ('AC789EF','Ford Transit',2020,1400,123.8,1,1);" +
 
             "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AD321GH') " +
             "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
-            "VALUES ('AD321GH','Peugeot Boxer',2018,1300,11.5,1,1);" +
+            "VALUES ('AD321GH','Peugeot Boxer',2018,1300,666.6,1,1);" +
 
             "IF NOT EXISTS (SELECT 1 FROM Transportes_456VG WHERE patente_456VG='AE654IJ') " +
             "INSERT INTO Transportes_456VG (patente_456VG, marca_456VG, [año_456VG], capacidad_peso_456VG, capacidad_volumen_456VG, disponible_456VG, activo_456VG) " +
-            "VALUES ('AE654IJ','Renault Master',2022,1600,14.0,1,1);"
+            "VALUES ('AE654IJ','Renault Master',2022,1600,789.1,1,1);"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -585,5 +616,53 @@ public class BasedeDatos_456VG
             "IF NOT EXISTS (SELECT 1 FROM Rol_Permiso_456VG WHERE CodRol_456VG = (SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador') AND CodPermiso_456VG = (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'FAdmin')) " +
             "INSERT INTO Rol_Permiso_456VG VALUES ((SELECT CodRol_456VG FROM Rol_456VG WHERE Nombre_456VG = 'Administrador'), (SELECT CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG = 'FAdmin'));"
         );
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM Clientes_456VG WHERE dni_456VG = '20262026')
+        INSERT INTO Clientes_456VG (dni_456VG, nombre_456VG, apellido_456VG, telefono_456VG, domicilio_456VG, fechanacimiento_456VG, activo_456VG)
+        VALUES ('20262026', 'Marcos', 'Pereyra', '1166778899', 'Av. Corrientes 4500', '1985-08-22', 1);
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM DatosPago_456VG WHERE dni_cliente_456VG = '20262026')
+        INSERT INTO DatosPago_456VG (dni_cliente_456VG, medio_pago_456VG, numtarjeta_456VG, titular_456VG, fechavencimiento_456VG, cvc_456VG)
+        VALUES ('20262026', 'Crédito', '1111-2222-3333-4444', 'Marcos Pereyra', '2026-10-24', '123');
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM Envios_456VG WHERE codenvio_456VG = '2202MAR100340327')
+        INSERT INTO Envios_456VG (codenvio_456VG, dni_cli_456VG, dni_dest_456VG, nombre_dest_456VG, apellido_dest_456VG,
+        telefono_dest_456VG, provincia_456VG, localidad_456VG, domicilio_456VG, codpostal_456VG, tipoenvio_456VG,
+        importe_456VG, pagado_456VG, fechaentrega_456VG, estadoenvio_456VG)
+        VALUES ('2202MAR100340327', '20262026', '00001112', 'Pedro', 'Alvarez', '1127118945', 'Buenos Aires', 
+        'Lomas de Zamora', 'kilo 123', 1893, 'Express', 2819.07, 1, '2025-10-06', 'Pendiente de Entrega');
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM Paquetes_456VG WHERE codpaq_456VG = '202MAR100332578')
+        INSERT INTO Paquetes_456VG (codpaq_456VG, dni_456VG, peso_456VG, ancho_456VG, alto_456VG, largo_456VG, enviado_456VG)
+        VALUES ('202MAR100332578', '20262026', 3.5, 25, 15, 40, 1);
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM Paquetes_456VG WHERE codpaq_456VG = '202MAR100336981')
+        INSERT INTO Paquetes_456VG (codpaq_456VG, dni_456VG, peso_456VG, ancho_456VG, alto_456VG, largo_456VG, enviado_456VG)
+        VALUES ('202MAR100336981', '20262026', 2.8, 30, 20, 35, 1);
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM EnviosPaquetes_456VG WHERE codenvio_456VG = '2202MAR100340327' AND codpaq_456VG = '202MAR100332578')
+        INSERT INTO EnviosPaquetes_456VG (codenvio_456VG, codpaq_456VG)
+        VALUES ('2202MAR100340327', '202MAR100332578');
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM EnviosPaquetes_456VG WHERE codenvio_456VG = '2202MAR100340327' AND codpaq_456VG = '202MAR100336981')
+        INSERT INTO EnviosPaquetes_456VG (codenvio_456VG, codpaq_456VG)
+        VALUES ('2202MAR100340327', '202MAR100336981');
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM Facturas_456VG WHERE codfactura_456VG = '2202MAR100460008')
+        INSERT INTO Facturas_456VG (codfactura_456VG, codenvio_456VG, dni_cli_456VG, fechaemision_456VG, horaemision_456VG, impreso_456VG)
+        VALUES ('2202MAR100460008', '2202MAR100340327', '20262026', '2025-10-05', '10:04:06', 1);
+        ");
+        dbReal.ejecutarQuery456VG(@"
+        IF NOT EXISTS (SELECT 1 FROM Seguimientos_456VG WHERE codseguimiento_456VG = '220202202510051004269545')
+        INSERT INTO Seguimientos_456VG (codseguimiento_456VG, codenvio_456VG, fechaemitido_456VG, impreso_456VG)
+        VALUES ('220202202510051004269545', '2202MAR100340327', '2025-10-05 10:04:26.947', 1);
+        ");
     }
 }

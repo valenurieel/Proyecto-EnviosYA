@@ -110,6 +110,7 @@
             this.dataTrans.Size = new System.Drawing.Size(722, 122);
             this.dataTrans.TabIndex = 5;
             this.dataTrans.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTrans_CellContentClick);
+            this.dataTrans.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataTrans_CellFormatting);
             // 
             // dataChof
             // 
@@ -119,6 +120,7 @@
             this.dataChof.Size = new System.Drawing.Size(722, 122);
             this.dataChof.TabIndex = 6;
             this.dataChof.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataChof_CellContentClick);
+            this.dataChof.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataChof_CellFormatting);
             // 
             // label5
             // 
