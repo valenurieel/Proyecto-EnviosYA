@@ -287,6 +287,23 @@ public class BasedeDatos_456VG
                 FOREIGN KEY (codenvio_456VG) REFERENCES Envios_456VG(codenvio_456VG)
             );
             ");
+            dbReal.ejecutarQuery456VG(
+            "USE EnviosYA_456VG; " +
+            "IF OBJECT_ID('dbo.Entregado_456VG','U') IS NULL " +
+            "BEGIN " +
+            "CREATE TABLE dbo.Entregado_456VG (" +
+            "    codentrega_456VG VARCHAR(50) NOT NULL PRIMARY KEY, " +
+            "    codenvio_456VG VARCHAR(20) NOT NULL, " +
+            "    fechaintento_456VG DATETIME NOT NULL, " +
+            "    cantidadintento_456VG INT NOT NULL, " +
+            "    entregado_456VG BIT NOT NULL, " +
+            "    motivo_456VG VARCHAR(200) NOT NULL, " +
+            "    nombreencargado_456VG VARCHAR(100) NOT NULL, " +
+            "    CONSTRAINT FK_Entregado_Envio_456VG FOREIGN KEY (codenvio_456VG) " +
+            "        REFERENCES dbo.Envios_456VG(codenvio_456VG)" +
+            "); " +
+            "END;"
+            );
             dbReal.insertarDatosIniciales456VG();
         }
         else

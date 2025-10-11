@@ -24,5 +24,9 @@ namespace _456VG_BLL
         {
             return dal.ActualizarLista456VG(lista);
         }
+        public bool VerificarYLiberarRecursosPorEntrega456VG(string codEnvio)
+        {
+            return dal.VerificarYLiberarRecursosPorEntrega456VG(codEnvio);
+        }
     }
 }

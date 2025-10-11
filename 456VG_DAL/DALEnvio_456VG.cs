@@ -16,6 +16,28 @@ namespace _456VG_DAL
         {
             db = new BasedeDatos_456VG();
         }
+        public bool actualizarEstadoYFechaEnvio456VG(string codEnvio, string nuevoEstado, DateTime? nuevaFecha)
+        {
+            try
+            {
+                db.Conectar456VG();
+                string query = @"
+            UPDATE Envios_456VG
+            SET estadoenvio_456VG = @estado,
+                fechaentrega_456VG = @fecha
+            WHERE codenvio_456VG = @codEnvio";
+                using (SqlCommand cmd = new SqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@estado", nuevoEstado);
+                    cmd.Parameters.AddWithValue("@fecha", (object)nuevaFecha ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@codEnvio", codEnvio);
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch { return false; }
+            finally { db.Desconectar456VG(); }
+        }
         public Resultado_456VG<BEEnvío_456VG> actualizarEntidad456VG(BEEnvío_456VG obj)
         {
             var resultado = new Resultado_456VG<BEEnvío_456VG>();

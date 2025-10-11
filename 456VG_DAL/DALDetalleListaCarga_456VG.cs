@@ -30,15 +30,38 @@ namespace _456VG_DAL
                 db.Connection.Open();
                 using (var tx = db.Connection.BeginTransaction())
                 {
+                    const string sqlLista = @"
+                    USE EnviosYA_456VG;
+                    SELECT COUNT(*) FROM ListaCarga_456VG WHERE codlista_456VG = @CodLista;";
+                    using (var cmdLista = new SqlCommand(sqlLista, db.Connection, tx))
+                    {
+                        cmdLista.Parameters.AddWithValue("@CodLista", det.Lista.CodLista456VG);
+                        int existeLista = Convert.ToInt32(cmdLista.ExecuteScalar());
+                        if (existeLista == 0)
+                            throw new Exception($"La lista {det.Lista.CodLista456VG} no existe en la base de datos.");
+                    }
+                    const string sqlCheck = @"
+                    USE EnviosYA_456VG;
+                    SELECT COUNT(*) 
+                    FROM DetalleListaCarga_456VG
+                    WHERE codlista_456VG = @CodLista AND codenvio_456VG = @CodEnvio;";
+                    using (var cmdCheck = new SqlCommand(sqlCheck, db.Connection, tx))
+                    {
+                        cmdCheck.Parameters.AddWithValue("@CodLista", det.Lista.CodLista456VG);
+                        cmdCheck.Parameters.AddWithValue("@CodEnvio", det.Envio.CodEnvio456VG);
+                        int existe = Convert.ToInt32(cmdCheck.ExecuteScalar());
+                        if (existe > 0)
+                            throw new Exception($"El envío {det.Envio.CodEnvio456VG} ya está en la lista {det.Lista.CodLista456VG}.");
+                    }
                     const string sql = @"
-                        USE EnviosYA_456VG;
-                        INSERT INTO DetalleListaCarga_456VG (
-                            coddetallelista_456VG, codlista_456VG, codenvio_456VG,
-                            cantpaquetes_456VG, estadocargado_456VG
-                        )
-                        VALUES (
-                            @CodDetalle, @CodLista, @CodEnvio, @CantPaq, @Estado
-                        );";
+                    USE EnviosYA_456VG;
+                    INSERT INTO DetalleListaCarga_456VG (
+                        coddetallelista_456VG, codlista_456VG, codenvio_456VG,
+                        cantpaquetes_456VG, estadocargado_456VG
+                    )
+                    VALUES (
+                        @CodDetalle, @CodLista, @CodEnvio, @CantPaq, @Estado
+                    );";
                     using (var cmd = new SqlCommand(sql, db.Connection, tx))
                     {
                         cmd.Parameters.AddWithValue("@CodDetalle", det.CodDetListaCarga456VG);
@@ -48,7 +71,6 @@ namespace _456VG_DAL
                         cmd.Parameters.AddWithValue("@Estado", det.EstadoCargado);
                         cmd.ExecuteNonQuery();
                     }
-
                     tx.Commit();
                 }
                 resultado.resultado = true;
@@ -69,61 +91,48 @@ namespace _456VG_DAL
         public List<BEDetalleListaCarga_456VG> ObtenerDetalles456VG()
         {
             var detalles = new List<BEDetalleListaCarga_456VG>();
-
             try
             {
                 const string sql = @"
-            USE EnviosYA_456VG;
-            SELECT 
-                d.coddetallelista_456VG, d.codlista_456VG, d.codenvio_456VG,
-                d.cantpaquetes_456VG, d.estadocargado_456VG,
-
-                -- Datos de Lista
-                l.fechacreacion_456VG, l.tipozona_456VG, l.tipoenvio_456VG,
-                l.cantenvios_456VG, l.cantpaquetes_456VG AS lista_paquetes,
-                l.pesototal_456VG, l.volumentotal_456VG,
-                l.fechasalida_456VG, l.estadolista_456VG,
-                c.dni_chofer_456VG, c.nombre_456VG AS chofer_nombre, c.apellido_456VG AS chofer_apellido,
-                t.patente_456VG, t.marca_456VG,
-
-                -- Datos del Envío
-                e.dni_cli_456VG, e.dni_dest_456VG, e.nombre_dest_456VG, e.apellido_dest_456VG,
-                e.telefono_dest_456VG, e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG,
-                e.codpostal_456VG, e.tipoenvio_456VG AS envio_tipo, e.importe_456VG,
-                e.pagado_456VG, e.estadoenvio_456VG, e.fechaentrega_456VG,
-                cli.nombre_456VG AS cli_nombre, cli.apellido_456VG AS cli_apellido, cli.telefono_456VG AS cli_tel,
-                cli.domicilio_456VG AS cli_dom, cli.fechanacimiento_456VG AS cli_fn, cli.activo_456VG AS cli_activo
-
-            FROM DetalleListaCarga_456VG d
-            JOIN ListaCarga_456VG l ON d.codlista_456VG = l.codlista_456VG
-            JOIN Choferes_456VG c ON l.dni_chofer_456VG = c.dni_chofer_456VG
-            JOIN Transportes_456VG t ON l.patente_transporte_456VG = t.patente_456VG
-            JOIN Envios_456VG e ON d.codenvio_456VG = e.codenvio_456VG
-            JOIN Clientes_456VG cli ON e.dni_cli_456VG = cli.dni_456VG;";
-
+                USE EnviosYA_456VG;
+                SELECT 
+                    d.coddetallelista_456VG, d.codlista_456VG, d.codenvio_456VG,
+                    d.cantpaquetes_456VG, d.estadocargado_456VG,
+                    l.fechacreacion_456VG, l.tipozona_456VG, l.tipoenvio_456VG,
+                    l.cantenvios_456VG, l.cantpaquetes_456VG AS lista_paquetes,
+                    l.pesototal_456VG, l.volumentotal_456VG,
+                    l.fechasalida_456VG, l.estadolista_456VG,
+                    c.dni_chofer_456VG, c.nombre_456VG AS chofer_nombre, c.apellido_456VG AS chofer_apellido,
+                    t.patente_456VG, t.marca_456VG,
+                    e.dni_cli_456VG, e.dni_dest_456VG, e.nombre_dest_456VG, e.apellido_dest_456VG,
+                    e.telefono_dest_456VG, e.provincia_456VG, e.localidad_456VG, e.domicilio_456VG,
+                    e.codpostal_456VG, e.tipoenvio_456VG AS envio_tipo, e.importe_456VG,
+                    e.pagado_456VG, e.estadoenvio_456VG, e.fechaentrega_456VG,
+                    cli.nombre_456VG AS cli_nombre, cli.apellido_456VG AS cli_apellido, cli.telefono_456VG AS cli_tel,
+                    cli.domicilio_456VG AS cli_dom, cli.fechanacimiento_456VG AS cli_fn, cli.activo_456VG AS cli_activo
+                FROM DetalleListaCarga_456VG d
+                JOIN ListaCarga_456VG l ON d.codlista_456VG = l.codlista_456VG
+                JOIN Choferes_456VG c ON l.dni_chofer_456VG = c.dni_chofer_456VG
+                JOIN Transportes_456VG t ON l.patente_transporte_456VG = t.patente_456VG
+                JOIN Envios_456VG e ON d.codenvio_456VG = e.codenvio_456VG
+                JOIN Clientes_456VG cli ON e.dni_cli_456VG = cli.dni_456VG;";
                 db.Conectar456VG();
-
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        // === Chofer
                         var chofer = new BEChofer_456VG(
                             reader.GetString(reader.GetOrdinal("dni_chofer_456VG")),
                             reader.GetString(reader.GetOrdinal("chofer_nombre")),
                             reader.GetString(reader.GetOrdinal("chofer_apellido")),
                             "", true, DateTime.Now, DateTime.Now, true, true
                         );
-
-                        // === Transporte
                         var transporte = new BETransporte_456VG(
                             reader.GetString(reader.GetOrdinal("patente_456VG")),
                             reader.GetString(reader.GetOrdinal("marca_456VG")),
                             0, 0, 0, true, true
                         );
-
-                        // === Cliente
                         var cliente = new BECliente_456VG(
                             reader.GetString(reader.GetOrdinal("dni_cli_456VG")),
                             reader.GetString(reader.GetOrdinal("cli_nombre")),
@@ -133,8 +142,6 @@ namespace _456VG_DAL
                             reader.GetDateTime(reader.GetOrdinal("cli_fn")),
                             reader.GetBoolean(reader.GetOrdinal("cli_activo"))
                         );
-
-                        // === Lista
                         var lista = new BEListaCarga_456VG(
                             reader.GetString(reader.GetOrdinal("codlista_456VG")),
                             reader.GetDateTime(reader.GetOrdinal("fechacreacion_456VG")),
@@ -148,8 +155,6 @@ namespace _456VG_DAL
                             reader.GetDateTime(reader.GetOrdinal("fechasalida_456VG")),
                             reader.GetString(reader.GetOrdinal("estadolista_456VG"))
                         );
-
-                        // === Envío
                         var envio = new BEEnvío_456VG(
                             reader.GetString(reader.GetOrdinal("codenvio_456VG")),
                             cliente,
@@ -170,8 +175,6 @@ namespace _456VG_DAL
                                 ? DateTime.MinValue
                                 : reader.GetDateTime(reader.GetOrdinal("fechaentrega_456VG"))
                         );
-
-                        // === Detalle
                         var detalle = new BEDetalleListaCarga_456VG(
                             reader.GetString(reader.GetOrdinal("coddetallelista_456VG")),
                             lista,
@@ -180,29 +183,26 @@ namespace _456VG_DAL
                             reader.GetInt32(reader.GetOrdinal("cantpaquetes_456VG")),
                             reader.GetString(reader.GetOrdinal("estadocargado_456VG"))
                         );
-
-                        // === Cargar Paquetes asociados ===
                         string sqlPaq = @"
-                    USE EnviosYA_456VG;
-                    SELECT 
-                        p.codpaq_456VG,
-                        p.dni_456VG,
-                        p.peso_456VG,
-                        p.ancho_456VG,
-                        p.largo_456VG,
-                        p.alto_456VG,
-                        p.enviado_456VG,
-                        c.nombre_456VG AS cli_nom,
-                        c.apellido_456VG AS cli_ape,
-                        c.telefono_456VG AS cli_tel,
-                        c.domicilio_456VG AS cli_dom,
-                        c.fechanacimiento_456VG AS cli_fn,
-                        c.activo_456VG AS cli_activo
-                    FROM Paquetes_456VG p
-                    JOIN Clientes_456VG c ON p.dni_456VG = c.dni_456VG
-                    JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG
-                    WHERE ep.codenvio_456VG = @CodEnvio;";
-
+                        USE EnviosYA_456VG;
+                        SELECT 
+                            p.codpaq_456VG,
+                            p.dni_456VG,
+                            p.peso_456VG,
+                            p.ancho_456VG,
+                            p.largo_456VG,
+                            p.alto_456VG,
+                            p.enviado_456VG,
+                            c.nombre_456VG AS cli_nom,
+                            c.apellido_456VG AS cli_ape,
+                            c.telefono_456VG AS cli_tel,
+                            c.domicilio_456VG AS cli_dom,
+                            c.fechanacimiento_456VG AS cli_fn,
+                            c.activo_456VG AS cli_activo
+                        FROM Paquetes_456VG p
+                        JOIN Clientes_456VG c ON p.dni_456VG = c.dni_456VG
+                        JOIN EnviosPaquetes_456VG ep ON p.codpaq_456VG = ep.codpaq_456VG
+                        WHERE ep.codenvio_456VG = @CodEnvio;";
                         using (var cmdP = new SqlCommand(sqlPaq, db.Connection))
                         {
                             cmdP.Parameters.AddWithValue("@CodEnvio", envio.CodEnvio456VG);
@@ -219,7 +219,6 @@ namespace _456VG_DAL
                                         readerP.GetDateTime(readerP.GetOrdinal("cli_fn")),
                                         readerP.GetBoolean(readerP.GetOrdinal("cli_activo"))
                                     );
-
                                     var paquete = new BEPaquete_456VG(
                                         readerP.GetString(readerP.GetOrdinal("codpaq_456VG")),
                                         cliPaq,
@@ -229,13 +228,11 @@ namespace _456VG_DAL
                                         (float)readerP.GetDouble(readerP.GetOrdinal("alto_456VG")),
                                         readerP.GetBoolean(readerP.GetOrdinal("enviado_456VG"))
                                     );
-
                                     detalle.Paquetes.Add(paquete);
                                     envio.Paquetes.Add(paquete);
                                 }
                             }
                         }
-
                         detalles.Add(detalle);
                     }
                 }
@@ -248,11 +245,8 @@ namespace _456VG_DAL
             {
                 db.Desconectar456VG();
             }
-
             return detalles;
         }
-
-
         public Resultado_456VG<bool> ActualizarDetalle456VG(BEDetalleListaCarga_456VG det)
         {
             var resultado = new Resultado_456VG<bool>();
@@ -263,7 +257,6 @@ namespace _456VG_DAL
                     UPDATE DetalleListaCarga_456VG
                     SET estadocargado_456VG = @Estado
                     WHERE coddetallelista_456VG = @CodDetalle;";
-
                 db.Conectar456VG();
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
@@ -271,7 +264,6 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@CodDetalle", det.CodDetListaCarga456VG);
                     cmd.ExecuteNonQuery();
                 }
-
                 resultado.resultado = true;
                 resultado.entidad = true;
                 resultado.mensaje = "Detalle actualizado correctamente.";

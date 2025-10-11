@@ -18,7 +18,8 @@ namespace Proyecto_EnviosYA
         private readonly BLLEnvio_456VG bllEnvio = new BLLEnvio_456VG();
         private readonly BLLEventoBitacora_456VG bllBitacora = new BLLEventoBitacora_456VG();
         private BEEnvío_456VG envioActual;
-        private List<BEEnvío_456VG> enviosFiltrados = new List<BEEnvío_456VG>();
+        private readonly BLLEntregado_456VG bllEntrega = new BLLEntregado_456VG();
+        private readonly BLLListaCarga_456VG bllLista = new BLLListaCarga_456VG();
         public EntregaEnvios_456VG()
         {
             InitializeComponent();
@@ -166,7 +167,6 @@ namespace Proyecto_EnviosYA
         private void btnImprimir456VG_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             if (envioActual == null)
             {
                 MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.VerificarPrimero"));
@@ -183,20 +183,57 @@ namespace Proyecto_EnviosYA
                 case "Entregado":
                     MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.YaEntregado"));
                     return;
-                case "Reasignación":
-                    MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.EstadoReasignacion"));
-                    return;
                 case "En Tránsito":
+                    break;
+                case "Reasignación":
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.NoEntregarReasignado"),
+                        lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Titulo.Validacion"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                case "Retiro por Sucursal":
+                    if (MessageBox.Show(
+                        lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.ConfirmarSucursal"),
+                        lng.ObtenerTexto_456VG("EntregaEnvios_456VG.TituloConfirmacion"),
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
                     break;
                 default:
                     MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.EstadoDesconocido"));
                     return;
             }
-            bllEnvio.actualizarEstadoEnvio456VG(envioActual.CodEnvio456VG, "Entregado");
-            MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.EntregaExitosa"));
-            string dniUsuario = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
-            bllBitacora.AddBitacora456VG(dniUsuario, "Envíos", "Entrega de Envío", BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
-            limpiar();
+            string motivoEntrega = envioActual.EstadoEnvio456VG == "Retiro por Sucursal"
+                    ? "Entregado Exitosamente por Sucursal"
+                    : "Entregado Exitosamente";
+            var usuario = SessionManager_456VG.ObtenerInstancia456VG().Usuario;
+            string codEntrega = BEEntregado_456VG.GenerateCodEntrega456VG(
+                envioActual.CodEnvio456VG,
+                usuario.Nombre456VG,
+                usuario.DNI456VG
+            );
+            var entrega = new BEEntregado_456VG(
+                codEntrega,
+                envioActual,
+                DateTime.Now,
+                0,
+                true,
+                motivoEntrega,
+                $"{usuario.Nombre456VG} {usuario.Apellido456VG}"
+            );
+            bool ok = bllEntrega.RegistrarEntrega456VG(entrega);
+            if (ok)
+            {
+                bllEnvio.actualizarEstadoEnvio456VG(envioActual.CodEnvio456VG, "Entregado");
+                bllBitacora.AddBitacora456VG(usuario.DNI456VG, "Envíos", "Entrega de Envío", BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
+                bool liberado = bllLista.VerificarYLiberarRecursosPorEntrega456VG(envioActual.CodEnvio456VG);
+                MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.EntregaExitosa"));
+                limpiar();
+            }
         }
         private void button2_Click(object sender, EventArgs e)
         {

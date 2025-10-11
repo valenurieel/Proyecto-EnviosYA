@@ -183,5 +183,64 @@ namespace _456VG_DAL
             }
             return resultado;
         }
+        public bool VerificarYLiberarRecursosPorEntrega456VG(string codEnvio)
+        {
+            try
+            {
+                db.Conectar456VG();
+                string sqlLista = @"
+                USE EnviosYA_456VG;
+                SELECT codlista_456VG 
+                FROM DetalleListaCarga_456VG 
+                WHERE codenvio_456VG = @codEnvio;";
+                string codLista = null;
+                using (var cmd = new SqlCommand(sqlLista, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@codEnvio", codEnvio);
+                    var result = cmd.ExecuteScalar();
+                    if (result == null)
+                        return false;
+                    codLista = result.ToString();
+                }
+                string sqlPendientes = @"
+                USE EnviosYA_456VG;
+                SELECT COUNT(*) 
+                FROM DetalleListaCarga_456VG d
+                INNER JOIN Envios_456VG e ON d.codenvio_456VG = e.codenvio_456VG
+                WHERE d.codlista_456VG = @codLista
+                AND e.estadoenvio_456VG = 'En Tránsito';";
+                int pendientes = 0;
+                using (var cmd = new SqlCommand(sqlPendientes, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@codLista", codLista);
+                    pendientes = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                if (pendientes > 0)
+                    return false;
+                string sqlLiberar = @"
+                USE EnviosYA_456VG;
+                DECLARE @dniChofer VARCHAR(20), @patente VARCHAR(20);
+                SELECT @dniChofer = dni_chofer_456VG, @patente = patente_transporte_456VG
+                FROM ListaCarga_456VG WHERE codlista_456VG = @codLista;
+                UPDATE Choferes_456VG SET disponible_456VG = 1 WHERE dni_chofer_456VG = @dniChofer;
+                UPDATE Transportes_456VG SET disponible_456VG = 1 WHERE patente_456VG = @patente;
+                UPDATE ListaCarga_456VG SET estadolista_456VG = 'Cerrada' WHERE codlista_456VG = @codLista;";
+                using (var cmd = new SqlCommand(sqlLiberar, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@codLista", codLista);
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al liberar recursos: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                db.Desconectar456VG();
+            }
+        }
     }
 }

@@ -103,6 +103,7 @@ namespace Proyecto_EnviosYA
             cmbEstadoEnv.Items.Add("En Espera");
             cmbEstadoEnv.Items.Add("En Tránsito");
             cmbEstadoEnv.Items.Add("Entregado");
+            cmbEstadoEnv.Items.Add("Retiro por Sucursal");
             cmbEstadoEnv.SelectedIndex = 0;
             cmbZonaEnv.Items.Clear();
             cmbZonaEnv.Items.Add("Alta");
@@ -118,6 +119,7 @@ namespace Proyecto_EnviosYA
             cmbEstadoEnv.Items[2] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.EnEspera");
             cmbEstadoEnv.Items[3] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.EnTransito");
             cmbEstadoEnv.Items[4] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.Entregado");
+            cmbEstadoEnv.Items[5] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.Retiro");
             cmbZonaEnv.Items[0] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.ZonaAlta");
             cmbZonaEnv.Items[1] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.ZonaMedia");
             cmbZonaEnv.Items[2] = lng.ObtenerTexto_456VG("ListaCarga_456VG.Combo.ZonaBaja");
@@ -166,21 +168,21 @@ namespace Proyecto_EnviosYA
             if (item == null) return;
             if (_enviosSeleccionados.Count == 0)
             {
-                _listaTipoEnvio = NormalizarTipo(item.tipoenvio456VG);
                 _listaZona = ObtenerZona(item.Provincia456VG);
+                _listaTipoEnvio = NormalizarTipo(item.tipoenvio456VG);
             }
             else
             {
-                var tipo = NormalizarTipo(item.tipoenvio456VG);
                 var zona = ObtenerZona(item.Provincia456VG);
-                if (!string.Equals(tipo, _listaTipoEnvio, StringComparison.OrdinalIgnoreCase))
-                {
-                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.TipoNoCoincide"), "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                var tipo = NormalizarTipo(item.tipoenvio456VG);
                 if (!string.Equals(zona, _listaZona, StringComparison.OrdinalIgnoreCase))
                 {
-                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.ZonaNoCoincide"), "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(
+                        Traducir("ListaCarga_456VG.Msg.ZonaNoCoincide"),
+                        Traducir("ListaCarga_456VG.Titulo.Validacion"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
                     return;
                 }
             }
@@ -204,19 +206,20 @@ namespace Proyecto_EnviosYA
         {
             try
             {
+                var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
                 if (_enviosSeleccionados.Count == 0)
                 {
-                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.NoHayEnvios"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.ObtenerTexto_456VG("ListaCarga_456VG.Msg.NoHayEnvios"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (_transporteSel == null)
                 {
-                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.AsignarTransporte"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.ObtenerTexto_456VG("ListaCarga_456VG.Msg.AsignarTransporte"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if (_choferSel == null)
                 {
-                    MessageBox.Show(Traducir("ListaCarga_456VG.Msg.AsignarChofer"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.ObtenerTexto_456VG("ListaCarga_456VG.Msg.AsignarChofer"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 int cantEnv = _enviosSeleccionados.Count;
@@ -239,27 +242,33 @@ namespace Proyecto_EnviosYA
                     fsalida: fechaSalida,
                     estado: estadoLista
                 );
-                var detalles = new List<BEDetalleListaCarga_456VG>();
+                var resLista = _bllLista.crearEntidad456VG(lista);
+                if (!resLista.resultado)
+                {
+                    MessageBox.Show($"Error al crear la lista: {resLista.mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                bool detallesOk = true;
                 foreach (var env in _enviosSeleccionados)
                 {
-                    var det = new BEDetalleListaCarga_456VG(
+                    System.Threading.Thread.Sleep(5);
+                    var detalle = new BEDetalleListaCarga_456VG(
                         lista,
                         env,
                         env.Paquetes ?? new List<BEPaquete_456VG>(),
                         env.Paquetes?.Count ?? 0,
                         "Pendiente"
                     );
-                    detalles.Add(det);
-                }
-                var resLista = _bllLista.crearEntidad456VG(lista);
-                bool detallesOk = true;
-                foreach (var d in detalles)
-                {
-                    var resDet = _bllDet.crearEntidad456VG(d);
+                    var resDet = _bllDet.crearEntidad456VG(detalle);
+                    if (!resDet.resultado)
+                    {
+                        detallesOk = false;
+                        MessageBox.Show($"Error al insertar detalle de envío {env.CodEnvio456VG}: {resDet.mensaje}");
+                    }
                 }
                 if (!detallesOk)
                 {
-                    MessageBox.Show("La lista fue creada, pero algunos detalles no se pudieron registrar correctamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La lista fue creada, pero algunos detalles no se registraron correctamente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
                 _bllEvent.AddBitacora456VG(
@@ -269,7 +278,7 @@ namespace Proyecto_EnviosYA
                     crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico
                 );
                 MessageBox.Show(
-                    string.Format(Traducir("ListaCarga_456VG.Msg.ListaGenerada"), lista.CodLista456VG),
+                    string.Format(lng.ObtenerTexto_456VG("ListaCarga_456VG.Msg.ListaGenerada"), lista.CodLista456VG),
                     "OK",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
@@ -281,7 +290,6 @@ namespace Proyecto_EnviosYA
                 _listaZona = null;
                 btnAsigTrans.Enabled = true;
                 btnAsigChof.Enabled = true;
-
                 ListaCarga_456VG_Load(null, null);
             }
             catch (Exception ex)

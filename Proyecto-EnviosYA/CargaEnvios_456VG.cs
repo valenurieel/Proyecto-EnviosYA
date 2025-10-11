@@ -204,32 +204,77 @@ namespace Proyecto_EnviosYA
         {
             this.Close();
         }
+        private void LimpiarFormularioPostCierre456VG()
+        {
+            CargarCombosListasAbiertas();
+            _listaSeleccionada = null;
+            _detalles.Clear();
+            cmbListas.SelectedIndex = -1;
+            dataGridLista.DataSource = null;
+            dataGridDetalles.DataSource = null;
+            ActualizarIdioma_456VG();
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
             if (_listaSeleccionada == null)
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.SeleccionarLista"));
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.SeleccionarLista"),
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            if (_listaSeleccionada.EstadoLista456VG.Equals("Cerrada", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.ListaYaCerrada"),
+                    lng.ObtenerTexto_456VG("CargaEnvios_456VG.Titulo.ListaCerrada"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
                 return;
             }
             bool todosCargados = _detalles.All(d => d.EstadoCargado == "Cargado");
             if (!todosCargados)
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.NoCerrarPendientes"));
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.NoCerrarPendientes"),
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
                 return;
             }
             _listaSeleccionada.EstadoLista456VG = "Cerrada";
             var resultado = _bllLista.actualizarEntidad456VG(_listaSeleccionada);
             if (resultado.resultado)
             {
-                MessageBox.Show(string.Format(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.ListaCerrada"), _listaSeleccionada.CodLista456VG));
-                CargarCombosListasAbiertas();
                 string dniUsuario = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
-                bllBitacora.AddBitacora456VG(dniUsuario, "Recepción", "Carga de Envío", BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
+                bllBitacora.AddBitacora456VG(
+                    dniUsuario,
+                    "Recepción",
+                    "Carga de Envío",
+                    BEEventoBitacora_456VG.NVCriticidad456VG.Crítico
+                );
+                MessageBox.Show(
+                    string.Format(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.ListaCerrada"), _listaSeleccionada.CodLista456VG),
+                    "Lista Cerrada",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                LimpiarFormularioPostCierre456VG();
             }
             else
             {
-                MessageBox.Show(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.ErrorCerrarLista") + resultado.mensaje);
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.ErrorCerrarLista") + resultado.mensaje,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }

@@ -16,6 +16,10 @@ namespace _456VG_BLL
         {
             dal = new DALEnvio_456VG();
         }
+        public bool actualizarEstadoYFechaEnvio456VG(string codEnvio, string nuevoEstado, DateTime? nuevaFecha)
+        {
+            return dal.actualizarEstadoYFechaEnvio456VG(codEnvio, nuevoEstado, nuevaFecha);
+        }
         public List<BEEnvío_456VG> leerEntidades456VG()
         {
             return dal.leerEntidades456VG();
