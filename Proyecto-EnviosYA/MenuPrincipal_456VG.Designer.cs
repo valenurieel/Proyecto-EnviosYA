@@ -148,12 +148,14 @@
             this.GestióndeTransportes.Name = "GestióndeTransportes";
             this.GestióndeTransportes.Size = new System.Drawing.Size(215, 22);
             this.GestióndeTransportes.Text = "Gestión de Transportes";
+            this.GestióndeTransportes.Click += new System.EventHandler(this.GestióndeTransportes_Click);
             // 
             // GestióndeChoferes
             // 
             this.GestióndeChoferes.Name = "GestióndeChoferes";
             this.GestióndeChoferes.Size = new System.Drawing.Size(215, 22);
             this.GestióndeChoferes.Text = "Gestión de Choferes";
+            this.GestióndeChoferes.Click += new System.EventHandler(this.GestióndeChoferes_Click);
             // 
             // MenuUsuarios
             // 
@@ -209,21 +211,21 @@
             // CrearEnvío
             // 
             this.CrearEnvío.Name = "CrearEnvío";
-            this.CrearEnvío.Size = new System.Drawing.Size(180, 22);
+            this.CrearEnvío.Size = new System.Drawing.Size(170, 22);
             this.CrearEnvío.Text = "Crear Envío";
             this.CrearEnvío.Click += new System.EventHandler(this.paquetesToolStripMenuItem456VG_Click);
             // 
             // ListaCarga
             // 
             this.ListaCarga.Name = "ListaCarga";
-            this.ListaCarga.Size = new System.Drawing.Size(180, 22);
+            this.ListaCarga.Size = new System.Drawing.Size(170, 22);
             this.ListaCarga.Text = "Lista de Carga";
             this.ListaCarga.Click += new System.EventHandler(this.AsignacióndeEnvío_Click);
             // 
             // CargaEnvíos
             // 
             this.CargaEnvíos.Name = "CargaEnvíos";
-            this.CargaEnvíos.Size = new System.Drawing.Size(180, 22);
+            this.CargaEnvíos.Size = new System.Drawing.Size(170, 22);
             this.CargaEnvíos.Text = "Carga de Envíos";
             this.CargaEnvíos.Click += new System.EventHandler(this.CargaEnvíos_Click);
             // 

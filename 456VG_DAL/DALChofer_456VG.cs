@@ -26,6 +26,7 @@ namespace _456VG_DAL
                         "INSERT INTO Choferes_456VG " +
                         "(dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
                         "VALUES (@dni, @nom, @ape, @tel, @reg, @venc, @fnac, @disp, @act);";
+
                     using (var cmd = new SqlCommand(sql, db.Connection, tx))
                     {
                         cmd.Parameters.AddWithValue("@dni", obj.DNIChofer456VG);
@@ -41,15 +42,19 @@ namespace _456VG_DAL
                     }
                     tx.Commit();
                 }
-                r.resultado = true; r.entidad = obj; r.mensaje = "Chofer creado correctamente.";
+                r.resultado = true;
+                r.entidad = obj;
+                r.mensaje = "Chofer creado correctamente.";
             }
             catch (Exception ex)
             {
-                r.resultado = false; r.mensaje = ex.Message;
+                r.resultado = false;
+                r.mensaje = ex.Message;
             }
             finally { db.Connection.Close(); }
             return r;
         }
+
         public Resultado_456VG<BEChofer_456VG> actualizarEntidad456VG(BEChofer_456VG obj)
         {
             var r = new Resultado_456VG<BEChofer_456VG>();
@@ -60,8 +65,7 @@ namespace _456VG_DAL
                     "USE EnviosYA_456VG; " +
                     "UPDATE Choferes_456VG SET " +
                     " nombre_456VG=@nom, apellido_456VG=@ape, telefono_456VG=@tel, " +
-                    " registro_456VG=@reg, vencimiento_registro_456VG=@venc, fechanacimiento_456VG=@fnac, " +
-                    " disponible_456VG=@disp, activo_456VG=@act " +
+                    " registro_456VG=@reg, vencimiento_registro_456VG=@venc, fechanacimiento_456VG=@fnac " +
                     "WHERE dni_chofer_456VG=@dni;";
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
@@ -71,8 +75,6 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@reg", obj.Registro456VG);
                     cmd.Parameters.AddWithValue("@venc", obj.VencimientoRegistro456VG);
                     cmd.Parameters.AddWithValue("@fnac", obj.FechaNacimiento456VG);
-                    cmd.Parameters.AddWithValue("@disp", obj.Disponible456VG);
-                    cmd.Parameters.AddWithValue("@act", obj.Activo456VG);
                     cmd.Parameters.AddWithValue("@dni", obj.DNIChofer456VG);
                     int rows = cmd.ExecuteNonQuery();
                     r.resultado = rows > 0;
@@ -82,7 +84,8 @@ namespace _456VG_DAL
             }
             catch (Exception ex)
             {
-                r.resultado = false; r.mensaje = ex.Message;
+                r.resultado = false;
+                r.mensaje = ex.Message;
             }
             finally { db.Desconectar456VG(); }
             return r;
@@ -146,7 +149,8 @@ namespace _456VG_DAL
             }
             catch (Exception ex)
             {
-                r.resultado = false; r.mensaje = ex.Message;
+                r.resultado = false;
+                r.mensaje = ex.Message;
             }
             finally { db.Desconectar456VG(); }
             return r;
@@ -179,18 +183,22 @@ namespace _456VG_DAL
                                 rd.GetBoolean(7),
                                 rd.GetBoolean(8)
                             );
-                            r.resultado = true; r.entidad = c; r.mensaje = "Chofer encontrado.";
+                            r.resultado = true;
+                            r.entidad = c;
+                            r.mensaje = "Chofer encontrado.";
                         }
                         else
                         {
-                            r.resultado = false; r.mensaje = "No existe chofer con ese DNI.";
+                            r.resultado = false;
+                            r.mensaje = "No existe chofer con ese DNI.";
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                r.resultado = false; r.mensaje = ex.Message;
+                r.resultado = false;
+                r.mensaje = ex.Message;
             }
             finally { db.Desconectar456VG(); }
             return r;

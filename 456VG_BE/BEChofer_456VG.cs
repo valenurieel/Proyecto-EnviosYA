@@ -40,5 +40,15 @@ namespace _456VG_BE
             this.FechaNacimiento456VG = fnac;
             this.Disponible456VG = disp;
         }
+        public BEChofer_456VG(string dni, string name, string ape, string tel, bool reg, DateTime venc, DateTime fnac)
+        {
+            this.DNIChofer456VG = dni;
+            this.Nombre456VG = name;
+            this.Apellido456VG = ape;
+            this.Teléfono456VG = tel;
+            this.Registro456VG = reg;
+            this.VencimientoRegistro456VG = venc;
+            this.FechaNacimiento456VG = fnac;
+        }
     }
 }

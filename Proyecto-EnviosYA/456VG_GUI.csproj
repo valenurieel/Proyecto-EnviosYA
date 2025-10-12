@@ -99,6 +99,12 @@
     <Compile Include="BackupRestore_456VG.Designer.cs">
       <DependentUpon>BackupRestore_456VG.cs</DependentUpon>
     </Compile>
+    <Compile Include="BitácoraCambios_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BitácoraCambios_456VG.Designer.cs">
+      <DependentUpon>BitácoraCambios_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="BitácoraEventos_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,18 @@
     </Compile>
     <Compile Include="EntregaEnvios_456VG.Designer.cs">
       <DependentUpon>EntregaEnvios_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestiondeChoferes_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestiondeChoferes_456VG.Designer.cs">
+      <DependentUpon>GestiondeChoferes_456VG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestiondeTransporte_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestiondeTransporte_456VG.Designer.cs">
+      <DependentUpon>GestiondeTransporte_456VG.cs</DependentUpon>
     </Compile>
     <Compile Include="ListaCarga_456VG.cs">
       <SubType>Form</SubType>
@@ -212,6 +230,9 @@
     <EmbeddedResource Include="BackupRestore_456VG.resx">
       <DependentUpon>BackupRestore_456VG.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BitácoraCambios_456VG.resx">
+      <DependentUpon>BitácoraCambios_456VG.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BitácoraEventos_456VG.resx">
       <DependentUpon>BitácoraEventos_456VG.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +256,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EntregaEnvios_456VG.resx">
       <DependentUpon>EntregaEnvios_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestiondeChoferes_456VG.resx">
+      <DependentUpon>GestiondeChoferes_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestiondeTransporte_456VG.resx">
+      <DependentUpon>GestiondeTransporte_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListaCarga_456VG.resx">
       <DependentUpon>ListaCarga_456VG.cs</DependentUpon>
@@ -276,6 +303,12 @@
     <EmbeddedResource Include="RegistrarCliente_456VG.resx">
       <DependentUpon>RegistrarCliente_456VG.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Español.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Inglés.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

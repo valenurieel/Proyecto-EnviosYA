@@ -16,5 +16,9 @@ namespace _456VG_BLL
         public Resultado_456VG<BETransporte_456VG> crearEntidad456VG(BETransporte_456VG obj) => dal.crearEntidad456VG(obj);
         public Resultado_456VG<BETransporte_456VG> eliminarEntidad456VG(BETransporte_456VG obj) => dal.eliminarEntidad456VG(obj);
         public Resultado_456VG<BETransporte_456VG> actualizarEntidad456VG(BETransporte_456VG obj) => dal.actualizarEntidad456VG(obj);
+        public Resultado_456VG<BETransporte_456VG> ActivarDesactivarEntidad456VG(string patente, bool nuevoEstado)
+        {
+            return dal.ActDesacTrans456(patente, nuevoEstado);
+        }
     }
 }

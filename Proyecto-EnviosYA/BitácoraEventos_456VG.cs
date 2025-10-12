@@ -81,7 +81,18 @@ namespace Proyecto_EnviosYA
             ["Archivo Serializado"] = "BitácoraEventos_456VG.Combo.ArchivoSerializado",
             ["Archivo Deserializado"] = "BitácoraEventos_456VG.Combo.ArchivoDeserializado",
             ["Imprimir Seguimiento"] = "BitácoraEventos_456VG.Combo.ImprimirSeguimiento",
-            //faltan Acciones RF2
+            ["Genera Lista Carga"] = "BitácoraEventos_456VG.Combo.GeneraListaCarga",
+            ["Carga de Envío"] = "BitácoraEventos_456VG.Combo.CargaEnvío",
+            ["Añadir Chofer"] = "BitácoraEventos_456VG.Combo.AñadirChofer",
+            ["Modificar Chofer"] = "BitácoraEventos_456VG.Combo.ModificarChofer",
+            ["Activar Chofer"] = "BitácoraEventos_456VG.Combo.ActivarChofer",
+            ["Desactivar Chofer"] = "BitácoraEventos_456VG.Combo.DesactivarChofer",
+            ["Añadir Trasnporte"] = "BitácoraEventos_456VG.Combo.AñadirTrasnporte",
+            ["Modificar Trasnporte"] = "BitácoraEventos_456VG.Combo.ModificarTrasnporte",
+            ["Activar Trasnporte"] = "BitácoraEventos_456VG.Combo.ActivarTrasnporte",
+            ["Desactivar Trasnporte"] = "BitácoraEventos_456VG.Combo.DesactivarTrasnporte",
+            ["Entrega de Envío"] = "BitácoraEventos_456VG.Combo.EntregaEnvío",
+            ["Reasignación de Entrega"] = "BitácoraEventos_456VG.Combo.ReasignaciónEntrega",
         };
         private string TradModulo456VG(string orig) => MOD_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
         private string TradAccion456VG(string orig) => ACC_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;

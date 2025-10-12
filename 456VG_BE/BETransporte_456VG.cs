@@ -34,5 +34,13 @@ namespace _456VG_BE
             this.CapacidadVolumen456VG = cvol;
             this.Disponible456VG = disp;
         }
+        public BETransporte_456VG(string pat, string mar, int año, float cpeso, float cvol)
+        {
+            this.Patente456VG = pat;
+            this.Marca456VG = mar;
+            this.Año456VG = año;
+            this.CapacidadPeso456VG = cpeso;
+            this.CapacidadVolumen456VG = cvol;
+        }
     }
 }

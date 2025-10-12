@@ -202,5 +202,17 @@ namespace Proyecto_EnviosYA
             EntregaEnvios_456VG fr = new EntregaEnvios_456VG();
             fr.ShowDialog();
         }
+
+        private void GestióndeChoferes_Click(object sender, EventArgs e)
+        {
+            GestiondeChoferes_456VG fr = new GestiondeChoferes_456VG();
+            fr.ShowDialog();
+        }
+
+        private void GestióndeTransportes_Click(object sender, EventArgs e)
+        {
+            GestiondeTransporte_456VG fr = new GestiondeTransporte_456VG();
+            fr.ShowDialog();
+        }
     }
 }
