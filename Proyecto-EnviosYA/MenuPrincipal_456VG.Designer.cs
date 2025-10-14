@@ -39,6 +39,7 @@
             this.GestióndeClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndeTransportes = new System.Windows.Forms.ToolStripMenuItem();
             this.GestióndeChoferes = new System.Windows.Forms.ToolStripMenuItem();
+            this.BitacoraCambiosChoferes = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuUsuarios = new System.Windows.Forms.ToolStripMenuItem();
             this.IniciarSesión = new System.Windows.Forms.ToolStripMenuItem();
             this.CambiarContraseña = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +131,8 @@
             this.MenuMaestro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GestióndeClientes,
             this.GestióndeTransportes,
-            this.GestióndeChoferes});
+            this.GestióndeChoferes,
+            this.BitacoraCambiosChoferes});
             this.MenuMaestro.Name = "MenuMaestro";
             this.MenuMaestro.Size = new System.Drawing.Size(112, 22);
             this.MenuMaestro.Text = "Maestro";
@@ -139,23 +141,30 @@
             // GestióndeClientes
             // 
             this.GestióndeClientes.Name = "GestióndeClientes";
-            this.GestióndeClientes.Size = new System.Drawing.Size(215, 22);
+            this.GestióndeClientes.Size = new System.Drawing.Size(261, 22);
             this.GestióndeClientes.Text = "Gestión de Clientes";
             this.GestióndeClientes.Click += new System.EventHandler(this.clientesToolStripMenuItem456VG_Click);
             // 
             // GestióndeTransportes
             // 
             this.GestióndeTransportes.Name = "GestióndeTransportes";
-            this.GestióndeTransportes.Size = new System.Drawing.Size(215, 22);
+            this.GestióndeTransportes.Size = new System.Drawing.Size(261, 22);
             this.GestióndeTransportes.Text = "Gestión de Transportes";
             this.GestióndeTransportes.Click += new System.EventHandler(this.GestióndeTransportes_Click);
             // 
             // GestióndeChoferes
             // 
             this.GestióndeChoferes.Name = "GestióndeChoferes";
-            this.GestióndeChoferes.Size = new System.Drawing.Size(215, 22);
+            this.GestióndeChoferes.Size = new System.Drawing.Size(261, 22);
             this.GestióndeChoferes.Text = "Gestión de Choferes";
             this.GestióndeChoferes.Click += new System.EventHandler(this.GestióndeChoferes_Click);
+            // 
+            // BitacoraCambiosChoferes
+            // 
+            this.BitacoraCambiosChoferes.Name = "BitacoraCambiosChoferes";
+            this.BitacoraCambiosChoferes.Size = new System.Drawing.Size(261, 22);
+            this.BitacoraCambiosChoferes.Text = "Bitácora de Cambios - Choferes";
+            this.BitacoraCambiosChoferes.Click += new System.EventHandler(this.bitácoraDeCambiosChoferesToolStripMenuItem_Click);
             // 
             // MenuUsuarios
             // 
@@ -386,6 +395,7 @@
         private System.Windows.Forms.ToolStripMenuItem ListaCarga;
         private System.Windows.Forms.ToolStripMenuItem EntregadeEnvío;
         private System.Windows.Forms.ToolStripMenuItem CargaEnvíos;
+        private System.Windows.Forms.ToolStripMenuItem BitacoraCambiosChoferes;
     }
 }
 

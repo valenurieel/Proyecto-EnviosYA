@@ -214,5 +214,11 @@ namespace Proyecto_EnviosYA
             GestiondeTransporte_456VG fr = new GestiondeTransporte_456VG();
             fr.ShowDialog();
         }
+
+        private void bitácoraDeCambiosChoferesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BitácoraCambios_456VG fr = new BitácoraCambios_456VG();
+            fr.ShowDialog();
+        }
     }
 }

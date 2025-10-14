@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLBackupRestore_456VG.cs" />
+    <Compile Include="BLLChoferes_C_456VG.cs" />
     <Compile Include="BLLChofer_456VG.cs" />
     <Compile Include="BLLCliente_456VG.cs" />
     <Compile Include="BLLDatosPago_456VG.cs" />

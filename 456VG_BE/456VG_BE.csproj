@@ -89,6 +89,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BEChoferes_C_456VG.cs" />
     <Compile Include="BEChofer_456VG.cs" />
     <Compile Include="BECliente_456VG.cs" />
     <Compile Include="BEDatosPago_456VG.cs" />

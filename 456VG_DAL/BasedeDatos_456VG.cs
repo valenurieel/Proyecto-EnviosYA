@@ -256,6 +256,27 @@ public class BasedeDatos_456VG
                 "  ); " +
                 "END;"
             );
+            dbReal.ejecutarQuery456VG(
+                "USE EnviosYA_456VG; " +
+                "IF OBJECT_ID('dbo.Choferes_C_456VG','U') IS NULL " +
+                "BEGIN " +
+                "  CREATE TABLE dbo.Choferes_C_456VG ( " +
+                "    dni_chofer_456VG           VARCHAR(20)  NOT NULL, " +
+                "    nombre_456VG               VARCHAR(100) NOT NULL, " +
+                "    apellido_456VG             VARCHAR(100) NOT NULL, " +
+                "    telefono_456VG             VARCHAR(20)  NOT NULL, " +
+                "    registro_456VG             BIT          NOT NULL, " +
+                "    vencimiento_registro_456VG DATE         NOT NULL, " +
+                "    fechanacimiento_456VG      DATE         NOT NULL, " +
+                "    disponible_456VG           BIT          NOT NULL, " +
+                "    activo_456VG               BIT          NOT NULL, " +
+                "    fecha_456VG                DATETIME     NOT NULL DEFAULT(GETDATE()), " +
+                "    hora_456VG                 AS CONVERT(TIME, fecha_456VG), " +
+                "    CONSTRAINT FK_Choferes_C_Choferes FOREIGN KEY (dni_chofer_456VG) " +
+                "      REFERENCES dbo.Choferes_456VG(dni_chofer_456VG) " +
+                "  ); " +
+                "END;"
+            );
             dbReal.ejecutarQuery456VG(@"
             IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='ListaCarga_456VG' AND xtype='U')
             CREATE TABLE ListaCarga_456VG(
@@ -304,6 +325,126 @@ public class BasedeDatos_456VG
             "); " +
             "END;"
             );
+            dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            IF OBJECT_ID('dbo.trg_Choferes_Insert_456VG', 'TR') IS NULL
+                EXEC('CREATE TRIGGER dbo.trg_Choferes_Insert_456VG 
+                      ON dbo.Choferes_456VG 
+                      AFTER INSERT 
+                      AS 
+                      BEGIN 
+                          PRINT ''Trigger Insert vacío - Placeholder''; 
+                      END');
+            IF OBJECT_ID('dbo.trg_Choferes_Update_456VG', 'TR') IS NULL
+                EXEC('CREATE TRIGGER dbo.trg_Choferes_Update_456VG 
+                      ON dbo.Choferes_456VG 
+                      AFTER UPDATE 
+                      AS 
+                      BEGIN 
+                          PRINT ''Trigger Update vacío - Placeholder''; 
+                      END');
+            IF OBJECT_ID('dbo.trg_Choferes_Delete_456VG', 'TR') IS NULL
+                EXEC('CREATE TRIGGER dbo.trg_Choferes_Delete_456VG 
+                      ON dbo.Choferes_456VG 
+                      INSTEAD OF DELETE 
+                      AS 
+                      BEGIN 
+                          PRINT ''Trigger Delete vacío - Placeholder''; 
+                      END');
+            ");
+            dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            DECLARE @sql NVARCHAR(MAX);
+            IF OBJECT_ID('dbo.trg_Choferes_Insert_456VG', 'TR') IS NOT NULL
+                DROP TRIGGER dbo.trg_Choferes_Insert_456VG;
+            SET @sql = N'
+            CREATE TRIGGER dbo.trg_Choferes_Insert_456VG
+            ON dbo.Choferes_456VG
+            AFTER INSERT
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+                UPDATE c
+                SET c.activo_456VG = 0
+                FROM dbo.Choferes_C_456VG c
+                INNER JOIN inserted i ON c.dni_chofer_456VG = i.dni_chofer_456VG
+                WHERE c.activo_456VG = 1;
+                INSERT INTO dbo.Choferes_C_456VG (
+                    dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG,
+                    registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG,
+                    disponible_456VG, activo_456VG, fecha_456VG
+                )
+                SELECT 
+                    i.dni_chofer_456VG, i.nombre_456VG, i.apellido_456VG, i.telefono_456VG,
+                    i.registro_456VG, i.vencimiento_registro_456VG, i.fechanacimiento_456VG,
+                    i.disponible_456VG, 1, GETDATE()
+                FROM inserted i;
+            END';
+            EXEC sp_executesql @sql;
+            ");
+            dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            DECLARE @sql NVARCHAR(MAX);
+            IF OBJECT_ID('dbo.trg_Choferes_Update_456VG', 'TR') IS NOT NULL
+                DROP TRIGGER dbo.trg_Choferes_Update_456VG;
+            SET @sql = N'
+            CREATE TRIGGER dbo.trg_Choferes_Update_456VG
+            ON dbo.Choferes_456VG
+            AFTER UPDATE
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+                UPDATE c
+                SET c.activo_456VG = 0
+                FROM dbo.Choferes_C_456VG c
+                INNER JOIN deleted d ON c.dni_chofer_456VG = d.dni_chofer_456VG
+                WHERE c.activo_456VG = 1;
+                INSERT INTO dbo.Choferes_C_456VG (
+                    dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG,
+                    registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG,
+                    disponible_456VG, activo_456VG, fecha_456VG
+                )
+                SELECT 
+                    i.dni_chofer_456VG, i.nombre_456VG, i.apellido_456VG, i.telefono_456VG,
+                    i.registro_456VG, i.vencimiento_registro_456VG, i.fechanacimiento_456VG,
+                    i.disponible_456VG, 1, GETDATE()
+                FROM inserted i;
+            END';
+            EXEC sp_executesql @sql;
+            ");
+            dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            DECLARE @sql NVARCHAR(MAX);
+            IF OBJECT_ID('dbo.trg_Choferes_Delete_456VG', 'TR') IS NOT NULL
+                DROP TRIGGER dbo.trg_Choferes_Delete_456VG;
+            SET @sql = N'
+            CREATE TRIGGER dbo.trg_Choferes_Delete_456VG
+            ON dbo.Choferes_456VG
+            INSTEAD OF DELETE
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+                UPDATE c
+                SET c.activo_456VG = 0
+                FROM dbo.Choferes_456VG c
+                INNER JOIN deleted d ON c.dni_chofer_456VG = d.dni_chofer_456VG;
+                UPDATE h
+                SET h.activo_456VG = 0
+                FROM dbo.Choferes_C_456VG h
+                INNER JOIN deleted d ON h.dni_chofer_456VG = d.dni_chofer_456VG;
+                INSERT INTO dbo.Choferes_C_456VG (
+                    dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG,
+                    registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG,
+                    disponible_456VG, activo_456VG, fecha_456VG
+                )
+                SELECT 
+                    d.dni_chofer_456VG, d.nombre_456VG, d.apellido_456VG, d.telefono_456VG,
+                    d.registro_456VG, d.vencimiento_registro_456VG, d.fechanacimiento_456VG,
+                    d.disponible_456VG, 0, GETDATE()
+                FROM deleted d;
+            END';
+            EXEC sp_executesql @sql;
+            ");
             dbReal.insertarDatosIniciales456VG();
         }
         else
@@ -427,6 +568,36 @@ public class BasedeDatos_456VG
             "INSERT INTO Choferes_456VG (dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG, registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG, disponible_456VG, activo_456VG) " +
             "VALUES ('29999000','Diego','Fernández','1188112233',1,'2027-03-05','1986-06-30',1,1);"
         );
+        dbReal.ejecutarQuery456VG(@"
+            USE EnviosYA_456VG;
+            IF NOT EXISTS (SELECT TOP 1 1 FROM Choferes_C_456VG)
+            BEGIN
+                INSERT INTO Choferes_C_456VG (
+                    dni_chofer_456VG,
+                    nombre_456VG,
+                    apellido_456VG,
+                    telefono_456VG,
+                    registro_456VG,
+                    vencimiento_registro_456VG,
+                    fechanacimiento_456VG,
+                    disponible_456VG,
+                    activo_456VG,
+                    fecha_456VG
+                )
+                SELECT 
+                    dni_chofer_456VG,
+                    nombre_456VG,
+                    apellido_456VG,
+                    telefono_456VG,
+                    registro_456VG,
+                    vencimiento_registro_456VG,
+                    fechanacimiento_456VG,
+                    disponible_456VG,
+                    activo_456VG,
+                    GETDATE()
+                FROM Choferes_456VG;
+            END
+        ");
         dbReal.ejecutarQuery456VG(
         "USE EnviosYA_456VG; " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuRecepción') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuRecepción', 0); " +
@@ -454,7 +625,8 @@ public class BasedeDatos_456VG
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeChoferes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeChoferes', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'ListaCarga') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('ListaCarga', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CargaEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CargaEnvíos', 0); " +
-        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'EntregadeEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('EntregadeEnvío', 0);"
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'EntregadeEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('EntregadeEnvío', 0); " +
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraCambiosChoferes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraCambiosChoferes', 0);"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -541,6 +713,7 @@ public class BasedeDatos_456VG
             "'MenuMaestro', " +
             "'GestióndeTransportes', " +
             "'GestióndeChoferes', " +
+            "'BitacoraCambiosChoferes', " +
             "'GestióndeClientes');" +
             //Menu Envíos
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
