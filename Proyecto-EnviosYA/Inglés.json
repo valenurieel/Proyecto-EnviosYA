@@ -862,10 +862,10 @@
   "MenuPrincipal_456VG.BitacoraEventos": "Event Log",
   "MenuPrincipal_456VG.BackupRestore": "Backups",
   "MenuPrincipal_456VG.GestióndeTransportes": "Transportation Management",
-  "MenuPrincipal_456VG.EntregadeEnvío": "Delivery of Shipments",
+  "MenuPrincipal_456VG.EntregadeEnvío": "Deliver Shipments",
   "MenuPrincipal_456VG.GestióndeChoferes": "Driver Management",
   "MenuPrincipal_456VG.ListaCarga": "Loading Lists",
-  "MenuPrincipal_456VG.CargaEnvíos": "Shipping Loading",
+  "MenuPrincipal_456VG.CargaEnvíos": "Load Shipments",
 
   "RegistrarCliente_456VG.Text": "Register Customer",
   "RegistrarCliente_456VG.label8": "Register Customer",

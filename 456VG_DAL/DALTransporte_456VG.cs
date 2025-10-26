@@ -58,7 +58,8 @@ namespace _456VG_DAL
                     "USE EnviosYA_456VG; " +
                     "UPDATE Transportes_456VG SET " +
                     " marca_456VG = @marca, año_456VG = @anio, " +
-                    " capacidad_peso_456VG = @cpeso, capacidad_volumen_456VG = @cvol " +
+                    " capacidad_peso_456VG = @cpeso, capacidad_volumen_456VG = @cvol, " +
+                    " disponible_456VG = @disp " +
                     "WHERE patente_456VG = @pat;";
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
@@ -66,6 +67,7 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@anio", obj.Año456VG);
                     cmd.Parameters.AddWithValue("@cpeso", obj.CapacidadPeso456VG);
                     cmd.Parameters.AddWithValue("@cvol", obj.CapacidadVolumen456VG);
+                    cmd.Parameters.AddWithValue("@disp", obj.Disponible456VG);
                     cmd.Parameters.AddWithValue("@pat", obj.Patente456VG);
                     int rows = cmd.ExecuteNonQuery();
                     r.resultado = rows > 0;
