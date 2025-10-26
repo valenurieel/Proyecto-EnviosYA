@@ -850,12 +850,9 @@ namespace Proyecto_EnviosYA
         private void RefrescarPerfilSiContieneFamilia(string nombreFamilia)
         {
             if (treeView1456VG.Nodes.Count == 0) return;
-
             var nodoPerfil = treeView1456VG.Nodes[0];
             if (!(nodoPerfil.Tag is BEPerfil_456VG perfil)) return;
-
             bool contiene = perfil.Permisos456VG.Any(p => ContieneFamilia(p, nombreFamilia));
-
             if (contiene)
                 CargarPerfilPorNombre456VG(perfil.Nombre456VG);
         }
@@ -865,7 +862,6 @@ namespace Proyecto_EnviosYA
             {
                 if (familia.Nombre456VG == nombreBuscado)
                     return true;
-
                 foreach (var hijo in familia.Permisos456VG)
                 {
                     if (ContieneFamilia(hijo, nombreBuscado))

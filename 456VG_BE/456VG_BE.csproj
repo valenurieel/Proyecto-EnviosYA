@@ -101,7 +101,6 @@
     <Compile Include="BEListaCarga_456VG.cs" />
     <Compile Include="BEPaquete_456VG.cs" />
     <Compile Include="BEPerfil_456VG.cs" />
-    <Compile Include="BESeguimientoEnvío_456VG.cs" />
     <Compile Include="BETransporte_456VG.cs" />
     <Compile Include="FamiliaPermiso_456VG.cs" />
     <Compile Include="IPerfil_456VG.cs" />

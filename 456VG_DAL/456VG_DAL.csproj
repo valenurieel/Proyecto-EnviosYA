@@ -103,7 +103,6 @@
     <Compile Include="DALListaCarga_456VG.cs" />
     <Compile Include="DALPaquete_456VG.cs" />
     <Compile Include="DALPerfil_456VG.cs" />
-    <Compile Include="DALSeguimientoEnvío_456VG.cs" />
     <Compile Include="DALTransporte_456VG.cs" />
     <Compile Include="DALUsuario_456VG.cs" />
     <Compile Include="ICrud_456VG.cs" />

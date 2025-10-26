@@ -149,11 +149,6 @@ namespace Proyecto_EnviosYA
             FacturasIMP_456VG fact = new FacturasIMP_456VG();
             fact.ShowDialog();
         }
-        private void seguimientoEnvíosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SeguimientoEnvíos_456VG fr = new SeguimientoEnvíos_456VG();
-            fr.ShowDialog();
-        }
         private void envíosToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
         }

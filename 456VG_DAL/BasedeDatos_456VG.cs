@@ -212,20 +212,6 @@ public class BasedeDatos_456VG
             );
             dbReal.ejecutarQuery456VG(
                 "USE EnviosYA_456VG; " +
-                "IF OBJECT_ID('dbo.Seguimientos_456VG','U') IS NULL " +
-                "BEGIN " +
-                "  CREATE TABLE dbo.Seguimientos_456VG ( " +
-                "    codseguimiento_456VG VARCHAR(30) NOT NULL PRIMARY KEY, " +
-                "    codenvio_456VG       VARCHAR(20) NOT NULL UNIQUE, " +
-                "    fechaemitido_456VG   DATETIME    NOT NULL DEFAULT (GETDATE()), " +
-                "    impreso_456VG        BIT         NOT NULL DEFAULT (0), " +
-                "    CONSTRAINT FK_Seguimientos_Envio_456VG FOREIGN KEY (codenvio_456VG) " +
-                "        REFERENCES dbo.Envios_456VG(codenvio_456VG) " +
-                "  ); " +
-                "END;"
-            );
-            dbReal.ejecutarQuery456VG(
-                "USE EnviosYA_456VG; " +
                 "IF OBJECT_ID('dbo.Transportes_456VG','U') IS NULL " +
                 "BEGIN " +
                 "  CREATE TABLE dbo.Transportes_456VG ( " +
@@ -618,7 +604,6 @@ public class BasedeDatos_456VG
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'MenuAdministrador') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('MenuAdministrador', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeUsuarios') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeUsuarios', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndePerfiles') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndePerfiles', 0); " +
-        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'SeguimientoEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('SeguimientoEnvío', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraEventos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraEventos', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BackupRestore') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BackupRestore', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'GestióndeTransportes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('GestióndeTransportes', 0); " +
@@ -724,8 +709,7 @@ public class BasedeDatos_456VG
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @mrepor, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
             "'MenuReportes', " +
-            "'FacturasIMP', " +
-            "'SeguimientoEnvío');" +
+            "'FacturasIMP');" +
             //FSeguridad
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @seg, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
@@ -848,11 +832,6 @@ public class BasedeDatos_456VG
         IF NOT EXISTS (SELECT 1 FROM Facturas_456VG WHERE codfactura_456VG = '2202MAR100460008')
         INSERT INTO Facturas_456VG (codfactura_456VG, codenvio_456VG, dni_cli_456VG, fechaemision_456VG, horaemision_456VG, impreso_456VG)
         VALUES ('2202MAR100460008', '2202MAR100340327', '20262026', '2025-10-05', '10:04:06', 1);
-        ");
-        dbReal.ejecutarQuery456VG(@"
-        IF NOT EXISTS (SELECT 1 FROM Seguimientos_456VG WHERE codseguimiento_456VG = '220202202510051004269545')
-        INSERT INTO Seguimientos_456VG (codseguimiento_456VG, codenvio_456VG, fechaemitido_456VG, impreso_456VG)
-        VALUES ('220202202510051004269545', '2202MAR100340327', '2025-10-05 10:04:26.947', 1);
         ");
     }
 }

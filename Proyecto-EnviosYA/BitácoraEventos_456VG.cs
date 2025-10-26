@@ -80,7 +80,6 @@ namespace Proyecto_EnviosYA
             ["Imprimir Factura"] = "BitácoraEventos_456VG.Combo.ImprimirFactura",
             ["Archivo Serializado"] = "BitácoraEventos_456VG.Combo.ArchivoSerializado",
             ["Archivo Deserializado"] = "BitácoraEventos_456VG.Combo.ArchivoDeserializado",
-            ["Imprimir Seguimiento"] = "BitácoraEventos_456VG.Combo.ImprimirSeguimiento",
             ["Genera Lista Carga"] = "BitácoraEventos_456VG.Combo.GeneraListaCarga",
             ["Carga de Envío"] = "BitácoraEventos_456VG.Combo.CargaEnvío",
             ["Añadir Chofer"] = "BitácoraEventos_456VG.Combo.AñadirChofer",

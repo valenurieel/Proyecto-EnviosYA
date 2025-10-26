@@ -103,7 +103,6 @@
     <Compile Include="BLLListaCarga_456VG.cs" />
     <Compile Include="BLLPaquete_456VG.cs" />
     <Compile Include="BLLPerfil_456VG.cs" />
-    <Compile Include="BLLSeguimientoEnvío_456VG.cs" />
     <Compile Include="BLLSerializar_456VG.cs" />
     <Compile Include="BLLTransporte_456VG.cs" />
     <Compile Include="BLLUsuario_456VG.cs" />
