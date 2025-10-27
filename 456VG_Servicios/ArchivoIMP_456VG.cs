@@ -26,11 +26,6 @@ namespace _456VG_Servicios
             {
                 Directory.CreateDirectory(DestinoFactura_456VG);
             }
-            DestinoSeguimiento_456VG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SeguimientoEnvíosPDFs");
-            if (!Directory.Exists(DestinoSeguimiento_456VG))
-            {
-                Directory.CreateDirectory(DestinoSeguimiento_456VG);
-            }
             DestinoBitacora_456VG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BitacoraPDFs");
             if (!Directory.Exists(DestinoBitacora_456VG))
             {

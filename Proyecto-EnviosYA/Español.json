@@ -370,6 +370,7 @@
   "BitácoraEventos_456VG.Combo.ModificarTransporte": "Modificar Transporte",
   "BitácoraEventos_456VG.Combo.ActivarTransporte": "Activar Transporte",
   "BitácoraEventos_456VG.Combo.DesactivarTransporte": "Desactivar Transporte",
+  "BitácoraEventos_456VG.Combo.RegistroActivadodeCambios": "Registro Activado de Cambios",
   "BitácoraEventos_456VG.Msg.FechaInvalida": "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
   "BitácoraEventos_456VG.Msg.FechaInvalidaTitle": "Bitácora de Eventos",
   "BitácoraEventos_456VG.Msg.SinDatosParaImprimir": "No hay datos para imprimir.",

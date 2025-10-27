@@ -135,6 +135,9 @@ namespace Proyecto_EnviosYA
                     lng.ObtenerTexto_456VG("General.TítuloInfo"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarCambios456VG();
+                BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Maestros", accion: "Registro Activado de Cambios", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
             }
             else
             {

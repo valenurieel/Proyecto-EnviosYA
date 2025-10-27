@@ -86,12 +86,13 @@ namespace Proyecto_EnviosYA
             ["Modificar Chofer"] = "BitácoraEventos_456VG.Combo.ModificarChofer",
             ["Activar Chofer"] = "BitácoraEventos_456VG.Combo.ActivarChofer",
             ["Desactivar Chofer"] = "BitácoraEventos_456VG.Combo.DesactivarChofer",
-            ["Añadir Trasnporte"] = "BitácoraEventos_456VG.Combo.AñadirTrasnporte",
-            ["Modificar Trasnporte"] = "BitácoraEventos_456VG.Combo.ModificarTrasnporte",
-            ["Activar Trasnporte"] = "BitácoraEventos_456VG.Combo.ActivarTrasnporte",
-            ["Desactivar Trasnporte"] = "BitácoraEventos_456VG.Combo.DesactivarTrasnporte",
+            ["Añadir Trasnporte"] = "BitácoraEventos_456VG.Combo.AñadirTransporte",
+            ["Modificar Trasnporte"] = "BitácoraEventos_456VG.Combo.ModificarTransporte",
+            ["Activar Trasnporte"] = "BitácoraEventos_456VG.Combo.ActivarTransporte",
+            ["Desactivar Trasnporte"] = "BitácoraEventos_456VG.Combo.DesactivarTransporte",
             ["Entrega de Envío"] = "BitácoraEventos_456VG.Combo.EntregaEnvío",
             ["Reasignación de Entrega"] = "BitácoraEventos_456VG.Combo.ReasignaciónEntrega",
+            ["Registro Activado de Cambios"] = "BitácoraEventos_456VG.Combo.RegistroActivadodeCambios",
         };
         private string TradModulo456VG(string orig) => MOD_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
         private string TradAccion456VG(string orig) => ACC_KEY456VG.TryGetValue(orig ?? "", out var k) ? T(k) : orig;
