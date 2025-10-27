@@ -369,35 +369,60 @@ public class BasedeDatos_456VG
             EXEC sp_executesql @sql;
             ");
             dbReal.ejecutarQuery456VG(@"
-            USE EnviosYA_456VG;
-            DECLARE @sql NVARCHAR(MAX);
-            IF OBJECT_ID('dbo.trg_Choferes_Update_456VG', 'TR') IS NOT NULL
-                DROP TRIGGER dbo.trg_Choferes_Update_456VG;
-            SET @sql = N'
-            CREATE TRIGGER dbo.trg_Choferes_Update_456VG
-            ON dbo.Choferes_456VG
-            AFTER UPDATE
-            AS
-            BEGIN
-                SET NOCOUNT ON;
-                UPDATE c
-                SET c.activo_456VG = 0
-                FROM dbo.Choferes_C_456VG c
-                INNER JOIN deleted d ON c.dni_chofer_456VG = d.dni_chofer_456VG
-                WHERE c.activo_456VG = 1;
-                INSERT INTO dbo.Choferes_C_456VG (
-                    dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG,
-                    registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG,
-                    disponible_456VG, activo_456VG, fecha_456VG
-                )
-                SELECT 
-                    i.dni_chofer_456VG, i.nombre_456VG, i.apellido_456VG, i.telefono_456VG,
-                    i.registro_456VG, i.vencimiento_registro_456VG, i.fechanacimiento_456VG,
-                    i.disponible_456VG, 1, GETDATE()
-                FROM inserted i;
-            END';
-            EXEC sp_executesql @sql;
-            ");
+                USE EnviosYA_456VG;
+                DECLARE @sql NVARCHAR(MAX);
+                IF OBJECT_ID('dbo.trg_Choferes_Update_456VG', 'TR') IS NOT NULL
+                    DROP TRIGGER dbo.trg_Choferes_Update_456VG;
+                SET @sql = N'
+                CREATE TRIGGER dbo.trg_Choferes_Update_456VG
+                ON dbo.Choferes_456VG
+                AFTER UPDATE
+                AS
+                BEGIN
+                    SET NOCOUNT ON;
+                    DECLARE @accion NVARCHAR(100) = CAST(SESSION_CONTEXT(N''BitacoraAccion'') AS NVARCHAR(100));
+                    DECLARE @fechaSelStr NVARCHAR(50) = CAST(SESSION_CONTEXT(N''BitacoraFechaSel'') AS NVARCHAR(50));
+                    DECLARE @fechaSel DATETIME = TRY_CONVERT(DATETIME, @fechaSelStr, 126);
+                    IF (@accion = N''ActivarDesdeBitacora'' AND @fechaSel IS NOT NULL)
+                    BEGIN
+                        DECLARE @ii TABLE (
+                            dni_chofer_456VG VARCHAR(20) PRIMARY KEY,
+                            disponible_456VG BIT
+                        );
+                        INSERT INTO @ii (dni_chofer_456VG, disponible_456VG)
+                        SELECT DISTINCT i.dni_chofer_456VG, i.disponible_456VG
+                        FROM inserted i;
+                        UPDATE h
+                        SET h.activo_456VG = 0
+                        FROM dbo.Choferes_C_456VG h
+                        INNER JOIN @ii ii ON ii.dni_chofer_456VG = h.dni_chofer_456VG;
+                        UPDATE h
+                        SET h.activo_456VG = 1,
+                            h.disponible_456VG = COALESCE(ii.disponible_456VG, h.disponible_456VG)
+                        FROM dbo.Choferes_C_456VG h
+                        INNER JOIN @ii ii ON ii.dni_chofer_456VG = h.dni_chofer_456VG
+                        WHERE ABS(DATEDIFF(SECOND, h.fecha_456VG, @fechaSel)) <= 1;
+                        RETURN; -- No versionamos (evitamos INSERT en histórico)
+                    END
+                    UPDATE c
+                    SET c.activo_456VG = 0
+                    FROM dbo.Choferes_C_456VG c
+                    INNER JOIN deleted d ON c.dni_chofer_456VG = d.dni_chofer_456VG
+                    WHERE c.activo_456VG = 1;
+                    INSERT INTO dbo.Choferes_C_456VG (
+                        dni_chofer_456VG, nombre_456VG, apellido_456VG, telefono_456VG,
+                        registro_456VG, vencimiento_registro_456VG, fechanacimiento_456VG,
+                        disponible_456VG, activo_456VG, fecha_456VG
+                    )
+                    SELECT 
+                        i.dni_chofer_456VG, i.nombre_456VG, i.apellido_456VG, i.telefono_456VG,
+                        i.registro_456VG, i.vencimiento_registro_456VG, i.fechanacimiento_456VG,
+                        i.disponible_456VG, i.activo_456VG, GETDATE()
+                    FROM inserted i;
+                END
+                ';
+                EXEC sp_executesql @sql;
+                ");
             dbReal.ejecutarQuery456VG(@"
             USE EnviosYA_456VG;
             DECLARE @sql NVARCHAR(MAX);

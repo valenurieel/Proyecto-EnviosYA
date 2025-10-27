@@ -28,6 +28,7 @@
   "BitácoraCambios_456VG.Msg.ErrorLectura": "Ocurrió un error al leer los registros de cambios.",
   "BitácoraCambios_456VG.Msg.SinResultados": "No se encontraron registros para los filtros aplicados.",
   "BitácoraCambios_456VG.Msg.FechaInvalida": "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
+  "BitácoraCambios_456VG.Msg.YaActivo": "El registro seleccionado ya se encuentra ACTIVO. No se puede activar nuevamente.",
   "General.TítuloAviso": "Aviso",
   "General.TítuloInfo": "Información",
   "General.TítuloError": "Error",

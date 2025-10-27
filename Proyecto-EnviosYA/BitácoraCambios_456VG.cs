@@ -109,13 +109,25 @@ namespace Proyecto_EnviosYA
         private void button1_Click(object sender, EventArgs e)
         {
             var lng = Lenguaje_456VG.ObtenerInstancia_456VG();
-
             if (dgvBitacora.SelectedRows.Count == 0)
             {
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("BitácoraCambios_456VG.Msg.Seleccionar"),
                     lng.ObtenerTexto_456VG("General.TítuloAviso"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string activoStr = dgvBitacora.SelectedRows[0].Cells["Activo"].Value?.ToString() ?? "";
+            bool yaActivo = activoStr.Equals("Sí", StringComparison.OrdinalIgnoreCase)
+                            || activoStr.Equals("Si", StringComparison.OrdinalIgnoreCase)
+                            || activoStr.Equals("True", StringComparison.OrdinalIgnoreCase)
+                            || activoStr.Equals("1", StringComparison.OrdinalIgnoreCase);
+            if (yaActivo)
+            {
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("BitácoraCambios_456VG.Msg.YaActivo"),
+                    lng.ObtenerTexto_456VG("General.TítuloAviso"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             string dniSel = dgvBitacora.SelectedRows[0].Cells["DNI"].Value.ToString();

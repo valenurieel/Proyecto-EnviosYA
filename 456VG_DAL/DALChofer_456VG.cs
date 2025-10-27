@@ -3,6 +3,7 @@ using _456VG_Servicios;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace _456VG_DAL
 {
@@ -62,11 +63,14 @@ namespace _456VG_DAL
                 if (!db.Conectar456VG()) throw new Exception("No se pudo conectar.");
                 const string sql =
                     "USE EnviosYA_456VG; " +
-                    "UPDATE Choferes_456VG SET " +
-                    " nombre_456VG=@nom, apellido_456VG=@ape, telefono_456VG=@tel, " +
-                    " registro_456VG=@reg, vencimiento_registro_456VG=@venc, fechanacimiento_456VG=@fnac, " +
-                    " disponible_456VG=@disp " +
-                    "WHERE dni_chofer_456VG=@dni;";
+                    "UPDATE dbo.Choferes_456VG SET " +
+                    "    nombre_456VG = @nom, " +
+                    "    apellido_456VG = @ape, " +
+                    "    telefono_456VG = @tel, " +
+                    "    registro_456VG = @reg, " +
+                    "    vencimiento_registro_456VG = @venc, " +
+                    "    fechanacimiento_456VG = @fnac " +
+                    "WHERE dni_chofer_456VG = @dni;";
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@nom", obj.Nombre456VG);
@@ -75,7 +79,6 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@reg", obj.Registro456VG);
                     cmd.Parameters.AddWithValue("@venc", obj.VencimientoRegistro456VG);
                     cmd.Parameters.AddWithValue("@fnac", obj.FechaNacimiento456VG);
-                    cmd.Parameters.AddWithValue("@disp", obj.Disponible456VG);
                     cmd.Parameters.AddWithValue("@dni", obj.DNIChofer456VG);
                     int rows = cmd.ExecuteNonQuery();
                     r.resultado = rows > 0;
@@ -85,9 +88,13 @@ namespace _456VG_DAL
             }
             catch (Exception ex)
             {
-                r.resultado = false; r.mensaje = ex.Message;
+                r.resultado = false;
+                r.mensaje = ex.Message;
             }
-            finally { db.Desconectar456VG(); }
+            finally
+            {
+                db.Desconectar456VG();
+            }
             return r;
         }
         public Resultado_456VG<BEChofer_456VG> eliminarEntidad456VG(BEChofer_456VG obj)

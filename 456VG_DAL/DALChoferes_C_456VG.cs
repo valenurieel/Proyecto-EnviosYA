@@ -78,73 +78,79 @@ namespace _456VG_DAL
                 if (!db.Conectar456VG()) throw new Exception("No se pudo conectar.");
                 using (var tx = db.Connection.BeginTransaction())
                 {
-                    bool choferEstaActivo = false;
-                    string sqlEstadoChofer = "SELECT activo_456VG FROM Choferes_456VG WHERE dni_chofer_456VG = @dni;";
-                    using (var cmd = new SqlCommand(sqlEstadoChofer, db.Connection, tx))
-                    {
-                        cmd.Parameters.AddWithValue("@dni", dni);
-                        var result = cmd.ExecuteScalar();
-                        if (result != null)
-                            choferEstaActivo = Convert.ToBoolean(result);
-                    }
-                    string sqlInactivar = @"
-                UPDATE Choferes_C_456VG 
-                SET activo_456VG = 0 
-                WHERE dni_chofer_456VG = @dni;";
-                    using (var cmd = new SqlCommand(sqlInactivar, db.Connection, tx))
-                    {
-                        cmd.Parameters.AddWithValue("@dni", dni);
-                        cmd.ExecuteNonQuery();
-                    }
-                    string sqlActivar = @"
-                UPDATE Choferes_C_456VG
-                SET activo_456VG = 1
+                    bool historialYaActivo = false;
+                    using (var cmd = new SqlCommand(@"
+                USE EnviosYA_456VG;
+                SELECT TOP(1) activo_456VG
+                FROM dbo.Choferes_C_456VG WITH (UPDLOCK, HOLDLOCK)
                 WHERE dni_chofer_456VG = @dni
-                  AND DATEDIFF(SECOND, fecha_456VG, @fecha) BETWEEN -1 AND 1;";
-                    using (var cmd = new SqlCommand(sqlActivar, db.Connection, tx))
+                  AND ABS(DATEDIFF(SECOND, fecha_456VG, @fecha)) <= 1;", db.Connection, tx))
                     {
                         cmd.Parameters.AddWithValue("@dni", dni);
                         cmd.Parameters.AddWithValue("@fecha", fechaSeleccionada);
-                        cmd.ExecuteNonQuery();
+                        var o = cmd.ExecuteScalar();
+                        if (o == null)
+                        {
+                            r.resultado = false;
+                            r.mensaje = "No existe la versión histórica seleccionada.";
+                            tx.Rollback();
+                            return r;
+                        }
+                        historialYaActivo = Convert.ToBoolean(o);
                     }
-                    string sqlActualizar = choferEstaActivo
-                        ? @"
-                    UPDATE c SET
-                        c.nombre_456VG = h.nombre_456VG,
-                        c.apellido_456VG = h.apellido_456VG,
-                        c.telefono_456VG = h.telefono_456VG,
-                        c.registro_456VG = h.registro_456VG,
-                        c.vencimiento_registro_456VG = h.vencimiento_registro_456VG,
-                        c.fechanacimiento_456VG = h.fechanacimiento_456VG,
-                        c.disponible_456VG = h.disponible_456VG,
-                        c.activo_456VG = 1
-                    FROM Choferes_456VG c
-                    INNER JOIN Choferes_C_456VG h
-                        ON c.dni_chofer_456VG = h.dni_chofer_456VG
-                    WHERE h.dni_chofer_456VG = @dni AND h.activo_456VG = 1;"
-                        : @"
-                    UPDATE c SET
-                        c.nombre_456VG = h.nombre_456VG,
-                        c.apellido_456VG = h.apellido_456VG,
-                        c.telefono_456VG = h.telefono_456VG,
-                        c.registro_456VG = h.registro_456VG,
-                        c.vencimiento_registro_456VG = h.vencimiento_registro_456VG,
-                        c.fechanacimiento_456VG = h.fechanacimiento_456VG,
-                        c.disponible_456VG = h.disponible_456VG
-                        -- NOTA: No activamos el chofer si estaba dado de baja
-                    FROM Choferes_456VG c
-                    INNER JOIN Choferes_C_456VG h
-                        ON c.dni_chofer_456VG = h.dni_chofer_456VG
-                    WHERE h.dni_chofer_456VG = @dni AND h.activo_456VG = 1;";
-                    using (var cmd = new SqlCommand(sqlActualizar, db.Connection, tx))
+                    if (historialYaActivo)
                     {
-                        cmd.Parameters.AddWithValue("@dni", dni);
-                        cmd.ExecuteNonQuery();
+                        r.resultado = false;
+                        r.mensaje = "YA_ACTIVO";
+                        tx.Rollback();
+                        return r;
+                    }
+                    string fechaIso = fechaSeleccionada.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+                    using (var ctx1 = new SqlCommand(
+                        "EXEC sys.sp_set_session_context @key=N'BitacoraAccion', @value=N'ActivarDesdeBitacora';",
+                        db.Connection, tx)) ctx1.ExecuteNonQuery();
+                    using (var ctx2 = new SqlCommand(
+                        "EXEC sys.sp_set_session_context @key=N'BitacoraFechaSel', @value=@v;",
+                        db.Connection, tx))
+                    {
+                        ctx2.Parameters.AddWithValue("@v", fechaIso);
+                        ctx2.ExecuteNonQuery();
+                    }
+                    int rows;
+                    using (var cmdUpd = new SqlCommand(@"
+                USE EnviosYA_456VG;
+                UPDATE c SET
+                    c.nombre_456VG               = h.nombre_456VG,
+                    c.apellido_456VG             = h.apellido_456VG,
+                    c.telefono_456VG             = h.telefono_456VG,
+                    c.registro_456VG             = h.registro_456VG,
+                    c.vencimiento_registro_456VG = h.vencimiento_registro_456VG,
+                    c.fechanacimiento_456VG      = h.fechanacimiento_456VG,
+                    c.disponible_456VG           = h.disponible_456VG,
+                    c.activo_456VG               = 1
+                FROM dbo.Choferes_456VG c
+                INNER JOIN dbo.Choferes_C_456VG h
+                    ON h.dni_chofer_456VG = c.dni_chofer_456VG
+                WHERE c.dni_chofer_456VG = @dni
+                  AND ABS(DATEDIFF(SECOND, h.fecha_456VG, @fecha)) <= 1;", db.Connection, tx))
+                    {
+                        cmdUpd.Parameters.AddWithValue("@dni", dni);
+                        cmdUpd.Parameters.AddWithValue("@fecha", fechaSeleccionada);
+                        rows = cmdUpd.ExecuteNonQuery();
+                    }
+                    using (var clr1 = new SqlCommand("EXEC sys.sp_set_session_context @key=N'BitacoraAccion', @value=NULL;", db.Connection, tx)) clr1.ExecuteNonQuery();
+                    using (var clr2 = new SqlCommand("EXEC sys.sp_set_session_context @key=N'BitacoraFechaSel', @value=NULL;", db.Connection, tx)) clr2.ExecuteNonQuery();
+                    if (rows == 0)
+                    {
+                        r.resultado = false;
+                        r.mensaje = "No se pudo activar la versión: no coincidió la fecha.";
+                        tx.Rollback();
+                        return r;
                     }
                     tx.Commit();
+                    r.resultado = true;
+                    r.mensaje = "Versión activada sin crear un nuevo registro.";
                 }
-                r.resultado = true;
-                r.mensaje = "Versión restaurada correctamente.";
             }
             catch (Exception ex)
             {
@@ -157,5 +163,6 @@ namespace _456VG_DAL
             }
             return r;
         }
+
     }
 }

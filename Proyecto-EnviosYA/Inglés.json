@@ -28,6 +28,7 @@
   "BitácoraCambios_456VG.Msg.ErrorLectura": "An error occurred while retrieving change records.",
   "BitácoraCambios_456VG.Msg.SinResultados": "No records found for the applied filters.",
   "BitácoraCambios_456VG.Msg.FechaInvalida": "'From' date cannot be later than the 'To' date.",
+  "BitácoraCambios_456VG.Msg.YaActivo": "The selected record is already ACTIVE. It cannot be activated again.",
   "General.TítuloAviso": "Notice",
   "General.TítuloInfo": "Information",
   "General.TítuloError": "Error",
