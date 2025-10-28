@@ -409,19 +409,7 @@ namespace Proyecto_EnviosYA
             }
             var fact = new BEFactura_456VG(envioCargado, datosPagoExistente, DateTime.Now, false);
             var resFact = BLLFac.crearEntidad456VG(fact);
-            if (!resFact.resultado)
-            {
-                MessageBox.Show(
-                    string.Format(
-                        lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.ErrorCrearFactura"),
-                        resFact.mensaje
-                    ),
-                    lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.ErrorTitle"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-                return;
-            }
+            new BLLDigitoVerificador_456VG().ActualizarDV456VG();
             MessageBox.Show(
                 string.Format(
                     lng.ObtenerTexto_456VG("CobrarEnvío_456VG.Msg.CobroExitoso"),

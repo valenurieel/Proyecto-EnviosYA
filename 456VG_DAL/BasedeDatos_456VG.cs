@@ -402,7 +402,7 @@ public class BasedeDatos_456VG
                         FROM dbo.Choferes_C_456VG h
                         INNER JOIN @ii ii ON ii.dni_chofer_456VG = h.dni_chofer_456VG
                         WHERE ABS(DATEDIFF(SECOND, h.fecha_456VG, @fechaSel)) <= 1;
-                        RETURN; -- No versionamos (evitamos INSERT en histórico)
+                        RETURN;
                     END
                     UPDATE c
                     SET c.activo_456VG = 0
@@ -455,6 +455,17 @@ public class BasedeDatos_456VG
                 FROM deleted d;
             END';
             EXEC sp_executesql @sql;
+            ");
+            dbReal.ejecutarQuery456VG(@"
+            IF OBJECT_ID('DigitoVerificador_456VG', 'U') IS NULL
+            BEGIN
+                CREATE TABLE DigitoVerificador_456VG (
+                    IdDigitoVerificador INT IDENTITY(1,1) PRIMARY KEY,
+                    DVH VARCHAR(50) NOT NULL,
+                    DVV VARCHAR(50) NOT NULL
+                );
+                INSERT INTO DigitoVerificador_456VG (DVH, DVV) VALUES ('0', '0');
+            END;
             ");
             dbReal.insertarDatosIniciales456VG();
         }
@@ -858,5 +869,25 @@ public class BasedeDatos_456VG
         INSERT INTO Facturas_456VG (codfactura_456VG, codenvio_456VG, dni_cli_456VG, fechaemision_456VG, horaemision_456VG, impreso_456VG)
         VALUES ('2202MAR100460008', '2202MAR100340327', '20262026', '2025-10-05', '10:04:06', 1);
         ");
+        //Inserta Valores de Digito Verificador de los Datos insertados ya por "Default" (todos los scripts de arriba)
+        dbReal.ejecutarQuery456VG(@"
+USE EnviosYA_456VG;
+
+-- Si la tabla está vacía, insertamos
+IF NOT EXISTS (SELECT 1 FROM DigitoVerificador_456VG)
+BEGIN
+    SET IDENTITY_INSERT DigitoVerificador_456VG ON;
+    INSERT INTO DigitoVerificador_456VG (IdDigitoVerificador, DVH, DVV)
+    VALUES (1, '85967', '85967');
+    SET IDENTITY_INSERT DigitoVerificador_456VG OFF;
+END
+ELSE
+BEGIN
+    -- Si ya existe registro, lo dejamos con los valores iniciales correctos
+    UPDATE DigitoVerificador_456VG
+    SET DVH = '85967', DVV = '85967'
+    WHERE IdDigitoVerificador = 1;
+END
+");
     }
 }

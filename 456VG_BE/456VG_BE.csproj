@@ -94,6 +94,7 @@
     <Compile Include="BECliente_456VG.cs" />
     <Compile Include="BEDatosPago_456VG.cs" />
     <Compile Include="BEDetalleListaCarga_456VG.cs" />
+    <Compile Include="BEDigitoVerificador_456VG.cs" />
     <Compile Include="BEEntregado_456VG.cs" />
     <Compile Include="BEEnvío_456VG.cs" />
     <Compile Include="BEEventoBitacora_456VG.cs" />

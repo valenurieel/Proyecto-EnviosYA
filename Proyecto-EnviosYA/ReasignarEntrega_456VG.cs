@@ -118,6 +118,8 @@ namespace Proyecto_EnviosYA
             bool ok = bllEntrega.RegistrarEntrega456VG(entrega);
             if (ok)
             {
+                BLLDigitoVerificador_456VG bllDV = new BLLDigitoVerificador_456VG();
+                bllDV.ActualizarDV456VG();
                 envioActual.EstadoEnvio456VG = nuevoEstado;
                 envioActual.FechaEntregaProgramada456VG = nuevaFecha ?? default;
                 bllEnvio.actualizarEstadoYFechaEnvio456VG(envioActual.CodEnvio456VG, nuevoEstado, nuevaFecha);

@@ -181,6 +181,7 @@ namespace Proyecto_EnviosYA
                 Resultado_456VG<BECliente_456VG> resultado = BLLCli.crearEntidad456VG(clinew);
                 if (resultado.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ClienteRegistradoOK"),
                         lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
@@ -267,6 +268,7 @@ namespace Proyecto_EnviosYA
                 Resultado_456VG<BECliente_456VG> resultado = BLLCli.actualizarEntidad456VG(cliAActualizar);
                 if (resultado.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ClienteActualizadoOK"),
                         lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Text"),
@@ -310,6 +312,7 @@ namespace Proyecto_EnviosYA
                 var resultado = BLLCli.ActDesacCli456(dniSeleccionado, nuevoEstadoActivo);
                 if (resultado.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(
                         string.Format(
                             lng.ObtenerTexto_456VG("GestiondeClientes_456VG.Msg.ClienteActDesacOK"),

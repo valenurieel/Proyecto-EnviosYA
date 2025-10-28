@@ -96,6 +96,7 @@
     <Compile Include="DALCliente_456VG.cs" />
     <Compile Include="DALDatosPago_456VG.cs" />
     <Compile Include="DALDetalleListaCarga_456VG.cs" />
+    <Compile Include="DALDigitoVerificador_456VG.cs" />
     <Compile Include="DALEntregado_456VG.cs" />
     <Compile Include="DALEnvio_456VG.cs" />
     <Compile Include="DALEventoBitacora_456VG.cs" />

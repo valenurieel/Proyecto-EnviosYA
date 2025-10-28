@@ -187,6 +187,7 @@ namespace Proyecto_EnviosYA
                 var res = BLLTrans.crearEntidad456VG(nuevo);
                 if (res.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(lng.ObtenerTexto_456VG("GestiondeTransportes_456VG.Msg.RegistroOK"),
                         lng.ObtenerTexto_456VG("GestiondeTransportes_456VG.Text"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -221,6 +222,7 @@ namespace Proyecto_EnviosYA
                 var res = BLLTrans.actualizarEntidad456VG(obj);
                 if (res.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(lng.ObtenerTexto_456VG("GestiondeTransportes_456VG.Msg.ModificadoOK"),
                         lng.ObtenerTexto_456VG("GestiondeTransportes_456VG.Text"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     var dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
@@ -251,6 +253,7 @@ namespace Proyecto_EnviosYA
                 var resultado = BLLTrans.ActivarDesactivarEntidad456VG(patSel, nuevoEstado);
                 if (resultado.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("GestiondeTransportes_456VG.Msg.RegistroOK"),
                         lng.ObtenerTexto_456VG("GestiondeTransportes_456VG.Text"),

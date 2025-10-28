@@ -118,14 +118,6 @@ namespace Proyecto_EnviosYA
             CrearEnvío_456VG fr = new CrearEnvío_456VG();
             fr.ShowDialog();
         }
-        private void crearEnvíoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
-            fr.ShowDialog();
-        }
-        private void empleadosToolStripMenuItem456VG_Click(object sender, EventArgs e)
-        {
-        }
         private void clientesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
             GestiondeClientes_456VG fr = new GestiondeClientes_456VG();
@@ -135,9 +127,6 @@ namespace Proyecto_EnviosYA
         {
             CambiarIdioma_456VG fr = new CambiarIdioma_456VG();
             fr.ShowDialog();
-        }
-        private void familiasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
         private void perfilesToolStripMenuItem456VG_Click(object sender, EventArgs e)
         {
@@ -157,59 +146,45 @@ namespace Proyecto_EnviosYA
             CobrarEnvío_456VG fr = new CobrarEnvío_456VG();
             fr.ShowDialog();
         }
-
         private void menuStrip1456VG_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }
-
         private void bitácoraDeEventosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BitácoraEventos_456VG fr = new BitácoraEventos_456VG();
             fr.ShowDialog();
         }
-
         private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BackupRestore_456VG fr = new BackupRestore_456VG();
             fr.ShowDialog();
         }
-
         private void AsignacióndeEnvío_Click(object sender, EventArgs e)
         {
             ListaCarga_456VG fr = new ListaCarga_456VG();
             fr.ShowDialog();
         }
-
-        private void ListaCarga_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void CargaEnvíos_Click(object sender, EventArgs e)
         {
             CargaEnvios_456VG rf = new CargaEnvios_456VG();
             rf.ShowDialog();
         }
-
         private void EntregadeEnvío_Click(object sender, EventArgs e)
         {
             EntregaEnvios_456VG fr = new EntregaEnvios_456VG();
             fr.ShowDialog();
         }
-
         private void GestióndeChoferes_Click(object sender, EventArgs e)
         {
             GestiondeChoferes_456VG fr = new GestiondeChoferes_456VG();
             fr.ShowDialog();
         }
-
         private void GestióndeTransportes_Click(object sender, EventArgs e)
         {
             GestiondeTransporte_456VG fr = new GestiondeTransporte_456VG();
             fr.ShowDialog();
         }
-
         private void bitácoraDeCambiosChoferesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BitácoraCambios_456VG fr = new BitácoraCambios_456VG();

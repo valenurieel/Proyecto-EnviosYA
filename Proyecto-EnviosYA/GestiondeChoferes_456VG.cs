@@ -288,6 +288,7 @@ namespace Proyecto_EnviosYA
                 var res = BLLChof.crearEntidad456VG(nuevo);
                 if (res.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(
                         lng.ObtenerTexto_456VG("GestiondeChoferes_456VG.Msg.ChoferRegistradoOK"),
                         lng.ObtenerTexto_456VG("GestiondeChoferes_456VG.Text"),
@@ -381,6 +382,7 @@ namespace Proyecto_EnviosYA
                 var res = BLLChof.actualizarEntidad456VG(obj);
                 if (res.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(lng.ObtenerTexto_456VG("GestiondeChoferes_456VG.Msg.ChoferActualizadoOK"),
                                     lng.ObtenerTexto_456VG("GestiondeChoferes_456VG.Text"),
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -415,6 +417,7 @@ namespace Proyecto_EnviosYA
                 var res = dal.ActDesacChof456(dniSel, nuevo);
                 if (res.resultado)
                 {
+                    new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                     MessageBox.Show(
                         nuevo
                             ? lng.ObtenerTexto_456VG("GestiondeChoferes_456VG.Msg.ActivadoOK")

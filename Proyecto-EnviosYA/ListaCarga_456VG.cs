@@ -199,6 +199,7 @@ namespace Proyecto_EnviosYA
             _enviosSeleccionados.Add(item);
             item.EstadoEnvio456VG = "En Espera";
             _bllEnv.actualizarEstadoEnvio456VG(item.CodEnvio456VG, "En Espera");
+            new BLLDigitoVerificador_456VG().ActualizarDV456VG();
             MessageBox.Show(Traducir("ListaCarga_456VG.Msg.EnvioAgregado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             RefrescarFiltrosYGrilla456VG();
         }
@@ -277,6 +278,7 @@ namespace Proyecto_EnviosYA
                     accion: "Generar Lista Carga",
                     crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico
                 );
+                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 MessageBox.Show(
                     string.Format(lng.ObtenerTexto_456VG("ListaCarga_456VG.Msg.ListaGenerada"), lista.CodLista456VG),
                     "OK",
@@ -307,6 +309,7 @@ namespace Proyecto_EnviosYA
             {
                 _transporteSel.Disponible456VG = false;
                 _bllTrans.actualizarEntidad456VG(_transporteSel);
+                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 CargarTransporteChofer456VG();
                 btnAsigTrans.Enabled = false;
                 MessageBox.Show(Traducir("ListaCarga_456VG.Msg.TransporteAsignado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -322,6 +325,7 @@ namespace Proyecto_EnviosYA
             {
                 _choferSel.Disponible456VG = false;
                 _bllChof.actualizarEntidad456VG(_choferSel);
+                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 CargarTransporteChofer456VG();
                 btnAsigChof.Enabled = false;
                 MessageBox.Show(Traducir("ListaCarga_456VG.Msg.ChoferAsignado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);

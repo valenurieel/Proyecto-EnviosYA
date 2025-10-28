@@ -163,6 +163,7 @@ namespace Proyecto_EnviosYA
                 archivo.GenerarFacturaDetalladaPDF_456VG(facturaSeleccionada);
                 facturaSeleccionada.Impreso456VG = true;
                 bllFactura.actualizarEntidad456VG(facturaSeleccionada);
+                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.ImpresionExitosa"),
                     lng.ObtenerTexto_456VG("FacturasIMP_456VG.Msg.TituloInfo"),

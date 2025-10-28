@@ -197,6 +197,7 @@ namespace Proyecto_EnviosYA
             detalle.EstadoCargado = "Cargado";
             _bllDet.actualizarEntidad456VG(detalle);
             _bllEnvio.actualizarEstadoEnvio456VG(codEnvio, "En Tránsito");
+            new BLLDigitoVerificador_456VG().ActualizarDV456VG();
             MessageBox.Show(string.Format(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.EnvioMarcado"), codEnvio));
             MostrarDetalles(_listaSeleccionada);
         }
@@ -259,6 +260,7 @@ namespace Proyecto_EnviosYA
                     "Carga de Envío",
                     BEEventoBitacora_456VG.NVCriticidad456VG.Crítico
                 );
+                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 MessageBox.Show(
                     string.Format(lng.ObtenerTexto_456VG("CargaEnvios_456VG.Msg.ListaCerrada"), _listaSeleccionada.CodLista456VG),
                     "Lista Cerrada",

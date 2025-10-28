@@ -210,6 +210,7 @@ namespace Proyecto_EnviosYA
                     MessageBoxIcon.Information
                 );
             }
+            new BLLDigitoVerificador_456VG().ActualizarDV456VG();
             BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
             string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
             blleven.AddBitacora456VG(dni: dniLog, modulo: "Recepción", accion: "Cargar Paquete", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);
@@ -370,6 +371,7 @@ namespace Proyecto_EnviosYA
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+            new BLLDigitoVerificador_456VG().ActualizarDV456VG();
             BLLEventoBitacora_456VG blleven = new BLLEventoBitacora_456VG();
             string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
             blleven.AddBitacora456VG(dni: dniLog, modulo: "Recepción", accion: "Crear Envío", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Peligro);

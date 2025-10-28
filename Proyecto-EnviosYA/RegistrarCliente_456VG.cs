@@ -108,6 +108,8 @@ namespace Proyecto_EnviosYA
             var resp = BLLCliente.crearEntidad456VG(cliente);
             if (resp.resultado)
             {
+                BLLDigitoVerificador_456VG bllDV = new BLLDigitoVerificador_456VG();
+                bllDV.ActualizarDV456VG();
                 MessageBox.Show(
                     lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.RegistroExitoso"),
                     lng.ObtenerTexto_456VG("RegistrarCliente_456VG.Msg.RegistroExitosoTitle"),
