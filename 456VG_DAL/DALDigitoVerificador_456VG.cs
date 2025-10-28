@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,41 @@ namespace _456VG_DAL
             da.Fill(dt);
             return dt;
         }
+        //Método Extra - Hace suma Hexadecimal
+        private static long SumarHexDeString(string valor)
+        {
+            if (string.IsNullOrEmpty(valor))
+                return 0;
+            valor = valor.Trim();
+            byte[] bytes = Encoding.UTF8.GetBytes(valor);
+            long suma = 0;
+            foreach (byte b in bytes)
+            {
+                string hex = b.ToString("X2");
+                suma += Convert.ToInt32(hex, 16);
+            }
+            return suma;
+        }
+        //Método Extra - Convierte distintas variables a un fin "Normal"
+        private static string AStringNormalizado(object valor)
+        {
+            if (valor == null || valor == DBNull.Value) return string.Empty;
+            switch (valor)
+            {
+                case DateTime dt:
+                    return dt.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+                case decimal d:
+                    return d.ToString(CultureInfo.InvariantCulture);
+                case double db:
+                    return db.ToString(CultureInfo.InvariantCulture);
+                case float f:
+                    return f.ToString(CultureInfo.InvariantCulture);
+                case IFormattable formattable:
+                    return formattable.ToString(null, CultureInfo.InvariantCulture);
+                default:
+                    return valor.ToString();
+            }
+        }
         private long CalcularDVH(DataTable table)
         {
             long total = 0;
@@ -59,9 +95,8 @@ namespace _456VG_DAL
                 long sumaFila = 0;
                 foreach (DataColumn col in table.Columns)
                 {
-                    string valor = row[col] == DBNull.Value ? "" : row[col].ToString();
-                    foreach (char c in valor)
-                        sumaFila += c;
+                    string valorStr = AStringNormalizado(row[col]);
+                    sumaFila += SumarHexDeString(valorStr);
                 }
                 total += sumaFila;
             }
@@ -75,9 +110,8 @@ namespace _456VG_DAL
                 long sumaCol = 0;
                 foreach (DataRow row in table.Rows)
                 {
-                    string valor = row[col] == DBNull.Value ? "" : row[col].ToString();
-                    foreach (char c in valor)
-                        sumaCol += c;
+                    string valorStr = AStringNormalizado(row[col]);
+                    sumaCol += SumarHexDeString(valorStr);
                 }
                 total += sumaCol;
             }

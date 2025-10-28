@@ -871,23 +871,20 @@ public class BasedeDatos_456VG
         ");
         //Inserta Valores de Digito Verificador de los Datos insertados ya por "Default" (todos los scripts de arriba)
         dbReal.ejecutarQuery456VG(@"
-USE EnviosYA_456VG;
-
--- Si la tabla está vacía, insertamos
-IF NOT EXISTS (SELECT 1 FROM DigitoVerificador_456VG)
-BEGIN
-    SET IDENTITY_INSERT DigitoVerificador_456VG ON;
-    INSERT INTO DigitoVerificador_456VG (IdDigitoVerificador, DVH, DVV)
-    VALUES (1, '85967', '85967');
-    SET IDENTITY_INSERT DigitoVerificador_456VG OFF;
-END
-ELSE
-BEGIN
-    -- Si ya existe registro, lo dejamos con los valores iniciales correctos
-    UPDATE DigitoVerificador_456VG
-    SET DVH = '85967', DVV = '85967'
-    WHERE IdDigitoVerificador = 1;
-END
-");
+        USE EnviosYA_456VG;
+        IF NOT EXISTS (SELECT 1 FROM DigitoVerificador_456VG)
+        BEGIN
+            SET IDENTITY_INSERT DigitoVerificador_456VG ON;
+            INSERT INTO DigitoVerificador_456VG (IdDigitoVerificador, DVH, DVV)
+            VALUES (1, '88685', '88685');
+            SET IDENTITY_INSERT DigitoVerificador_456VG OFF;
+        END
+        ELSE
+        BEGIN
+            UPDATE DigitoVerificador_456VG
+            SET DVH = '88685', DVV = '88685'
+            WHERE IdDigitoVerificador = 1;
+        END
+        ");
     }
 }
