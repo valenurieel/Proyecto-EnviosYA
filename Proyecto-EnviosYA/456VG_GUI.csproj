@@ -147,6 +147,12 @@
     <Compile Include="CrearEnvío_456VG.Designer.cs">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
     </Compile>
+    <Compile Include="DigitoVerificador_456VG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DigitoVerificador_456VG.Designer.cs">
+      <DependentUpon>DigitoVerificador_456VG.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntregaEnvios_456VG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearEnvío_456VG.resx">
       <DependentUpon>CrearEnvío_456VG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DigitoVerificador_456VG.resx">
+      <DependentUpon>DigitoVerificador_456VG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntregaEnvios_456VG.resx">
       <DependentUpon>EntregaEnvios_456VG.cs</DependentUpon>

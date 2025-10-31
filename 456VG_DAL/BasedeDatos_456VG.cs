@@ -457,14 +457,15 @@ public class BasedeDatos_456VG
             EXEC sp_executesql @sql;
             ");
             dbReal.ejecutarQuery456VG(@"
-            IF OBJECT_ID('DigitoVerificador_456VG', 'U') IS NULL
+            USE EnviosYA_456VG;
+            IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DigitoVerificador_456VG' AND xtype='U')
             BEGIN
                 CREATE TABLE DigitoVerificador_456VG (
                     IdDigitoVerificador INT IDENTITY(1,1) PRIMARY KEY,
+                    NombreTabla_456VG VARCHAR(100) NOT NULL,
                     DVH VARCHAR(50) NOT NULL,
                     DVV VARCHAR(50) NOT NULL
                 );
-                INSERT INTO DigitoVerificador_456VG (DVH, DVV) VALUES ('0', '0');
             END;
             ");
             dbReal.insertarDatosIniciales456VG();
@@ -874,17 +875,20 @@ public class BasedeDatos_456VG
         USE EnviosYA_456VG;
         IF NOT EXISTS (SELECT 1 FROM DigitoVerificador_456VG)
         BEGIN
-            SET IDENTITY_INSERT DigitoVerificador_456VG ON;
-            INSERT INTO DigitoVerificador_456VG (IdDigitoVerificador, DVH, DVV)
-            VALUES (1, '88685', '88685');
-            SET IDENTITY_INSERT DigitoVerificador_456VG OFF;
-        END
-        ELSE
-        BEGIN
-            UPDATE DigitoVerificador_456VG
-            SET DVH = '88685', DVV = '88685'
-            WHERE IdDigitoVerificador = 1;
-        END
+            INSERT INTO DigitoVerificador_456VG (NombreTabla_456VG, DVH, DVV)
+            VALUES 
+            ('Clientes_456VG', '15551', '15551'),
+            ('Paquetes_456VG', '4216', '4216'),
+            ('Envios_456VG', '11186', '11186'),
+            ('EnviosPaquetes_456VG', '3416', '3416'),
+            ('Facturas_456VG', '3959', '3959'),
+            ('DatosPago_456VG', '4826', '4826'),
+            ('Transportes_456VG', '16555', '16555'),
+            ('Choferes_456VG', '28976', '28976'),
+            ('ListaCarga_456VG', '0', '0'),
+            ('DetalleListaCarga_456VG', '0', '0'),
+            ('Entregado_456VG', '0', '0');
+        END;
         ");
     }
 }

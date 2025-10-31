@@ -142,18 +142,56 @@ namespace Proyecto_EnviosYA
                 this.Close();
                 return;
             }
-            MessageBox.Show(
-                lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.SesionIniciada"),
-                lng.ObtenerTexto_456VG("IniciarSesion_456VG.Text"),
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-            SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioConPermisos);
-            intentosFallidosPorUsuario.Clear();
-            LoginExitoso?.Invoke(this, EventArgs.Empty);
-            string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
-            blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Iniciar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
-            this.Hide();
+            BLLDigitoVerificador_456VG bllDV = new BLLDigitoVerificador_456VG();
+            var inconsistencias = bllDV.DetectarInconsistencias456VG();
+            if (inconsistencias.Count == 0)
+            {
+                SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioConPermisos);
+                intentosFallidosPorUsuario.Clear();
+                LoginExitoso?.Invoke(this, EventArgs.Empty);
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Iniciar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
+                this.Hide();
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.SesionIniciada"),
+                    lng.ObtenerTexto_456VG("IniciarSesion_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+            else
+            {
+                var rolUsuario = usuarioConPermisos.Rol456VG?.Nombre456VG?.ToUpperInvariant() ?? string.Empty;
+                if (rolUsuario != "ADMINISTRADOR")
+                {
+                    MessageBox.Show(
+                        lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.SistemaFueraDeServicio"),
+                        lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.TituloSistemaFueraDeServicio"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    SessionManager_456VG.ObtenerInstancia456VG().CerrarSesion456VG();
+                    Application.Exit();
+                }
+                else
+                {
+                    var frmDV = new DigitoVerificador_456VG();
+                    frmDV.StartPosition = FormStartPosition.CenterScreen;
+                    frmDV.ShowDialog();
+                }
+                MessageBox.Show(
+                    lng.ObtenerTexto_456VG("IniciarSesion_456VG.Msg.SesionIniciada"),
+                    lng.ObtenerTexto_456VG("IniciarSesion_456VG.Text"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                SessionManager_456VG.ObtenerInstancia456VG().IniciarSesion456VG(usuarioConPermisos);
+                intentosFallidosPorUsuario.Clear();
+                LoginExitoso?.Invoke(this, EventArgs.Empty);
+                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                blleven.AddBitacora456VG(dni: dniLog, modulo: "Usuario", accion: "Iniciar Sesión", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
+                this.Hide();
+            }
         }
         private void checkVer_CheckedChanged(object sender, EventArgs e)
         {

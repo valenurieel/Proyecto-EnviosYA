@@ -22,6 +22,8 @@ namespace Proyecto_EnviosYA
             InitializeComponent();
             BasedeDatos_456VG bd = new BasedeDatos_456VG();
             bd.scriptInicio456VG();
+            //BLLDigitoVerificador_456VG blld = new BLLDigitoVerificador_456VG();
+            //blld.ActualizarDV456VG();
             deshabilitados();
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
             Lenguaje_456VG.ObtenerInstancia_456VG().IdiomaActual_456VG = "ES";

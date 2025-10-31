@@ -1,4 +1,20 @@
 {
+  "DigitoVerificador_456VG.Text": "Dígito Verificador",
+  "DigitoVerificador_456VG.btnrecalcular": "Recalcular Dígito Verificador",
+  "DigitoVerificador_456VG.btnrestaurar": "Restaurar Base de Datos",
+  "DigitoVerificador_456VG.button2": "Salir",
+  "DigitoVerificador_456VG.label1": "¡ALERTA!",
+  "DigitoVerificador_456VG.label5": "Se ha detectado una inconsistencia",
+  "DigitoVerificador_456VG.labelALGO": "Tabla/s Afectada/s:",
+  "DigitoVerificador_456VG.Msg.Recalculado": "El dígito verificador fue recalculado correctamente.",
+  "DigitoVerificador_456VG.Msg.AccesoRestaurar": "Solo puede realizar la restauración de la base de datos.",
+
+  "IniciarSesion_456VG.Msg.SistemaFueraDeServicio": "El sistema no se encuentra disponible en estos momentos.\nPor favor, comuníquese con un Administrador.",
+  "IniciarSesion_456VG.Msg.TituloSistemaFueraDeServicio": "Sistema fuera de servicio",
+
+  "BackupRestore_456VG.Msg.SalirPorInconsistencia": "¿Desea salir del sistema? El mismo se cerrará para evitar inconsistencias.",
+  "BackupRestore_456VG.Msg.TituloSalirPorInconsistencia": "Confirmar salida",
+
   "BitácoraCambios_456VG.Text": "Bitácora de Cambios",
   "BitácoraCambios_456VG.labeldni": "DNI:",
   "BitácoraCambios_456VG.label2": "Nombre:",

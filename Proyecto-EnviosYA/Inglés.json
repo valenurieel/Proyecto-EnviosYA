@@ -1,4 +1,20 @@
 {
+  "DigitoVerificador_456VG.Text": "Check Digit",
+  "DigitoVerificador_456VG.btnrecalcular": "Recalculate Check Digit",
+  "DigitoVerificador_456VG.btnrestaurar": "Restore Database",
+  "DigitoVerificador_456VG.button2": "Exit",
+  "DigitoVerificador_456VG.label1": "ALERT!",
+  "DigitoVerificador_456VG.label5": "An inconsistency has been detected",
+  "DigitoVerificador_456VG.labelALGO": "Affected Table(s):",
+  "DigitoVerificador_456VG.Msg.Recalculado": "The check digit was successfully recalculated.",
+  "DigitoVerificador_456VG.Msg.AccesoRestaurar": "You can only perform the database restoration.",
+
+  "IniciarSesion_456VG.Msg.SistemaFueraDeServicio": "The system is currently unavailable.\nPlease contact an Administrator.",
+  "IniciarSesion_456VG.Msg.TituloSistemaFueraDeServicio": "System unavailable",
+
+  "BackupRestore_456VG.Msg.SalirPorInconsistencia": "Do you want to exit the system? It will close to prevent inconsistencies.",
+  "BackupRestore_456VG.Msg.TituloSalirPorInconsistencia": "Confirm exit",
+
   "BitácoraCambios_456VG.Text": "Change Log",
   "BitácoraCambios_456VG.labeldni": "ID:",
   "BitácoraCambios_456VG.label2": "Name:",

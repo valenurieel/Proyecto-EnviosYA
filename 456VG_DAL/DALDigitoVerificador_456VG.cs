@@ -17,32 +17,42 @@ namespace _456VG_DAL
         {
             db = new BasedeDatos_456VG();
         }
-        public (string DVH, string DVV) CalcularDVGeneral456VG()
+        public List<(string Tabla, long DVH, long DVV)> CalcularDVGeneral456VG()
         {
             string[] tablasNegocio = {
-                "Clientes_456VG",
-                "Paquetes_456VG",
-                "Envios_456VG",
-                "EnviosPaquetes_456VG",
-                "Facturas_456VG",
-                "DatosPago_456VG",
-                "Transportes_456VG",
-                "Choferes_456VG",
-                "ListaCarga_456VG",
-                "DetalleListaCarga_456VG",
-                "Entregado_456VG"
-            };
-            long totalDVH = 0;
-            long totalDVV = 0;
+        "Clientes_456VG", "Paquetes_456VG", "Envios_456VG", "EnviosPaquetes_456VG",
+        "Facturas_456VG", "DatosPago_456VG", "Transportes_456VG", "Choferes_456VG",
+        "ListaCarga_456VG", "DetalleListaCarga_456VG", "Entregado_456VG"
+    };
+            var resultados = new List<(string Tabla, long DVH, long DVV)>();
             db.Conectar456VG();
             foreach (var tabla in tablasNegocio)
             {
                 DataTable dt = ObtenerTabla(tabla);
-                totalDVH += CalcularDVH(dt);
-                totalDVV += CalcularDVV(dt);
+                long dvh = CalcularDVH(dt);
+                long dvv = CalcularDVV(dt);
+                resultados.Add((tabla, dvh, dvv));
             }
             db.Desconectar456VG();
-            return (totalDVH.ToString(), totalDVV.ToString());
+            return resultados;
+        }
+        public List<(string Tabla, long DVH, long DVV)> LeerDVsGuardados()
+        {
+            List<(string Tabla, long DVH, long DVV)> registros = new List<(string, long, long)>();
+            db.Conectar456VG();
+            string query = "SELECT NombreTabla_456VG, DVH, DVV FROM DigitoVerificador_456VG";
+            SqlCommand cmd = new SqlCommand(query, db.Connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                registros.Add((
+                    reader["NombreTabla_456VG"].ToString(),
+                    Convert.ToInt64(reader["DVH"]),
+                    Convert.ToInt64(reader["DVV"])
+                ));
+            }
+            db.Desconectar456VG();
+            return registros;
         }
         private DataTable ObtenerTabla(string nombreTabla)
         {
@@ -119,13 +129,37 @@ namespace _456VG_DAL
         }
         public void ActualizarDV456VG()
         {
-            var dv = CalcularDVGeneral456VG();
+            string[] tablasNegocio = {
+                "Clientes_456VG",
+                "Paquetes_456VG",
+                "Envios_456VG",
+                "EnviosPaquetes_456VG",
+                "Facturas_456VG",
+                "DatosPago_456VG",
+                "Transportes_456VG",
+                "Choferes_456VG",
+                "ListaCarga_456VG",
+                "DetalleListaCarga_456VG",
+                "Entregado_456VG"
+            };
             db.Conectar456VG();
-            string query = "UPDATE DigitoVerificador_456VG SET DVH = @dvh, DVV = @dvv WHERE IdDigitoVerificador = 1";
-            SqlCommand cmd = new SqlCommand(query, db.Connection);
-            cmd.Parameters.AddWithValue("@dvh", dv.DVH);
-            cmd.Parameters.AddWithValue("@dvv", dv.DVV);
-            cmd.ExecuteNonQuery();
+            string limpiar = "DELETE FROM DigitoVerificador_456VG";
+            SqlCommand cmdLimpiar = new SqlCommand(limpiar, db.Connection);
+            cmdLimpiar.ExecuteNonQuery();
+            foreach (var tabla in tablasNegocio)
+            {
+                DataTable dt = ObtenerTabla(tabla);
+                long dvh = CalcularDVH(dt);
+                long dvv = CalcularDVV(dt);
+                string insertar = @"
+            INSERT INTO DigitoVerificador_456VG (NombreTabla_456VG, DVH, DVV)
+            VALUES (@tabla, @dvh, @dvv)";
+                SqlCommand cmdInsertar = new SqlCommand(insertar, db.Connection);
+                cmdInsertar.Parameters.AddWithValue("@tabla", tabla);
+                cmdInsertar.Parameters.AddWithValue("@dvh", dvh.ToString());
+                cmdInsertar.Parameters.AddWithValue("@dvv", dvv.ToString());
+                cmdInsertar.ExecuteNonQuery();
+            }
             db.Desconectar456VG();
         }
         public BEDigitoVerificador_456VG LeerDV456VG()
@@ -139,6 +173,7 @@ namespace _456VG_DAL
             {
                 dv = new BEDigitoVerificador_456VG(
                     Convert.ToInt32(reader["IdDigitoVerificador"]),
+                    reader["NombreTabla_456VG"].ToString(),
                     reader["DVV"].ToString(),
                     reader["DVH"].ToString()
                 );

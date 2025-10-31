@@ -18,16 +18,37 @@ namespace Proyecto_EnviosYA
     public partial class BackupRestore_456VG : Form, IObserver_456VG
     {
         private const string BACKUP_DIR_NAME = "BackupsSQL";
-        BLLBackupRestore_456VG bll = new BLLBackupRestore_456VG();
+        private readonly BLLBackupRestore_456VG bll = new BLLBackupRestore_456VG();
+        private readonly bool soloRestore;
+        private readonly bool desdeInconsistencia;
+        private bool cierreSeguro = false;
         private string T(string key) => Lenguaje_456VG.ObtenerInstancia_456VG().ObtenerTexto_456VG(key);
-        public BackupRestore_456VG()
+        public BackupRestore_456VG(bool soloRestore = false, bool desdeInconsistencia =false)
         {
             InitializeComponent();
+            this.soloRestore = soloRestore;
+            this.desdeInconsistencia = desdeInconsistencia;
             Lenguaje_456VG.ObtenerInstancia_456VG().Agregar_456VG(this);
         }
         private void button8456VG_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (desdeInconsistencia)
+            {
+                DialogResult result = MessageBox.Show(
+                    T("BackupRestore_456VG.Msg.SalirPorInconsistencia"),
+                    T("BackupRestore_456VG.Msg.TituloSalirPorInconsistencia"),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+                if (result == DialogResult.Yes)
+                {
+                    Application.ExitThread();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
         }
         private string BackupDirectorio456VG()
         {
@@ -36,6 +57,7 @@ namespace Proyecto_EnviosYA
         }
         private void iconBack_Click(object sender, EventArgs e)
         {
+            if (soloRestore) return;
             string defaultDir = BackupDirectorio456VG();
             string startDir = Directory.Exists(txtBack.Text) ? txtBack.Text : defaultDir;
             using (var fbd = new FolderBrowserDialog
@@ -65,6 +87,7 @@ namespace Proyecto_EnviosYA
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
+            if (soloRestore) return;
             if (string.IsNullOrWhiteSpace(txtBack.Text) || !Directory.Exists(txtBack.Text))
             {
                 MessageBox.Show(
@@ -125,9 +148,15 @@ namespace Proyecto_EnviosYA
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
-                var blleven = new BLLEventoBitacora_456VG();
-                string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
-                blleven.AddBitacora456VG(dni: dniLog, modulo: "Administrador", accion: "Restaurar", crit: BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
+                if (!desdeInconsistencia)
+                {
+                    var blleven = new BLLEventoBitacora_456VG();
+                    string dniLog = SessionManager_456VG.ObtenerInstancia456VG().Usuario.DNI456VG;
+                    blleven.AddBitacora456VG(dniLog, "Administrador", "Restaurar",
+                        BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
+                }
+                cierreSeguro = true;
+                Application.Restart();
             }
             catch (Exception ex)
             {
@@ -139,6 +168,28 @@ namespace Proyecto_EnviosYA
                 );
             }
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (cierreSeguro)
+            {
+                base.OnFormClosing(e);
+                return;
+            }
+            if (desdeInconsistencia)
+            {
+                var msg = T("BackupRestore_456VG.Msg.SalirPorInconsistencia");
+                var titulo = T("BackupRestore_456VG.Msg.TituloSalirPorInconsistencia");
+                var result = MessageBox.Show(msg, titulo, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                Application.Exit();
+                return;
+            }
+            base.OnFormClosing(e);
+        }
         public void ActualizarIdioma_456VG()
         {
             Lenguaje_456VG.ObtenerInstancia_456VG().CambiarIdiomaControles_456VG(this);
@@ -148,6 +199,12 @@ namespace Proyecto_EnviosYA
             ActualizarIdioma_456VG();
             txtBack.Text = BackupDirectorio456VG();
             txtBack.ReadOnly = true;
+            if (soloRestore)
+            {
+                txtBack.Enabled = false;
+                btnBack.Enabled = false;
+                iconBack.Enabled = false;
+            }
         }
     }
 }

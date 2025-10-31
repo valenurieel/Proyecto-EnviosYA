@@ -19,13 +19,26 @@ namespace _456VG_BLL
         {
             dal.ActualizarDV456VG();
         }
-        public BEDigitoVerificador_456VG LeerDV456VG()
+        // Tablas con inconsistencias
+        public List<string> DetectarInconsistencias456VG()
         {
-            return dal.LeerDV456VG();
-        }
-        public (string DVH, string DVV) CalcularDV456VG()
-        {
-            return dal.CalcularDVGeneral456VG();
+            var calculados = dal.CalcularDVGeneral456VG();
+            var guardados = dal.LeerDVsGuardados();
+            List<string> inconsistencias = new List<string>();
+            foreach (var c in calculados)
+            {
+                var g = guardados.FirstOrDefault(x => x.Tabla == c.Tabla);
+                if (g.Tabla == null)
+                {
+                    inconsistencias.Add($"{c.Tabla}");
+                    continue;
+                }
+                if (c.DVH != g.DVH || c.DVV != g.DVV)
+                {
+                    inconsistencias.Add($"{c.Tabla}");
+                }
+            }
+            return inconsistencias;
         }
     }
 }
