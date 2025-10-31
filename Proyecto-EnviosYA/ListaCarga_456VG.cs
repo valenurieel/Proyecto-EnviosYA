@@ -326,7 +326,11 @@ namespace Proyecto_EnviosYA
                 _choferSel.Disponible456VG = false;
                 _bllChof.actualizarEntidad456VG(_choferSel);
                 new BLLDigitoVerificador_456VG().ActualizarDV456VG();
+                dataChof.DataSource = null;
                 CargarTransporteChofer456VG();
+                dataChof.Refresh();
+                dataChof.ClearSelection();
+
                 btnAsigChof.Enabled = false;
                 MessageBox.Show(Traducir("ListaCarga_456VG.Msg.ChoferAsignado"), "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

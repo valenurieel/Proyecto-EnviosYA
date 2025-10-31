@@ -207,12 +207,15 @@ namespace Proyecto_EnviosYA
         }
         private void LimpiarFormularioPostCierre456VG()
         {
+            cmbListas.SelectedIndexChanged -= cmbListas_SelectedIndexChanged;
             CargarCombosListasAbiertas();
+            cmbListas.SelectedIndex = -1;
+            cmbListas.Text = string.Empty;
             _listaSeleccionada = null;
             _detalles.Clear();
-            cmbListas.SelectedIndex = -1;
             dataGridLista.DataSource = null;
             dataGridDetalles.DataSource = null;
+            cmbListas.SelectedIndexChanged += cmbListas_SelectedIndexChanged;
             ActualizarIdioma_456VG();
         }
         private void button2_Click(object sender, EventArgs e)

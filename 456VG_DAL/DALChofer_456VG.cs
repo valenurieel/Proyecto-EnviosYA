@@ -69,8 +69,10 @@ namespace _456VG_DAL
                     "    telefono_456VG = @tel, " +
                     "    registro_456VG = @reg, " +
                     "    vencimiento_registro_456VG = @venc, " +
-                    "    fechanacimiento_456VG = @fnac " +
+                    "    fechanacimiento_456VG = @fnac, " +
+                    "    disponible_456VG = @disp " +
                     "WHERE dni_chofer_456VG = @dni;";
+
                 using (var cmd = new SqlCommand(sql, db.Connection))
                 {
                     cmd.Parameters.AddWithValue("@nom", obj.Nombre456VG);
@@ -79,7 +81,9 @@ namespace _456VG_DAL
                     cmd.Parameters.AddWithValue("@reg", obj.Registro456VG);
                     cmd.Parameters.AddWithValue("@venc", obj.VencimientoRegistro456VG);
                     cmd.Parameters.AddWithValue("@fnac", obj.FechaNacimiento456VG);
+                    cmd.Parameters.AddWithValue("@disp", obj.Disponible456VG);
                     cmd.Parameters.AddWithValue("@dni", obj.DNIChofer456VG);
+
                     int rows = cmd.ExecuteNonQuery();
                     r.resultado = rows > 0;
                     r.mensaje = rows > 0 ? "Chofer actualizado." : "No se encontró el chofer.";
