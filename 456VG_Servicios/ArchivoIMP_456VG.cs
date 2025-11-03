@@ -21,16 +21,14 @@ namespace _456VG_Servicios
         private string ultimaRutaGenerada_456VG;
         public ArchivoIMP_456VG()
         {
-            DestinoFactura_456VG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FacturasPDFs");
-            if (!Directory.Exists(DestinoFactura_456VG))
-            {
-                Directory.CreateDirectory(DestinoFactura_456VG);
-            }
-            DestinoBitacora_456VG = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BitacoraPDFs");
-            if (!Directory.Exists(DestinoBitacora_456VG))
-            {
-                Directory.CreateDirectory(DestinoBitacora_456VG);
-            }
+            string basePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "EnviosYA"
+            );
+            DestinoFactura_456VG = Path.Combine(basePath, "FacturasPDFs");
+            DestinoBitacora_456VG = Path.Combine(basePath, "BitacoraPDFs");
+            Directory.CreateDirectory(DestinoFactura_456VG);
+            Directory.CreateDirectory(DestinoBitacora_456VG);
         }
         //Factura
         public void GenerarFacturaDetalladaPDF_456VG(BEFactura_456VG factura)

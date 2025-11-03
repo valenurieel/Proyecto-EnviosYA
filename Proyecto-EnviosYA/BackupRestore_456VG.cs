@@ -50,9 +50,19 @@ namespace Proyecto_EnviosYA
                 this.Close();
             }
         }
+        private string GetSafeBaseDirectory()
+        {
+            string baseDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "EnviosYA"
+            );
+            if (!Directory.Exists(baseDir))
+                Directory.CreateDirectory(baseDir);
+            return baseDir;
+        }
         private string BackupDirectorio456VG()
         {
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string baseDir = GetSafeBaseDirectory();
             return bll.DirectorioBackup456VG(baseDir, BACKUP_DIR_NAME);
         }
         private void iconBack_Click(object sender, EventArgs e)
