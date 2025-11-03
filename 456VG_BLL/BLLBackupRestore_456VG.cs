@@ -17,9 +17,12 @@ namespace _456VG_BLL
         }
         public string DirectorioBackup456VG(string baseDirectory, string folderName)
         {
-            string dir = Path.Combine(baseDirectory, folderName);
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            return dir;
+            string baseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "EnviosYA_Backups");
+            if (!Directory.Exists(baseDir))
+            {
+                Directory.CreateDirectory(baseDir);
+            }
+            return baseDir;
         }
         public string NombreBackup456VG(string prefix = "Backup_EnviosYA")
         {
