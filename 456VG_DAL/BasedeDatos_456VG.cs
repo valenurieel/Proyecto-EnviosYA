@@ -868,7 +868,7 @@ public class BasedeDatos_456VG
         dbReal.ejecutarQuery456VG(@"
         IF NOT EXISTS (SELECT 1 FROM Facturas_456VG WHERE codfactura_456VG = '2202MAR100460008')
         INSERT INTO Facturas_456VG (codfactura_456VG, codenvio_456VG, dni_cli_456VG, fechaemision_456VG, horaemision_456VG, impreso_456VG)
-        VALUES ('2202MAR100460008', '2202MAR100340327', '20262026', '2025-10-05', '10:04:06', 1);
+        VALUES ('2202MAR100460008', '2202MAR100340327', '20262026', '2025-10-05', '10:04:06', 0);
         ");
         //Inserta Valores de Digito Verificador de los Datos insertados ya por "Default" (todos los scripts de arriba)
         dbReal.ejecutarQuery456VG(@"
@@ -881,7 +881,7 @@ public class BasedeDatos_456VG
             ('Paquetes_456VG', '4216', '4216'),
             ('Envios_456VG', '11186', '11186'),
             ('EnviosPaquetes_456VG', '3416', '3416'),
-            ('Facturas_456VG', '3959', '3959'),
+            ('Facturas_456VG', '4034', '4034'),
             ('DatosPago_456VG', '4826', '4826'),
             ('Transportes_456VG', '16555', '16555'),
             ('Choferes_456VG', '28976', '28976'),

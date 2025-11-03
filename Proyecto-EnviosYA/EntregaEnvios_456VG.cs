@@ -229,9 +229,9 @@ namespace Proyecto_EnviosYA
             if (ok)
             {
                 bllEnvio.actualizarEstadoEnvio456VG(envioActual.CodEnvio456VG, "Entregado");
-                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 bllBitacora.AddBitacora456VG(usuario.DNI456VG, "Envíos", "Entrega de Envío", BEEventoBitacora_456VG.NVCriticidad456VG.Crítico);
                 bool liberado = bllLista.VerificarYLiberarRecursosPorEntrega456VG(envioActual.CodEnvio456VG);
+                new BLLDigitoVerificador_456VG().ActualizarDV456VG();
                 MessageBox.Show(lng.ObtenerTexto_456VG("EntregaEnvios_456VG.Msg.EntregaExitosa"));
                 limpiar();
             }
