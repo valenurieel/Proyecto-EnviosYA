@@ -1,11 +1,12 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using System;
+using System.Configuration;
 
 public class BasedeDatos_456VG
 {
-    public static string dataSource = "DESKTOP-Q714KGU\\SQLEXPRESS";
-    public static string dbName = "EnviosYA_456VG";
+    private static readonly string dataSource = ConfigurationManager.AppSettings["ServidorSQL"];
+    private static readonly string dbName = ConfigurationManager.AppSettings["NombreBD"];
     public static string conexionMaster =
         $"Data Source={dataSource};" +
         "Initial Catalog=master;" +
