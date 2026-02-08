@@ -192,5 +192,11 @@ namespace Proyecto_EnviosYA
             BitácoraCambios_456VG fr = new BitácoraCambios_456VG();
             fr.ShowDialog();
         }
+
+        private void ReporteInteligente_Click(object sender, EventArgs e)
+        {
+            ReporteInteligente_456VG fr = new ReporteInteligente_456VG();
+            fr.ShowDialog();
+        }
     }
 }

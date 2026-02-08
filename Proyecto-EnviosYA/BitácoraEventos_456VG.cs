@@ -424,14 +424,12 @@ namespace Proyecto_EnviosYA
                     string h = dtpHasta.Checked ? dtpHasta.Value.ToString("dd/MM/yyyy") : "__/__/____";
                     filtroFecha = $"[{d} - {h}]";
                 }
-                string filtros = $"Login={filtroLogin}  Módulo={filtroModulo}  Acción={filtroAccion}  Criticidad={filtroCrit}  Rango={filtroFecha}".Trim();
+                string filtros = $"Filtros: Login={filtroLogin} | Mod={filtroModulo} | Acc={filtroAccion} | Crit={filtroCrit} | Rango={filtroFecha}";
                 var mapa = blluser.leerEntidades456VG().ToDictionary(u => u.DNI456VG, u => u.NombreUsuario456VG);
                 string ruta = archivoIMP.GenerarBitacoraPDF_456VG(
                     eventos,
                     dniToLogin: d => mapa.TryGetValue(d, out var nom) ? nom : d,
-                    tradModulo: TradModulo456VG,
-                    tradAccion: TradAccion456VG,
-                    titulo: "BITÁCORA DE EVENTOS",
+                    titulo: T("BitácoraEventos_456VG.Text").ToUpper(),
                     filtrosAplicados: filtros
                 );
                 MessageBox.Show(

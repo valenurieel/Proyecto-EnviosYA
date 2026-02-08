@@ -649,7 +649,8 @@ public class BasedeDatos_456VG
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'ListaCarga') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('ListaCarga', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'CargaEnvíos') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('CargaEnvíos', 0); " +
         "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'EntregadeEnvío') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('EntregadeEnvío', 0); " +
-        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraCambiosChoferes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraCambiosChoferes', 0);"
+        "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'BitacoraCambiosChoferes') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('BitacoraCambiosChoferes', 0); " +
+                "IF NOT EXISTS (SELECT 1 FROM Permiso_456VG WHERE Nombre_456VG = 'ReporteInteligente') INSERT INTO Permiso_456VG (Nombre_456VG, IsFamilia_456VG) VALUES ('ReporteInteligente', 0);"
         );
         dbReal.ejecutarQuery456VG(
             "USE EnviosYA_456VG; " +
@@ -747,6 +748,7 @@ public class BasedeDatos_456VG
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +
             "SELECT @mrepor, CodPermiso_456VG FROM Permiso_456VG WHERE Nombre_456VG IN ( " +
             "'MenuReportes', " +
+            "'ReporteInteligente', " +
             "'FacturasIMP');" +
             //FSeguridad
             "INSERT INTO FamiliaPermiso_456VG (CodFamilia_456VG, CodPermiso_456VG) " +

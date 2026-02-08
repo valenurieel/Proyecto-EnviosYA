@@ -59,6 +59,7 @@
             this.iconPictureBox1456VG = new FontAwesome.Sharp.IconPictureBox();
             this.lblBienvenido456VG = new System.Windows.Forms.Label();
             this.lblBienvenidoDefault = new System.Windows.Forms.Label();
+            this.ReporteInteligente = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1456VG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1456VG)).BeginInit();
             this.SuspendLayout();
@@ -80,7 +81,7 @@
             this.menuStrip1456VG.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1456VG.Name = "menuStrip1456VG";
             this.menuStrip1456VG.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1456VG.Size = new System.Drawing.Size(113, 652);
+            this.menuStrip1456VG.Size = new System.Drawing.Size(127, 652);
             this.menuStrip1456VG.TabIndex = 0;
             this.menuStrip1456VG.Text = "menuStrip1";
             this.menuStrip1456VG.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1456VG_ItemClicked);
@@ -93,7 +94,7 @@
             this.BitacoraEventos,
             this.BackupRestore});
             this.MenuAdministrador.Name = "MenuAdministrador";
-            this.MenuAdministrador.Size = new System.Drawing.Size(98, 22);
+            this.MenuAdministrador.Size = new System.Drawing.Size(112, 22);
             this.MenuAdministrador.Text = "Administrador";
             this.MenuAdministrador.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -133,7 +134,7 @@
             this.GestióndeChoferes,
             this.BitacoraCambiosChoferes});
             this.MenuMaestro.Name = "MenuMaestro";
-            this.MenuMaestro.Size = new System.Drawing.Size(98, 22);
+            this.MenuMaestro.Size = new System.Drawing.Size(112, 22);
             this.MenuMaestro.Text = "Maestro";
             this.MenuMaestro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -173,7 +174,7 @@
             this.CerrarSesión,
             this.CambiarIdioma});
             this.MenuUsuarios.Name = "MenuUsuarios";
-            this.MenuUsuarios.Size = new System.Drawing.Size(98, 22);
+            this.MenuUsuarios.Size = new System.Drawing.Size(112, 22);
             this.MenuUsuarios.Text = "Usuario";
             this.MenuUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -212,7 +213,7 @@
             this.ListaCarga,
             this.CargaEnvíos});
             this.MenuRecepción.Name = "MenuRecepción";
-            this.MenuRecepción.Size = new System.Drawing.Size(98, 22);
+            this.MenuRecepción.Size = new System.Drawing.Size(112, 22);
             this.MenuRecepción.Text = "Recepción";
             this.MenuRecepción.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -243,7 +244,7 @@
             this.CobrarEnvío,
             this.EntregadeEnvío});
             this.MenuEnvíos.Name = "MenuEnvíos";
-            this.MenuEnvíos.Size = new System.Drawing.Size(98, 22);
+            this.MenuEnvíos.Size = new System.Drawing.Size(112, 22);
             this.MenuEnvíos.Text = "Envíos";
             this.MenuEnvíos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MenuEnvíos.Click += new System.EventHandler(this.envíosToolStripMenuItem456VG_Click);
@@ -265,30 +266,31 @@
             // MenuReportes
             // 
             this.MenuReportes.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FacturasIMP});
+            this.FacturasIMP,
+            this.ReporteInteligente});
             this.MenuReportes.Name = "MenuReportes";
-            this.MenuReportes.Size = new System.Drawing.Size(98, 22);
+            this.MenuReportes.Size = new System.Drawing.Size(112, 22);
             this.MenuReportes.Text = "Reportes";
             this.MenuReportes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FacturasIMP
             // 
             this.FacturasIMP.Name = "FacturasIMP";
-            this.FacturasIMP.Size = new System.Drawing.Size(180, 22);
+            this.FacturasIMP.Size = new System.Drawing.Size(191, 22);
             this.FacturasIMP.Text = "Facturas";
             this.FacturasIMP.Click += new System.EventHandler(this.facturasIMPToolStripMenuItem456VG_Click);
             // 
             // MenuAyuda
             // 
             this.MenuAyuda.Name = "MenuAyuda";
-            this.MenuAyuda.Size = new System.Drawing.Size(98, 22);
+            this.MenuAyuda.Size = new System.Drawing.Size(112, 22);
             this.MenuAyuda.Text = "Ayuda";
             this.MenuAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MenuSalir
             // 
             this.MenuSalir.Name = "MenuSalir";
-            this.MenuSalir.Size = new System.Drawing.Size(98, 22);
+            this.MenuSalir.Size = new System.Drawing.Size(112, 22);
             this.MenuSalir.Text = "Salir";
             this.MenuSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MenuSalir.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
@@ -329,6 +331,13 @@
             this.lblBienvenidoDefault.Size = new System.Drawing.Size(99, 18);
             this.lblBienvenidoDefault.TabIndex = 4;
             this.lblBienvenidoDefault.Text = "¡Bienvenida/o!";
+            // 
+            // ReporteInteligente
+            // 
+            this.ReporteInteligente.Name = "ReporteInteligente";
+            this.ReporteInteligente.Size = new System.Drawing.Size(191, 22);
+            this.ReporteInteligente.Text = "Reporte Inteligénte";
+            this.ReporteInteligente.Click += new System.EventHandler(this.ReporteInteligente_Click);
             // 
             // MenuPrincipal_456VG
             // 
@@ -386,6 +395,7 @@
         private System.Windows.Forms.ToolStripMenuItem EntregadeEnvío;
         private System.Windows.Forms.ToolStripMenuItem CargaEnvíos;
         private System.Windows.Forms.ToolStripMenuItem BitacoraCambiosChoferes;
+        private System.Windows.Forms.ToolStripMenuItem ReporteInteligente;
     }
 }
 

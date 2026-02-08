@@ -61,7 +61,7 @@
             // cmbEstadoEnv
             // 
             this.cmbEstadoEnv.FormattingEnabled = true;
-            this.cmbEstadoEnv.Location = new System.Drawing.Point(46, 148);
+            this.cmbEstadoEnv.Location = new System.Drawing.Point(46, 139);
             this.cmbEstadoEnv.Name = "cmbEstadoEnv";
             this.cmbEstadoEnv.Size = new System.Drawing.Size(117, 21);
             this.cmbEstadoEnv.TabIndex = 0;
@@ -70,7 +70,7 @@
             // cmbZonaEnv
             // 
             this.cmbZonaEnv.FormattingEnabled = true;
-            this.cmbZonaEnv.Location = new System.Drawing.Point(228, 148);
+            this.cmbZonaEnv.Location = new System.Drawing.Point(228, 139);
             this.cmbZonaEnv.Name = "cmbZonaEnv";
             this.cmbZonaEnv.Size = new System.Drawing.Size(117, 21);
             this.cmbZonaEnv.TabIndex = 1;
@@ -79,7 +79,7 @@
             // cmbTipEnv
             // 
             this.cmbTipEnv.FormattingEnabled = true;
-            this.cmbTipEnv.Location = new System.Drawing.Point(414, 148);
+            this.cmbTipEnv.Location = new System.Drawing.Point(414, 139);
             this.cmbTipEnv.Name = "cmbTipEnv";
             this.cmbTipEnv.Size = new System.Drawing.Size(117, 21);
             this.cmbTipEnv.TabIndex = 2;
@@ -87,7 +87,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(568, 149);
+            this.dateTimePicker1.Location = new System.Drawing.Point(568, 140);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 3;
@@ -96,18 +96,18 @@
             // dataEnv
             // 
             this.dataEnv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataEnv.Location = new System.Drawing.Point(46, 212);
+            this.dataEnv.Location = new System.Drawing.Point(46, 194);
             this.dataEnv.Name = "dataEnv";
-            this.dataEnv.Size = new System.Drawing.Size(722, 149);
+            this.dataEnv.Size = new System.Drawing.Size(722, 116);
             this.dataEnv.TabIndex = 4;
             this.dataEnv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataEnv_CellContentClick);
             // 
             // dataTrans
             // 
             this.dataTrans.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataTrans.Location = new System.Drawing.Point(46, 408);
+            this.dataTrans.Location = new System.Drawing.Point(46, 349);
             this.dataTrans.Name = "dataTrans";
-            this.dataTrans.Size = new System.Drawing.Size(722, 122);
+            this.dataTrans.Size = new System.Drawing.Size(722, 105);
             this.dataTrans.TabIndex = 5;
             this.dataTrans.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTrans_CellContentClick);
             this.dataTrans.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataTrans_CellFormatting);
@@ -115,9 +115,9 @@
             // dataChof
             // 
             this.dataChof.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataChof.Location = new System.Drawing.Point(46, 572);
+            this.dataChof.Location = new System.Drawing.Point(46, 497);
             this.dataChof.Name = "dataChof";
-            this.dataChof.Size = new System.Drawing.Size(722, 122);
+            this.dataChof.Size = new System.Drawing.Size(722, 105);
             this.dataChof.TabIndex = 6;
             this.dataChof.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataChof_CellContentClick);
             this.dataChof.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataChof_CellFormatting);
@@ -135,7 +135,7 @@
             // 
             // btnAggEnvLista
             // 
-            this.btnAggEnvLista.Location = new System.Drawing.Point(804, 262);
+            this.btnAggEnvLista.Location = new System.Drawing.Point(804, 230);
             this.btnAggEnvLista.Name = "btnAggEnvLista";
             this.btnAggEnvLista.Size = new System.Drawing.Size(101, 57);
             this.btnAggEnvLista.TabIndex = 40;
@@ -145,7 +145,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(893, 714);
+            this.button1.Location = new System.Drawing.Point(893, 629);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(63, 28);
             this.button1.TabIndex = 65;
@@ -157,7 +157,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(41, 379);
+            this.label15.Location = new System.Drawing.Point(41, 320);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(122, 26);
             this.label15.TabIndex = 66;
@@ -167,7 +167,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(41, 543);
+            this.label1.Location = new System.Drawing.Point(41, 468);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 26);
             this.label1.TabIndex = 67;
@@ -193,7 +193,7 @@
             // 
             this.LCP456VG.AutoSize = true;
             this.LCP456VG.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LCP456VG.Location = new System.Drawing.Point(43, 130);
+            this.LCP456VG.Location = new System.Drawing.Point(43, 121);
             this.LCP456VG.Name = "LCP456VG";
             this.LCP456VG.Size = new System.Drawing.Size(93, 15);
             this.LCP456VG.TabIndex = 69;
@@ -203,7 +203,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(225, 130);
+            this.label2.Location = new System.Drawing.Point(225, 121);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 15);
             this.label2.TabIndex = 70;
@@ -213,7 +213,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(411, 130);
+            this.label3.Location = new System.Drawing.Point(411, 121);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 15);
             this.label3.TabIndex = 71;
@@ -223,7 +223,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(565, 131);
+            this.label4.Location = new System.Drawing.Point(565, 122);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(164, 15);
             this.label4.TabIndex = 72;
@@ -231,7 +231,7 @@
             // 
             // btnAsigTrans
             // 
-            this.btnAsigTrans.Location = new System.Drawing.Point(804, 445);
+            this.btnAsigTrans.Location = new System.Drawing.Point(804, 373);
             this.btnAsigTrans.Name = "btnAsigTrans";
             this.btnAsigTrans.Size = new System.Drawing.Size(101, 57);
             this.btnAsigTrans.TabIndex = 73;
@@ -241,7 +241,7 @@
             // 
             // btnAsigChof
             // 
-            this.btnAsigChof.Location = new System.Drawing.Point(804, 606);
+            this.btnAsigChof.Location = new System.Drawing.Point(804, 519);
             this.btnAsigChof.Name = "btnAsigChof";
             this.btnAsigChof.Size = new System.Drawing.Size(101, 57);
             this.btnAsigChof.TabIndex = 74;
@@ -253,7 +253,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Open Sans SemiBold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(41, 183);
+            this.label6.Location = new System.Drawing.Point(41, 165);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 26);
             this.label6.TabIndex = 75;
@@ -261,7 +261,7 @@
             // 
             // btnCrearLista
             // 
-            this.btnCrearLista.Location = new System.Drawing.Point(391, 707);
+            this.btnCrearLista.Location = new System.Drawing.Point(391, 615);
             this.btnCrearLista.Name = "btnCrearLista";
             this.btnCrearLista.Size = new System.Drawing.Size(101, 42);
             this.btnCrearLista.TabIndex = 76;
@@ -272,7 +272,7 @@
             // chkFiltrarFecha
             // 
             this.chkFiltrarFecha.AutoSize = true;
-            this.chkFiltrarFecha.Location = new System.Drawing.Point(783, 150);
+            this.chkFiltrarFecha.Location = new System.Drawing.Point(783, 141);
             this.chkFiltrarFecha.Name = "chkFiltrarFecha";
             this.chkFiltrarFecha.Size = new System.Drawing.Size(99, 17);
             this.chkFiltrarFecha.TabIndex = 77;
@@ -281,7 +281,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(850, 184);
+            this.button2.Location = new System.Drawing.Point(850, 175);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(106, 28);
             this.button2.TabIndex = 78;
@@ -294,7 +294,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(968, 754);
+            this.ClientSize = new System.Drawing.Size(968, 664);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.chkFiltrarFecha);
             this.Controls.Add(this.btnCrearLista);
