@@ -19,14 +19,22 @@ namespace _456VG_Servicios
         private string ultimaRutaGenerada_456VG;
         public ArchivoIMP_456VG()
         {
-            string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EnviosYA");
-            DestinoFactura_456VG = Path.Combine(basePath, "Facturas");
-            DestinoBitacora_456VG = Path.Combine(basePath, "Bitacoras");
-            DestinoReporteInteligente_456VG = Path.Combine(basePath, "Reportes");
-            if (!Directory.Exists(DestinoFactura_456VG)) Directory.CreateDirectory(DestinoFactura_456VG);
-            if (!Directory.Exists(DestinoBitacora_456VG)) Directory.CreateDirectory(DestinoBitacora_456VG);
-            if (!Directory.Exists(DestinoReporteInteligente_456VG)) Directory.CreateDirectory(DestinoReporteInteligente_456VG);
-            QuestPDF.Settings.License = LicenseType.Community;
+            try
+            {
+                string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EnviosYA");
+                DestinoFactura_456VG = Path.Combine(basePath, "Facturas");
+                DestinoBitacora_456VG = Path.Combine(basePath, "Bitacoras");
+                DestinoReporteInteligente_456VG = Path.Combine(basePath, "Reportes");
+                if (!Directory.Exists(basePath)) Directory.CreateDirectory(basePath);
+                if (!Directory.Exists(DestinoFactura_456VG)) Directory.CreateDirectory(DestinoFactura_456VG);
+                if (!Directory.Exists(DestinoBitacora_456VG)) Directory.CreateDirectory(DestinoBitacora_456VG);
+                if (!Directory.Exists(DestinoReporteInteligente_456VG)) Directory.CreateDirectory(DestinoReporteInteligente_456VG);
+                QuestPDF.Settings.License = LicenseType.Community;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Error al inicializar carpetas de archivos: " + ex.Message);
+            }
         }
         public void GenerarFacturaDetalladaPDF_456VG(BEFactura_456VG factura)
         {
