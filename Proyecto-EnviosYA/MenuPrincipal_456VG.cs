@@ -1,4 +1,9 @@
-﻿using System;
+﻿using _456VG_BE;
+using _456VG_BLL;
+using _456VG_DAL;
+using _456VG_Servicios;
+using QuestPDF.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,10 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using _456VG_BE;
-using _456VG_DAL;
-using _456VG_Servicios;
-using _456VG_BLL;
 
 namespace Proyecto_EnviosYA
 {
@@ -20,8 +21,9 @@ namespace Proyecto_EnviosYA
         public MenuPrincipal_456VG()
         {
             InitializeComponent();
-            BasedeDatos_456VG bd = new BasedeDatos_456VG();
-            bd.scriptInicio456VG();
+            QuestPDF.Settings.License = LicenseType.Community;
+            BasedeDatos_456VG db = new BasedeDatos_456VG();
+            db.ConfigurarEntornoInicial456VG();
             //BLLDigitoVerificador_456VG blld = new BLLDigitoVerificador_456VG();
             //blld.ActualizarDV456VG();
             deshabilitados();

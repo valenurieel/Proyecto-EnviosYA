@@ -19,13 +19,13 @@ namespace _456VG_Servicios
         private string ultimaRutaGenerada_456VG;
         public ArchivoIMP_456VG()
         {
-            string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EnviosYA");
-            DestinoFactura_456VG = Path.Combine(basePath, "FacturasPDFs");
-            DestinoBitacora_456VG = Path.Combine(basePath, "BitacoraPDFs");
-            DestinoReporteInteligente_456VG = Path.Combine(basePath, "ReportesInteligentesPDFs");
-            Directory.CreateDirectory(DestinoFactura_456VG);
-            Directory.CreateDirectory(DestinoBitacora_456VG);
-            Directory.CreateDirectory(DestinoReporteInteligente_456VG);
+            string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EnviosYA");
+            DestinoFactura_456VG = Path.Combine(basePath, "Facturas");
+            DestinoBitacora_456VG = Path.Combine(basePath, "Bitacoras");
+            DestinoReporteInteligente_456VG = Path.Combine(basePath, "Reportes");
+            if (!Directory.Exists(DestinoFactura_456VG)) Directory.CreateDirectory(DestinoFactura_456VG);
+            if (!Directory.Exists(DestinoBitacora_456VG)) Directory.CreateDirectory(DestinoBitacora_456VG);
+            if (!Directory.Exists(DestinoReporteInteligente_456VG)) Directory.CreateDirectory(DestinoReporteInteligente_456VG);
             QuestPDF.Settings.License = LicenseType.Community;
         }
         public void GenerarFacturaDetalladaPDF_456VG(BEFactura_456VG factura)
