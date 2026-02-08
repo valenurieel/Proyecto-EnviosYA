@@ -131,12 +131,21 @@ namespace _456VG_Servicios
                     });
                     page.Content().PaddingVertical(10).Column(col => {
                         if (!string.IsNullOrWhiteSpace(filtrosAplicados))
+                        {
                             col.Item().PaddingBottom(5).Text(filtrosAplicados).FontSize(9).Italic();
+                        }
                         col.Item().Table(t => {
-                            t.ColumnsDefinition(c => { c.RelativeColumn(); c.RelativeColumn(1.5f); c.RelativeColumn(2.5f); c.RelativeColumn(0.5f); });
+                            t.ColumnsDefinition(c => {
+                                c.RelativeColumn(1f);
+                                c.RelativeColumn(1.2f); 
+                                c.RelativeColumn(1.2f); 
+                                c.RelativeColumn(2f); 
+                                c.RelativeColumn(0.5f); 
+                            });
                             t.Header(h => {
                                 h.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("Usuario").Bold();
                                 h.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("Fecha").Bold();
+                                h.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("Módulo").Bold();
                                 h.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("Acción").Bold();
                                 h.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("Crit.").Bold();
                             });
@@ -144,11 +153,13 @@ namespace _456VG_Servicios
                             {
                                 t.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten4).Padding(5).Text(dniToLogin?.Invoke(ev.Usuario456VG) ?? ev.Usuario456VG);
                                 t.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten4).Padding(5).Text(ev.Fecha456VG.ToString("g"));
+                                t.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten4).Padding(5).Text(ev.Modulo456VG ?? "");
                                 t.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten4).Padding(5).Text(ev.Accion456VG ?? "");
                                 t.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten4).Padding(5).Text(ev.Criticidad456VG.ToString());
                             }
                         });
                     });
+                    page.Footer().AlignCenter().Text(t => t.Span(DateTime.Now.ToString("dd/MM/yyyy HH:mm")).FontSize(9));
                 });
             }).GeneratePdf(rutaCompleta);
             return rutaCompleta;
